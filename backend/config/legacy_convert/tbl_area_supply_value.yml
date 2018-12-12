@@ -1,0 +1,13 @@
+target_model: PowerSupplyPlan
+table_type: simple
+fields:
+  id:
+  pps_id: company_id
+  district_id: district_id
+  supplier_id: supply_type
+  time:
+  value:
+  interchange_value:
+  interchange_pps_id: interchange_company_id
+  priority:
+  reg_date:

@@ -1,0 +1,51 @@
+target_model: Company
+table_type: key_value
+fields:
+  company_name: name
+  ene_company_code: code
+  company_kana: name_kana
+  zip: postal_code
+  pref: pref_no
+  city: city
+  address: address
+  tel: tel
+  fax: fax
+  email: email
+  logo_image_id:
+  seal_image_id:
+  allocate:
+  taxtype:
+  taxrate:
+  fraction:
+  fraction_tax:
+  bankacc_name:
+  approval_estimate:
+  approval_received:
+  approval_order:
+  approval_claim:
+  approval_sendmail_flg:
+  created:
+  created_user_id:
+  modified:
+  modified_user_id:
+  tbl_user_id:
+  us_user_name:
+  tel1:
+  tel2:
+  tel3:
+  account_key:
+  fax1:
+  fax2:
+  fax3:
+  certificate_file_id:
+  payment_site_id:
+  payment_site_pass:
+  certificate_key_file:
+  alart_delivery_kbn:
+  payment_site_flg:
+  occto_userid:
+  occto_password:
+  occto_certificate_filename:
+  jepx_userid:
+  jepx_password:
+  jepx_certificate_filename:

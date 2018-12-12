@@ -1,0 +1,8 @@
+target_model: VoltageType
+table_type: key_value
+fields:
+  voltage_name: name
+  created: created_at
+  created_user_id:
+  modified: updated_at
+  modified_user_id:

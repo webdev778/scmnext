@@ -1,0 +1,10 @@
+target_model: PowerUsagePreliminary
+table_type: simple
+fields:
+  customer_id: facility_id
+  pps_id:
+  district_id:
+  time:
+  power: value
+  power_loss:
+  except_base_power:

@@ -1,0 +1,35 @@
+target_model: Consumer
+table_type: key_value
+fields:
+  id: id
+  tbl_account_id: company_id
+  contractcustomer_name: name
+  contractcustomer_tel: tel
+  contractcustomer_fax: fax
+  contractcustomer_email: email
+  contractcustomer_url: url
+  contractcustomer_zip: postral_code
+  contractcustomer_pref: pref_no
+  contractcustomer_city: city
+  contractcustomer_address: address
+  contractcustomer_person_in_charge: person_in_charge
+  contractcustomer_person_in_charge_kana: person_in_charge_kana
+  contractcustomer_password: password
+  created: created_at
+  created_user_id:
+  modified: updated_at
+  modified_user_id:
+  foreign_code_1:
+  foreign_code_2:
+  foreign_code_3:
+  settlement_account_card_number:
+  settlement_account_card_expiration_date:
+  settlement_account_bank_code:
+  settlement_account_bank_name:
+  settlement_account_bank_branch_code:
+  settlement_account_bank_branch_name:
+  settlement_account_kbn:
+  settlement_account_number:
+  settlement_account_name:
+  settlement_credit_customer_number:
+  memo:
