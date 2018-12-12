@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     server.vm.provision :shell,
       inline: "sudo -iu vagrant mkdir -p /home/vagrant/mount_point/node_modules"
       server.vm.provision :shell,
-      inline: "mount --bind /home/vagrant/mount_point/node_modules /home/vagrant/frontend/node_modules -o uid=1000,gid=1000",
+      inline: "mount --bind /home/vagrant/mount_point/node_modules /home/vagrant/approot/node_modules -o uid=1000,gid=1000",
       run: "always"
     server.vm.provision :shell, path: "./vagrant/frontend.sh"
   end
