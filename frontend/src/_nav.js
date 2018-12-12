@@ -1,6 +1,49 @@
 export default {
   items: [
     {
+      title: true,
+      name: '需給管理',
+      class: '',
+      wrapper: {
+        element: '',
+	attributes: {}
+      }
+    },
+    {
+      name: '需要予測',
+      url: '/demand_supply/forecast',
+      icon: 'icon-drop'
+    },
+    {
+      name: 'ポジション管理',
+      url: '/demand_supply/position',
+      icon: 'icon-drop'
+    },
+    {
+      name: '同時同量監視',
+      url: '/theme/colors',
+      icon: 'icon-drop'
+    },
+    {
+      title: true,
+      name: '顧客管理',
+      class: '',
+      wrapper: {
+        element: '',
+        attributes: {}
+      }
+    },
+    {
+      name: '契約顧客',
+      url: '/theme/colors',
+      icon: 'icon-drop'
+    },
+    {
+      name: '施設',
+      url: '/theme/colors',
+      icon: 'icon-drop'
+    },
+    {
       name: 'Dashboard',
       url: '/dashboard',
       icon: 'icon-speedometer',

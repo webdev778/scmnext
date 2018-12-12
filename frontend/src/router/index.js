@@ -4,6 +4,9 @@ import Router from 'vue-router'
 // Containers
 const DefaultContainer = () => import('@/containers/DefaultContainer')
 
+// 需給管理
+const Forecast = () => import('@/views/demand_supply/Forecast')
+
 // Views
 const Dashboard = () => import('@/views/Dashboard')
 
@@ -71,6 +74,26 @@ export default new Router({
       name: 'Home',
       component: DefaultContainer,
       children: [
+        {
+          path: 'demand_supply',
+          redirect: '/demand_supply/forecast',
+          name: '需給管理',
+          component: {
+            render (c) { return c('router-view') }
+          },
+          children: [
+            {
+              path: 'forecast',
+              name: '需要予測',
+              component: Forecast
+            },
+            {
+              path: 'position',
+              name: 'ポジション',
+              component: Typography
+            }
+          ]
+        },
         {
           path: 'dashboard',
           name: 'Dashboard',

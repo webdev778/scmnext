@@ -1,3 +1,5 @@
+MYHOME=/home/vagrant
+
 apt-get update
 
 sudo -u vagrant cat > ${MYHOME}/.bash_login <<'EOF'

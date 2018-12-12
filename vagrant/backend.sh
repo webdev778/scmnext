@@ -51,7 +51,7 @@ apt-get -y install ruby ruby-dev
 apt-get -y install graphviz
 
 sudo -iu vagrant <<EOF
-cd ${MYHOME}/webroot
+cd ${MYHOME}/approot
 gem install bundle
 bundle install
 EOF
