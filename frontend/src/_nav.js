@@ -40,7 +40,7 @@ export default {
     },
     {
       name: '施設',
-      url: '/theme/colors',
+      url: '/consumers/facilities',
       icon: 'icon-drop'
     },
     {

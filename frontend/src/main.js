@@ -13,6 +13,11 @@ import router from './router'
 // cssVars()
 
 Vue.use(BootstrapVue)
+const moment = require('moment')
+require('moment/locale/ja')
+Vue.use(require('vue-moment'), {
+  moment
+})
 
 /* eslint-disable no-new */
 new Vue({

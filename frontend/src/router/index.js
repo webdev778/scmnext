@@ -7,6 +7,10 @@ const DefaultContainer = () => import('@/containers/DefaultContainer')
 // 需給管理
 const Forecast = () => import('@/views/demand_supply/Forecast')
 
+// 顧客管理
+const FacilityList = () => import('@/views/consumers/FacilityList')
+const FacilityForm = () => import('@/views/consumers/FacilityForm')
+
 // Views
 const Dashboard = () => import('@/views/Dashboard')
 
@@ -91,6 +95,31 @@ export default new Router({
               path: 'position',
               name: 'ポジション',
               component: Typography
+            }
+          ]
+        },
+        {
+          path: 'consumers',
+          redirect: '/consumers/facilities',
+          name: '顧客管理',
+          component: {
+            render (c) { return c('router-view') }
+          },
+          children: [
+            {
+              path: 'forecast',
+              name: '契約顧客',
+              component: Forecast
+            },
+            {
+              path: 'facilities/:id',
+              name: '施設詳細',
+              component: FacilityForm,
+            },
+            {
+              path: 'facilities',
+              name: '施設',
+              component: FacilityList,
             }
           ]
         },

@@ -30,5 +30,10 @@
 class Facility < ApplicationRecord
   belongs_to :district
   belongs_to :consumer
-  belongs_to :voltage_type
+  belongs_to :voltage_type, required: false
+
+  validates :name,
+    presence: true
+  validates :city,
+    presence: true
 end
