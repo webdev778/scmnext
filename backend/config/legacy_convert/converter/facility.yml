@@ -1,28 +1,70 @@
 ---
-:skip: true
 :fields:
-  id: ''
-  name: ''
-  code: ''
-  consumer_id: ''
-  supply_point_number: ''
-  district_id: ''
-  voltage_type_id: ''
-  supply_start_date: ''
-  supply_end_date: ''
-  tel: ''
-  fax: ''
-  email: ''
-  url: ''
-  postral_code: ''
-  pref_no: ''
-  city: ''
-  address: ''
-  person_in_charge: ''
-  person_in_charge_kana: ''
-  created_by: ''
-  updated_by: ''
-  created_at: ''
-  updated_at: ''
-:from: base_table_name
-:where: 0 = 0
+  id: tbl_facility.id
+  name: tbl_facility.facility_name
+  code: tbl_facility.facility_number
+  consumer_id: tbl_facility.tbl_contract_customer_id
+  supply_point_number: tbl_facility.supplying_point_number
+  district_id: tbl_facility.tbl_district_id
+  voltage_type_id: tbl_facility.tbl_voltage_id
+  supply_start_date: tbl_facility.supply_start_date
+  supply_end_date: tbl_facility.supply_end_date
+  tel: tbl_facility.facility_tel
+  fax: tbl_facility.facility_fax
+  email: tbl_facility.facility_email
+  url: tbl_facility.facility_url
+  postral_code: tbl_facility.facility_zip
+  pref_no: tbl_facility.facility_pref
+  city: tbl_facility.facility_city
+  address: tbl_facility.facility_address
+  person_in_charge: tbl_facility.facility_person_in_charge
+  person_in_charge_kana: tbl_facility.facility_person_in_charge_kana
+  created_by: tbl_facility.created_user_id
+  updated_by: tbl_facility.modified_user_id
+  created_at: tbl_facility.created
+  updated_at: tbl_facility.modified
+:from: tbl_facility
+:where: tbl_voltage_id < 99
+:model_class: Facility
+
+# ---
+# :table_name: tbl_facility
+# :table_type: :key_value
+# :fields:
+# - payment_method_id
+# - shipping_method_id
+# - claim_destination_flg
+# - tbl_division_id
+# - tbl_contract_id
+# - tbl_voltage_id
+# - supply_voltage
+# - contract_power_calc_method_id
+# - consultation_power
+# - contractcustomer_name
+# - supply_method_id
+# - district_name
+# - base_power
+# - division_name
+# - tbl_observe_id
+# - area_name
+# - prediction_type_id
+# - switching_flg
+# - facility_characteristic
+# - holiday_setting
+# - vacation_memo
+# - tbl_agency_id
+# - agency_name
+# - company_name
+# - pps_id
+# - claim_closing_date
+# - peak_shift_discount
+# - spare_power_transmission
+# - latitude
+# - longitude
+# - foreign_code_1
+# - foreign_code_2
+# - foreign_code_3
+# - fuel_cost_calc_month_flg
+# - auto_prediction
+# - manual_priority_from
+# - manual_priority_to

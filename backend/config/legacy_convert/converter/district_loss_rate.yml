@@ -13,3 +13,4 @@
   updated_at: ''
 :from: base_table_name
 :where: 0 = 0
+:model_class: DistrictLossRate

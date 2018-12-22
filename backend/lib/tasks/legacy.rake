@@ -10,7 +10,7 @@ namespace :legacy do
   end
 
   def write_legacy_table_definition(table_name, type, fields)
-    merge_yaml(Rails.root.join("config/legacy_convert/legacy_tables/#{table_name}.yml")) do |config|
+    merge_yaml(table_definition_path.join("#{table_name}.yml")) do |config|
       config.merge({
         table_name: table_name,
         table_type: type,
@@ -20,13 +20,13 @@ namespace :legacy do
   end
 
   def write_convert_config(class_name, fields)
-    merge_yaml(Rails.root.join("config/legacy_convert/converter/#{class_name.underscore}.yml")) do |config|
-      config.merge({
+    merge_yaml(converter_path.join("#{class_name.underscore}.yml")) do |config|
+      config = config.merge({
         model_class: class_name,
       })
       config[:fields] ||= {}
       fields.each do |field_name|
-        config[:fields][field_name] ||= ''
+        config[:fields][field_name] ||= nil
       end
       config[:from] ||= 'base_table_name'
       config[:where] ||= '0 = 0'
@@ -34,12 +34,87 @@ namespace :legacy do
     end
   end
 
-  desc "DB移行"
-  task convert2: :environment  do |task, args|
+  def legacy_connection
+    Legacy::Converter.connection
   end
+
+  def my_connection
+    ActiveRecord::Base.connection
+  end
+
+  def table_definition_path
+    Rails.root.join("config/legacy_convert/legacy_tables")
+  end
+
+  def get_table_definition(table_name)
+    YAML.load_file(table_definition_path.join("#{table_name}.yml"))
+  end
+
+  def table_object(table_name)
+    config = get_table_definition(table_name)
+    case config[:table_type]
+    when :key_value
+      key_table = Arel::Table.new(table_name)
+      column_table = Arel::Table.new("#{table_name}_columns")
+      projects = []
+      projects << key_table[:id].as('id')
+      projects << key_table[:tbl_account_id].as('tbl_account_id')
+      config[:fields].each do |field|
+        projects << Arel::Nodes::NamedFunction.new(
+          'MAX',
+          [
+            Arel::Nodes::NamedFunction.new(
+              'IF',
+              [
+                column_table[:column_name].eq(field),
+                column_table[:value],
+                Arel::Nodes.build_quoted(nil)
+              ]
+            )
+          ]
+        ).as(field)
+      end
+      key_table.project(projects)
+      .join(
+        column_table, Arel::Nodes::InnerJoin
+      ).on(key_table[:id].eq(column_table[:row_id]))
+      .group(key_table[:id])
+      .as(table_name)
+    when :simple
+      Arel::Table.new(table_name).as(table_name)
+    else
+      raise "invalid table_type for #{table_name}"
+    end
+  end
+
+  def converter_path
+    Rails.root.join("config/legacy_convert/converter")
+  end
+
 
   desc "DB移行"
   task convert: :environment  do |task, args|
+    legacy_con = legacy_connection
+    my_con = my_connection
+    Dir.glob("#{converter_path}/*.yml") do |yaml_path|
+      config = YAML.load_file(yaml_path)
+      next if config[:skip]
+      puts config[:model_class]
+      table_obj = table_object(config[:from])
+      select_manager = Arel::SelectManager.new
+      select_manager = select_manager.from(table_obj)
+      select_manager = select_manager.project(config[:fields].delete_if{|k, v| v.empty?}.map{|k, v| Arel.sql(v).as(k)})
+      select_manager = select_manager.where(Arel.sql(config[:where])) unless config[:where].blank?
+      model_class = config[:model_class].constantize
+      items = legacy_con.select_all(select_manager.to_sql).to_hash.map do |params|
+        model_class.new params
+      end
+      model_class.import items
+    end
+  end
+
+  desc "DB移行"
+  task convert_old: :environment  do |task, args|
     # Legacy::Converter.convert(table_name: "tbl_area_supply_value", where_cond: "time >= '2018-06-01' and time < '2018-07-01' and priority = 1") do |from, to|
     #   to[:value] = from['value'] + from['interchange_value']
     #   to[:date] = from['time'].to_date.to_s
@@ -66,21 +141,6 @@ namespace :legacy do
     end
   end
 
-  desc "旧システムの縦横テーブルから変換定義ファイルを出力する"
-  task make_file: :environment  do |task, args|
-    table_name = ENV['TABLE_NAME']
-    table_type = ENV['TYPE']
-    if table_name.blank?
-      puts "TABLE_NAME not specified."
-      exit
-    end
-    if !["simple", "key_value"].include?(table_type)
-      puts "unknown TYPE=#{table_type}(must simple or key_value)"
-      exit
-    end
-    Legacy::Converter.make_file table_name, table_type
-  end
-
   desc "新システムの変換定義の雛形を作成"
   task make_convert_config: :environment do |task, args|
     Rails.application.eager_load!
@@ -94,8 +154,7 @@ namespace :legacy do
 
   desc "旧システムのテーブル定義情報を作成"
   task make_definitions: :environment do |task, args|
-    ActiveRecord::Base.establish_connection(:legacy)
-    connection = ActiveRecord::Base.connection
+    connection = legacy_connection
     all_legacy_tables = connection.tables
     key_value_tables = connection.select_all("select table_name from tbl_sys_item_meta_data group by table_name").rows.flatten
     key_value_tables_exist, key_value_tables_not_exist = connection.select_all("select table_name from tbl_sys_item_meta_data group by table_name")

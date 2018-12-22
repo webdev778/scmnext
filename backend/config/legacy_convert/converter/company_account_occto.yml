@@ -1,15 +1,15 @@
 ---
-:skip: true
 :fields:
   id: ''
-  company_id_id: ''
+  company_id: 'tbl_company.id'
   type: ''
-  login_code: ''
-  password: ''
+  login_code: 'tbl_company.occto_userid'
+  password: 'tbl_company.occto_password'
   comment: ''
   created_by: ''
   updated_by: ''
   created_at: ''
   updated_at: ''
-:from: base_table_name
-:where: 0 = 0
+:from: tbl_company
+:where: "tbl_company.occto_userid IS NOT NULL AND tbl_company.occto_userid <> ''"
+:model_class: CompanyAccountOccto

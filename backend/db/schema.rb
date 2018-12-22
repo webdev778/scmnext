@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2018_12_21_053630) do
   end
 
   create_table "company_accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "会社別アカウント", force: :cascade do |t|
-    t.bigint "company_id_id"
+    t.bigint "company_id", comment: "会社ID"
     t.string "type", null: false, comment: "種別"
     t.string "login_code", limit: 64, null: false, comment: "ログインコード"
     t.string "password", limit: 64, null: false, comment: "パスワード"
@@ -39,7 +39,9 @@ ActiveRecord::Schema.define(version: 2018_12_21_053630) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_id_id"], name: "index_company_accounts_on_company_id_id"
+    t.index ["company_id"], name: "index_company_accounts_on_company_id"
+    t.index ["id", "type"], name: "index_company_accounts_on_id_and_type"
+    t.index ["type"], name: "index_company_accounts_on_type"
   end
 
   create_table "consumers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "需要家", force: :cascade do |t|
@@ -84,6 +86,7 @@ ActiveRecord::Schema.define(version: 2018_12_21_053630) do
     t.float "loss_rate_special_high_voltage", comment: "損失率(特別高圧)"
     t.float "loss_rate_high_voltage", comment: "損失率(高圧)"
     t.float "loss_rate_low_voltage", comment: "損失率(低圧)"
+    t.string "dlt_host", null: false, comment: "託送ダウンロードサーバーホスト名"
     t.integer "created_by"
     t.integer "updated_by"
     t.datetime "created_at", null: false
