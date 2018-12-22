@@ -1,0 +1,8 @@
+---
+:table_name: tbl_sys_notifications_read_log
+:table_type: :simple
+:fields:
+- id
+- tbl_user_id
+- tbl_sys_notifications_id
+- read_state

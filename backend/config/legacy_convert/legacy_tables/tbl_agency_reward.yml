@@ -1,0 +1,14 @@
+---
+:table_name: tbl_agency_reward
+:table_type: :key_value
+:fields:
+- tbl_agency_id
+- tbl_facility_id
+- reward_kbn
+- application_start_ym
+- value1
+- value2
+- created
+- created_user_id
+- modified
+- modified_user_id

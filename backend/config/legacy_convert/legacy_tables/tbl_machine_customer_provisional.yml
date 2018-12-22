@@ -1,0 +1,35 @@
+---
+:table_name: tbl_machine_customer_provisional
+:table_type: :simple
+:fields:
+- id
+- customer_code
+- billing_code
+- customer_number
+- division_id
+- corporation_name
+- facilities_name
+- voltage_id
+- district_id
+- contract_id
+- pps_id
+- zip
+- address
+- charge
+- charge_kana
+- tel
+- fax
+- email
+- url
+- supplying_point_number
+- contract_power
+- base_power
+- supply_voltage
+- payment_method_id
+- latitude
+- longitude
+- observe_id
+- memo
+- deleted
+- created
+- modified

@@ -1,0 +1,11 @@
+---
+:table_name: tbl_facility_original_discount
+:table_type: :key_value
+:fields:
+- facility_id
+- month
+- discount
+- created_user_id
+- modified
+- modified_user_id
+- created

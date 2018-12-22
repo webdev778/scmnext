@@ -1,0 +1,7 @@
+---
+:table_name: tbl_report_sequence
+:table_type: :key_value
+:fields:
+- report_sequence_name
+- seq_date
+- sequence

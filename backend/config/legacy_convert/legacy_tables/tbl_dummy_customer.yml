@@ -1,0 +1,10 @@
+---
+:table_name: tbl_dummy_customer
+:table_type: :key_value
+:fields:
+- type
+- district_id
+- created
+- created_user_id
+- modified
+- modified_user_id

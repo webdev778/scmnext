@@ -1,0 +1,14 @@
+---
+:table_name: tbl_fuel_cost_adjustment_new
+:table_type: :key_value
+:fields:
+- tbl_district_id
+- tbl_voltage_id
+- created
+- created_user_id
+- modified
+- modified_user_id
+- fuel_cost_adjustment_rate
+- application_start_ym
+- default_setting_flg
+- application_end_ym

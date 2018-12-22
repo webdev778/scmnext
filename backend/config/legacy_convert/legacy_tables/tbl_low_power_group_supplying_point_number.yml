@@ -1,0 +1,14 @@
+---
+:table_name: tbl_low_power_group_supplying_point_number
+:table_type: :simple
+:fields:
+- id
+- tbl_facility_high_power_id
+- tbl_facility_low_power_id
+- supplying_point_number
+- supply_start_date
+- supply_end_date
+- created
+- created_user_id
+- modified
+- modified_user_id

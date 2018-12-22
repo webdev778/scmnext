@@ -1,0 +1,14 @@
+---
+:table_name: tbl_observe
+:table_type: :key_value
+:fields:
+- prefecture_id
+- area_name
+- city_name
+- latitude
+- longitude
+- created
+- created_user_id
+- modified
+- modified_user_id
+- tbl_user_id

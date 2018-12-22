@@ -1,0 +1,2 @@
+class CompanyAccountOccto < CompanyAccount
+end

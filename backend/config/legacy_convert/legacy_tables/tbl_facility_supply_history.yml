@@ -1,0 +1,11 @@
+---
+:table_name: tbl_facility_supply_history
+:table_type: :key_value
+:fields:
+- supply_method_id
+- month
+- tbl_facility_id
+- created
+- created_user_id
+- modified
+- modified_user_id

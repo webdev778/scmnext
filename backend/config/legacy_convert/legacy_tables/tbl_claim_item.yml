@@ -1,0 +1,20 @@
+---
+:table_name: tbl_claim_item
+:table_type: :key_value
+:fields:
+- tbl_claim_id
+- itemorder
+- rowtype
+- code
+- caption
+- count
+- unit
+- price
+- rowprice
+- taxprice
+- taxtype
+- taxrate
+- taxflg
+- note
+- conventional_flg
+- usage_fee_type

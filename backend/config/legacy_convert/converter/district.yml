@@ -1,0 +1,15 @@
+---
+:skip: true
+:fields:
+  id: ''
+  name: ''
+  code: ''
+  loss_rate_special_high_voltage: ''
+  loss_rate_high_voltage: ''
+  loss_rate_low_voltage: ''
+  created_by: ''
+  updated_by: ''
+  created_at: ''
+  updated_at: ''
+:from: base_table_name
+:where: 0 = 0

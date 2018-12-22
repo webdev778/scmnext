@@ -1,0 +1,15 @@
+---
+:skip: true
+:fields:
+  id: ''
+  company_id_id: ''
+  type: ''
+  login_code: ''
+  password: ''
+  comment: ''
+  created_by: ''
+  updated_by: ''
+  created_at: ''
+  updated_at: ''
+:from: base_table_name
+:where: 0 = 0

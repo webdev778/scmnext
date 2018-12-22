@@ -1,0 +1,11 @@
+---
+:table_name: tbl_workflow_step
+:table_type: :key_value
+:fields:
+- tbl_workflow_id
+- workflow_step_name
+- workflow_step_no
+- created
+- created_user_id
+- modified
+- modified_user_id

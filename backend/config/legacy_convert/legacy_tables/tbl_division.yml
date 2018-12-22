@@ -1,0 +1,9 @@
+---
+:table_name: tbl_division
+:table_type: :key_value
+:fields:
+- division_name
+- created
+- created_user_id
+- modified
+- modified_user_id

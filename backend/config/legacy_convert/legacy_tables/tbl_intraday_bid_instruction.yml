@@ -1,0 +1,18 @@
+---
+:table_name: tbl_intraday_bid_instruction
+:table_type: :simple
+:fields:
+- ibi_id
+- pps_id
+- district_id
+- time
+- buysell_type
+- status
+- order_quantity
+- start_order_price
+- end_order_price
+- now_order_price
+- retry_count
+- updated
+- created
+- create_user

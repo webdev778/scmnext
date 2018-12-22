@@ -1,0 +1,14 @@
+---
+:table_name: tbl_sys_form_meta_data
+:table_type: :simple
+:fields:
+- id
+- tbl_account_id
+- form_name
+- object_name
+- object_type
+- options
+- default_value
+- relation_name
+- related_column
+- description

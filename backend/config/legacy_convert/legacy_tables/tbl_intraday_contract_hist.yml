@@ -1,0 +1,21 @@
+---
+:table_name: tbl_intraday_contract_hist
+:table_type: :simple
+:fields:
+- pps_id
+- district_id
+- contract_id
+- contract_time
+- delivery_date
+- product_id
+- time
+- user_id
+- area_id
+- order_form_id
+- buysell_type
+- order_amount
+- order_quantity
+- contract_amount
+- contract_quantity
+- association_number
+- created

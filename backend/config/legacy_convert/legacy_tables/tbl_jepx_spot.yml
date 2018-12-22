@@ -1,0 +1,25 @@
+---
+:table_name: tbl_jepx_spot
+:table_type: :simple
+:fields:
+- id
+- date
+- time_no
+- sell_power
+- buy_power
+- contract_power
+- systemprice
+- areaprice_hokkaido
+- areaprice_tohoku
+- areaprice_tokyo
+- areaprice_chubu
+- areaprice_hokuriku
+- areaprice_kansai
+- areaprice_chugoku
+- areaprice_shikoku
+- areaprice_kyushu
+- weighted_average
+- alpha_upper_x_weighted_average
+- alpha_lower_x_weighted_average
+- alpha_actual_x_weighted_average
+- alpha_fixed_x_weighted_average

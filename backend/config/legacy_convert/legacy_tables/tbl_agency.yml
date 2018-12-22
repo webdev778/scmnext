@@ -1,0 +1,22 @@
+---
+:table_name: tbl_agency
+:table_type: :key_value
+:fields:
+- agency_name
+- created
+- created_user_id
+- modified
+- modified_user_id
+- agency_name_kana
+- zip
+- pref
+- city
+- address
+- tel
+- fax
+- email
+- tbl_user_id
+- us_user_name
+- staff_name
+- agency_code
+- agency_receiptyurl

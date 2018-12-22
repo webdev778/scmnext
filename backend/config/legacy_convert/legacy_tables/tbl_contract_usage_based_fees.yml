@@ -1,0 +1,12 @@
+---
+:table_name: tbl_contract_usage_based_fees
+:table_type: :simple
+:fields:
+- id
+- contract_id
+- usage_fee_type_id
+- name
+- usage_based_fee_unit
+- rank
+- created
+- modified

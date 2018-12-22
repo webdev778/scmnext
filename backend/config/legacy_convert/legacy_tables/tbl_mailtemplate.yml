@@ -1,0 +1,13 @@
+---
+:table_name: tbl_mailtemplate
+:table_type: :simple
+:fields:
+- id
+- pps_id
+- category
+- template_id
+- mail_title
+- mail_body
+- from_address
+- cc_address
+- bcc_address

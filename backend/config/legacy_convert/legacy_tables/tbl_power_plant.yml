@@ -1,0 +1,14 @@
+---
+:table_name: tbl_power_plant
+:table_type: :simple
+:fields:
+- id
+- power_plant_bg_id
+- code
+- name
+- contract_no
+- supply_max
+- created
+- created_user_id
+- modified
+- modified_user_id

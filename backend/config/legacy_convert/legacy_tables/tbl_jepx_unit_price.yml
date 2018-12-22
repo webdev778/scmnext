@@ -1,0 +1,12 @@
+---
+:table_name: tbl_jepx_unit_price
+:table_type: :simple
+:fields:
+- id
+- district_id
+- time
+- is_summer
+- is_weekend
+- rate
+- start_date
+- end_date

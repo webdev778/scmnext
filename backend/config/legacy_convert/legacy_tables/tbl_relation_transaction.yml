@@ -1,0 +1,9 @@
+---
+:table_name: tbl_relation_transaction
+:table_type: :simple
+:fields:
+- id
+- myself_id
+- myself_report_sequence_name
+- target_id
+- target_report_sequence_name

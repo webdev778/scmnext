@@ -1,0 +1,11 @@
+---
+:table_name: tbl_group
+:table_type: :simple
+:fields:
+- id
+- pps_id
+- district_id
+- observe_id
+- group_name
+- created
+- modified

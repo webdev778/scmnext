@@ -1,0 +1,8 @@
+---
+:table_name: tbl_sys_theme
+:table_type: :simple
+:fields:
+- id
+- tbl_account_id
+- tbl_user_id
+- theme_name

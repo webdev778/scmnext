@@ -1,0 +1,18 @@
+---
+:table_name: tbl_pls_details
+:table_type: :simple
+:fields:
+- tbl_bg_id
+- pps_id
+- target_date
+- target_time
+- unit_price_jepx_500
+- unit_price_jbu
+- unit_price_other1
+- meter_rate_summer_season_daytime
+- meter_rate_other_season_daytime
+- meter_rate_night
+- meter_rate_peak_time
+- unit_price_imbalance
+- created
+- modified

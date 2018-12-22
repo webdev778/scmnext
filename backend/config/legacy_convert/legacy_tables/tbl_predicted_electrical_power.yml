@@ -1,0 +1,10 @@
+---
+:table_name: tbl_predicted_electrical_power
+:table_type: :simple
+:fields:
+- customer_id
+- pps_id
+- district_id
+- time
+- power
+- power_loss

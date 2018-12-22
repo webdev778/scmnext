@@ -1,0 +1,13 @@
+---
+:table_name: tbl_customer_unit_rate
+:table_type: :key_value
+:fields:
+- item_order
+- code
+- caption
+- rate
+- created
+- created_user_id
+- modified
+- modified_user_id
+- tbl_customer_id

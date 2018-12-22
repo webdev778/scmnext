@@ -1,0 +1,6 @@
+---
+:table_name: TimeTo48Number
+:table_type: :simple
+:fields:
+- time
+- number

@@ -1,0 +1,14 @@
+---
+:table_name: tbl_original_discount
+:table_type: :key_value
+:fields:
+- application_end_ym
+- application_start_ym
+- tbl_district_id
+- tbl_voltage_id
+- original_discount_rate
+- created
+- created_user_id
+- modified
+- modified_user_id
+- default_setting_flg

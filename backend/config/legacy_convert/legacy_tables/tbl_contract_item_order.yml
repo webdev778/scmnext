@@ -1,0 +1,11 @@
+---
+:table_name: tbl_contract_item_order
+:table_type: :key_value
+:fields:
+- tbl_contract_item_group_id
+- tbl_contract_item_id
+- claim_order
+- created
+- created_user_id
+- modified
+- modified_user_id

@@ -1,0 +1,15 @@
+---
+:table_name: tbl_prediction_log
+:table_type: :simple
+:fields:
+- id
+- district_id
+- group_id
+- customer_id
+- created_user_id
+- created
+- prediction_time
+- tbl_account_id
+- past_day1
+- past_day2
+- past_day3

@@ -1,0 +1,9 @@
+---
+:table_name: tbl_ml_power_generation_UPD
+:table_type: :simple
+:fields:
+- pplant_id
+- time
+- censer_id
+- power_generation
+- modified

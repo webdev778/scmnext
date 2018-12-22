@@ -1,0 +1,20 @@
+---
+:table_name: tbl_claim_low_item
+:table_type: :key_value
+:fields:
+- tbl_claim_id
+- district_name
+- contract_name
+- itemorder
+- code
+- caption
+- count
+- unit
+- price
+- rowprice
+- created
+- created_user_id
+- modified
+- modified_user_id
+- note
+- conventional_flg

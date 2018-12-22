@@ -1,0 +1,6 @@
+---
+:table_name: sys_cron_category
+:table_type: :simple
+:fields:
+- id
+- name

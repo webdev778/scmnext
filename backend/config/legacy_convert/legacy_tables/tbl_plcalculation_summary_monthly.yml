@@ -1,0 +1,19 @@
+---
+:table_name: tbl_plcalculation_summary_monthly
+:table_type: :simple
+:fields:
+- id
+- acc_id
+- customer_id
+- district_id
+- month
+- calcdate
+- fixed_power
+- total_amount
+- sales_per_unit
+- stock_total
+- stock_unit
+- gross
+- profit_rate
+- count
+- created

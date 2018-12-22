@@ -1,0 +1,17 @@
+---
+:table_name: tbl_weather
+:table_type: :simple
+:fields:
+- id
+- kind
+- observe_id
+- time
+- weather_id
+- informal_code
+- wind_direction
+- wind_velocity
+- temperature
+- temperature_low
+- temperature_high
+- rainfall_probability
+- humidity

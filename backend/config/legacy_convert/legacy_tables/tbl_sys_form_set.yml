@@ -1,0 +1,9 @@
+---
+:table_name: tbl_sys_form_set
+:table_type: :simple
+:fields:
+- id
+- name
+- related_table
+- tabbed
+- description

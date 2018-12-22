@@ -1,0 +1,9 @@
+---
+:table_name: tbl_sequence_system
+:table_type: :key_value
+:fields:
+- sequence_name
+- text1
+- text2
+- ss_type
+- digit

@@ -1,0 +1,18 @@
+---
+:table_name: tbl_plcalculation_Ksummary
+:table_type: :simple
+:fields:
+- id
+- acc_id
+- customer_id
+- district_id
+- time
+- fixed_power
+- total_amount
+- sales_per_unit
+- stock_total
+- stock_unit
+- gross
+- profit_rate
+- count
+- created

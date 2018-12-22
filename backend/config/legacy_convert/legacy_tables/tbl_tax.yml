@@ -1,0 +1,11 @@
+---
+:table_name: tbl_tax
+:table_type: :key_value
+:fields:
+- tax_rate
+- application_start_ymd
+- application_end_ymd
+- created
+- created_user_id
+- modified
+- modified_user_id

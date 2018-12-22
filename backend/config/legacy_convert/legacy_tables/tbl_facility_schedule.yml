@@ -1,0 +1,12 @@
+---
+:table_name: tbl_facility_schedule
+:table_type: :key_value
+:fields:
+- tbl_facility_id
+- date
+- application_start_ymd
+- schedule_division
+- created
+- created_user_id
+- modified
+- modified_user_id

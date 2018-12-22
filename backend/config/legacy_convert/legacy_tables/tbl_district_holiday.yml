@@ -1,0 +1,10 @@
+---
+:table_name: tbl_district_holiday
+:table_type: :key_value
+:fields:
+- district_id
+- date
+- created
+- created_user_id
+- modified
+- modified_user_id

@@ -1,0 +1,11 @@
+---
+:table_name: tbl_workflow
+:table_type: :key_value
+:fields:
+- workflow_name
+- workflow_memo
+- workflow_display
+- created
+- created_user_id
+- modified
+- modified_user_id

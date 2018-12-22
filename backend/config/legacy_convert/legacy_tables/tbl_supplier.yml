@@ -1,0 +1,10 @@
+---
+:table_name: tbl_supplier
+:table_type: :key_value
+:fields:
+- supplier_name
+- max_value
+- created
+- created_user_id
+- modified
+- modified_user_id

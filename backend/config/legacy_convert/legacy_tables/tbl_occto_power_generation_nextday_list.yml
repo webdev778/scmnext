@@ -1,0 +1,14 @@
+---
+:table_name: tbl_occto_power_generation_nextday_list
+:table_type: :simple
+:fields:
+- pps_id
+- date
+- fit_id
+- stat
+- fit_recpt_stat
+- stat_nm
+- fit_recpt_stat_nm
+- last_upd_daytime
+- cre_daytime
+- table_upload_time

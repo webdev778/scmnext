@@ -1,0 +1,11 @@
+---
+:table_name: tbl_supplier_minimum_unit
+:table_type: :simple
+:fields:
+- id
+- pps_id
+- supplier_id
+- district_id
+- value
+- start_date
+- end_date

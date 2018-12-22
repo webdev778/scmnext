@@ -1,0 +1,11 @@
+---
+:table_name: tbl_power_factor
+:table_type: :key_value
+:fields:
+- rate
+- month
+- tbl_customer_id
+- created
+- created_user_id
+- modified
+- modified_user_id

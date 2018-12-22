@@ -1,0 +1,7 @@
+---
+:table_name: tbl_report_selected
+:table_type: :key_value
+:fields:
+- tbl_report_setting_id
+- template_filetype
+- customize_tbl_account_id

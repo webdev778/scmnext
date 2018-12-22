@@ -1,0 +1,14 @@
+---
+:table_name: tbl_intraday_bid_instruction_retry
+:table_type: :simple
+:fields:
+- ibi_id
+- retry_count
+- start_time
+- end_time
+- order_price
+- order_form_id
+- status
+- updated
+- created
+- create_user

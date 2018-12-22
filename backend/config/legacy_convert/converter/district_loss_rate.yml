@@ -1,0 +1,15 @@
+---
+:skip: true
+:fields:
+  id: ''
+  district_id: ''
+  voltage_type_id: ''
+  rate: ''
+  application_start_date: ''
+  application_end_date: ''
+  created_by: ''
+  updated_by: ''
+  created_at: ''
+  updated_at: ''
+:from: base_table_name
+:where: 0 = 0

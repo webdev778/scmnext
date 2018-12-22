@@ -1,0 +1,7 @@
+---
+:table_name: tbl_pls_item_new
+:table_type: :simple
+:fields:
+- item_id
+- item_field
+- item_name

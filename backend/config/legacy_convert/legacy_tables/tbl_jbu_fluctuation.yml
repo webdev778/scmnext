@@ -1,0 +1,8 @@
+---
+:table_name: tbl_jbu_fluctuation
+:table_type: :key_value
+:fields:
+- tbl_jbu_id
+- month
+- basic_rate
+- cost_adjustment

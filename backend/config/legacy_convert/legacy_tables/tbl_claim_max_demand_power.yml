@@ -1,0 +1,11 @@
+---
+:table_name: tbl_claim_max_demand_power
+:table_type: :key_value
+:fields:
+- tbl_claim_id
+- power
+- month
+- created
+- created_user_id
+- modified
+- modified_user_id

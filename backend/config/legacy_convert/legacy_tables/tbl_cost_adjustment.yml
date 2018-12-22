@@ -1,0 +1,12 @@
+---
+:table_name: tbl_cost_adjustment
+:table_type: :key_value
+:fields:
+- created_user_id
+- modified
+- modified_user_id
+- accounts_title
+- facility_id
+- month
+- cost
+- created

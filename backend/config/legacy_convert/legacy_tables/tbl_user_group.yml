@@ -1,0 +1,5 @@
+---
+:table_name: tbl_user_group
+:table_type: :key_value
+:fields:
+- user_group

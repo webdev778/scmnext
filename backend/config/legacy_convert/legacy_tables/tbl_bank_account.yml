@@ -1,0 +1,12 @@
+---
+:table_name: tbl_bank_account
+:table_type: :key_value
+:fields:
+- bank_no
+- bankacc_name
+- bankacc_name_kana
+- ba_type
+- bank_name
+- branch_name
+- priority
+- default_check

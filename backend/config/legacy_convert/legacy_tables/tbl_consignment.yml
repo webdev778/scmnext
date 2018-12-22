@@ -1,0 +1,7 @@
+---
+:table_name: tbl_consignment
+:table_type: :key_value
+:fields:
+- district_id
+- basic_rate
+- meter_rate

@@ -1,0 +1,11 @@
+---
+:table_name: tbl_past_usage
+:table_type: :key_value
+:fields:
+- power
+- month
+- tbl_customer_id
+- created
+- created_user_id
+- modified
+- modified_user_id

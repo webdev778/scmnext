@@ -1,0 +1,6 @@
+---
+:table_name: tbl_machine_customer_provisional_low
+:table_type: :simple
+:fields:
+- id
+- deleted

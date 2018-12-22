@@ -1,0 +1,13 @@
+---
+:table_name: tbl_meter_rate
+:table_type: :key_value
+:fields:
+- tbl_contract_id
+- tbl_contract_item_id
+- rate
+- application_start_ymd
+- application_end_ymd
+- created
+- created_user_id
+- modified
+- modified_user_id

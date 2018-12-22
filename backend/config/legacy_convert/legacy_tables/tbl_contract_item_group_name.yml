@@ -1,0 +1,6 @@
+---
+:table_name: tbl_contract_item_group_name
+:table_type: :simple
+:fields:
+- id
+- name

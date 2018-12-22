@@ -1,0 +1,9 @@
+---
+:table_name: tbl_scm_job
+:table_type: :simple
+:fields:
+- id
+- job_name
+- app_name
+- previous_scm_job_id
+- description

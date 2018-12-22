@@ -1,0 +1,8 @@
+---
+:table_name: tbl_ml_solar_radiation_prediction_UPD_72h
+:table_type: :simple
+:fields:
+- pplant_id
+- time
+- solar_radiation_prediction
+- modified

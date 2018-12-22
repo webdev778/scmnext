@@ -1,0 +1,12 @@
+---
+:table_name: tbl_bg_pls
+:table_type: :key_value
+:fields:
+- bg_name
+- bg_leader_id
+- business_kind
+- tbl_district_id
+- created
+- created_user_id
+- modified
+- modified_user_id

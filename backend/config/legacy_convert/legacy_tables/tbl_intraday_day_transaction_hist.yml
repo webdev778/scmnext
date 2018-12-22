@@ -1,0 +1,10 @@
+---
+:table_name: tbl_intraday_day_transaction_hist
+:table_type: :simple
+:fields:
+- promise_num
+- delivery_date
+- product_id
+- amount
+- price
+- created

@@ -1,0 +1,20 @@
+---
+:table_name: tbl_claim_destination
+:table_type: :key_value
+:fields:
+- tbl_facility_id
+- claim_destination_tel
+- claim_destination_fax
+- claim_destination_email
+- claim_destination_url
+- claim_destination_zip
+- claim_destination_pref
+- claim_destination_city
+- claim_destination_address
+- claim_destination_name
+- claim_destination_person_in_charge
+- claim_destination_person_in_charge_kana
+- created
+- created_user_id
+- modified
+- modified_user_id

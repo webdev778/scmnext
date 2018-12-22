@@ -1,0 +1,8 @@
+---
+:table_name: tbl_claim_calc_method
+:table_type: :simple
+:fields:
+- id
+- pps_id
+- tbl_voltage_id
+- calc_kbn

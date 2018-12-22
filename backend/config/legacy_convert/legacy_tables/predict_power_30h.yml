@@ -1,0 +1,11 @@
+---
+:table_name: predict_power_30h
+:table_type: :simple
+:fields:
+- id
+- datetime
+- tokyo_power_man_kw
+- chubu_power_man_kw
+- kansai_power_man_kw
+- kyushu_power_man_kw
+- created_at

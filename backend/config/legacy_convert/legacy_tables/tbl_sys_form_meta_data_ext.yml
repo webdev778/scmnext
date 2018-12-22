@@ -1,0 +1,10 @@
+---
+:table_name: tbl_sys_form_meta_data_ext
+:table_type: :simple
+:fields:
+- tbl_account_id
+- tbl_user_id
+- form_name
+- column_order
+- column_width
+- column_visiblity

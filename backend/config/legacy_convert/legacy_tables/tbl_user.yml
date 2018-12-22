@@ -1,0 +1,30 @@
+---
+:table_name: tbl_user
+:table_type: :key_value
+:fields:
+- username
+- password
+- createtime
+- lastvisit
+- superuser
+- primaryuser
+- status
+- start_date
+- end_date
+- lastname
+- firstname
+- lastname_kana
+- firstname_kana
+- tbl_role_id
+- pw_update_date
+- login_session_id
+- sort_no
+- email
+- group_name
+- user_memo
+- person_seal_image_id
+- del_flg
+- created
+- created_user_id
+- modified
+- modified_user_id

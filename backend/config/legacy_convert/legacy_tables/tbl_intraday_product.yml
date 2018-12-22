@@ -1,0 +1,12 @@
+---
+:table_name: tbl_intraday_product
+:table_type: :simple
+:fields:
+- delivery_date
+- product_id
+- time
+- start_at
+- end_at
+- status
+- created
+- updated

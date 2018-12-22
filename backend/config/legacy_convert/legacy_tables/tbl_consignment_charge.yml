@@ -1,0 +1,19 @@
+---
+:table_name: tbl_consignment_charge
+:table_type: :key_value
+:fields:
+- tbl_voltage_id
+- basic_rate
+- standard_rate
+- daytime_rate
+- night_rate
+- peak_shift_discount_rate
+- a_rate
+- b_rate
+- application_start_ym
+- created
+- created_user_id
+- modified
+- modified_user_id
+- tbl_district_id
+- application_end_ym

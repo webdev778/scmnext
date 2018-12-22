@@ -1,0 +1,11 @@
+---
+:table_name: tbl_renewable_energy_cost
+:table_type: :key_value
+:fields:
+- rate
+- start_date
+- end_date
+- created
+- created_user_id
+- modified
+- modified_user_id

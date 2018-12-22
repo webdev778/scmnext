@@ -1,0 +1,14 @@
+---
+:table_name: tbl_worksupport
+:table_type: :key_value
+:fields:
+- tbl_workflow_id
+- worksupport_name
+- worksupport_memo
+- tbl_worksupport_step_id
+- started
+- ended
+- created
+- created_user_id
+- modified
+- modified_user_id

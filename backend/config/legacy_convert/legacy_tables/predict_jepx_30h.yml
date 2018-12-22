@@ -1,0 +1,22 @@
+---
+:table_name: predict_jepx_30h
+:table_type: :simple
+:fields:
+- id
+- datetime
+- buy_power
+- systemprice
+- alpha
+- areaprice_tokyo
+- areaprice_chubu
+- areaprice_kansai
+- areaprice_kyushu
+- beta_tokyo
+- beta_chubu
+- beta_kansai
+- beta_kyushu
+- imbalance_tokyo
+- imbalance_chubu
+- imbalance_kansai
+- imbalance_kyushu
+- created_at

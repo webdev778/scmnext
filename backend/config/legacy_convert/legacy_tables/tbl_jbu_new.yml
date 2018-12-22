@@ -1,0 +1,19 @@
+---
+:table_name: tbl_jbu_new
+:table_type: :key_value
+:fields:
+- tbl_district_id
+- application_start_ymd
+- application_end_ymd
+- contract_power
+- basic_rate
+- meter_rate_summer_season_daytime
+- meter_rate_other_season_daytime
+- meter_rate_night
+- meter_rate_peak_time
+- created
+- created_user_id
+- modified
+- modified_user_id
+- district_name
+- company_name

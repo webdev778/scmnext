@@ -1,0 +1,6 @@
+---
+:table_name: machine_facility_provisional_high
+:table_type: :simple
+:fields:
+- id
+- deleted

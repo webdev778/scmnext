@@ -1,0 +1,9 @@
+---
+:table_name: tbl_report_setting_detail
+:table_type: :key_value
+:fields:
+- tbl_report_setting_id
+- page
+- x
+- y
+- list

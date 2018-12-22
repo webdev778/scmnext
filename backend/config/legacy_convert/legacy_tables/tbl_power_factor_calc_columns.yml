@@ -1,0 +1,8 @@
+---
+:table_name: tbl_power_factor_calc_columns
+:table_type: :simple
+:fields:
+- id
+- row_id
+- column_name
+- value

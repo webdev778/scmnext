@@ -1,0 +1,10 @@
+---
+:table_name: tbl_supplier_unit_price
+:table_type: :simple
+:fields:
+- id
+- pps_id
+- supplier_id
+- rate
+- start_date
+- end_date

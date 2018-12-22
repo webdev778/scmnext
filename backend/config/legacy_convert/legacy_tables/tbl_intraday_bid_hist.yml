@@ -1,0 +1,20 @@
+---
+:table_name: tbl_intraday_bid_hist
+:table_type: :simple
+:fields:
+- pps_id
+- district_id
+- order_form_id
+- order_time
+- delivery_date
+- product_id
+- time
+- user_id
+- area_id
+- buysell_type
+- order_amount
+- order_quantity
+- agreement_quantity
+- status
+- delete_flg
+- created

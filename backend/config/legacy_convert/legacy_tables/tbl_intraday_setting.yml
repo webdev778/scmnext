@@ -1,0 +1,21 @@
+---
+:table_name: tbl_intraday_setting
+:table_type: :key_value
+:fields:
+- tbl_bg_id
+- percentage_spot_purchase1
+- permission_before_hour_purchase1
+- percentage_spot_sale1
+- permission_before_hour_sale1
+- percentage_spot_purchase2
+- permission_before_hour_purchase2
+- percentage_spot_sale2
+- permission_before_hour_sale2
+- percentage_spot_purchase3
+- permission_before_hour_purchase3
+- percentage_spot_sale3
+- permission_before_hour_sale3
+- created
+- created_user_id
+- modified
+- modified_user_id

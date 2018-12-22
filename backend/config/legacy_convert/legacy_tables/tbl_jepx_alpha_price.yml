@@ -1,0 +1,14 @@
+---
+:table_name: tbl_jepx_alpha_price
+:table_type: :simple
+:fields:
+- id
+- date
+- time_no
+- alpha_upper
+- alpha_upper_x_weighted_average
+- alpha_lower
+- alpha_lower_x_weighted_average
+- weighted_average
+- alpha_upper_prediction
+- alpha_lower_prediction

@@ -1,0 +1,7 @@
+---
+:table_name: tbl_sys_sourcemessage
+:table_type: :simple
+:fields:
+- id
+- category
+- message

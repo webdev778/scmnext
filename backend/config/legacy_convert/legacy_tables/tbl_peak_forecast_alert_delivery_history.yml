@@ -1,0 +1,15 @@
+---
+:table_name: tbl_peak_forecast_alert_delivery_history
+:table_type: :simple
+:fields:
+- tbl_customer_id
+- pps_id
+- tbl_district_id
+- send_kbn
+- time
+- email
+- delivery_time
+- created
+- created_user_id
+- modified
+- modified_user_id

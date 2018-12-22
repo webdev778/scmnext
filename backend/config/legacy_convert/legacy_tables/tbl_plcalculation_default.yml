@@ -1,0 +1,11 @@
+---
+:table_name: tbl_plcalculation_default
+:table_type: :simple
+:fields:
+- id
+- cc_id
+- customer_id
+- year
+- month
+- sumpower
+- price

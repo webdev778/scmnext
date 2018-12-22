@@ -1,0 +1,12 @@
+---
+:table_name: tbl_district_jbu_unit_price
+:table_type: :simple
+:fields:
+- id
+- pps_id
+- district_id
+- time
+- rate
+- is_summer
+- start_date
+- end_date

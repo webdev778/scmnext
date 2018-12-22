@@ -1,0 +1,16 @@
+---
+:table_name: tbl_day_of_week
+:table_type: :key_value
+:fields:
+- tbl_district_id
+- tbl_voltage_id
+- tbl_contract_item_id
+- day_of_week
+- application_start_ymd
+- default_setting_flg
+- created
+- created_user_id
+- modified
+- modified_user_id
+- application_end_ymd
+- row_setting

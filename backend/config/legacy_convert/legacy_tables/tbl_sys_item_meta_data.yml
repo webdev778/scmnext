@@ -1,0 +1,13 @@
+---
+:table_name: tbl_sys_item_meta_data
+:table_type: :simple
+:fields:
+- id
+- tbl_account_id
+- table_name
+- field
+- type
+- nullable
+- primary
+- default
+- autoincrement

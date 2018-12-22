@@ -1,0 +1,12 @@
+---
+:table_name: tbl_intraday_bid_contract_hist
+:table_type: :simple
+:fields:
+- id
+- order_amount
+- order_price
+- agreement_price
+- agreement_quantity
+- order_form_id
+- status
+- updated

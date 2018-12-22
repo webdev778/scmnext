@@ -1,0 +1,12 @@
+---
+:table_name: tbl_contract_item_new
+:table_type: :key_value
+:fields:
+- contract_item_name
+- tbl_voltage_id
+- setting_flg
+- created
+- created_user_id
+- modified
+- modified_user_id
+- contract_item_cal_order

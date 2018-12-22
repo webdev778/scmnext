@@ -1,0 +1,11 @@
+---
+:table_name: tbl_fixed_high_power_management
+:table_type: :simple
+:fields:
+- facility_id
+- target_date
+- start_date
+- end_date
+- current_meter_reading
+- next_meter_reading
+- processing_flg

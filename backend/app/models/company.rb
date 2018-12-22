@@ -20,5 +20,7 @@
 #
 
 class Company < ApplicationRecord
+  has_one :company_account_jepx
+  has_one :company_account_occto
   has_many :consumers
 end

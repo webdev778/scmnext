@@ -1,0 +1,12 @@
+---
+:table_name: tbl_escalation_price_power_consumption_range
+:table_type: :key_value
+:fields:
+- value1
+- value2
+- application_start_ymd
+- tbl_contract_id
+- created
+- created_user_id
+- modified
+- modified_user_id

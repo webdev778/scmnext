@@ -1,0 +1,8 @@
+---
+:table_name: tbl_planned_value_provisional
+:table_type: :simple
+:fields:
+- pps_id
+- district_id
+- time
+- value_loss

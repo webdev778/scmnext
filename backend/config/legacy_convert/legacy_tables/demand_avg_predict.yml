@@ -1,0 +1,15 @@
+---
+:table_name: demand_avg_predict
+:table_type: :simple
+:fields:
+- id
+- customer_id
+- datetime
+- value1
+- value2
+- type
+- created_at
+- updated_at
+- text1
+- text2
+- text3

@@ -1,0 +1,28 @@
+---
+:skip: true
+:fields:
+  id: ''
+  name: ''
+  code: ''
+  consumer_id: ''
+  supply_point_number: ''
+  district_id: ''
+  voltage_type_id: ''
+  supply_start_date: ''
+  supply_end_date: ''
+  tel: ''
+  fax: ''
+  email: ''
+  url: ''
+  postral_code: ''
+  pref_no: ''
+  city: ''
+  address: ''
+  person_in_charge: ''
+  person_in_charge_kana: ''
+  created_by: ''
+  updated_by: ''
+  created_at: ''
+  updated_at: ''
+:from: base_table_name
+:where: 0 = 0

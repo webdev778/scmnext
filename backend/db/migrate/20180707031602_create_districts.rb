@@ -6,6 +6,7 @@ class CreateDistricts < ActiveRecord::Migration[5.2]
       t.float "loss_rate_special_high_voltage", comment: "損失率(特別高圧)"
       t.float "loss_rate_high_voltage", comment: "損失率(高圧)"
       t.float "loss_rate_low_voltage", comment: "損失率(低圧)"
+      t.string "dlt_host", null: false, comment: "託送ダウンロードサーバーホスト名"
       t.stamp_fileds
     end
   end

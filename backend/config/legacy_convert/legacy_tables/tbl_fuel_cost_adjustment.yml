@@ -1,0 +1,12 @@
+---
+:table_name: tbl_fuel_cost_adjustment
+:table_type: :key_value
+:fields:
+- rate
+- month
+- district_id
+- voltage_id
+- created
+- created_user_id
+- modified
+- modified_user_id

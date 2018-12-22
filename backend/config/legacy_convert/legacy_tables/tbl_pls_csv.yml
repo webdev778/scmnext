@@ -1,0 +1,8 @@
+---
+:table_name: tbl_pls_csv
+:table_type: :simple
+:fields:
+- csvdata_id
+- item_id
+- time
+- value

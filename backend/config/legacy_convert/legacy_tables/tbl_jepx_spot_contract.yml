@@ -1,0 +1,12 @@
+---
+:table_name: tbl_jepx_spot_contract
+:table_type: :simple
+:fields:
+- id
+- date
+- time
+- order_form_id
+- pps_id
+- district_id
+- contract_quantity
+- contract_price

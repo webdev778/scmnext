@@ -1,0 +1,14 @@
+---
+:table_name: tbl_power_generation_prediction
+:table_type: :simple
+:fields:
+- district_id
+- pps_id
+- power_plant_bg_id
+- power_plant_id
+- time
+- value
+- created
+- created_user_id
+- modified
+- modified_user_id

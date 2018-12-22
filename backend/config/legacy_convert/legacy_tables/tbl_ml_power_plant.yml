@@ -1,0 +1,10 @@
+---
+:table_name: tbl_ml_power_plant
+:table_type: :simple
+:fields:
+- pplant_id
+- plant_name
+- plant_address
+- longitude
+- latitude
+- modified

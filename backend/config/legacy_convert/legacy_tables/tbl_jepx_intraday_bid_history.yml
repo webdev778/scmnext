@@ -1,0 +1,16 @@
+---
+:table_name: tbl_jepx_intraday_bid_history
+:table_type: :simple
+:fields:
+- bid_no
+- order_date
+- target_date
+- time
+- pps_id
+- district_id
+- bid_status
+- price
+- quantity
+- remaining
+- order_status
+- del_status

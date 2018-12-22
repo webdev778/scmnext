@@ -1,0 +1,7 @@
+---
+:table_name: tbl_group_detail
+:table_type: :simple
+:fields:
+- id
+- group_id
+- customer_id

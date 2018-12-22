@@ -1,0 +1,17 @@
+---
+:skip: true
+:fields:
+  id: ''
+  company_id: ''
+  district_id: ''
+  date: ''
+  time_index_id: ''
+  supply_type: ''
+  value: ''
+  interchange_company_id: ''
+  created_by: ''
+  updated_by: ''
+  created_at: ''
+  updated_at: ''
+:from: base_table_name
+:where: 0 = 0

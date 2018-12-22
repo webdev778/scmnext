@@ -1,0 +1,8 @@
+---
+:table_name: divisionname
+:table_type: :simple
+:fields:
+- id
+- row_id
+- column_name
+- value

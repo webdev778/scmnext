@@ -1,0 +1,15 @@
+---
+:table_name: tbl_approval
+:table_type: :simple
+:fields:
+- id
+- tbl_account_id
+- approval_from_user_id
+- approval_from_dt
+- approval_from_comment
+- approval_to_user_id
+- approval_to_dt
+- approval_to_comment
+- approval_status
+- report_id
+- report_sequence_name

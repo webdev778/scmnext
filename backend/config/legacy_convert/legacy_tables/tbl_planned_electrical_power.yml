@@ -1,0 +1,9 @@
+---
+:table_name: tbl_planned_electrical_power
+:table_type: :simple
+:fields:
+- pps_id
+- district_id
+- time
+- power
+- power_loss

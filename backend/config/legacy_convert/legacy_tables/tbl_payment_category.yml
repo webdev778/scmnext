@@ -1,0 +1,25 @@
+---
+:table_name: tbl_payment_category
+:table_type: :key_value
+:fields:
+- pps_id
+- payment_category_name
+- payment_kbn
+- application_start_ymd
+- application_endt_ymd
+- created
+- created_user_id
+- modified
+- modified_user_id
+- payment_category_id
+- record_type_kbn
+- consignor_code
+- consignor_name
+- account_bank_code
+- account_bank_name
+- account_bank_branch_code
+- account_bank_branch_name
+- account_kbn
+- account_number
+- credit_shop_id
+- status

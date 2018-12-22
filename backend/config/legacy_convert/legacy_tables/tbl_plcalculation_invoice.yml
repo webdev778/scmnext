@@ -1,0 +1,18 @@
+---
+:table_name: tbl_plcalculation_invoice
+:table_type: :simple
+:fields:
+- tbl_customer_id
+- pps_id
+- tbl_district_id
+- time
+- electricity_value
+- basic_rate_last_month
+- meter_price
+- fuel_cost_adjustment
+- cost_adjustment
+- renewable_energy_cost
+- created
+- created_user_id
+- modified
+- modified_user_id

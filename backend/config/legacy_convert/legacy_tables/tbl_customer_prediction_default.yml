@@ -1,0 +1,11 @@
+---
+:table_name: tbl_customer_prediction_default
+:table_type: :simple
+:fields:
+- customer_id
+- time
+- power_loss
+- holiday
+- place
+- modified
+- modified_user_id

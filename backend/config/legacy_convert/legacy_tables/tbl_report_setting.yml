@@ -1,0 +1,11 @@
+---
+:table_name: tbl_report_setting
+:table_type: :key_value
+:fields:
+- report_sequence_name_camel
+- sort_no
+- command_name
+- template_name
+- template_filetype
+- template_filename
+- description

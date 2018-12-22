@@ -1,0 +1,16 @@
+---
+:table_name: tbl_bg_relation_pps
+:table_type: :key_value
+:fields:
+- tbl_bg_id
+- pps_id
+- created
+- created_user_id
+- modified
+- modified_user_id
+- supplier_code_jpexspot
+- supplier_code_jpex1h
+- supplier_code_jbu
+- supplier_code_fit
+- supplier_code_etc
+- company_code

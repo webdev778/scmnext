@@ -1,0 +1,12 @@
+---
+:table_name: tbl_jbu
+:table_type: :key_value
+:fields:
+- district_id
+- power
+- report_data
+- created
+- created_user_id
+- modified
+- modified_user_id
+- pps_id

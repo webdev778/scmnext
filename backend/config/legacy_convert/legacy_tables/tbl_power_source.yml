@@ -1,0 +1,12 @@
+---
+:table_name: tbl_power_source
+:table_type: :simple
+:fields:
+- tbl_district_id
+- power_source_kbn
+- power_source_rate
+- application_start_ym
+- created
+- created_user_id
+- modified
+- modified_user_id

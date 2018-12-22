@@ -1,0 +1,14 @@
+---
+:table_name: tbl_sys_notifications
+:table_type: :simple
+:fields:
+- id
+- tbl_account_id
+- type
+- place
+- send_date
+- send_from
+- send_to
+- subject
+- content
+- options

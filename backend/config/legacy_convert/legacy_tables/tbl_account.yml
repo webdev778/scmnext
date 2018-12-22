@@ -1,0 +1,21 @@
+---
+:table_name: tbl_account
+:table_type: :key_value
+:fields:
+- acc_id
+- contract_id
+- start_date
+- end_date
+- agency_flg
+- agency_domain
+- referer
+- loc
+- loc_so
+- status
+- tbl_company_id
+- tbl_service_type_id
+- activation_flg
+- activation_hash
+- activation_send_dt
+- activation_comp_dt
+- parent_id

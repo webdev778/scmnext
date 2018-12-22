@@ -1,0 +1,9 @@
+---
+:table_name: tbl_contract_customer_columns_copy_20170226
+:table_type: :simple
+:fields:
+- id
+- row_id
+- column_name
+- value
+:comment: おそらく未使用

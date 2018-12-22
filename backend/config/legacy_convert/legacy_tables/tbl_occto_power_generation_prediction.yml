@@ -1,0 +1,9 @@
+---
+:table_name: tbl_occto_power_generation_prediction
+:table_type: :simple
+:fields:
+- pps_id
+- time
+- power_generation_prediction
+- pgp1
+- pgp2

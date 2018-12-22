@@ -1,0 +1,10 @@
+---
+:table_name: tbl_usage_fee_types
+:table_type: :simple
+:fields:
+- id
+- contract_type_id
+- name
+- caption
+- created
+- modified

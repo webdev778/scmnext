@@ -1,0 +1,8 @@
+---
+:table_name: tbl_closing_date_payment_date_management
+:table_type: :simple
+:fields:
+- id
+- payment_method_id
+- closing_date
+- payment_day

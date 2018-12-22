@@ -1,0 +1,10 @@
+---
+:table_name: tbl_contract_type
+:table_type: :key_value
+:fields:
+- created
+- created_user_id
+- modified
+- modified_user_id
+- contract_type_name
+- contract_type_item

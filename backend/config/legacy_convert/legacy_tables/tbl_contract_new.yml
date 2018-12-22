@@ -1,0 +1,16 @@
+---
+:table_name: tbl_contract_new
+:table_type: :key_value
+:fields:
+- tbl_contract_item_group_id
+- contract_name
+- contract_start_ymd
+- contract_end_ymd
+- created
+- created_user_id
+- modified
+- modified_user_id
+- tbl_voltage_id
+- machine_facility_id
+- claim_contract_name
+- electricity_value

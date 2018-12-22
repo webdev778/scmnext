@@ -1,0 +1,11 @@
+---
+:table_name: tbl_power_factor_low_power
+:table_type: :key_value
+:fields:
+- rate
+- application_start_ymd
+- tbl_facility_id
+- created
+- created_user_id
+- modified
+- modified_user_id

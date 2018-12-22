@@ -1,0 +1,10 @@
+---
+:table_name: sys_cron_notice
+:table_type: :simple
+:fields:
+- id
+- program_id
+- time
+- identifier
+- status
+- error

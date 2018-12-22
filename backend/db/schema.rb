@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_25_111658) do
+ActiveRecord::Schema.define(version: 2018_12_21_053630) do
 
   create_table "companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "会社(PPS)", force: :cascade do |t|
     t.string "name", null: false, comment: "名前"
@@ -27,6 +27,19 @@ ActiveRecord::Schema.define(version: 2018_07_25_111658) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "company_accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "会社別アカウント", force: :cascade do |t|
+    t.bigint "company_id_id"
+    t.string "type", null: false, comment: "種別"
+    t.string "login_code", limit: 64, null: false, comment: "ログインコード"
+    t.string "password", limit: 64, null: false, comment: "パスワード"
+    t.string "comment", comment: "備考"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id_id"], name: "index_company_accounts_on_company_id_id"
   end
 
   create_table "consumers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "需要家", force: :cascade do |t|

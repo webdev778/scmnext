@@ -1,0 +1,22 @@
+---
+:table_name: tbl_plcalculation_monthlyBase
+:table_type: :simple
+:fields:
+- id
+- acc_id
+- customer_id
+- district_id
+- month
+- customer_basic_rate
+- max_demand_power
+- power_factor
+- fuel_cost_adjustment
+- renewable_energy_cost
+- beta
+- consignment_meter_rate
+- consignment_basic_rate
+- jbu_basic_rate
+- jbu_power
+- jbu_cost_adjustment
+- max_demand_power_pps_total
+- created

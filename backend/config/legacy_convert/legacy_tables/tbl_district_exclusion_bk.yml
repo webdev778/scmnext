@@ -1,0 +1,6 @@
+---
+:table_name: tbl_district_exclusion_bk
+:table_type: :simple
+:fields:
+- id
+- tbl_account_id

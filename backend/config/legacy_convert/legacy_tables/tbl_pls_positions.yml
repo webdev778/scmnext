@@ -1,0 +1,18 @@
+---
+:table_name: tbl_pls_positions
+:table_type: :simple
+:fields:
+- tbl_bg_id
+- pps_id
+- target_date
+- target_time
+- position_jepx_500
+- position_jepx_100
+- position_jbu
+- position_other1
+- position_other2
+- position_other3
+- position_shortage
+- position_surplus
+- created
+- modified

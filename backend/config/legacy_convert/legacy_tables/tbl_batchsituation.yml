@@ -1,0 +1,14 @@
+---
+:table_name: tbl_batchsituation
+:table_type: :simple
+:fields:
+- id
+- bid
+- stat
+- ts
+- msg
+- district_id
+- pps_id
+- powersupply_id
+- processing_id
+- ip

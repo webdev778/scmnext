@@ -1,0 +1,14 @@
+---
+:table_name: sys_cron_program
+:table_type: :simple
+:fields:
+- id
+- category_id
+- program_name
+- name
+- time_zone
+- execution_time
+- start_time
+- end_time
+- status
+- deleted

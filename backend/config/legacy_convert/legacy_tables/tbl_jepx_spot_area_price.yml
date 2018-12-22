@@ -1,0 +1,9 @@
+---
+:table_name: tbl_jepx_spot_area_price
+:table_type: :simple
+:fields:
+- id
+- date
+- time_no
+- district_id
+- price

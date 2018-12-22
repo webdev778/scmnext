@@ -1,0 +1,26 @@
+---
+:table_name: tbl_ryokin
+:table_type: :simple
+:fields:
+- pps_id
+- ryokin_cd
+- ryokin_name
+- unit_type
+- base_fee
+- minimum_fee
+- supply_capacity
+- supply_capacity_unit
+- charge
+- layer_unit
+- tax
+- round
+- memo
+- report_message
+- supply_voltage
+- yobi1
+- yobi2
+- yobi3
+- created
+- created_user_id
+- modified
+- modified_user_id

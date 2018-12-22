@@ -1,0 +1,2 @@
+class CompanyAccount < ApplicationRecord
+end

@@ -1,0 +1,7 @@
+---
+:table_name: seasonal_variation
+:table_type: :simple
+:fields:
+- customer_id
+- time
+- seasonal_variation

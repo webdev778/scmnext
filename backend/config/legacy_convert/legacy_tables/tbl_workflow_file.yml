@@ -1,0 +1,10 @@
+---
+:table_name: tbl_workflow_file
+:table_type: :key_value
+:fields:
+- tbl_workflow_id
+- type
+- file_name
+- file_size
+- created
+- created_user_id

@@ -1,0 +1,19 @@
+---
+:table_name: tbl_pps
+:table_type: :key_value
+:fields:
+- pps_code
+- pps_name
+- zip
+- pref
+- city
+- address
+- tel
+- fax
+- email
+- url
+- created
+- created_user_id
+- modified
+- modified_user_id
+- tbl_user_id

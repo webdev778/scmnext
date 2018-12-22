@@ -1,0 +1,9 @@
+---
+:table_name: tbl_conventional_contract_item
+:table_type: :key_value
+:fields:
+- tbl_contract_id
+- item_order
+- contract_type_item_id
+- caption
+- rate

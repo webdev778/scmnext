@@ -1,0 +1,27 @@
+---
+:table_name: tbl_district
+:table_type: :key_value
+:fields:
+- district_code
+- district_name
+- high_voltage_loss_rate
+- special_high_voltage_loss_rate
+- peaktime_from
+- peaktime_to
+- created
+- created_user_id
+- modified
+- modified_user_id
+- low_voltage_loss_rate
+- summer_season_begin
+- summer_season_end
+- daytime_begin
+- daytime_end
+- holiday_judgement
+- jbu_peaktime
+- jbu_summer_daytime
+- jbu_other_daytime
+- jbu_night
+- beta
+- area_id
+- base_power_deduction_kbn

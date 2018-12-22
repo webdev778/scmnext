@@ -1,0 +1,9 @@
+---
+:table_name: tbl_fixed_low_power
+:table_type: :simple
+:fields:
+- customer_id
+- pps_id
+- district_id
+- time
+- power

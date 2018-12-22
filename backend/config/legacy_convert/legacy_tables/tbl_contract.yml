@@ -1,0 +1,16 @@
+---
+:table_name: tbl_contract
+:table_type: :key_value
+:fields:
+- contract_name
+- district_id
+- contract_type_id
+- base_fee_unit
+- created
+- created_user_id
+- modified
+- modified_user_id
+- district_name
+- voltage_id
+- voltage_name
+- contract_type_name

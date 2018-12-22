@@ -1,0 +1,10 @@
+---
+:table_name: tbl_conventional_customer_usage_based_fees
+:table_type: :simple
+:fields:
+- id
+- conventional_customer_contract_fee_id
+- contract_usage_based_fee_id
+- usage_based_fee_unit
+- created
+- modified

@@ -1,0 +1,35 @@
+---
+:table_name: tbl_contract_customer
+:table_type: :key_value
+:fields:
+- contractcustomer_email
+- contractcustomer_url
+- contractcustomer_zip
+- contractcustomer_pref
+- contractcustomer_city
+- contractcustomer_address
+- contractcustomer_tel
+- contractcustomer_fax
+- contractcustomer_name
+- contractcustomer_person_in_charge
+- contractcustomer_person_in_charge_kana
+- contractcustomer_password
+- created
+- created_user_id
+- modified
+- modified_user_id
+- foreign_code_1
+- foreign_code_2
+- foreign_code_3
+- settlement_account_card_number
+- settlement_account_card_expiration_date
+- settlement_account_bank_code
+- settlement_account_bank_name
+- settlement_account_bank_branch_code
+- settlement_account_bank_branch_name
+- settlement_account_kbn
+- settlement_account_number
+- settlement_account_name
+- settlement_credit_customer_number
+- memo
+- contractcustomer_number

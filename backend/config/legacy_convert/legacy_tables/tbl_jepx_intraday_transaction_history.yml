@@ -1,0 +1,9 @@
+---
+:table_name: tbl_jepx_intraday_transaction_history
+:table_type: :simple
+:fields:
+- transaction_date
+- target_date
+- time
+- price
+- quantity

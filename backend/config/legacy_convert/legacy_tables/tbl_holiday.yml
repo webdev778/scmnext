@@ -1,0 +1,10 @@
+---
+:table_name: tbl_holiday
+:table_type: :simple
+:fields:
+- id
+- district_id
+- name
+- date
+- created
+- modified

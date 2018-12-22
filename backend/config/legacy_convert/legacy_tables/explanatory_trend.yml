@@ -1,0 +1,7 @@
+---
+:table_name: explanatory_trend
+:table_type: :simple
+:fields:
+- customer_id
+- time
+- trend

@@ -1,0 +1,16 @@
+---
+:table_name: tbl_district_exclusion
+:table_type: :key_value
+:fields:
+- tbl_district_id
+- tbl_contract_item_id
+- row_setting
+- setting_value1
+- setting_value2
+- application_start_ymd
+- setting_division
+- default_setting_flg
+- created
+- created_user_id
+- modified
+- modified_user_id

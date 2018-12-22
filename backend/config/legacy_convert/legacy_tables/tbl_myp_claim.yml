@@ -1,0 +1,12 @@
+---
+:table_name: tbl_myp_claim
+:table_type: :simple
+:fields:
+- id
+- cc_id
+- customer_id
+- year
+- month
+- sumpower
+- price
+- file_url

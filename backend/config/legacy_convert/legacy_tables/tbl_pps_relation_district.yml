@@ -1,0 +1,11 @@
+---
+:table_name: tbl_pps_relation_district
+:table_type: :key_value
+:fields:
+- tbl_district_id
+- application_start_ymd
+- application_end_ymd
+- created
+- created_user_id
+- modified
+- modified_user_id

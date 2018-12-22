@@ -1,0 +1,10 @@
+---
+:table_name: tbl_myp_news
+:table_type: :simple
+:fields:
+- id
+- cc_id
+- time
+- type
+- title
+- text

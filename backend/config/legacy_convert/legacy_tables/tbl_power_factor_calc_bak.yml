@@ -1,0 +1,6 @@
+---
+:table_name: tbl_power_factor_calc_bak
+:table_type: :simple
+:fields:
+- id
+- tbl_account_id

@@ -1,0 +1,28 @@
+---
+:table_name: tbl_powersupply
+:table_type: :key_value
+:fields:
+- power_supply_company_id
+- power_supply_company_name
+- power_supply_code
+- generation_district_id
+- generation_district_name
+- generation_bg_id
+- generation_bg_name
+- supply_district_id
+- supply_district_name
+- supply_bg_id
+- supply_bg_name
+- power_supply_name
+- output_power_supply_id
+- output_power_supply_name
+- voltage_id
+- voltage_name
+- unit_price
+- unit_purchase
+- max_power
+- min_power
+- created_user_id
+- created
+- modified_user_id
+- modified

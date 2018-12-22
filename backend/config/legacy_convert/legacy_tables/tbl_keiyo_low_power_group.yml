@@ -1,0 +1,11 @@
+---
+:table_name: tbl_keiyo_low_power_group
+:table_type: :simple
+:fields:
+- facility_high_power_id
+- capacity_unit
+- capacity_value
+- created
+- created_user_id
+- modified
+- modified_user_id

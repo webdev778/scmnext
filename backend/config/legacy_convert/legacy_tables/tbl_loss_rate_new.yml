@@ -1,0 +1,13 @@
+---
+:table_name: tbl_loss_rate_new
+:table_type: :key_value
+:fields:
+- tbl_district_id
+- tbl_voltage_id
+- voltage_loss_rate
+- application_start_ymd
+- application_end_ymd
+- created
+- created_user_id
+- modified
+- modified_user_id

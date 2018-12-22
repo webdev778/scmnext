@@ -1,0 +1,6 @@
+---
+:table_name: tbl_plan_log
+:table_type: :key_value
+:fields:
+- target_yyyymm
+- user_count

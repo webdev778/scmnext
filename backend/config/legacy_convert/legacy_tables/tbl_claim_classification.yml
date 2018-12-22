@@ -1,0 +1,5 @@
+---
+:table_name: tbl_claim_classification
+:table_type: :key_value
+:fields:
+- claim_classification
