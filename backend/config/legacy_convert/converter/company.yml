@@ -1,6 +1,6 @@
 ---
 :fields:
-  id: tbl_company.id
+  id: tbl_account.id
   name: tbl_company.company_name
   code: tbl_company.ene_company_code
   name_kana: tbl_company.company_kana
@@ -16,4 +16,10 @@
   created_at: tbl_company.created
   updated_at: tbl_company.modified
 :from: tbl_company
+:joins:
+- :table: tbl_account
+  :type: inner
+  :on: tbl_account.id = tbl_company.tbl_account_id
 :model_class: Company
+:truncate: true
+:where: 0 = 0

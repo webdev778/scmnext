@@ -1,9 +1,10 @@
 ---
-:skip: true
 :fields:
   id: tbl_district.id
   name: tbl_district.district_name
   code: tbl_district.district_code
+  dlt_host: 
+  dlt_path: 
   loss_rate_special_high_voltage: tbl_district.special_high_voltage_loss_rate
   loss_rate_high_voltage: tbl_district.high_voltage_loss_rate
   loss_rate_low_voltage: tbl_district.low_voltage_loss_rate
@@ -12,31 +13,32 @@
   created_at: tbl_district.created
   updated_at: tbl_district.modified
 :from: tbl_district
-:where: tbl_district.id < 9
-# :model_class: District
-# :table_name: tbl_district
-# :table_type: :key_value
-# :fields:
-# - district_code
-# - district_name
-# - high_voltage_loss_rate
-# - special_high_voltage_loss_rate
-# - peaktime_from
-# - peaktime_to
-# - created
-# - created_user_id
-# - modified
-# - modified_user_id
-# - low_voltage_loss_rate
-# - summer_season_begin
-# - summer_season_end
-# - daytime_begin
-# - daytime_end
-# - holiday_judgement
-# - jbu_peaktime
-# - jbu_summer_daytime
-# - jbu_other_daytime
-# - jbu_night
-# - beta
-# - area_id
-# - base_power_deduction_kbn
+:where: tbl_district.id < 10
+:truncate: true
+:model_class: District
+:extra:
+- :cond:
+    id: 1
+  :fields:
+    dlt_host: https://pu00.www6.tepco.co.jp
+    dlt_path: "/LNXWPWSS01OH/LNXWPWSS01I"
+- :cond:
+    id: 2
+  :fields:
+    dlt_host: https://www4.kepco.co.jp
+    dlt_path: "/prx/000/http/kanden"
+- :cond:
+    id: 3
+  :fields:
+    dlt_host: https://epcdss-www.chuden.co.jp
+    dlt_path: "/41294"
+- :cond:
+    id: 5
+  :fields:
+    dlt_host: https://takuso-web.takuso.tohoku-epco.co.jp
+    dlt_path: "/G83PPS_Auto"
+- :cond:
+    id: 9
+  :fields:
+    dlt_host: https://nsc-www.network.kyuden.co.jp
+    dlt_path: "/LNXWPWSS01I/App"

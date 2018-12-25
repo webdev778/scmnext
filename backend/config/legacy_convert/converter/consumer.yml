@@ -21,3 +21,5 @@
   updated_at: tbl_contract_customer.modified
 :from: tbl_contract_customer
 :model_class: Consumer
+:truncate: true
+:where: 0 = 0

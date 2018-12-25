@@ -1,0 +1,8 @@
+---
+:truncate: true
+:model_class: Dlt::Setting
+:extra:
+-
+  :fields:
+    company_id: 3
+    district_id: 1

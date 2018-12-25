@@ -1,0 +1,14 @@
+---
+:skip: true
+:truncate: true
+:model_class: Dlt::File
+:fields:
+  id:
+  created_by:
+  updated_by:
+  created_at:
+  updated_at:
+  company_id:
+  district_id:
+:from: base_table_name
+:where: 0 = 0

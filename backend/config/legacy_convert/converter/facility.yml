@@ -26,45 +26,4 @@
 :from: tbl_facility
 :where: tbl_voltage_id < 99
 :model_class: Facility
-
-# ---
-# :table_name: tbl_facility
-# :table_type: :key_value
-# :fields:
-# - payment_method_id
-# - shipping_method_id
-# - claim_destination_flg
-# - tbl_division_id
-# - tbl_contract_id
-# - tbl_voltage_id
-# - supply_voltage
-# - contract_power_calc_method_id
-# - consultation_power
-# - contractcustomer_name
-# - supply_method_id
-# - district_name
-# - base_power
-# - division_name
-# - tbl_observe_id
-# - area_name
-# - prediction_type_id
-# - switching_flg
-# - facility_characteristic
-# - holiday_setting
-# - vacation_memo
-# - tbl_agency_id
-# - agency_name
-# - company_name
-# - pps_id
-# - claim_closing_date
-# - peak_shift_discount
-# - spare_power_transmission
-# - latitude
-# - longitude
-# - foreign_code_1
-# - foreign_code_2
-# - foreign_code_3
-# - fuel_cost_calc_month_flg
-# - auto_prediction
-# - manual_priority_from
-# - manual_priority_to
+:truncate: true

@@ -14,6 +14,9 @@ gem 'kaminari'
 gem 'ransack'
 gem 'record_with_operator'
 
+gem 'tod'
+gem 'rubyzip', '>= 1.0.0'
+
 gem 'faraday'
 
 # for legacy access

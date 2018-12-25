@@ -11,4 +11,10 @@
 #
 
 class TimeIndex < ApplicationRecord
+  class << self
+    def to_time_of_day(time_index)
+      time_index = (time_index.to_i - 1)
+      Tod::TimeOfDay.new(time_index / 2, (time_index % 2) * 30)
+    end
+  end
 end

@@ -36,4 +36,24 @@ class Facility < ApplicationRecord
     presence: true
   validates :city,
     presence: true
+
+  scope :active_at, ->(date){
+    where(["supply_start_date <= ?", date])
+    .where(["supply_end_date >= ? or supply_end_date is null", date])
+  }
+
+  scope :filter_company_id, ->(company_id){
+    eager_load(:consumer)
+    .where("consumers.company_id" => company_id)
+  }
+
+  scope :filter_district_id, ->(district_id){
+    where(district_id: district_id)
+  }
+
+  scope :get_active_facility, ->(company_id, district_id, date){
+    filter_company_id(company_id)
+    .filter_district_id(district_id)
+    .active_at(date)
+  }
 end

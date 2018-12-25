@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_21_053630) do
+ActiveRecord::Schema.define(version: 2018_12_22_195616) do
+
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "会社(PPS)", force: :cascade do |t|
     t.string "name", null: false, comment: "名前"
@@ -34,6 +55,7 @@ ActiveRecord::Schema.define(version: 2018_12_21_053630) do
     t.string "type", null: false, comment: "種別"
     t.string "login_code", limit: 64, null: false, comment: "ログインコード"
     t.string "password", limit: 64, null: false, comment: "パスワード"
+    t.string "passphrase", limit: 64, comment: "パスフレーズ"
     t.string "comment", comment: "備考"
     t.integer "created_by"
     t.integer "updated_by"
@@ -86,11 +108,32 @@ ActiveRecord::Schema.define(version: 2018_12_21_053630) do
     t.float "loss_rate_special_high_voltage", comment: "損失率(特別高圧)"
     t.float "loss_rate_high_voltage", comment: "損失率(高圧)"
     t.float "loss_rate_low_voltage", comment: "損失率(低圧)"
-    t.string "dlt_host", null: false, comment: "託送ダウンロードサーバーホスト名"
+    t.string "dlt_host", comment: "託送ダウンロード用ホスト名"
+    t.string "dlt_path", comment: "託送ダウンロードパス名"
     t.integer "created_by"
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "dlt_files", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "ダウンロードファイル", force: :cascade do |t|
+    t.bigint "setting_id", comment: "ダウンロード設定ID"
+    t.integer "state", default: 0, null: false, comment: "状態:(0:未取込,1:取込完了,2:処理中,3:一部取込(エラーあり))"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["setting_id"], name: "index_dlt_files_on_setting_id"
+  end
+
+  create_table "dlt_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "ダウンロード設定", force: :cascade do |t|
+    t.bigint "company_id", comment: "会社ID"
+    t.bigint "district_id", comment: "エリアID"
+    t.integer "state", default: 0, null: false, comment: "状態:(0:正常, 1:休止中)"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_dlt_settings_on_company_id"
+    t.index ["district_id"], name: "index_dlt_settings_on_district_id"
   end
 
   create_table "facilities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "施設", force: :cascade do |t|
@@ -141,15 +184,16 @@ ActiveRecord::Schema.define(version: 2018_12_21_053630) do
   end
 
   create_table "power_usage_preliminaries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "電力使用量", force: :cascade do |t|
-    t.bigint "facility_id", comment: "施設ID"
-    t.date "date", comment: "日付"
-    t.bigint "time_index_id", comment: "時間枠ID"
-    t.decimal "value", precision: 10, comment: "使用量(kwh)"
+    t.bigint "facility_id", null: false, comment: "施設ID"
+    t.date "date", null: false, comment: "日付"
+    t.bigint "time_index_id", null: false, comment: "時間枠ID"
+    t.decimal "value", precision: 10, scale: 4, comment: "使用量(kwh)"
     t.integer "created_by"
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["date"], name: "index_power_usage_preliminaries_on_date"
+    t.index ["facility_id", "date", "time_index_id"], name: "unique_index_for_import", unique: true
     t.index ["facility_id"], name: "index_power_usage_preliminaries_on_facility_id"
     t.index ["time_index_id"], name: "index_power_usage_preliminaries_on_time_index_id"
   end
@@ -182,4 +226,5 @@ ActiveRecord::Schema.define(version: 2018_12_21_053630) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
 end

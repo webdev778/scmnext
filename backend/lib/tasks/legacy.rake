@@ -21,6 +21,7 @@ namespace :legacy do
 
   def write_convert_config(class_name, fields)
     merge_yaml(converter_path.join("#{class_name.underscore}.yml")) do |config|
+      config[:truncate] ||= true
       config = config.merge({
         model_class: class_name,
       })
@@ -47,7 +48,9 @@ namespace :legacy do
   end
 
   def get_table_definition(table_name)
-    YAML.load_file(table_definition_path.join("#{table_name}.yml"))
+    path = table_definition_path.join("#{table_name}.yml")
+    raise "Can't find #{table_name} yml file." unless File.exists?(path)
+    YAML.load_file(path)
   end
 
   def table_object(table_name)
@@ -91,53 +94,57 @@ namespace :legacy do
     Rails.root.join("config/legacy_convert/converter")
   end
 
-
   desc "DB移行"
   task convert: :environment  do |task, args|
     legacy_con = legacy_connection
     my_con = my_connection
-    Dir.glob("#{converter_path}/*.yml") do |yaml_path|
+    Dir.glob("#{converter_path}/**/*.yml") do |yaml_path|
       config = YAML.load_file(yaml_path)
       next if config[:skip]
       puts config[:model_class]
-      table_obj = table_object(config[:from])
-      select_manager = Arel::SelectManager.new
-      select_manager = select_manager.from(table_obj)
-      select_manager = select_manager.project(config[:fields].delete_if{|k, v| v.empty?}.map{|k, v| Arel.sql(v).as(k)})
-      select_manager = select_manager.where(Arel.sql(config[:where])) unless config[:where].blank?
       model_class = config[:model_class].constantize
-      items = legacy_con.select_all(select_manager.to_sql).to_hash.map do |params|
-        model_class.new params
+      model_class.connection.execute("TRUNCATE #{model_class.table_name}") if config[:truncate]
+      if (config[:from])
+        table_obj = table_object(config[:from])
+        select_manager = Arel::SelectManager.new
+        select_manager = select_manager.from(table_obj)
+        if config[:joins]
+          config[:joins].each do |join|
+            join_table = table_object(join[:table])
+            join_type = case join[:type]
+            when "inner"
+              Arel::Nodes::InnerJoin
+            when "outer"
+              Arel::Nodes::OuterJoin
+            end
+            select_manager = select_manager.join(join_table, join_type).on(Arel.sql(join[:on]))
+          end
+        end
+        select_manager = select_manager.project(config[:fields].delete_if{|k, v| v.blank?}.map{|k, v| Arel.sql(v).as(k)})
+        select_manager = select_manager.where(Arel.sql(config[:where])) unless config[:where].blank?
+        items = legacy_con.select_all(select_manager.to_sql).to_hash.map do |params|
+          model_class.new params
+        end
+        model_class.import items
       end
-      model_class.import items
-    end
-  end
-
-  desc "DB移行"
-  task convert_old: :environment  do |task, args|
-    # Legacy::Converter.convert(table_name: "tbl_area_supply_value", where_cond: "time >= '2018-06-01' and time < '2018-07-01' and priority = 1") do |from, to|
-    #   to[:value] = from['value'] + from['interchange_value']
-    #   to[:date] = from['time'].to_date.to_s
-    #   to[:time_index_id] = ((from['time'].hour * 2) + 1) + (from['time'].min == 0 ? 0 : 1)
-    #   to
-    # end
-    # exit
-    Legacy::Converter.convert(table_name: "tbl_company")
-    Legacy::Converter.convert(table_name: "tbl_district", where_cond: "id < 10")
-    Legacy::Converter.convert(table_name: "tbl_contract_customer")
-    Legacy::Converter.convert(table_name: "tbl_facility")
-    Legacy::Converter.convert(table_name: "tbl_loss_rate_new")
-    # Legacy::Converter.convert(table_name: "tbl_voltage")
-
-    Legacy::Converter.convert(table_name: "tbl_actual_electrical_power", where_cond: "time >= '2018-06-01' and time < '2018-07-01'") do |from, to|
-      to[:date] = from['time'].to_date.to_s
-      to[:time_index_id] = ((from['time'].hour * 2) + 1) + (from['time'].min == 0 ? 0 : 1)
-      to
-    end
-    Legacy::Converter.convert(table_name: "tbl_actual_electrical_low_power", where_cond: "time >= '2018-06-01' and time < '2018-07-01'", truncate: false) do |from, to|
-       to[:date] = from['time'].to_date.to_s
-       to[:time_index_id] = ((from['time'].hour * 2) + 1) + (from['time'].min == 0 ? 0 : 1)
-       to
+      # その他データ登録
+      if config[:extra]
+        column_names = model_class.column_names
+        config[:extra].each do |extra_item|
+          model_instance = model_class.find_or_initialize_by(extra_item[:cond])
+          extra_item[:fields].each do |field_name, value|
+            if column_names.include?(field_name)
+              # カラム定義があれば値としてセット
+              model_instance[field_name] = value
+            else
+              # カラム定義がなければ添付ファイル扱い
+              path = Rails.root.join('config/legacy_convert', value)
+              model_instance.send(field_name).attach(io: File.open(path, 'r'), filename: path.basename)
+            end
+          end
+          model_instance.save
+        end
+      end
     end
   end
 
