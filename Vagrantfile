@@ -19,6 +19,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       run: "always"
     server.vm.provision :shell, path: "./vagrant/frontend.sh"
   end
+  config.vm.define "frontend_old", primary: false do |server|
+    server.vm.network "private_network", ip: "192.168.33.21"
+    server.vm.synced_folder "./frontend_old", "/home/vagrant/approot"
+    server.vm.provision :shell,
+      inline: "sudo -iu vagrant mkdir -p /home/vagrant/mount_point/node_modules"
+      server.vm.provision :shell,
+      inline: "mount --bind /home/vagrant/mount_point/node_modules /home/vagrant/approot/node_modules -o uid=1000,gid=1000",
+      run: "always"
+    server.vm.provision :shell, path: "./vagrant/frontend.sh"
+  end
   config.vm.define "backend" do |server|
     server.vm.network "private_network", ip: "192.168.33.22"
     server.vm.synced_folder "./backend", "/home/vagrant/approot"
