@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_22_195616) do
+ActiveRecord::Schema.define(version: 2018_12_27_075121) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -181,6 +181,21 @@ ActiveRecord::Schema.define(version: 2018_12_22_195616) do
     t.index ["district_id"], name: "index_power_supply_plans_on_district_id"
     t.index ["interchange_company_id"], name: "index_power_supply_plans_on_interchange_company_id"
     t.index ["time_index_id"], name: "index_power_supply_plans_on_time_index_id"
+  end
+
+  create_table "power_usage_fixeds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "電力使用量(確定値)", force: :cascade do |t|
+    t.bigint "facility_id", null: false, comment: "施設ID"
+    t.date "date", null: false, comment: "日付"
+    t.bigint "time_index_id", null: false, comment: "時間枠ID"
+    t.decimal "value", precision: 10, scale: 4, comment: "使用量(kwh)"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_power_usage_fixeds_on_date"
+    t.index ["facility_id", "date", "time_index_id"], name: "unique_index_for_import", unique: true
+    t.index ["facility_id"], name: "index_power_usage_fixeds_on_facility_id"
+    t.index ["time_index_id"], name: "index_power_usage_fixeds_on_time_index_id"
   end
 
   create_table "power_usage_preliminaries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "電力使用量", force: :cascade do |t|

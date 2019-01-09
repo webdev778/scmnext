@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: dlt_settings
+#
+#  id          :bigint(8)        not null, primary key
+#  company_id  :bigint(8)
+#  district_id :bigint(8)
+#  state       :integer          default(0), not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 class Dlt::Setting < ApplicationRecord
   belongs_to :company
   belongs_to :district
