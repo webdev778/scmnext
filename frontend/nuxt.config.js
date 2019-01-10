@@ -11,6 +11,20 @@ const changeLoaderOptions = loaders => {
 }
 
 module.exports = {
+  server: {
+    port: 8000, // デフォルト: 3000
+    host: '0.0.0.0', // デフォルト: localhost
+  },
+  watchers: {
+    chokidar: {
+      usePolling: true,
+      useFsEvents: false
+    },
+    webpack: {
+      aggregateTimeout: 300,
+      poll: 1000
+    }
+  },
   /*
   ** Headers of the page
   */
@@ -51,7 +65,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    
+
   ],
 
   /*
@@ -96,7 +110,7 @@ module.exports = {
         const vueLoader = config.module.rules.find(
           ({loader}) => loader === 'vue-loader')
         const { options: {loaders} } = vueLoader || { options: {} }
-        
+
         if (loaders) {
           for (const loader of Object.values(loaders)) {
             changeLoaderOptions(Array.isArray(loader) ? loader : [loader])

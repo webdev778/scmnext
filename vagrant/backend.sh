@@ -44,7 +44,7 @@ echo "mysql-server-5.7 mysql-server/root_password_again password ${MYSQL_PASSWOR
 apt-get -y install mysql-server libmysqlclient-dev
 sed -i -e 's/\(bind-address\s*= \).*/\10.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf
 systemctl restart mysql.service
-mysql -u root -p -e "grant all on *.* to root@'%' identified by 'system'"
+mysql -u root -p${MYSQL_PASSWORD} -e "grant all on *.* to root@'%' identified by 'system'"
 
 apt-get -y install build-essential
 apt-get -y install ruby ruby-dev

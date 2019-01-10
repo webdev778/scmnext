@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Dlt::SettingTest < ActiveSupport::TestCase
+class BalancingGroupTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

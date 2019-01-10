@@ -17,6 +17,8 @@
 #
 
 class District < ApplicationRecord
+  has_many :jepx_imbalance_betas, class_name: Jepx::ImbalanceBeta.to_s
+  has_many :spot_trade_area_data, class_name: Jepx::SpotTradeAreaDatum.to_s
   has_many :district_loss_rates
   has_many :facilities
 end

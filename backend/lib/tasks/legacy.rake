@@ -36,7 +36,7 @@ namespace :legacy do
   end
 
   def legacy_connection
-    Legacy::Converter.connection
+    Legacy.connection
   end
 
   def my_connection
