@@ -31,8 +31,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       server.vm.provision :shell, path: "./vagrant/frontend.sh"
     end
   end
-  config.vm.define "backend" do |serv
-    er|
+  config.vm.define "backend" do |server|
     server.vm.network "private_network", ip: "192.168.33.22"
     server.vm.synced_folder "./backend", "/home/vagrant/approot"
     server.vm.provision :shell, path: "./vagrant/backend.sh"
