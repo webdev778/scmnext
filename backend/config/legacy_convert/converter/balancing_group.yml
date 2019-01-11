@@ -1,16 +1,15 @@
 ---
 :skip: true
 :truncate: true
-:model_class: Dlt::Setting
-:extra:
-- :fields:
-    company_id: 3
-    district_id: 1
+:model_class: BalancingGroup
 :fields:
   id:
-  company_id:
+  code:
+  name:
   district_id:
-  state:
+  leader_company_id:
+  created_by:
+  updated_by:
   created_at:
   updated_at:
 :from: base_table_name

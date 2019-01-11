@@ -1,0 +1,16 @@
+---
+:skip: true
+:truncate: true
+:model_class: PowerUsageFixed
+:fields:
+  id:
+  facility_id:
+  date:
+  time_index_id:
+  value:
+  created_by:
+  updated_by:
+  created_at:
+  updated_at:
+:from: base_table_name
+:where: 0 = 0

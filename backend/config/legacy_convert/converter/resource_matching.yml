@@ -1,16 +1,15 @@
 ---
 :skip: true
 :truncate: true
-:model_class: Dlt::Setting
-:extra:
-- :fields:
-    company_id: 3
-    district_id: 1
+:model_class: ResourceMatching
 :fields:
   id:
   company_id:
-  district_id:
-  state:
+  code:
+  type:
+  name:
+  created_by:
+  updated_by:
   created_at:
   updated_at:
 :from: base_table_name

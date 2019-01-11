@@ -21,7 +21,7 @@
   :on: tbl_account.id = tbl_company.tbl_account_id
 :extra:
 - :cond:
-    company_id: 1
+    company_id: 3
   :fields:
     passphrase: 62466263
     pkcs12: certs/occto/power_optimizer.p12

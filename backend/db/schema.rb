@@ -343,8 +343,19 @@ ActiveRecord::Schema.define(version: 2019_01_09_093532) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "ユーザー", force: :cascade do |t|
-    t.string "name", comment: "名前"
-    t.string "password", comment: "パスワード"
+    t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
+    t.string "email", default: "", null: false, comment: "E-Mail"
+    t.string "encrypted_password", default: "", null: false, comment: "パスワード(暗号化済)"
+    t.string "reset_password_token", comment: "パスワードリセット時トークン"
+    t.datetime "reset_password_sent_at", comment: "パスワードリセット要求日時"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false, comment: "サインイン回数"
+    t.datetime "current_sign_in_at", comment: "現在サインイン日時"
+    t.datetime "last_sign_in_at", comment: "最終サインイン日時"
+    t.string "current_sign_in_ip", comment: "現在サインインIPアドレス"
+    t.string "last_sign_in_ip", comment: "最終サインインIPアドレス"
+    t.text "tokens"
     t.string "accesable_type"
     t.bigint "accesable_id"
     t.integer "created_by"
@@ -352,6 +363,9 @@ ActiveRecord::Schema.define(version: 2019_01_09_093532) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["accesable_type", "accesable_id"], name: "index_users_on_accesable_type_and_accesable_id"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
   create_table "voltage_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "電圧区分", force: :cascade do |t|
