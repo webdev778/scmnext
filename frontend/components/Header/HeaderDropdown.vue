@@ -29,7 +29,7 @@
       async logout() {
         try {
           this.$store.dispatch('logout').then(() => {
-            this.$router.push('/login')
+            this.$router.push('/session/new')
           })
         } catch (e) {
           this.formError = e.message

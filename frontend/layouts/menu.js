@@ -1,8 +1,22 @@
 export default {
   items: [
     {
+      title: true,
+      name: 'マスタ',
+      class: '',
+      wrapper: {
+        element: '',
+        attributes: {}
+      }
+    },
+    {
+      name: '施設',
+      url: '/facilities',
+      icon: 'icon-speedometer'
+    },
+    {
       name: 'Dashboard',
-      url: '/',
+      url: '/dashboard',
       icon: 'icon-speedometer',
       badge: {
         variant: 'primary',
