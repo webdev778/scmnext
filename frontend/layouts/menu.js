@@ -2,7 +2,7 @@ export default {
   items: [
     {
       title: true,
-      name: 'マスタ',
+      name: 'メインメニュー',
       class: '',
       wrapper: {
         element: '',
@@ -10,10 +10,64 @@ export default {
       }
     },
     {
-      name: '施設',
-      url: '/facilities',
-      icon: 'icon-speedometer'
+      name: 'データ管理',
+      icon: 'icon-puzzle',
+      url: '/base',
+      children: [
+        {
+          name: '託送データ',
+          url: '/dlt/files',
+        }
+      ]
     },
+    {
+      name: '電力使用量',
+      icon: 'icon-puzzle',
+      url: '/base',
+      children: [
+        {
+          name: '確定値',
+          url: '/powerusage/fixed',
+        },
+        {
+          name: '速報値',
+          url: '/powerusage/preliminaries',
+        }
+      ]
+    },
+    {
+      title: true,
+      name: '管理者用',
+      class: '',
+      wrapper: {
+        element: '',
+        attributes: {}
+      }
+    },
+    {
+      name: 'マスタ',
+      icon: 'icon-puzzle',
+      url: '/base',
+      children: [
+        {
+          name: 'ユーザー',
+          url: '/users',
+        },
+        {
+          name: 'エリア',
+          url: '/districts',
+        },
+        {
+          name: '契約顧客',
+          url: '/consumers',
+        },
+        {
+          name: '施設',
+          url: '/facilities',
+        }
+      ]
+    },
+
     {
       name: 'Dashboard',
       url: '/dashboard',

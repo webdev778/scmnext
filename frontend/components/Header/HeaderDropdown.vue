@@ -26,14 +26,8 @@
       return { itemsCount: 42 }
     },
     methods: {
-      async logout() {
-        try {
-          this.$store.dispatch('logout').then(() => {
-            this.$router.push('/session/new')
-          })
-        } catch (e) {
-          this.formError = e.message
-        }
+      logout() {
+        this.$store.dispatch('logout')
       }
     }
   }

@@ -29,11 +29,11 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'Nuxt CoreUI',
+    title: 'EnepaSCM NEXT',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Unofficial Nuxt + CoreUI project, free to use boilerplate for every need.' }
+      { hid: 'description', name: 'description', content: '電力ソリューション' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -65,8 +65,16 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-
+    '~/plugins/axios.js'
   ],
+
+  /*
+  ** Middleware used globally
+  */
+  router: {
+    middleware: ['auth']
+    //middleware: ['auth']
+  },
 
   /*
   ** Nuxt.js modules
@@ -81,9 +89,9 @@ module.exports = {
   ** Axios module configuration
   */
   axios: {
+    // See https://github.com/nuxt-community/axios-module#options
     host: "192.168.33.22",
     port: "3000"
-    // See https://github.com/nuxt-community/axios-module#options
   },
 
   /*

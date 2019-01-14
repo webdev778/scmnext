@@ -1,10 +1,25 @@
-export default function ({ $axios, redirect }) {
+export default function ({ store, $axios, redirect }) {
+  $axios.onRequest( config => {
+    if (store.getters.isLoggedIn){
+      config.headers['access-token'] = store.state.auth.accessToken
+      config.headers['client'] = store.state.auth.client
+      config.headers['uid'] = store.state.auth.uid
+    }
+    return config
+  })
   $axios.onResponse( response => {
-    console.log("plugin")
-    console.log(response)
+    let headers = response.headers
+    if (headers['access-token']){
+      let auth = {
+        accessToken: headers['access-token'],
+        client: headers['client'],
+        uid: headers['uid']
+      }
+      store.commit('setAuth', auth)
+    }
+    return response
   })
   $axios.onError( error => {
-    console.log("plugin")
-    console.log(error)
+    return error
   })
 }

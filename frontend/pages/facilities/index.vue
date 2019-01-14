@@ -79,7 +79,10 @@ export default {
       return value
       //return this.$moment(value).format('lll')
     }
-  }
+  },
+  mounted() {
+    this.currentPage = 1
+  },
 }
 </script>
 
