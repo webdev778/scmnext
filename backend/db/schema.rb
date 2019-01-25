@@ -273,25 +273,6 @@ ActiveRecord::Schema.define(version: 2019_01_09_093532) do
     t.index ["balancing_group_id"], name: "index_occto_plans_on_balancing_group_id"
   end
 
-  create_table "power_supply_plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "調達計画", force: :cascade do |t|
-    t.bigint "company_id", comment: "PPS ID"
-    t.bigint "district_id", comment: "エリアID"
-    t.date "date", comment: "日付"
-    t.integer "time_index_id", comment: "時間枠ID"
-    t.integer "supply_type", comment: "供給元区分"
-    t.integer "value", comment: "計画値"
-    t.bigint "interchange_company_id", comment: "融通先PPS ID"
-    t.integer "created_by"
-    t.integer "updated_by"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_power_supply_plans_on_company_id"
-    t.index ["date"], name: "index_power_supply_plans_on_date"
-    t.index ["district_id"], name: "index_power_supply_plans_on_district_id"
-    t.index ["interchange_company_id"], name: "index_power_supply_plans_on_interchange_company_id"
-    t.index ["time_index_id"], name: "index_power_supply_plans_on_time_index_id"
-  end
-
   create_table "power_usage_fixeds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "電力使用量(確定値)", force: :cascade do |t|
     t.bigint "facility_id", null: false, comment: "施設ID"
     t.date "date", null: false, comment: "日付"
@@ -307,7 +288,7 @@ ActiveRecord::Schema.define(version: 2019_01_09_093532) do
     t.index ["time_index_id"], name: "index_power_usage_fixeds_on_time_index_id"
   end
 
-  create_table "power_usage_preliminaries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "電力使用量", force: :cascade do |t|
+  create_table "power_usage_preliminaries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "電力使用量(速報値)", force: :cascade do |t|
     t.bigint "facility_id", null: false, comment: "施設ID"
     t.date "date", null: false, comment: "日付"
     t.bigint "time_index_id", null: false, comment: "時間枠ID"
@@ -343,8 +324,8 @@ ActiveRecord::Schema.define(version: 2019_01_09_093532) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "ユーザー", force: :cascade do |t|
-    t.string "provider", default: "email", null: false
-    t.string "uid", default: "", null: false
+    t.string "provider", default: "email", null: false, comment: "プロバイダ"
+    t.string "uid", default: "", null: false, comment: "UID"
     t.string "email", default: "", null: false, comment: "E-Mail"
     t.string "encrypted_password", default: "", null: false, comment: "パスワード(暗号化済)"
     t.string "reset_password_token", comment: "パスワードリセット時トークン"

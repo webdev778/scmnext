@@ -1,0 +1,102 @@
+環境構築について
+================
+
+用意するもの
+------------
+
+* SourceTree等のgit client
+* vagrant(2.1.1,2.2.3動作確認済)
+* virtualbox(5.2.12動作確認済)
+
+バージョン低いとvagrant up等で失敗する可能性が高いので新しいバージョンの方が望ましい。
+
+手順
+----
+
+### 仮想マシンの立ち上げ
+
+リポジトリをcloneする
+```
+mkdir enepa
+git clone optproject@optproject.git.backlog.jp:/ENEPASCM_2/SCMNEXT.git enepa
+cd enepa
+```
+
+vagrant upで環境構築を始める
+```
+vagrant up
+````
+
+この時点で仮想マシンが2つ作成される
+```puml
+frame "ホストマシン" {
+  frame "virtualbox" {
+    node "frontend\n(IP: 192.168.33.21)" {
+      [nuxt.js]
+    }
+    node "backend\n(IP: 192.168.33.22)" {
+      [rails app]
+      [mysql]
+    }
+    [nuxt.js] . [rails app] : port 3000
+    [rails app] . [mysql] : port 3306
+  }
+}
+```
+
+この状態で各仮想マシンには"vagrant ssh [Vagrantfileで定義した仮想マシン名]"でssh接続できるのでこれ以降各マシンでの作業はそれを使用してログインしている状態を前提とする
+```
+vagrant ssh frontend # frontend側にログインする場合
+vagrant ssh backend # backend側にログインする場合
+```
+
+### backend側でのDBの作成
+
+backendにssh接続し、以下の一連のコマンドを実行する
+
+プロジェクトディレクトリへ移動
+```
+cd ~/approot
+```
+
+DB及びテーブルの作成
+```
+rails db:setup
+```
+
+現行のエネパからデータ変換しつつ初期データの作成
+```
+rails legacy:convert
+```
+
+ここまでで、環境構築は完了
+
+### backend/frontendそれぞれでのサービスの立ち上げ
+
+backend
+```
+cd ~/approot
+rails server -b 0.0.0.0
+```
+
+frontend
+```
+cd ~/approot
+yarn run dev
+```
+
+なお、各vmにscreenコマンドが入っているので
+```
+screen
+```
+で立ち上げ後、以下で仮想コンソールを操作できる
+
+| キー           | 動作                 |
+|----------------|----------------------|
+| [ctrl] + T + C | 新規セッションの作成 |
+| [ctrl] + T + N | 次のセッションに移動 |
+| [ctrl] + T + P | 前のセッションに移動 |
+
+### ブラウザでの接続確認
+
+ブラウザから http://192.168.33.21:3000 にアクセスして接続できれば成功です。

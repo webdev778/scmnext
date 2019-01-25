@@ -64,7 +64,7 @@ module SimpleRestApi
   def params_for_save
     params
     .require(self.class.model_name.downcase)
-    .permit(self.class.model_class.column_names)
+    .permit(model_class.column_names)
   end
 
   def params_for_create

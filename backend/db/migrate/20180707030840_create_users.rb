@@ -2,8 +2,8 @@ class CreateUsers < ActiveRecord::Migration[5.2]
   def change
     create_table :users, comment: "ユーザー" do |t|
       ## Required
-      t.string :provider, :null => false, :default => "email",
-      t.string :uid, :null => false, :default => ""
+      t.string :provider, :null => false, :default => "email", comment: "プロバイダ"
+      t.string :uid, :null => false, :default => "", comment: "UID"
 
       ## Database authenticatable
       t.string :email,              null: false, default: "", comment: "E-Mail"
