@@ -34,6 +34,21 @@ export default {
           key: "code",
           type: "text",
           label: "コード"
+        },
+        {
+          key: "loss_rate_special_high_voltage",
+          type: "text",
+          label: "損失率(特別高圧)"
+        },
+        {
+          key: "loss_rate_high_voltage",
+          type: "text",
+          label: "損失率(高圧)"
+        },
+        {
+          key: "loss_rate_low_voltage",
+          type: "text",
+          label: "損失率(低圧)"
         }
       ]
     }

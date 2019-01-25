@@ -24,4 +24,4 @@
     company_id: 3
   :fields:
     passphrase: 62466263
-    pkcs12: certs/occto/power_optimizer.p12
+    #pkcs12: certs/occto/power_optimizer.p12
