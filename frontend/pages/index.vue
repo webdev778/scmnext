@@ -1,7 +1,7 @@
 <template lang="pug">
   div(v-if="$store.state.auth")
     .animated.fadeIn
-      | yay!
+      | test
 </template>
 
 <script>

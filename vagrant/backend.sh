@@ -52,6 +52,6 @@ apt-get -y install graphviz
 
 sudo -iu vagrant <<EOF
 cd ${MYHOME}/approot
-gem install bundle
+gem install bundler -v 1.17.2
 bundle install
 EOF
