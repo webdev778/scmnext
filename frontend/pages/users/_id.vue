@@ -1,7 +1,7 @@
 <template lang="pug">
   rest-form(
-    title="エリア詳細"
-    name="district"
+    title="ユーザー詳細"
+    name="user"
     v-bind:id="id"
     v-bind:fields="fields"
   )
@@ -21,19 +21,14 @@ export default {
           type: "hidden"
         },
         {
-          key: "name",
+          key: "uid",
           type: "text",
-          label: "名前"
+          label: "UID"
         },
         {
-          key: "company_id",
+          key: "email",
           type: "text",
-          label: "PPS ID"
-        },
-        {
-          key: "code",
-          type: "text",
-          label: "コード"
+          label: "EMAIL"
         }
       ]
     }

@@ -1,49 +1,19 @@
 <template lang="pug">
-  .wrapper
-    .animated.fadeIn
-      b-row(v-if="data")
-        b-col
-          b-card(
-            header-tag="header"
-            footer-tag="footer"
-            )
-            div(slot="header")
-              i.fa.fa-align-justify
-              strong 施設一覧
-            div
-              b-pagination(
-                size="md"
-                v-bind:per-page="data.pages.per_page"
-                v-bind:total-rows="data.pages.total_count"
-                v-model="currentPage")
-              b-table(
-                v-bind:items='data.records'
-                v-bind:fields='fields'
-                hover
-                striped
-                bordered
-                small
-                fixed
-                xs
-                )
-                template(slot="table-colgroup")
-                  col(style="width: 50px;")
-                  col
-                  col(style="width: 180px;")
-                  col(style="width: 180px;")
-                template(slot="name" slot-scope="data")
-                  router-link(v-bind:to="{ name : 'facilities-id', params : { id: data.item.id }}")
-                    | {{data.value}}
+  rest-index(
+    title="施設一覧"
+    name="facilities"
+    v-bind:fields="fields"
+    can-edit=true
+  )
 </template>
 
 <script>
-import Vue from 'vue'
+import RestIndex from '~/components/Rest/RestIndex.vue'
 
 export default {
+  components: { RestIndex },
   data() {
     return {
-      currentPage: null,
-      data: null,
       fields: [
         {
           key: "id",
@@ -65,24 +35,7 @@ export default {
         }
       ]
     }
-  },
-  watch: {
-    currentPage: async function (newPage) {
-      this.data = await this.$axios.$get(`/v1/facilities?page=${newPage}`)
-    }
-  },
-  mounted() {
-    this.currentPage = 1
-  },
-  methods: {
-    formatDatetime(value) {
-      return value
-      //return this.$moment(value).format('lll')
-    }
-  },
-  mounted() {
-    this.currentPage = 1
-  },
+  }
 }
 </script>
 

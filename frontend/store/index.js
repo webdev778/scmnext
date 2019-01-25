@@ -9,7 +9,9 @@ export const state = () => ({
 export const mutations = {
   setAuth (state, auth) {
     state.auth = auth
-    Cookie.set('auth', auth)
+    if (process.client){
+      Cookie.set('auth', auth)
+    }
   }
 }
 

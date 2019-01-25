@@ -3,6 +3,7 @@
     title="エリア一覧"
     name="districts"
     v-bind:fields="fields"
+    can-edit=true
   )
 </template>
 
