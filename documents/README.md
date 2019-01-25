@@ -15,8 +15,16 @@
 ### vagrantプラグインのインストール
 入っていなければ以下のコマンドでプラグインをインストールする
 ```
+vagrant plugin install vagrant-share
 vagrant plugin install vagrant-vbguest
 vagrant plugin install vagrant-disksize
+```
+
+なお、インストールされているプラグインは
+```
+vagrant plugin list
+```
+で確認可能
 
 ### 仮想マシンの立ち上げ
 
