@@ -336,6 +336,7 @@ ActiveRecord::Schema.define(version: 2019_01_09_093532) do
     t.datetime "last_sign_in_at", comment: "最終サインイン日時"
     t.string "current_sign_in_ip", comment: "現在サインインIPアドレス"
     t.string "last_sign_in_ip", comment: "最終サインインIPアドレス"
+    t.string "password_salt", comment: "パスワードソルト"
     t.text "tokens"
     t.string "accesable_type"
     t.bigint "accesable_id"

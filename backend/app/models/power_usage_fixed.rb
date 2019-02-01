@@ -37,7 +37,9 @@ class PowerUsageFixed < ApplicationRecord
     def import_from_dlt(company_id, district_id, date)
       [:high, :low].each do |voltage_class|
         Dlt::File.filter_by_filename(:fixed, voltage_class, date).each do |row|
-          import_xml(row)
+          row.process do |row|
+            import_xml(row)
+          end
         end
       end
     end

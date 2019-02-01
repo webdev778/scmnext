@@ -24,3 +24,4 @@
 
 /.yardoc
 /doc
+/config/legacy_convert/certs

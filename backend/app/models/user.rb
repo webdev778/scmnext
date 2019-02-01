@@ -20,6 +20,15 @@ class User < ApplicationRecord
     :registerable,
     :recoverable,
     :rememberable,
-    :validatable
+    :validatable,
+    :encryptable
   include DeviseTokenAuth::Concerns::User
+
+  attribute :skip_password_validation, :boolean
+
+  protected
+  def password_required?
+    return false if skip_password_validation
+    super
+  end
 end

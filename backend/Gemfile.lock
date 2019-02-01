@@ -70,6 +70,8 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
+    devise-encryptable (0.2.0)
+      devise (>= 2.1.0)
     devise_token_auth (1.0.0)
       devise (> 3.5.2, < 4.6)
       rails (>= 4.2.0, < 6)
@@ -239,6 +241,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   byebug
   composite_primary_keys
+  devise-encryptable
   devise_token_auth
   faraday
   kaminari

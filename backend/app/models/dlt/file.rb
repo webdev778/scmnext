@@ -22,12 +22,48 @@ class Dlt::File < ApplicationRecord
     state_complated_with_error: 3
   }
 
+  def filename
+    self.content_attachment.filename
+  end
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        methods: [
+          :filename
+        ]
+      }
+    end
+    super options
+  end
+
+  #
+  # ステータスを変更しつつ取込処理を実行
+  #
+  def process_convert
+    begin
+      self.state_in_progress!
+      yield(self)
+      self.state_complated!
+    rescue
+      self.state_complated_with_error!
+    end
+  end
+
   #
   # パラメータで指定された条件に応じてファイル名に基づいた検索を行う
   #
   scope :filter_by_filename, ->(data_type, voltage_class, date = nil, time_index = nil){
     eager_load([:content_blob, :content_attachment, :setting])
     .where(["active_storage_blobs.filename LIKE ?", make_filename_pattern(data_type, voltage_class, date, time_index)])
+  }
+
+  scope :includes_for_index, ->{
+    includes([:content_attachment, :content_blob])
+  }
+
+  scope :includes_for_show, ->{
+    includes([:content_attachment, :content_blob])
   }
 
   class << self
@@ -45,6 +81,7 @@ class Dlt::File < ApplicationRecord
           ).pluck("active_storage_blobs.filename")
         file_list.each do |no, list_item|
           next if downloaded_filenames.include?(list_item[:filename])
+          next if block_given? && !yield(list_item[:filename])
           puts "download:#{list_item[:filename]}"
           result = get_file(list_item[:filename], setting)
           # @todo ファイルサイズをここでチェックする

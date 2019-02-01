@@ -1,0 +1,36 @@
+<template lang="pug">
+  rest-form(
+    title="施設詳細"
+    name="company"
+    v-bind:id="id"
+    v-bind:fields="fields"
+  )
+</template>
+
+<script>
+import RestForm from '~/components/Rest/RestForm.vue'
+
+export default {
+  components: {RestForm},
+  data() {
+    return {
+      id: null,
+      fields: [
+        {
+          key: "id",
+          type: "hidden"
+        },
+        {
+          key: "name",
+          type: "text",
+          label: "名前"
+        }
+      ]
+    }
+  },
+  created() {
+    this.id = Number(this.$route.params.id)
+  }
+}
+</script>
+

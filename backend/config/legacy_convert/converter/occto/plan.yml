@@ -3,12 +3,12 @@
 :truncate: true
 :model_class: Occto::Plan
 :fields:
-  id:
-  balancing_group_id:
-  date:
-  created_by:
-  updated_by:
-  created_at:
-  updated_at:
+  id: 
+  balancing_group_id: 
+  date: 
+  created_by: 
+  updated_by: 
+  created_at: 
+  updated_at: 
 :from: base_table_name
 :where: 0 = 0

@@ -54,6 +54,14 @@ export default {
           url: '/users',
         },
         {
+          name: 'PPS',
+          url: '/companies',
+        },
+        {
+          name: 'BG',
+          url: '/balancing_groups',
+        },
+        {
           name: 'エリア',
           url: '/districts',
         },

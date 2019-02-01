@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get '/auth', to: 'user_sessions#show'
   scope :v1, defaults: { format: :json } do
     resources :users
+    resources :balancing_groups
+    resources :companies
     resources :districts
     resources :consumers
     resources :facilities
@@ -11,5 +13,7 @@ Rails.application.routes.draw do
     namespace :dlt do
       resources :files
     end
+
+    get "power_usages/:type", to: "power_usages#show", constraints: { type: /(fixed|preliminaly)/ }
   end
 end

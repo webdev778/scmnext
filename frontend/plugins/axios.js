@@ -15,6 +15,8 @@ export default function ({ store, $axios, redirect }) {
         client: headers['client'],
         uid: headers['uid']
       }
+      console.log('set token')
+      console.log(auth)
       store.commit('setAuth', auth)
     }
     return response

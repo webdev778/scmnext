@@ -1,8 +1,9 @@
 <template lang="pug">
   rest-index(
-    title="託送ダウンロードファイル一覧"
-    name="dlt/files"
+    title="BG一覧"
+    name="balancing_groups"
     v-bind:fields="fields"
+    can-edit=true
   )
 </template>
 
@@ -16,34 +17,27 @@ export default {
       fields: [
         {
           key: "id",
-          label: "ID",
-          width: 50
+          label: "ID"
         },
         {
-          key: "filename",
-          label: "ファイル名"
+          key: "name",
+          label: "名前"
         },
         {
-          key: "state",
-          label: "ステータス"
+          key: "district.name",
+          label: "エリア名"
         },
         {
           key: "created_at",
           label: "作成日時",
-          width: 180,
+          formatter: 'formatDatetime'
         },
         {
           key: "updated_at",
           label: "更新日時",
-          width: 180,
+          formatter: 'formatDatetime'
         }
       ]
-    }
-  },
-  methods: {
-    formatStatus(value) {
-      console.log(value)
-      return value
     }
   }
 }

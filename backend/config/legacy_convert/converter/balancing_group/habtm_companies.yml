@@ -1,7 +1,8 @@
 ---
+# company側からコンバートするので不要
 :skip: true
 :truncate: true
-:model_class: BalancingGroup::HABTM_Company
+:model_class: BalancingGroup::HABTM_Companies
 :fields:
   id:
   balancing_group_id:

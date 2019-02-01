@@ -7,13 +7,18 @@
             header-tag="header"
             footer-tag="footer"
             )
-            line-chart(v-bind:chart-data="chartdata")
+            b-form-input(
+              type="date"
+              v-model="targetDate"
+              v-on:change="fetchData()"
+            )
+            //- line-chart(v-bind:chart-data="chartData")
         b-col
           b-card(
             header-tag="header"
             footer-tag="footer"
             )
-            b-table(small v-bind:items="tabledata")
+            b-table(small v-bind:items="tableData")
 
 </template>
 
@@ -24,32 +29,38 @@ export default {
   components: {LineChart},
   data() {
     return {
-      tabledata: [],
-      chartdata: null
+      targetDate: null,
+      preliminary: {},
+      fixed: {}
     }
   },
-  mounted() {
-    this.init()
-  },
-  methods: {
-    async init() {
-      let preliminary = await this.$axios.$get('/v1/power_usages/preliminaly')
-      let fixed = await this.$axios.$get('/v1/power_usages/fixed')
+  computed: {
+    tableData() {
+      let result = []
+      if (this.preliminary.length == 0 && this.fixed.lenght == 0){
+        return null
+      }
+      for(let i=1; i<=48 ; i++){
+        let title = ("0" + Math.floor((i-1)/2)).substr(-2) + ":" + ((i-1)%2==0 ? "00" : "30")
+        result.push({
+          label: title,
+          preliminary: (this.preliminary[i] ? this.preliminary[i] : '-'),
+          fixed: (this.fixed[i] ? this.fixed[i] : '-'),
+        })
+      }
+      return result
+    },
+    chartData() {
       let chartLabels = []
       let preliminaryChart = []
       let fixedChart = []
       for(let i=1; i<=48 ; i++){
         let title = ("0" + Math.floor((i-1)/2)).substr(-2) + ":" + ((i-1)%2==0 ? "00" : "30")
-        this.tabledata.push({
-          label: title,
-          preliminary: (preliminary[i] ? preliminary[i] : '-'),
-          fixed: (fixed[i] ? fixed[i] : '-'),
-        })
         chartLabels.push(title)
-        preliminaryChart.push((preliminary[i] ? preliminary[i] : 0))
-        fixedChart.push((fixed[i] ? fixed[i] : 0))
+        preliminaryChart.push((this.preliminary[i] ? this.preliminary[i] : 0))
+        fixedChart.push((this.fixed[i] ? this.fixed[i] : 0))
       }
-      this.chartdata = {
+      return {
         labels: chartLabels,
         datasets: [
           {
@@ -66,7 +77,22 @@ export default {
           },
         ]
       }
-      console.log(this.chartdata)
+    }
+  },
+  created() {
+    this.fetchData()
+  },
+  methods: {
+    fetchData(){
+      this.$axios.$get('/v1/power_usages/preliminaly', {params: {date: this.targetDate}})
+      .then( (result)=>{
+        console.log(result)
+        this.preliminary = result
+      })
+      this.$axios.$get('/v1/power_usages/fixed', {params: {date: this.targetDate}})
+      .then( (result)=>{
+        this.fixed = result
+      })
     }
   }
 }

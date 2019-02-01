@@ -15,6 +15,7 @@ gem 'ransack'
 gem 'record_with_operator'
 
 gem 'devise_token_auth'
+gem 'devise-encryptable'
 
 gem 'tod'
 gem 'rubyzip', '>= 1.0.0'

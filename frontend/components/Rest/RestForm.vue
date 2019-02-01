@@ -33,7 +33,7 @@
                 )
                 b-form-select(
                   v-bind:id="field.key"
-                  v-bind:options="getValue(field.options)"
+                  v-bind:options="field.options"
                   v-model="formData[field.key]"
                 )
             template(v-else)

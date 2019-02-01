@@ -29,11 +29,9 @@
                     </SidebarNavDropdown>
                   </template>
                   <template v-else>
-                    <!-- eslint-disable -->
-                    <SidebarNavItem :classes="item.class">
+                    <SidebarNavItem :classes="item.class" v-bind:key="childL1.key">
                       <SidebarNavLink :name="childL1.name" :url="childL1.url" :icon="childL1.icon" :badge="childL1.badge" :variant="item.variant"/>
                     </SidebarNavItem>
-                    <!-- eslint-enable -->
                   </template>
                 </template>
               </SidebarNavDropdown>

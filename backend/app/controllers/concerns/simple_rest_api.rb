@@ -16,7 +16,7 @@ module SimpleRestApi
   end
 
   def index
-    @q = model_class.ransack(params[:q])
+    @q = model_class_with_includes(:index).ransack(params[:q])
     results = @q.result
     if params[:page].nil?
       render json: results
@@ -35,7 +35,7 @@ module SimpleRestApi
   end
 
   def show
-    instance = model_class.find(params[:id])
+    instance = model_class_with_includes(:show).find(params[:id])
     render json: instance
   end
 
@@ -47,14 +47,14 @@ module SimpleRestApi
   end
 
   def update
-    instance = model_class.find(params[:id])
+    instance = model_class_with_includes(:show).find(params[:id])
     execute_action_and_send_result(instance) do |instance|
       instance.update(params_for_update)
     end
   end
 
   def destroy
-    instance = model_class.find(params[:id])
+    instance = model_class_with_includes(:show).find(params[:id])
     execute_action_and_send_result(instance) do |instance|
       instance.destroy
     end
@@ -63,7 +63,7 @@ module SimpleRestApi
   protected
   def params_for_save
     params
-    .require(self.class.model_name.downcase)
+    .require(self.class.model_name.underscore)
     .permit(model_class.column_names)
   end
 
@@ -76,6 +76,18 @@ module SimpleRestApi
   end
 
   private
+  #
+  # 指定したアクションを検索するためのスコープがある場合はそれを使用してActiveRecordRelationを取得する
+  # (index[一覧用]/show[詳細用]のいずれかを想定)
+  # 対象となるmodelにincludes_for_[アクション名]という名前のスコープがあればそれを使用
+  #
+  # @param [String/Symbol] スコープの種別
+  #
+  def model_class_with_includes(action_type)
+    method_name = "includes_for_#{action_type}"
+    model_class.respond_to?(method_name) ? model_class.send(method_name) : model_class
+  end
+
   def execute_action_and_send_result(instance)
     if yield(instance)
       render json: { success: true }
