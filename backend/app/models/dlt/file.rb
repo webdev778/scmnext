@@ -19,7 +19,8 @@ class Dlt::File < ApplicationRecord
     state_untreated: 0,
     state_complated: 1,
     state_in_progress: 2,
-    state_complated_with_error: 3
+    state_complated_with_error: 3,
+    state_exception: 4
   }
 
   def filename
@@ -40,22 +41,22 @@ class Dlt::File < ApplicationRecord
   #
   # ステータスを変更しつつ取込処理を実行
   #
-  def process_convert
-    begin
-      self.state_in_progress!
-      yield(self)
-      self.state_complated!
-    rescue
-      self.state_complated_with_error!
-    end
+  def perform_document_read
+    self.state_in_progress!
+    zip_file = Zip::File.open_buffer(self.content.download)
+    doc = REXML::Document.new(zip_file.read(zip_file.entries.first.name))
+    result = yield(doc)
+    self.state_complated!
   end
 
   #
   # パラメータで指定された条件に応じてファイル名に基づいた検索を行う
   #
   scope :filter_by_filename, ->(data_type, voltage_class, date = nil, time_index = nil){
+    pattern = make_filename_pattern(data_type, voltage_class, date, time_index)
+    logger.debug(pattern)
     eager_load([:content_blob, :content_attachment, :setting])
-    .where(["active_storage_blobs.filename LIKE ?", make_filename_pattern(data_type, voltage_class, date, time_index)])
+    .where(["active_storage_blobs.filename LIKE ?", pattern])
   }
 
   scope :includes_for_index, ->{
@@ -92,38 +93,7 @@ class Dlt::File < ApplicationRecord
       end
     end
 
-    private
-    #
-    # ファイル一覧の取得
-    #
-    def get_file_list(setting)
-      result = setting.connection.get("#{setting.district.dlt_path}/FileListReceiver")
-      file_list = result.body
-        .gsub(/\n/, '')
-        .gsub(/.*<comment>(.*)<\/comment>.*/, '\1')
-        .split(",").reduce({}) do |map, line|
-          case line
-          when /(rfilename)([0-9]*):"(.*)"/
-            map[$2] ||= {}
-            map[$2][:filename] = $3
-          when /(rfilesize)([0-9]*):"(.*)"/
-            map[$2] ||= {}
-            map[$2][:size] = $3.to_i
-          else
-            puts line
-          end
-          map
-        end
-    end
-
-    #
-    # ファイルの取得
-    #
-    def get_file(filename, setting)
-      setting.connection.get("#{setting.district.dlt_path}/FileReceiver", {file: filename})
-    end
-
-    #
+        #
     # 指定された条件に応じてファイル名のパターンを設定する
     #
     # @param [symbol] data_type データ区分(:today 当日ファイル, :past 過去ファイル, :fixed 確定使用量)
@@ -160,6 +130,37 @@ class Dlt::File < ApplicationRecord
       else
         raise "invalid combination of parameter: data_type=#{data_type}, voltage_class=#{voltage_class}"
       end
+    end
+
+    private
+    #
+    # ファイル一覧の取得
+    #
+    def get_file_list(setting)
+      result = setting.connection.get("#{setting.district.dlt_path}/FileListReceiver")
+      file_list = result.body
+        .gsub(/\n/, '')
+        .gsub(/.*<comment>(.*)<\/comment>.*/, '\1')
+        .split(",").reduce({}) do |map, line|
+          case line
+          when /(rfilename)([0-9]*):"(.*)"/
+            map[$2] ||= {}
+            map[$2][:filename] = $3
+          when /(rfilesize)([0-9]*):"(.*)"/
+            map[$2] ||= {}
+            map[$2][:size] = $3.to_i
+          else
+            puts line
+          end
+          map
+        end
+    end
+
+    #
+    # ファイルの取得
+    #
+    def get_file(filename, setting)
+      setting.connection.get("#{setting.district.dlt_path}/FileReceiver", {file: filename})
     end
 
   end

@@ -31,4 +31,19 @@ class Dlt::Setting < ApplicationRecord
     )
     @con
   end
+
+  #
+  # 指定されたデータ区分、日付、時間枠(当日データのみ)に一致するダウンロードデータを高圧・低圧とも検索し
+  # 取込処理を実行する
+  #
+  def get_xml_object_and_process_high_and_low(data_type, date, time_index = nil)
+    [:high, :low].each do |voltage_class|
+      self.files.filter_by_filename(data_type, voltage_class, date, time_index).each do |row|
+        logger.debug(row.filename)
+        row.perform_document_read do |doc|
+          yield(doc, voltage_class)
+        end
+      end
+    end
+  end
 end

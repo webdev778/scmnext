@@ -8,17 +8,28 @@ namespace :dlt do
     end
   end
 
+  #
+  # テーブルへのインポート処理
+  #
   namespace :import do
+    def determine_target_date(default_date)
+      ENV['DATE'] ? ENV['DATE'].in_time_zone : default_date
+    end
+
     desc "当日データを速報値テーブルへ取込む"
     task today: :environment do |task, args|
+      target_date = determine_target_date(Date.today)
+      logger.debug("処理日:#{target_date}")
       (1..48).each do |i|
-        PowerUsagePreliminary.import_today_data(1, 1, Date.today, i)
+        PowerUsagePreliminary.import_today_data(1, 1, target_date, i)
       end
     end
 
     desc "過去データを速報値テーブルへ取込む"
     task past: :environment do |task, args|
-      PowerUsagePreliminary.import_past_data(1, 1, Date.today, i)
+      target_date = determine_target_date(Date.yesterday)
+      logger.debug("処理日:#{target_date}")
+      PowerUsagePreliminary.import_past_data(1, 1, target_date)
     end
 
     desc "確定使用量データを確定値テーブルへ取込む"
@@ -26,3 +37,4 @@ namespace :dlt do
       PowerUsageFixed.import_data(1, 1)
     end
   end
+end

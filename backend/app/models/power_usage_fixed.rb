@@ -30,65 +30,38 @@ class PowerUsageFixed < ApplicationRecord
 
   class << self
     def import_data(company_id, district_id, date = nil)
-      import_from_dlt(company_id, district_id, date)
-    end
-
-    private
-    def import_from_dlt(company_id, district_id, date)
-      [:high, :low].each do |voltage_class|
-        Dlt::File.filter_by_filename(:fixed, voltage_class, date).each do |row|
-          row.process do |row|
-            import_xml(row)
-          end
-        end
-      end
-    end
-
-    #
-    # 確定データの取り込みを行う
-    #
-    def import_xml(record)
-      logger.info("start dlt fixed data download filename=#{record.content.filename}")
+      setting = Dlt::Setting.find_by(company_id: company_id, district_id: district_id)
+      raise "設定情報が見つかりません。[company_id: #{company_id}, district_id: #{district_id}]" if setting.nil?
       supply_point_number_map = Facility
-        .filter_company_id(record.setting.company_id)
-        .filter_district_id(record.setting.district_id)
+        .filter_company_id(company_id)
+        .filter_district_id(district_id)
         .select(:supply_point_number, :id, :supply_start_date, :supply_end_date).inject({}) do |map, facility|
           map[facility.supply_point_number] = facility
           map
         end
-      zip_file = Zip::File.open_buffer(record.content.download)
-      doc = REXML::Document.new(zip_file.read(zip_file.entries.first.name))
-      import_data = []
-      supply_point_numbers_not_active = {}
-      doc.elements['SBD-MSG/JPMGRP/JPTRM/JPM00010'].elements.each do |node_facility|
-        supply_point_number = node_facility.elements['JP06400'].text
-        facility = supply_point_number_map[supply_point_number]
-        data_existance = node_facility.elements['JP06405'].text == '0'
-        unless data_existance
-          next
-        end
-        node_facility.elements['JPM00013'].elements.each do |node_by_day|
-          date = Time.strptime(node_by_day.elements['JP06423'].text, "%Y%m%d")
-          unless facility && facility.is_active_at?(date)
-            supply_point_numbers_not_active[supply_point_number] = facility
-            next
+
+      setting.get_xml_object_and_process_high_and_low(:fixed, date) do |doc, voltage_class|
+        jptrm = doc.elements['SBD-MSG/JPMGRP/JPTRM']
+        import_data = jptrm.elements['JPM00010'].to_a.map do |nodes_by_facility|
+          next if nodes_by_facility.elements['JP06405'].text != '0'
+          supply_point_number = nodes_by_facility.elements['JP06400'].text
+          facility = supply_point_number_map[supply_point_number]
+          nodes_by_facility.elements['JPM00013'].to_a.map do |nodes_by_day|
+            date = Time.strptime(nodes_by_day.elements['JP06423'].text, "%Y%m%d")
+            next if facility.nil? || !facility.is_active_at?(date)
+            nodes_by_day.elements['JPM00014'].to_a.map do |nodes_by_time|
+              {
+                date: date,
+                time_index_id: nodes_by_time.elements['JP06219'].text,
+                facility_id: facility.id,
+                value: nodes_by_time.elements['JP06424'].text
+              }
+            end
           end
-          node_by_day.elements['JPM00014'].each do |node_by_time|
-            time_index = node_by_time.elements['JP06219'].text
-            value = node_by_time.elements['JP06424'].text
-            import_data << {
-              date: date,
-              time_index_id: time_index,
-              facility_id: facility.id,
-              value: node_by_time.elements['JP06424'].text
-            }
-          end
-        end
+        end.flatten.compact
+        puts date
+        result = self.import import_data, {on_duplicate_key_update: [:date, :time_index_id, :facility_id]}
       end
-      self.import import_data, on_duplicate_key_update: [:date, :time_index_id, :facility_id]
-      logger.info("import count=#{import_data.count}.")
     end
-
   end
-
 end
