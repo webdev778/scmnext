@@ -8,9 +8,9 @@
               b-card-body
                 h1 ログイン
                 p.text-muted メールアドレスとパスワードを入力してサインインしてください。
-                .alert.alert-danger(v-if='errorMessages.length > 0')
+                .alert.alert-danger(v-if='loginErrors.length > 0')
                   ul
-                    li(v-for="(msg, index) in errorMessages") {{msg}}
+                    li(v-for="(msg, index) in loginErrors") {{msg}}
                 form
                   b-input-group.mb-3
                     b-input-group-prepend
@@ -35,9 +35,13 @@ export default {
   layout: 'clean',
   data() {
     return {
-      errorMessages: [],
       email: "",
       password: ""
+    }
+  },
+  computed: {
+    loginErrors() {
+      return this.$store.state.loginErrors
     }
   },
   methods: {

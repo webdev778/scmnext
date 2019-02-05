@@ -14,6 +14,6 @@ Rails.application.routes.draw do
       resources :files
     end
 
-    get "power_usages/:type", to: "power_usages#show", constraints: { type: /(fixed|preliminaly)/ }
+    get "power_usages/:type", to: "power_usages#show", constraints: { type: /(fixed|preliminary)/ }
   end
 end

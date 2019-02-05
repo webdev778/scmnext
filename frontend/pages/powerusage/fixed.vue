@@ -12,7 +12,7 @@
               v-model="targetDate"
               v-on:change="fetchData()"
             )
-            //- line-chart(v-bind:chart-data="chartData")
+            line-chart(v-bind:chart-data="chartData")
         b-col
           b-card(
             header-tag="header"
@@ -60,7 +60,7 @@ export default {
         preliminaryChart.push((this.preliminary[i] ? this.preliminary[i] : 0))
         fixedChart.push((this.fixed[i] ? this.fixed[i] : 0))
       }
-      return {
+      let result = {
         labels: chartLabels,
         datasets: [
           {
@@ -74,9 +74,11 @@ export default {
             data: fixedChart,
             backgroundColor: "#00ff00",
             fill: false
-          },
+          }
         ]
       }
+      console.log(result)
+      return result
     }
   },
   created() {
@@ -84,7 +86,7 @@ export default {
   },
   methods: {
     fetchData(){
-      this.$axios.$get('/v1/power_usages/preliminaly', {params: {date: this.targetDate}})
+      this.$axios.$get('/v1/power_usages/preliminary', {params: {date: this.targetDate}})
       .then( (result)=>{
         console.log(result)
         this.preliminary = result

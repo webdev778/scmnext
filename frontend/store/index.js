@@ -3,7 +3,8 @@ const cookieparser = process.server ? require('cookieparser') : undefined
 const Cookie = process.client ? require('js-cookie') : undefined
 
 export const state = () => ({
-  auth: null
+  auth: null,
+  loginErrors: []
 })
 
 export const mutations = {
@@ -12,6 +13,9 @@ export const mutations = {
     if (process.client){
       Cookie.set('auth', auth)
     }
+  },
+  setLoginErrors (state, errors) {
+    state.loginErrors = errors
   }
 }
 
@@ -35,16 +39,21 @@ export const actions = {
       }
     }
   },
-  async login( {}, { email, password }) {
-    let result = await this.$axios.post('/auth/sign_in', { email: email, password: password})
+  login( {commit}, { email, password }) {
+    this.$axios.post('/auth/sign_in', { email: email, password: password})
     .then(result=>{
-      this.$router.push('/')
-      return result
+      if (result && result.data) {
+        console.log("hoge")
+        this.$router.push('/')
+      } else if (result.response) {
+        console.log("hoge")
+        console.log(result.response.data)
+        commit('setLoginErrors', result.response.data.errors)
+      } else {
+        console.log(result)
+        commit('setLoginErrors', ["接続エラー"])
+      }
     })
-    .catch(error=>{
-      return error.response
-    })
-    return result
   },
   logout( {commit} ) {
     commit('setAuth', null)

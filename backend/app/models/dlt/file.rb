@@ -43,10 +43,19 @@ class Dlt::File < ApplicationRecord
   #
   def perform_document_read
     self.state_in_progress!
-    zip_file = Zip::File.open_buffer(self.content.download)
-    doc = REXML::Document.new(zip_file.read(zip_file.entries.first.name))
-    result = yield(doc)
-    self.state_complated!
+    begin
+      zip_file = Zip::File.open_buffer(self.content.download)
+      doc = REXML::Document.new(zip_file.read(zip_file.entries.first.name))
+      result = yield(doc)
+      if result.failed_instances.count > 0
+        self.state_complated_with_error!
+      else
+        self.state_complated!
+      end
+    rescue =>e
+      self.state_exception!
+      raise e
+    end
   end
 
   #

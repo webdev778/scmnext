@@ -41,14 +41,13 @@ class PowerUsagePreliminary < ApplicationRecord
 
       supply_point_number_map = Facility.get_active_facility(company_id, district_id, date).pluck(:supply_point_number, :id).to_h
 
-      setting.get_xml_object_and_process_high_and_low(:past, date) do |doc, voltage_class|
+      setting.get_xml_object_and_process_high_and_low(:today, date) do |doc, voltage_class|
         jptrm = doc.elements['SBD-MSG/JPMGRP/JPTRM']
         date =  Time.strptime(jptrm.elements['JP06116'].text, "%Y%m%d")
         time_index = jptrm.elements['JP06219'].text
-        import_data = jptrm.elements['JPM00010'].to_a.map do |key, nodes_by_facility|
+        import_data = element_to_arrray_and_filter_empty_node(jptrm.elements['JPM00010']).map do |nodes_by_facility|
           facility_node_to_import_data(nodes_by_facility, supply_point_number_map, voltage_class, date, time_index)
         end
-        logger.debug(import_data)
         result = self.import(import_data, on_duplicate_key_update: [:date, :time_index_id, :facility_id])
       end
     end
@@ -65,21 +64,12 @@ class PowerUsagePreliminary < ApplicationRecord
       setting.get_xml_object_and_process_high_and_low(:past, date) do |doc, voltage_class|
         jptrm = doc.elements['SBD-MSG/JPMGRP/JPTRM']
         date =  Time.strptime(jptrm.elements['JP06116'].text, "%Y%m%d")
-        import_data =  jptrm.elements['JPM00010'].to_a
-        .delete_if do |node|
-          # 空白が入るケースがあるので対処
-          node.is_a?(REXML::Text)
-        end.map do |nodes_by_times|
+        import_data =  element_to_arrray_and_filter_empty_node(jptrm.elements['JPM00010']).map do |nodes_by_times|
           time_index = nodes_by_times.elements['JP06219'].text
-          nodes_by_times.elements['JPM00011'].to_a
-          .delete_if do |node|
-            # 空白が入るケースがあるので対処
-            node.is_a?(REXML::Text)
-          end.map do |nodes_by_facility|
+          element_to_arrray_and_filter_empty_node(nodes_by_times.elements['JPM00011']).map do |nodes_by_facility|
             facility_node_to_import_data(nodes_by_facility, supply_point_number_map, voltage_class, date, time_index)
           end
         end.flatten
-        logger.debug(import_data)
         result = self.import(import_data, on_duplicate_key_update: [:date, :time_index_id, :facility_id])
       end
     end
@@ -104,6 +94,16 @@ class PowerUsagePreliminary < ApplicationRecord
         facility_id: supply_point_number_map[nodes_by_facility.elements['JP06400'].text],
         value: nodes_by_facility.elements['JP06122'].text == "0" ? nodes_by_facility.elements[value_tag].text : nil,
       }
+    end
+
+    #
+    # elementsを取ると空白のみのエレメントが入るので除去する
+    # @params Array REXMLのElementの配列
+    # @return フィルタ化された配列
+    def element_to_arrray_and_filter_empty_node(elements)
+      elements.to_a.delete_if do |node|
+        node.is_a?(REXML::Text)
+      end
     end
   end
 end

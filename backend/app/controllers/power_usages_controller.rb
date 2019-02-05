@@ -1,9 +1,10 @@
 class PowerUsagesController < ApplicationController
   def show
-    result = PowerUsagePreliminary
+    model_class = "power_usage_#{params[:type]}".camelize.constantize
+    result = model_class
       .eager_load({facility: :consumer})
       .where('consumers.company_id'=>1)
-      .where(date: '2018-12-25')
+      .where(date: params[:date])
       .total_by_time_index
     render json: result
   end
