@@ -1,12 +1,13 @@
 # == Schema Information
 #
-# Table name: balancing_groups
+# Table name: supply_points
 #
 #  id                :bigint(8)        not null, primary key
-#  code              :string(5)        not null
-#  name              :string(40)       not null
-#  district_id       :bigint(8)
-#  leader_company_id :bigint(8)
+#  number            :string(255)
+#  supply_start_date :date
+#  supply_end_date   :date
+#  facility_group_id :bigint(8)
+#  facility_id       :bigint(8)
 #  created_by        :integer
 #  updated_by        :integer
 #  created_at        :datetime         not null
@@ -15,7 +16,7 @@
 
 require 'test_helper'
 
-class BalancingGroupTest < ActiveSupport::TestCase
+class SupplyPointTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

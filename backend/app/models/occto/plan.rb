@@ -4,7 +4,6 @@
 #
 #  id                 :bigint(8)        not null, primary key
 #  balancing_group_id :bigint(8)
-#  district_id        :bigint(8)
 #  date               :date             not null
 #  created_by         :integer
 #  updated_by         :integer

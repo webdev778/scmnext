@@ -1,15 +1,14 @@
 ---
-# company側からコンバートするので不要
 :skip: true
 :truncate: true
 :model_class: BalancingGroup::HABTM_Companies
 :fields:
-  id:
-  balancing_group_id:
-  company_id:
-  created_by:
-  updated_by:
-  created_at:
-  updated_at:
+  id: 
+  balancing_group_id: 
+  company_id: 
+  created_by: 
+  updated_by: 
+  created_at: 
+  updated_at: 
 :from: base_table_name
 :where: 0 = 0

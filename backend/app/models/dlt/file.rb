@@ -23,41 +23,6 @@ class Dlt::File < ApplicationRecord
     state_exception: 4
   }
 
-  def filename
-    self.content_attachment.filename
-  end
-
-  def as_json(options = {})
-    if options.blank?
-      options = {
-        methods: [
-          :filename
-        ]
-      }
-    end
-    super options
-  end
-
-  #
-  # ステータスを変更しつつ取込処理を実行
-  #
-  def perform_document_read
-    self.state_in_progress!
-    begin
-      zip_file = Zip::File.open_buffer(self.content.download)
-      doc = REXML::Document.new(zip_file.read(zip_file.entries.first.name))
-      result = yield(doc)
-      if result.failed_instances.count > 0
-        self.state_complated_with_error!
-      else
-        self.state_complated!
-      end
-    rescue =>e
-      self.state_exception!
-      raise e
-    end
-  end
-
   #
   # パラメータで指定された条件に応じてファイル名に基づいた検索を行う
   #
@@ -76,6 +41,7 @@ class Dlt::File < ApplicationRecord
     includes([:content_attachment, :content_blob])
   }
 
+  # class methods
   class << self
     #
     # ダウンロードの実行
@@ -173,4 +139,40 @@ class Dlt::File < ApplicationRecord
     end
 
   end
+
+  def filename
+    self.content_attachment.filename
+  end
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        methods: [
+          :filename
+        ]
+      }
+    end
+    super options
+  end
+
+  #
+  # ステータスを変更しつつ取込処理を実行
+  #
+  def perform_document_read
+    self.state_in_progress!
+    begin
+      zip_file = Zip::File.open_buffer(self.content.download)
+      doc = REXML::Document.new(zip_file.read(zip_file.entries.first.name))
+      result = yield(doc)
+      if result.failed_instances.count > 0
+        self.state_complated_with_error!
+      else
+        self.state_complated!
+      end
+    rescue =>e
+      self.state_exception!
+      raise e
+    end
+  end
+
 end

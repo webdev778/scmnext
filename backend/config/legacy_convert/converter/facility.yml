@@ -4,11 +4,9 @@
   name: tbl_facility.facility_name
   code: tbl_facility.facility_number
   consumer_id: tbl_facility.tbl_contract_customer_id
-  supply_point_number: tbl_facility.supplying_point_number
   district_id: tbl_facility.tbl_district_id
   voltage_type_id: tbl_facility.tbl_voltage_id
-  supply_start_date: tbl_facility.supply_start_date
-  supply_end_date: tbl_facility.supply_end_date
+  contract_capacity: tbl_facility.consultation_power
   tel: tbl_facility.facility_tel
   fax: tbl_facility.facility_fax
   email: tbl_facility.facility_email
@@ -23,6 +21,7 @@
   updated_by: tbl_facility.modified_user_id
   created_at: tbl_facility.created
   updated_at: tbl_facility.modified
+  contract_id: 
 :from: tbl_facility
 :where: tbl_voltage_id < 99
 :model_class: Facility

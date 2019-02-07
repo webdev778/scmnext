@@ -1,0 +1,17 @@
+---
+:truncate: true
+:model_class: FacilityGroup
+:fields:
+  id: tbl_facility.id
+  name: tbl_facility.facility_name
+  company_id: tbl_facility.pps_id
+  district_id: tbl_facility.tbl_district_id
+  contract_id: tbl_facility.tbl_contract_id
+  voltage_type_id: tbl_facility.tbl_voltage_id
+  contract_capacity: tbl_facility.consultation_power
+  created_by: tbl_facility.created_user_id
+  updated_by: tbl_facility.modified_user_id
+  created_at: tbl_facility.created
+  updated_at: tbl_facility.modified
+:from: tbl_facility
+:where: tbl_voltage_id IN (1, 2, 99)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_09_093532) do
+ActiveRecord::Schema.define(version: 2019_02_07_085805) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -112,6 +112,21 @@ ActiveRecord::Schema.define(version: 2019_01_09_093532) do
     t.index ["company_id"], name: "index_consumers_on_company_id"
   end
 
+  create_table "contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "契約", force: :cascade do |t|
+    t.string "name", null: false, comment: "名称"
+    t.string "name_for_invoice", null: false, comment: "請求用名称"
+    t.bigint "voltage_type_id", comment: "電圧種別ID"
+    t.bigint "contract_item_group_id", comment: "契約アイテムグループID"
+    t.date "start_date", comment: "開始日"
+    t.date "end_date", comment: "終了日"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_item_group_id"], name: "index_contracts_on_contract_item_group_id"
+    t.index ["voltage_type_id"], name: "index_contracts_on_voltage_type_id"
+  end
+
   create_table "district_loss_rates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "エリア別損失率", force: :cascade do |t|
     t.bigint "district_id", comment: "エリアID"
     t.bigint "voltage_type_id", comment: "電圧種別ID"
@@ -164,11 +179,9 @@ ActiveRecord::Schema.define(version: 2019_01_09_093532) do
     t.string "name", comment: "名前"
     t.string "code", comment: "コード"
     t.bigint "consumer_id", comment: "需要家ID"
-    t.string "supply_point_number", comment: "供給地点特定番号"
     t.bigint "district_id", comment: "供給エリアID"
     t.bigint "voltage_type_id", comment: "電圧種別ID"
-    t.date "supply_start_date", comment: "供給開始日"
-    t.date "supply_end_date", comment: "供給終了日"
+    t.string "contract_capacity", comment: "契約容量"
     t.string "tel", comment: "TEL"
     t.string "fax", comment: "FAX"
     t.string "email", comment: "EMAIL"
@@ -186,6 +199,35 @@ ActiveRecord::Schema.define(version: 2019_01_09_093532) do
     t.index ["consumer_id"], name: "index_facilities_on_consumer_id"
     t.index ["district_id"], name: "index_facilities_on_district_id"
     t.index ["voltage_type_id"], name: "index_facilities_on_voltage_type_id"
+  end
+
+  create_table "facility_contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "施設契約", force: :cascade do |t|
+    t.bigint "facility_id", comment: "施設ID"
+    t.bigint "contract_id", comment: "契約ID"
+    t.date "start_date", comment: "開始日"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_id"], name: "index_facility_contracts_on_contract_id"
+    t.index ["facility_id"], name: "index_facility_contracts_on_facility_id"
+  end
+
+  create_table "facility_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "施設グループ", force: :cascade do |t|
+    t.string "name", null: false, comment: "名前"
+    t.bigint "company_id", comment: "PPS ID"
+    t.bigint "district_id", comment: "エリアID"
+    t.bigint "contract_id", comment: "契約ID"
+    t.bigint "voltage_type_id", comment: "電圧区分ID"
+    t.string "contract_capacity", comment: "契約容量"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_facility_groups_on_company_id"
+    t.index ["contract_id"], name: "index_facility_groups_on_contract_id"
+    t.index ["district_id"], name: "index_facility_groups_on_district_id"
+    t.index ["voltage_type_id"], name: "index_facility_groups_on_voltage_type_id"
   end
 
   create_table "jepx_imbalance_betas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "JEPXインバランスβ値", force: :cascade do |t|
@@ -313,6 +355,20 @@ ActiveRecord::Schema.define(version: 2019_01_09_093532) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_resources_on_company_id"
+  end
+
+  create_table "supply_points", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "供給地点", force: :cascade do |t|
+    t.string "number", comment: "供給地点特定番号"
+    t.date "supply_start_date", comment: "供給開始日"
+    t.date "supply_end_date", comment: "供給終了日"
+    t.bigint "facility_group_id", comment: "施設グループID"
+    t.bigint "facility_id", comment: "施設ID"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["facility_group_id"], name: "index_supply_points_on_facility_group_id"
+    t.index ["facility_id"], name: "index_supply_points_on_facility_id"
   end
 
   create_table "time_indices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "時間枠", force: :cascade do |t|

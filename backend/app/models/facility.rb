@@ -6,11 +6,9 @@
 #  name                  :string(255)
 #  code                  :string(255)
 #  consumer_id           :bigint(8)
-#  supply_point_number   :string(255)
+#  contract_id           :bigint(8)
 #  district_id           :bigint(8)
 #  voltage_type_id       :bigint(8)
-#  supply_start_date     :date
-#  supply_end_date       :date
 #  tel                   :string(255)
 #  fax                   :string(255)
 #  email                 :string(255)
@@ -28,20 +26,22 @@
 #
 
 class Facility < ApplicationRecord
+  has_one :supply_point
+  has_many :facility_contracts, ->{order(start_date: :desc)}
+  has_many :contracts, through: :facility_contracts
   belongs_to :district
   belongs_to :consumer
-  belongs_to :voltage_type, required: false
+  belongs_to :voltage_type
 
-  validates :name,
-    presence: true
-  validates :city,
-    presence: true
-  validates :supply_point_number,
-    presence: true
+  # validates :name,
+  #   presence: true
+  # validates :city,
+  #   presence: true
 
   scope :active_at, ->(date){
-    where(["supply_start_date <= ?", date])
-    .where(["supply_end_date is null or supply_end_date >= ?", date])
+    eager_load(:supply_point)
+    .where(["supply_point.supply_start_date <= ?", date])
+    .where(["supply_point.supply_end_date is null or supply_point.supply_end_date >= ?", date])
   }
 
   scope :filter_company_id, ->(company_id){
@@ -60,6 +60,6 @@ class Facility < ApplicationRecord
   }
 
   def is_active_at?( date )
-    self.supply_start_date <= date and (self.supply_end_date.nil? or self.supply_end_date >= date)
+    sels.supply_point.is_active_at?(date)
   end
 end

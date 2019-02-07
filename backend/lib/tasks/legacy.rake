@@ -57,8 +57,9 @@ namespace :legacy do
     YAML.load_file(path)
   end
 
-  def table_object(table_name)
+  def table_object(table_name, alias_name = nil)
     config = get_table_definition(table_name)
+    alias_name ||= table_name
     case config[:table_type]
     when :key_value
       key_table = Arel::Table.new(table_name)
@@ -86,9 +87,9 @@ namespace :legacy do
         column_table, Arel::Nodes::InnerJoin
       ).on(key_table[:id].eq(column_table[:row_id]))
       .group(key_table[:id])
-      .as(table_name)
+      .as(alias_name)
     when :simple
-      Arel::Table.new(table_name).as(table_name)
+      Arel::Table.new(table_name).as(alias_name)
     else
       raise "invalid table_type for #{table_name}"
     end
@@ -115,7 +116,7 @@ namespace :legacy do
       select_manager = select_manager.from(table_obj)
       if config[:joins]
         config[:joins].each do |join|
-          join_table = table_object(join[:table])
+          join_table = table_object(join[:table], join[:as])
           join_type = case join[:type]
           when "inner"
             Arel::Nodes::InnerJoin

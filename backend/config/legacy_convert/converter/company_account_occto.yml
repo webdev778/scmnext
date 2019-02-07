@@ -1,17 +1,17 @@
 ---
 :truncate: true
 :fields:
-  id:
+  id: 
   company_id: tbl_account.id
-  type:
+  type: 
   login_code: tbl_company.occto_userid
   password: tbl_company.occto_password
-  comment:
-  created_by:
-  updated_by:
-  created_at:
-  updated_at:
-  passphrase:
+  comment: 
+  created_by: 
+  updated_by: 
+  created_at: 
+  updated_at: 
+  passphrase: 
 :from: tbl_company
 :where: tbl_company.occto_userid IS NOT NULL AND tbl_company.occto_userid <> ''
 :model_class: CompanyAccountOccto

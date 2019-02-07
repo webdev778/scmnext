@@ -1,0 +1,14 @@
+---
+:truncate: true
+:model_class: FacilityContract
+:fields:
+  id:
+  facility_id: tbl_facility_id
+  contract_id: tbl_contract_id
+  start_date: contract_start_ymd
+  created_by: created_user_id
+  updated_by: modified_user_id
+  created_at: created
+  updated_at: modified
+:from: tbl_facility_relation_contract
+:where: 0 = 0
