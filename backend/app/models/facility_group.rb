@@ -21,20 +21,4 @@ class FacilityGroup < ApplicationRecord
   belongs_to :company
   belongs_to :district
   belongs_to :contract
-
-  class_attribute :low_voltage_conversion_map
-
-  class << self
-    #
-    # 会社、エリア、契約をキーにFacilityGroupのIDを返す変換用ハッシュを返す
-    #
-    def get_low_voltage_conversion_map
-      self.low_voltage_conversion_map ||= select(:id, :company_id, :district_id, :contract_id, :contract_capacity)
-      .where(voltage_type_id: 99)
-      .distinct
-      .map do |facility_group|
-        [[facility_group.company_id, facility_group.district_id, facility_group.contract_id, facility_group.contract_capacity], facility_group.id]
-      end.to_h
-    end
-  end
 end

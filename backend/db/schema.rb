@@ -316,7 +316,7 @@ ActiveRecord::Schema.define(version: 2019_02_07_085805) do
   end
 
   create_table "power_usage_fixeds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "電力使用量(確定値)", force: :cascade do |t|
-    t.bigint "facility_id", null: false, comment: "施設ID"
+    t.bigint "facility_group_id", null: false, comment: "施設グループID"
     t.date "date", null: false, comment: "日付"
     t.bigint "time_index_id", null: false, comment: "時間枠ID"
     t.decimal "value", precision: 10, scale: 4, comment: "使用量(kwh)"
@@ -325,13 +325,13 @@ ActiveRecord::Schema.define(version: 2019_02_07_085805) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["date"], name: "index_power_usage_fixeds_on_date"
-    t.index ["facility_id", "date", "time_index_id"], name: "unique_index_for_import", unique: true
-    t.index ["facility_id"], name: "index_power_usage_fixeds_on_facility_id"
+    t.index ["facility_group_id", "date", "time_index_id"], name: "unique_index_for_import", unique: true
+    t.index ["facility_group_id"], name: "index_power_usage_fixeds_on_facility_group_id"
     t.index ["time_index_id"], name: "index_power_usage_fixeds_on_time_index_id"
   end
 
   create_table "power_usage_preliminaries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "電力使用量(速報値)", force: :cascade do |t|
-    t.bigint "facility_id", null: false, comment: "施設ID"
+    t.bigint "facility_group_id", null: false, comment: "施設グループID"
     t.date "date", null: false, comment: "日付"
     t.bigint "time_index_id", null: false, comment: "時間枠ID"
     t.decimal "value", precision: 10, scale: 4, comment: "使用量(kwh)"
@@ -340,8 +340,8 @@ ActiveRecord::Schema.define(version: 2019_02_07_085805) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["date"], name: "index_power_usage_preliminaries_on_date"
-    t.index ["facility_id", "date", "time_index_id"], name: "unique_index_for_import", unique: true
-    t.index ["facility_id"], name: "index_power_usage_preliminaries_on_facility_id"
+    t.index ["facility_group_id", "date", "time_index_id"], name: "unique_index_for_import", unique: true
+    t.index ["facility_group_id"], name: "index_power_usage_preliminaries_on_facility_group_id"
     t.index ["time_index_id"], name: "index_power_usage_preliminaries_on_time_index_id"
   end
 
