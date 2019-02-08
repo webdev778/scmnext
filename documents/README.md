@@ -7,6 +7,9 @@
 * SourceTree等のgit client
 * vagrant(2.1.1,2.2.3動作確認済)
 * virtualbox(5.2.12動作確認済)
+* Visual Studio Code
+  * Markdown preview enhancedプラグインを入れること
+* graphviz
 
 バージョン低いとvagrant up等で失敗する可能性が高いので新しいバージョンの方が望ましい。
 
