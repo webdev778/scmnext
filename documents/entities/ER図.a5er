@@ -1,0 +1,1058 @@
+﻿# A5:ER FORMAT:12
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright (C)2007 m.matsubara
+# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+#  http://www.wind.sannet.ne.jp/m_matsu/developer/a5m2/
+
+[Manager]
+ProjectName=ENEPASCM-next
+Author=Optimizer
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=Main
+PageInfo="Main",2,"A3Landscape",$FFFFFF
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=2
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Migu 1M
+FontSize=6
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+RDBMSType=5
+RDBMSTypeName=MySQL
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+ShowTag=1
+ShowCommonAttributes=0
+
+[Relation]
+Entity1=facilities
+Entity2=facility_contracts
+RelationType1=1
+RelationType2=3
+Fields1=id
+Fields2=contract_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",5,244,500,1828,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20190208164540
+LineMode=5
+Bar1=24
+Bar2=50
+Bar3=183
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=contracts
+Entity2=facility_contracts
+RelationType1=2
+RelationType2=3
+Fields1=id
+Fields2=id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,631,4895,3200,R,R
+Dependence=1
+Caption=
+PName=
+LineMode=0
+Bar1=63
+Bar2=490
+Bar3=320
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=contracts
+Entity2=facility_groups
+RelationType1=1
+RelationType2=3
+Fields1=id
+Fields2=contract_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",6,432,994,3959,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20190208164505
+LineMode=6
+Bar1=43
+Bar2=99
+Bar3=396
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=facilities
+Entity2=supply_points
+RelationType1=1
+RelationType2=3
+Fields1=id
+Fields2=facility_group_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,244,4923,4735,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=24
+Bar2=492
+Bar3=474
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=facility_groups
+Entity2=supply_points
+RelationType1=2
+RelationType2=3
+Fields1=id
+Fields2=id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,565,4819,3800,R,R
+Dependence=1
+Caption=
+PName=
+LineMode=0
+Bar1=56
+Bar2=482
+Bar3=380
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=consumers
+Entity2=facilities
+RelationType1=2
+RelationType2=3
+Fields1=id
+Fields2=id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5955,4045,5963,R,R
+Dependence=1
+Caption=
+PName=
+LineMode=0
+Bar1=596
+Bar2=404
+Bar3=596
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=companies
+Entity2=consumers
+RelationType1=2
+RelationType2=3
+Fields1=id
+Fields2=id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,1161,8839,987,R,R
+Dependence=1
+Caption=
+PName=
+LineMode=0
+Bar1=116
+Bar2=884
+Bar3=99
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=companies
+Entity2=facility_groups
+RelationType1=2
+RelationType2=3
+Fields1=id
+Fields2=id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,3623,6377,4792,R,R
+Dependence=1
+Caption=
+PName=
+LineMode=0
+Bar1=362
+Bar2=638
+Bar3=479
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=occto_plan_by_companies
+Entity2=occto_plan_detail_values
+RelationType1=1
+RelationType2=3
+Fields1=id
+Fields2=plan_by_company_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",5,720,500,3827,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20190208163550
+LineMode=5
+Bar1=72
+Bar2=50
+Bar3=383
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=occto_plans
+Entity2=occto_plan_by_companies
+RelationType1=1
+RelationType2=3
+Fields1=id
+Fields2=plan_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",5,975,389,2206,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20190208163514
+LineMode=5
+Bar1=98
+Bar2=39
+Bar3=221
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=dlt_settings
+Entity2=dlt_files
+RelationType1=1
+RelationType2=3
+Fields1=id
+Fields2=setting_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",5,806,500,2211,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20190208163426
+LineMode=5
+Bar1=81
+Bar2=50
+Bar3=221
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=jepx_spot_trades
+Entity2=jepx_spot_trade_area_data
+RelationType1=1
+RelationType2=3
+Fields1=id
+Fields2=spot_trade_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",5,323,500,1691,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20190208163315
+LineMode=5
+Bar1=32
+Bar2=50
+Bar3=169
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=active_storage_attachments
+LName=active_storage_attachments
+Comment=
+TableOption=
+Page=MAIN
+Left=3600
+Top=2300
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="name","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="record_type","record_type","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="record_id","record_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="blob_id","blob_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=index_active_storage_attachments_uniqueness=2,record_type,record_id,name,blob_id
+Index=index_active_storage_attachments_on_blob_id=0,blob_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",3600,2300
+
+[Entity]
+PName=active_storage_blobs
+LName=active_storage_blobs
+Comment=
+TableOption=
+Page=MAIN
+Left=3300
+Top=2300
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="key","key","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="filename","filename","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="content_type","content_type","varchar(255)",,,"","",$FFFFFFFF,""
+Field="metadata","metadata","text",,,"","",$FFFFFFFF,""
+Field="byte_size","byte_size","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="checksum","checksum","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=index_active_storage_blobs_on_key=2,key
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",3300,2300
+
+[Entity]
+PName=ar_internal_metadata
+LName=ar_internal_metadata
+Comment=
+TableOption=
+Page=MAIN
+Left=3300
+Top=2600
+Field="key","key","varchar(255)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="value","value","varchar(255)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",3300,2600
+
+[Entity]
+PName=balancing_groups
+LName=バランシンググループ
+Comment=
+TableOption=
+Page=MAIN
+Left=100
+Top=100
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="コード","code","varchar(5)","NOT NULL",,"","",$FFFFFFFF,""
+Field="名前","name","varchar(40)","NOT NULL",,"","",$FFFFFFFF,""
+Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="リーダーPPS ID","leader_company_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=index_balancing_groups_on_district_id=0,district_id
+Index=index_balancing_groups_on_leader_company_id=0,leader_company_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",100,100,302,229
+
+[Entity]
+PName=balancing_groups_companies
+LName=バランシンググループPPS関連
+Comment=
+TableOption=
+Page=MAIN
+Left=500
+Top=100
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="バランシンググループID","balancing_group_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="PPS ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=index_balancing_groups_companies_on_balancing_group_id=0,balancing_group_id
+Index=index_balancing_groups_companies_on_company_id=0,company_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",500,100,302,196
+
+[Entity]
+PName=companies
+LName=会社(PPS)
+Comment=
+TableOption=
+Page=MAIN
+Left=1900
+Top=100
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="名前","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="コード","code","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="名前(カナ)","name_kana","varchar(255)",,,"","",$FFFFFFFF,""
+Field="郵便番号","postal_code","varchar(255)",,,"","",$FFFFFFFF,""
+Field="都道府県番号","pref_no","int(11)",,,"","",$FFFFFFFF,""
+Field="市区町村","city","varchar(255)",,,"","",$FFFFFFFF,""
+Field="住所","address","varchar(255)",,,"","",$FFFFFFFF,""
+Field="TEL","tel","varchar(255)",,,"","",$FFFFFFFF,""
+Field="FAX","fax","varchar(255)",,,"","",$FFFFFFFF,""
+Field="EMAIL","email","varchar(255)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",1900,100,300,381
+
+[Entity]
+PName=company_accounts
+LName=会社別アカウント
+Comment=
+TableOption=
+Page=MAIN
+Left=1400
+Top=100
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="会社ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="種別","type","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="ログインコード","login_code","varchar(64)","NOT NULL",,"","",$FFFFFFFF,""
+Field="パスワード","password","varchar(64)","NOT NULL",,"","",$FFFFFFFF,""
+Field="パスフレーズ","passphrase","varchar(64)",,,"","",$FFFFFFFF,""
+Field="備考","comment","varchar(255)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=index_company_accounts_on_company_id=0,company_id
+Index=index_company_accounts_on_id_and_type=0,id,type
+Index=index_company_accounts_on_type=0,type
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",1400,100,304,279
+
+[Entity]
+PName=consumers
+LName=需要家
+Comment=
+TableOption=
+Page=MAIN
+Left=2400
+Top=100
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="名前","name","varchar(255)",,,"","",$FFFFFFFF,""
+Field="コード","code","varchar(255)",,,"","",$FFFFFFFF,""
+Field="PPS ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="TEL","tel","varchar(255)",,,"","",$FFFFFFFF,""
+Field="FAX","fax","varchar(255)",,,"","",$FFFFFFFF,""
+Field="EMAIL","email","varchar(255)",,,"","",$FFFFFFFF,""
+Field="URL","url","varchar(255)",,,"","",$FFFFFFFF,""
+Field="郵便番号","postral_code","varchar(255)",,,"","",$FFFFFFFF,""
+Field="都道府県番号","pref_no","int(11)",,,"","",$FFFFFFFF,""
+Field="市区町村","city","varchar(255)",,,"","",$FFFFFFFF,""
+Field="住所","address","varchar(255)",,,"","",$FFFFFFFF,""
+Field="担当者","person_in_charge","varchar(255)",,,"","",$FFFFFFFF,""
+Field="担当者カナ","person_in_charge_kana","varchar(255)",,,"","",$FFFFFFFF,""
+Field="パスワード","password","varchar(255)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=index_consumers_on_company_id=0,company_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",2400,100,302,483
+
+[Entity]
+PName=contracts
+LName=契約
+Comment=
+TableOption=
+Page=MAIN
+Left=1900
+Top=1400
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="名称","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="請求用名称","name_for_invoice","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="電圧種別ID","voltage_type_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="契約アイテムグループID","contract_item_group_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="開始日","start_date","date",,,"","",$FFFFFFFF,""
+Field="終了日","end_date","date",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=index_contracts_on_voltage_type_id=0,voltage_type_id
+Index=index_contracts_on_contract_item_group_id=0,contract_item_group_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",1900,1400,295,279
+
+[Entity]
+PName=districts
+LName=供給エリア
+Comment=
+TableOption=
+Page=MAIN
+Left=900
+Top=100
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="名前","name","varchar(255)",,,"","",$FFFFFFFF,""
+Field="コード","code","varchar(255)",,,"","",$FFFFFFFF,""
+Field="損失率(特別高圧)","loss_rate_special_high_voltage","float",,,"","",$FFFFFFFF,""
+Field="損失率(高圧)","loss_rate_high_voltage","float",,,"","",$FFFFFFFF,""
+Field="損失率(低圧)","loss_rate_low_voltage","float",,,"","",$FFFFFFFF,""
+Field="託送ダウンロード用ホスト名","dlt_host","varchar(255)",,,"","",$FFFFFFFF,""
+Field="託送ダウンロードパス名","dlt_path","varchar(255)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",900,100,302,305
+
+[Entity]
+PName=district_loss_rates
+LName=エリア別損失率
+Comment=
+TableOption=
+Page=MAIN
+Left=2000
+Top=2100
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="電圧種別ID","voltage_type_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="損失率","rate","float",,,"","",$FFFFFFFF,""
+Field="適用開始日","application_start_date","date",,,"","",$FFFFFFFF,""
+Field="適用終了日","application_end_date","date",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=index_district_loss_rates_on_district_id=0,district_id
+Index=index_district_loss_rates_on_voltage_type_id=0,voltage_type_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",2000,2100,298,254
+
+[Entity]
+PName=dlt_files
+LName=ダウンロードファイル
+Comment=
+TableOption=
+Page=MAIN
+Left=900
+Top=2300
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="ダウンロード設定ID","setting_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="状態","state","int(11)","NOT NULL",,"0","(0:未取込,1:取込完了,2:処理中,3:一部取込(エラーあり))",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=index_dlt_files_on_setting_id=0,setting_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",900,2300,298,178
+
+[Entity]
+PName=dlt_settings
+LName=ダウンロード設定
+Comment=
+TableOption=
+Page=MAIN
+Left=900
+Top=2100
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="会社ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="状態","state","int(11)","NOT NULL",,"0","(0:正常, 1:休止中)",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=index_dlt_settings_on_company_id=0,company_id
+Index=index_dlt_settings_on_district_id=0,district_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",900,2100,298,152
+
+[Entity]
+PName=facilities
+LName=施設
+Comment=
+TableOption=
+Page=MAIN
+Left=2400
+Top=700
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="名前","name","varchar(255)",,,"","",$FFFFFFFF,""
+Field="コード","code","varchar(255)",,,"","",$FFFFFFFF,""
+Field="需要家ID","consumer_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="供給エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="電圧種別ID","voltage_type_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="契約容量","contract_capacity","varchar(255)",,,"","",$FFFFFFFF,""
+Field="TEL","tel","varchar(255)",,,"","",$FFFFFFFF,""
+Field="FAX","fax","varchar(255)",,,"","",$FFFFFFFF,""
+Field="EMAIL","email","varchar(255)",,,"","",$FFFFFFFF,""
+Field="URL","url","varchar(255)",,,"","",$FFFFFFFF,""
+Field="郵便番号","postral_code","varchar(255)",,,"","",$FFFFFFFF,""
+Field="都道府県番号","pref_no","int(11)",,,"","",$FFFFFFFF,""
+Field="市区町村","city","varchar(255)",,,"","",$FFFFFFFF,""
+Field="住所","address","varchar(255)",,,"","",$FFFFFFFF,""
+Field="担当者","person_in_charge","varchar(255)",,,"","",$FFFFFFFF,""
+Field="担当者カナ","person_in_charge_kana","varchar(255)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=index_facilities_on_consumer_id=0,consumer_id
+Index=index_facilities_on_district_id=0,district_id
+Index=index_facilities_on_voltage_type_id=0,voltage_type_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",2400,700,295,533
+
+[Entity]
+PName=facility_contracts
+LName=施設契約
+Comment=
+TableOption=
+Page=MAIN
+Left=2400
+Top=1400
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="施設ID","facility_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="契約ID","contract_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="開始日","start_date","date",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=index_facility_contracts_on_facility_id=0,facility_id
+Index=index_facility_contracts_on_contract_id=0,contract_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",2400,1400,298,203
+
+[Entity]
+PName=facility_groups
+LName=施設グループ
+Comment=
+TableOption=
+Page=MAIN
+Left=1400
+Top=700
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="名前","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="PPS ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="契約ID","contract_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="電圧区分ID","voltage_type_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="契約容量","contract_capacity","varchar(255)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=index_facility_groups_on_company_id=0,company_id
+Index=index_facility_groups_on_district_id=0,district_id
+Index=index_facility_groups_on_contract_id=0,contract_id
+Index=index_facility_groups_on_voltage_type_id=0,voltage_type_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",1400,700,300,279
+
+[Entity]
+PName=jepx_imbalance_betas
+LName=JEPXインバランスβ値
+Comment=
+TableOption=
+Page=MAIN
+Left=200
+Top=2500
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="年","year","int(11)","NOT NULL",,"","",$FFFFFFFF,""
+Field="月","month","smallint(6)","NOT NULL",,"","",$FFFFFFFF,""
+Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="値","value","decimal(5,2)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=unique_index_on_business=2,year,month,district_id
+Index=index_jepx_imbalance_betas_on_district_id=0,district_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",200,2500,501,229
+
+[Entity]
+PName=jepx_spot_trades
+LName=JEPXスポット市場取引結果
+Comment=
+TableOption=
+Page=MAIN
+Left=200
+Top=1600
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="年月日","date","date","NOT NULL",,"","",$FFFFFFFF,""
+Field="時間枠ID","time_index_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="売り入札量(kWh)","sell_bit_amount","decimal(14,0)",,,"","",$FFFFFFFF,""
+Field="買い入札量(kWh)","buy_bit_amount","decimal(14,0)",,,"","",$FFFFFFFF,""
+Field="約定総量(kWh)","execution_amount","decimal(14,0)",,,"","",$FFFFFFFF,""
+Field="システムプライス(円/kWh)","system_price","decimal(5,2)",,,"","",$FFFFFFFF,""
+Field="回避可能原価全国値(円/kWh)","avoidable_cost","decimal(5,2)",,,"","",$FFFFFFFF,""
+Field="スポット・時間前平均価格(円/kWh)","spot_avg_per_price","decimal(5,2)",,,"","",$FFFFFFFF,""
+Field="α上限値×スポット・時間前平均価格(円/kWh)","alpha_max_times_spot_avg_per_price","decimal(5,2)",,,"","",$FFFFFFFF,""
+Field="α下限値×スポット・時間前平均価格(円/kWh)","alpha_min_times_spot_avg_per_price","decimal(5,2)",,,"","",$FFFFFFFF,""
+Field="α速報値×スポット・時間前平均価格(円/kWh)","alpha_preliminary_times_spot_avg_per_price","decimal(5,2)",,,"","",$FFFFFFFF,""
+Field="α確報値×スポット・時間前平均価格(円/kWh)","alpha_fixed_times_spot_avg_per_price","decimal(5,2)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=unique_index_on_business=2,date,time_index_id
+Index=index_jepx_spot_trades_on_time_index_id=0,time_index_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",200,1600,503,432
+
+[Entity]
+PName=jepx_spot_trade_area_data
+LName=JEPXスポット市場取引結果エリア別情報
+Comment=
+TableOption=
+Page=MAIN
+Left=200
+Top=2100
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="JEPXスポット市場取引結果ID","spot_trade_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="エリアプライス(円/kWh)","area_price","decimal(5,2)",,,"","",$FFFFFFFF,""
+Field="回避可能原価(円/kWh)","avoidable_price","decimal(5,2)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=unique_index_on_business=2,spot_trade_id,district_id
+Index=index_jepx_spot_trade_area_data_on_spot_trade_id=0,spot_trade_id
+Index=index_jepx_spot_trade_area_data_on_district_id=0,district_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",200,2100,503,229
+
+[Entity]
+PName=occto_plans
+LName=広域需要調達計画(翌日)
+Comment=
+TableOption=
+Page=MAIN
+Left=500
+Top=500
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="BG ID","balancing_group_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="年月日","date","date","NOT NULL",,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=unique_index_on_business=2,balancing_group_id,date
+Index=index_occto_plans_on_balancing_group_id=0,balancing_group_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",500,500,399,178
+
+[Entity]
+PName=occto_plan_by_companies
+LName=広域需要調達計画(翌日)PPS別データ
+Comment=
+TableOption=
+Page=MAIN
+Left=500
+Top=800
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="広域需要調達計画(翌日)ID","plan_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="PPS ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=unique_index_on_business=2,plan_id,company_id
+Index=index_occto_plan_by_companies_on_plan_id=0,plan_id
+Index=index_occto_plan_by_companies_on_company_id=0,company_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",500,800,395,178
+
+[Entity]
+PName=occto_plan_detail_values
+LName=広域需要調達計画(翌日)詳細値データ
+Comment=
+TableOption=
+Page=MAIN
+Left=500
+Top=1100
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="データ種別","type","varchar(30)",,,"","",$FFFFFFFF,""
+Field="リソースID","resource_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="広域需要調達計画(翌日)PPS別データID","plan_by_company_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="数量(kWh)","value","decimal(14,0)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=unique_index_on_business=2,type,resource_id,plan_by_company_id
+Index=index_occto_plan_detail_values_on_resource_id=0,resource_id
+Index=index_occto_plan_detail_values_on_plan_by_company_id=0,plan_by_company_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",500,1100,399,229
+
+[Entity]
+PName=power_usage_fixeds
+LName=電力使用量(確定値)
+Comment=
+TableOption=
+Page=MAIN
+Left=1400
+Top=1500
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="施設グループID","facility_group_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="日付","date","date","NOT NULL",,"","",$FFFFFFFF,""
+Field="時間枠ID","time_index_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用量(kwh)","value","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=unique_index_for_import=2,facility_group_id,date,time_index_id
+Index=index_power_usage_fixeds_on_facility_group_id=0,facility_group_id
+Index=index_power_usage_fixeds_on_date=0,date
+Index=index_power_usage_fixeds_on_time_index_id=0,time_index_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",1400,1500,401,229
+
+[Entity]
+PName=power_usage_preliminaries
+LName=電力使用量(速報値)
+Comment=
+TableOption=
+Page=MAIN
+Left=1400
+Top=1800
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="施設グループID","facility_group_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="日付","date","date","NOT NULL",,"","",$FFFFFFFF,""
+Field="時間枠ID","time_index_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用量(kwh)","value","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=unique_index_for_import=2,facility_group_id,date,time_index_id
+Index=index_power_usage_preliminaries_on_facility_group_id=0,facility_group_id
+Index=index_power_usage_preliminaries_on_date=0,date
+Index=index_power_usage_preliminaries_on_time_index_id=0,time_index_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",1400,1800,401,229
+
+[Entity]
+PName=resources
+LName=リソース
+Comment=
+TableOption=
+Page=MAIN
+Left=2700
+Top=2500
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="会社ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="コード","code","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="種別","type","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="名称","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=index_resources_on_company_id=0,company_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",2700,2500,298,229
+
+[Entity]
+PName=schema_migrations
+LName=schema_migrations
+Comment=
+TableOption=
+Page=MAIN
+Left=3600
+Top=2600
+Field="version","version","varchar(255)","NOT NULL",0,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",3600,2600
+
+[Entity]
+PName=supply_points
+LName=供給地点
+Comment=
+TableOption=
+Page=MAIN
+Left=1900
+Top=700
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="供給地点特定番号","number","varchar(255)",,,"","",$FFFFFFFF,""
+Field="供給開始日","supply_start_date","date",,,"","",$FFFFFFFF,""
+Field="供給終了日","supply_end_date","date",,,"","",$FFFFFFFF,""
+Field="施設グループID","facility_group_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="施設ID","facility_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=index_supply_points_on_facility_group_id=0,facility_group_id
+Index=index_supply_points_on_facility_id=0,facility_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",1900,700,304,298
+
+[Entity]
+PName=time_indices
+LName=時間枠
+Comment=
+TableOption=
+Page=MAIN
+Left=2700
+Top=2200
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="時間","time","time",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",2700,2200,300,152
+
+[Entity]
+PName=users
+LName=ユーザー
+Comment=
+TableOption=
+Page=MAIN
+Left=100
+Top=500
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="プロバイダ","provider","varchar(255)","NOT NULL",,"\qemail\q","",$FFFFFFFF,""
+Field="UID","uid","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="E-Mail","email","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="パスワード(暗号化済)","encrypted_password","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="パスワードリセット時トークン","reset_password_token","varchar(255)",,,"","",$FFFFFFFF,""
+Field="パスワードリセット要求日時","reset_password_sent_at","datetime",,,"","",$FFFFFFFF,""
+Field="remember_created_at","remember_created_at","datetime",,,"","",$FFFFFFFF,""
+Field="サインイン回数","sign_in_count","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="現在サインイン日時","current_sign_in_at","datetime",,,"","",$FFFFFFFF,""
+Field="最終サインイン日時","last_sign_in_at","datetime",,,"","",$FFFFFFFF,""
+Field="現在サインインIPアドレス","current_sign_in_ip","varchar(255)",,,"","",$FFFFFFFF,""
+Field="最終サインインIPアドレス","last_sign_in_ip","varchar(255)",,,"","",$FFFFFFFF,""
+Field="パスワードソルト","password_salt","varchar(255)",,,"","",$FFFFFFFF,""
+Field="tokens","tokens","text",,,"","",$FFFFFFFF,""
+Field="accesable_type","accesable_type","varchar(255)",,,"","",$FFFFFFFF,""
+Field="accesable_id","accesable_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=index_users_on_email=2,email
+Index=index_users_on_uid_and_provider=2,uid,provider
+Index=index_users_on_reset_password_token=2,reset_password_token
+Index=index_users_on_accesable_type_and_accesable_id=0,accesable_type,accesable_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",100,500
+
+[Entity]
+PName=voltage_types
+LName=電圧区分
+Comment=
+TableOption=
+Page=MAIN
+Left=2700
+Top=1900
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="名前","name","varchar(255)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",2700,1900,300,152
+
+[Relation]
+Entity1=active_storage_blobs
+Entity2=active_storage_attachments
+RelationType1=1
+RelationType2=3
+Fields1=id
+Fields2=blob_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,500,9500,995,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=50
+Bar2=950
+Bar3=100
+TermPos1=R
+TermPos2=R
+
+[Shape]
+Page=Main
+Left=3199
+Top=2199
+Width=698
+Height=601
+ShapeType=Rectangle
+Text=
+FontName=Tahoma
+FontSize=9
+FontColor=$000000
+ImageFileName=
