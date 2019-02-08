@@ -81,7 +81,7 @@ module SimpleRestApi
   # (index[一覧用]/show[詳細用]のいずれかを想定)
   # 対象となるmodelにincludes_for_[アクション名]という名前のスコープがあればそれを使用
   #
-  # @param [String/Symbol] スコープの種別
+  # @param [String/Symbol] action_type スコープの種別
   #
   def model_class_with_includes(action_type)
     method_name = "includes_for_#{action_type}"

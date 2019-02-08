@@ -88,11 +88,11 @@ class PowerUsagePreliminary < ApplicationRecord
     # (当日・過去ファイルとも最小単位のフォーマットは同一なので兼用する)
     # 施設が見つからないor期間外の場合はnilを返す
     #
-    # @params Hash 施設ごとのxmlデータ
-    # @params Hash 供給地点特定番号変換テーブル(供給地点特定番号がkey/値がsupply_pointオブジェクト)
-    # @params Symbol 電圧区分(:high or :low)
-    # @params Date 日付
-    # @params Integer 時間枠ID
+    # @param [Hash] nodes_by_facility 施設ごとのxmlデータ
+    # @param [Hash] supply_point_number_map 供給地点特定番号変換テーブル(供給地点特定番号がkey/値がsupply_pointオブジェクト)
+    # @param [Symbol] voltage_class 電圧区分(:high or :low)
+    # @param [Date] date 日付
+    # @param [Integer] time_index 時間枠ID
     #
     def facility_node_to_import_data(nodes_by_facility, supply_point_number_map, voltage_class, date, time_index)
       supply_point_number = nodes_by_facility.elements['JP06400'].text
@@ -118,7 +118,8 @@ class PowerUsagePreliminary < ApplicationRecord
 
     #
     # elementsを取ると空白のみのエレメントが入るので除去する
-    # @params Array REXMLのElementの配列
+    #
+    # @param [Array] elements REXMLのElementの配列
     # @return フィルタ化された配列
     def element_to_arrray_and_filter_empty_node(elements)
       elements.to_a.delete_if do |node|

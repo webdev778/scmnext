@@ -29,9 +29,9 @@ class SupplyPoint < ApplicationRecord
     #
     # 指定された会社・エリアの供給地点番号情報を供給地点番号をkeyにしたhashで返す
     #
-    # @params Integer company_id 会社ID
-    # @params Integer distric_id エリアID
-    # @return Hash 供給地点番号をkey,supply_pointオブジェクトを値とするHash
+    # @param [Integer] company_id 会社ID
+    # @param [Integer] district_id エリアID
+    # @return [Hash] 供給地点番号をkey,supply_pointオブジェクトを値とするHash
     def get_map_filter_by_compay_id_and_district_id(company_id, district_id)
       eager_load(:facility_group)
       .where("facility_groups.company_id"=>company_id, "facility_groups.district_id"=>district_id)
