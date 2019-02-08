@@ -1,24 +1,6 @@
 ---
 :truncate: true
-:fields:
-  id: 
-  company_id: tbl_account.id
-  type: 
-  login_code: tbl_company.occto_userid
-  password: tbl_company.occto_password
-  comment: 
-  created_by: 
-  updated_by: 
-  created_at: 
-  updated_at: 
-  passphrase: 
-:from: tbl_company
-:where: tbl_company.occto_userid IS NOT NULL AND tbl_company.occto_userid <> ''
 :model_class: CompanyAccountOccto
-:joins:
-- :table: tbl_account
-  :type: inner
-  :on: tbl_account.id = tbl_company.tbl_account_id
 :extra:
 - :cond:
     company_id: 1
@@ -27,3 +9,22 @@
     password: eneop0125
     passphrase: 62466263
     pkcs12: certs/occto/power_optimizer.p12
+:sources:
+- :fields:
+    id: 
+    company_id: tbl_account.id
+    type: 
+    login_code: tbl_company.occto_userid
+    password: tbl_company.occto_password
+    passphrase: 
+    comment: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
+  :from: tbl_company
+  :where: tbl_company.occto_userid IS NOT NULL AND tbl_company.occto_userid <> ''
+  :joins:
+  - :table: tbl_account
+    :type: inner
+    :on: tbl_account.id = tbl_company.tbl_account_id

@@ -1,29 +1,28 @@
 ---
-:truncate: true
 :model_class: User
-:fields:
-  id: tbl_user.id
-  provider: "'email'"
-  uid: tbl_user.username
-  tokens: 
-  email: tbl_user.username
-  encrypted_password: tbl_user.password
-  reset_password_token: 
-  reset_password_sent_at: 
-  remember_created_at: 
-  sign_in_count: 
-  current_sign_in_at: 
-  last_sign_in_at: 
-  current_sign_in_ip: 
-  last_sign_in_ip: 
-  access_token: 
-  accesable_type: 
-  accesable_id: 
-  created_by: tbl_user.created_user_id
-  updated_by: tbl_user.modified_user_id
-  created_at: tbl_user.created
-  updated_at: tbl_user.modified
-  skip_password_validation: "'true'"
-  password_salt: 
-:from: tbl_user
-:where: 0 = 0
+:truncate: true
+:sources:
+- :fields:
+    id: tbl_user.id
+    provider: "'email'"
+    uid: tbl_user.username
+    email: tbl_user.username
+    encrypted_password: tbl_user.password
+    reset_password_token:
+    reset_password_sent_at:
+    remember_created_at:
+    sign_in_count:
+    current_sign_in_at:
+    last_sign_in_at:
+    current_sign_in_ip:
+    last_sign_in_ip:
+    password_salt:
+    tokens:
+    accesable_type:
+    accesable_id:
+    created_by: tbl_user.created_user_id
+    updated_by: tbl_user.modified_user_id
+    created_at: tbl_user.created
+    updated_at: tbl_user.modified
+  :from: tbl_user
+  :where: 0 = 0

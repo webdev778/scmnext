@@ -1,21 +1,22 @@
 ---
-:fields:
-  id: 
-  company_id: tbl_account.id
-  type: 
-  login_code: tbl_company.jepx_userid
-  password: tbl_company.jepx_password
-  comment: 
-  created_by: 
-  updated_by: 
-  created_at: 
-  updated_at: 
-  passphrase: 
-:from: tbl_company
-:where: tbl_company.jepx_userid IS NOT NULL AND tbl_company.jepx_userid <> ''
 :model_class: CompanyAccountJepx
-:joins:
-- :table: tbl_account
-  :type: inner
-  :on: tbl_account.id = tbl_company.tbl_account_id
 :truncate: true
+:sources:
+- :fields:
+    id: 
+    company_id: tbl_account.id
+    type: 
+    login_code: tbl_company.jepx_userid
+    password: tbl_company.jepx_password
+    passphrase: 
+    comment: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
+  :from: tbl_company
+  :where: tbl_company.jepx_userid IS NOT NULL AND tbl_company.jepx_userid <> ''
+  :joins:
+  - :table: tbl_account
+    :type: inner
+    :on: tbl_account.id = tbl_company.tbl_account_id

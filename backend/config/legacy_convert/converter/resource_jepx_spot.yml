@@ -1,16 +1,17 @@
 ---
 :skip: true
-:truncate: true
 :model_class: ResourceJepxSpot
-:fields:
-  id: 
-  company_id: 
-  code: 
-  type: 
-  name: 
-  created_by: 
-  updated_by: 
-  created_at: 
-  updated_at: 
-:from: base_table_name
-:where: 0 = 0
+:truncate: true
+:sources:
+- :fields:
+    id:
+    company_id:
+    code:
+    type:
+    name:
+    created_by:
+    updated_by:
+    created_at:
+    updated_at:
+  :from: base_table_name
+  :where: 0 = 0

@@ -1,12 +1,13 @@
 ---
-:fields:
-  id: id
-  name: voltage_name
-  created_by: created_user_id
-  updated_by: modified_user_id
-  created_at: created
-  updated_at: modified
-:from: tbl_voltage
-:where: 0 = 0
 :model_class: VoltageType
 :truncate: true
+:sources:
+- :fields:
+    id: id
+    name: voltage_name
+    created_by: created_user_id
+    updated_by: modified_user_id
+    created_at: created
+    updated_at: modified
+  :from: tbl_voltage
+  :where: 0 = 0

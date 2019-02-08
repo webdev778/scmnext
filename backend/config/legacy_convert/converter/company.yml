@@ -1,25 +1,26 @@
 ---
-:fields:
-  id: tbl_account.id
-  name: tbl_company.company_name
-  code: tbl_company.ene_company_code
-  name_kana: tbl_company.company_kana
-  postal_code: tbl_company.zip
-  pref_no: tbl_company.pref
-  city: tbl_company.city
-  address: tbl_company.address
-  tel: tbl_company.tel
-  fax: tbl_company.fax
-  email: tbl_company.email
-  created_by: tbl_company.created_user_id
-  updated_by: tbl_company.modified_user_id
-  created_at: tbl_company.created
-  updated_at: tbl_company.modified
-:from: tbl_company
-:joins:
-- :table: tbl_account
-  :type: inner
-  :on: tbl_account.id = tbl_company.tbl_account_id
 :model_class: Company
 :truncate: true
-:where: 0 = 0
+:sources:
+- :fields:
+    id: tbl_account.id
+    name: tbl_company.company_name
+    code: tbl_company.ene_company_code
+    name_kana: tbl_company.company_kana
+    postal_code: tbl_company.zip
+    pref_no: tbl_company.pref
+    city: tbl_company.city
+    address: tbl_company.address
+    tel: tbl_company.tel
+    fax: tbl_company.fax
+    email: tbl_company.email
+    created_by: tbl_company.created_user_id
+    updated_by: tbl_company.modified_user_id
+    created_at: tbl_company.created
+    updated_at: tbl_company.modified
+  :from: tbl_company
+  :where: 0 = 0
+  :joins:
+  - :table: tbl_account
+    :type: inner
+    :on: tbl_account.id = tbl_company.tbl_account_id

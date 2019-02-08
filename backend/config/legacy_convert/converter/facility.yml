@@ -1,28 +1,28 @@
 ---
-:fields:
-  id: tbl_facility.id
-  name: tbl_facility.facility_name
-  code: tbl_facility.facility_number
-  consumer_id: tbl_facility.tbl_contract_customer_id
-  district_id: tbl_facility.tbl_district_id
-  voltage_type_id: tbl_facility.tbl_voltage_id
-  contract_capacity: tbl_facility.consultation_power
-  tel: tbl_facility.facility_tel
-  fax: tbl_facility.facility_fax
-  email: tbl_facility.facility_email
-  url: tbl_facility.facility_url
-  postral_code: tbl_facility.facility_zip
-  pref_no: tbl_facility.facility_pref
-  city: tbl_facility.facility_city
-  address: tbl_facility.facility_address
-  person_in_charge: tbl_facility.facility_person_in_charge
-  person_in_charge_kana: tbl_facility.facility_person_in_charge_kana
-  created_by: tbl_facility.created_user_id
-  updated_by: tbl_facility.modified_user_id
-  created_at: tbl_facility.created
-  updated_at: tbl_facility.modified
-  contract_id: 
-:from: tbl_facility
-:where: tbl_voltage_id < 99
 :model_class: Facility
 :truncate: true
+:sources:
+- :fields:
+    id: tbl_facility.id
+    name: tbl_facility.facility_name
+    code: tbl_facility.facility_number
+    consumer_id: tbl_facility.tbl_contract_customer_id
+    district_id: tbl_facility.tbl_district_id
+    voltage_type_id: tbl_facility.tbl_voltage_id
+    contract_capacity: tbl_facility.consultation_power
+    tel: tbl_facility.facility_tel
+    fax: tbl_facility.facility_fax
+    email: tbl_facility.facility_email
+    url: tbl_facility.facility_url
+    postral_code: tbl_facility.facility_zip
+    pref_no: tbl_facility.facility_pref
+    city: tbl_facility.facility_city
+    address: tbl_facility.facility_address
+    person_in_charge: tbl_facility.facility_person_in_charge
+    person_in_charge_kana: tbl_facility.facility_person_in_charge_kana
+    created_by: tbl_facility.created_user_id
+    updated_by: tbl_facility.modified_user_id
+    created_at: tbl_facility.created
+    updated_at: tbl_facility.modified
+  :from: tbl_facility
+  :where: tbl_voltage_id < 99

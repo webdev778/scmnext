@@ -1,13 +1,14 @@
 ---
 :skip: true
-:fields:
-  id: ''
-  time: ''
-  created_by: ''
-  updated_by: ''
-  created_at: ''
-  updated_at: ''
-:from: base_table_name
-:where: 0 = 0
 :model_class: TimeIndex
 :truncate: true
+:sources:
+- :fields:
+    id: ''
+    time: ''
+    created_by: ''
+    updated_by: ''
+    created_at: ''
+    updated_at: ''
+  :from: base_table_name
+  :where: 0 = 0

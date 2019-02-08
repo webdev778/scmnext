@@ -2,15 +2,16 @@
 :skip: true
 :truncate: true
 :model_class: Jepx::SpotTradeAreaDatum
-:fields:
-  id: 
-  spot_trade_id: 
-  district_id: 
-  area_price: 
-  avoidable_price: 
-  created_by: 
-  updated_by: 
-  created_at: 
-  updated_at: 
-:from: base_table_name
-:where: 0 = 0
+:sources:
+- :fields:
+    id: 
+    spot_trade_id: 
+    district_id: 
+    area_price: 
+    avoidable_price: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
+  :from: base_table_name
+  :where: 0 = 0

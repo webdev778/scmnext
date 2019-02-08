@@ -2,15 +2,16 @@
 :skip: true
 :truncate: true
 :model_class: Occto::PlanDetailSupplyValue
-:fields:
-  id: 
-  type: 
-  resource_id: 
-  plan_by_company_id: 
-  value: 
-  created_by: 
-  updated_by: 
-  created_at: 
-  updated_at: 
-:from: base_table_name
-:where: 0 = 0
+:sources:
+- :fields:
+    id: 
+    type: 
+    resource_id: 
+    plan_by_company_id: 
+    value: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
+  :from: base_table_name
+  :where: 0 = 0

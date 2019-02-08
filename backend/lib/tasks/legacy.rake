@@ -29,12 +29,27 @@ namespace :legacy do
       config = config.merge({
         model_class: class_name,
       })
-      config[:fields] ||= {}
-      fields.each do |field_name|
-        config[:fields][field_name] ||= nil
+      # 旧の定義を変換する
+      if config[:fields].nil?
+        config[:sources] ||= [{}]
+        config[:sources].each do |source|
+          source[:fields] ||= {}
+          source[:fields] = fields.map do |field_name|
+            [field_name, source[:fields][field_name]]
+          end.to_h
+          source[:from] ||= nil
+          source[:where] ||= nil
+        end
+      else
+        config[:sources] ||= [{}]
+        config[:sources][0]
+        [:fields, :from, :where, :joins].each do |item_name|
+          unless config[item_name].nil?
+            config[:sources][0][item_name] = config[item_name]
+            config.delete(item_name)
+          end
+        end
       end
-      config[:from] ||= 'base_table_name'
-      config[:where] ||= '0 = 0'
       config
     end
   end
@@ -89,7 +104,7 @@ namespace :legacy do
       .group(key_table[:id])
       .as(alias_name)
     when :simple
-      Arel::Table.new(table_name).as(alias_name)
+      Arel::Table.new(table_name).alias(alias_name)
     else
       raise "invalid table_type for #{table_name}"
     end
@@ -110,34 +125,36 @@ namespace :legacy do
     puts config[:model_class]
     model_class = config[:model_class].constantize
     model_class.connection.execute("TRUNCATE #{model_class.table_name}") if config[:truncate]
-    if (config[:from])
-      table_obj = table_object(config[:from])
-      select_manager = Arel::SelectManager.new
-      select_manager = select_manager.from(table_obj)
-      if config[:joins]
-        config[:joins].each do |join|
-          join_table = table_object(join[:table], join[:as])
-          join_type = case join[:type]
-          when "inner"
-            Arel::Nodes::InnerJoin
-          when "outer"
-            Arel::Nodes::OuterJoin
+    if (config[:sources])
+      config[:sources].each do |source|
+        table_obj = table_object(source[:from])
+        select_manager = Arel::SelectManager.new
+        select_manager = select_manager.from(table_obj)
+        if source[:joins]
+          source[:joins].each do |join|
+            join_table = table_object(join[:table], join[:as])
+            join_type = case join[:type]
+            when "inner"
+              Arel::Nodes::InnerJoin
+            when "outer"
+              Arel::Nodes::OuterJoin
+            end
+            select_manager = select_manager.join(join_table, join_type).on(Arel.sql(join[:on]))
           end
-          select_manager = select_manager.join(join_table, join_type).on(Arel.sql(join[:on]))
         end
-      end
-      select_manager = select_manager.project(config[:fields].delete_if{|k, v| v.blank?}.map{|k, v| Arel.sql(v).as(k)})
-      select_manager = select_manager.where(Arel.sql(config[:where])) unless config[:where].blank?
-      items = legacy_con.select_all(select_manager.to_sql).to_hash.map do |params|
-        model_class.new params
-      end
-      if ENV['DEBUG']
-        puts "insert items"
-        p items
-      end
-      result = model_class.import items
-      if result.failed_instances.length > 0
-        binding.pry
+        select_manager = select_manager.project(source[:fields].delete_if{|k, v| v.blank?}.map{|k, v| Arel.sql(v).as(k)})
+        select_manager = select_manager.where(Arel.sql(source[:where])) unless source[:where].blank?
+        items = legacy_con.select_all(select_manager.to_sql).to_hash.map do |params|
+          model_class.new params
+        end
+        if ENV['DEBUG']
+          puts "insert items"
+          p items
+        end
+        result = model_class.import items
+        if result.failed_instances.length > 0
+          binding.pry
+        end
       end
     end
     # その他データ登録
@@ -184,38 +201,40 @@ namespace :legacy do
     end
   end
 
-  desc "新システムの変換定義の雛形を作成"
-  task make_convert_config: :environment do |task, args|
-    Rails.application.eager_load!
-    model_classes = ActiveRecord::Base.descendants.delete_if do |model_class|
-      ['ApplicationRecord', 'Legacy'].include?(model_class.to_s)
-    end
-    model_classes.each do |model_class|
-      write_convert_config(model_class.to_s, model_class.column_names)
-    end
-  end
-
-  desc "旧システムのテーブル定義情報を作成"
-  task make_definitions: :environment do |task, args|
-    connection = legacy_connection
-    all_legacy_tables = connection.tables
-    key_value_tables = connection.select_all("select table_name from tbl_sys_item_meta_data group by table_name").rows.flatten
-    key_value_tables_exist, key_value_tables_not_exist = connection.select_all("select table_name from tbl_sys_item_meta_data group by table_name")
-      .rows
-      .flatten
-      .partition do |table_name|
-        all_legacy_tables.delete(table_name) and all_legacy_tables.delete("#{table_name}_columns")
+  namespace :generate do
+    desc "新システムの変換定義の雛形を作成"
+    task converter: :environment do |task, args|
+      Rails.application.eager_load!
+      model_classes = ActiveRecord::Base.descendants.delete_if do |model_class|
+        ['ApplicationRecord', 'Legacy'].include?(model_class.to_s)
       end
-    # key/valueの定義を出力
-    key_value_tables_exist.each do |table_name|
-      fields = connection.select_all("select field from tbl_sys_item_meta_data where table_name = '#{table_name}'").rows.flatten
-      write_legacy_table_definition(table_name, :key_value, fields)
+      model_classes.each do |model_class|
+        write_convert_config(model_class.to_s, model_class.column_names)
+      end
     end
 
-    # 通常の定義を出力
-    all_legacy_tables.each do |table_name|
-      fields = connection.query("desc #{table_name}").map{|row| row[0]}
-      write_legacy_table_definition(table_name, :simple, fields)
+    desc "旧システムのテーブル定義情報を作成"
+    task legacy_tables: :environment do |task, args|
+      connection = legacy_connection
+      all_legacy_tables = connection.tables
+      key_value_tables = connection.select_all("select table_name from tbl_sys_item_meta_data group by table_name").rows.flatten
+      key_value_tables_exist, key_value_tables_not_exist = connection.select_all("select table_name from tbl_sys_item_meta_data group by table_name")
+        .rows
+        .flatten
+        .partition do |table_name|
+          all_legacy_tables.delete(table_name) and all_legacy_tables.delete("#{table_name}_columns")
+        end
+      # key/valueの定義を出力
+      key_value_tables_exist.each do |table_name|
+        fields = connection.select_all("select field from tbl_sys_item_meta_data where table_name = '#{table_name}'").rows.flatten
+        write_legacy_table_definition(table_name, :key_value, fields)
+      end
+
+      # 通常の定義を出力
+      all_legacy_tables.each do |table_name|
+        fields = connection.query("desc #{table_name}").map{|row| row[0]}
+        write_legacy_table_definition(table_name, :simple, fields)
+      end
     end
   end
 end

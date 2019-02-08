@@ -1,15 +1,16 @@
 ---
 :truncate: true
 :model_class: BalancingGroup
-:fields:
-  id: id
-  code: code
-  name: bg_name
-  district_id: tbl_district_id
-  leader_company_id: 
-  created_by: 
-  updated_by: 
-  created_at: 
-  updated_at: 
-:from: tbl_bg_new
-:where: 0 = 0
+:sources:
+- :fields:
+    id: id
+    code: code
+    name: bg_name
+    district_id: tbl_district_id
+    leader_company_id: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
+  :from: tbl_bg_new
+  :where: 0 = 0

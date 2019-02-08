@@ -1,19 +1,4 @@
 ---
-:fields:
-  id: tbl_district.id
-  name: tbl_district.district_name
-  code: tbl_district.district_code
-  dlt_host: 
-  dlt_path: 
-  loss_rate_special_high_voltage: tbl_district.special_high_voltage_loss_rate
-  loss_rate_high_voltage: tbl_district.high_voltage_loss_rate
-  loss_rate_low_voltage: tbl_district.low_voltage_loss_rate
-  created_by: tbl_district.created_user_id
-  updated_by: tbl_district.modified_user_id
-  created_at: tbl_district.created
-  updated_at: tbl_district.modified
-:from: tbl_district
-:where: tbl_district.id < 10
 :truncate: true
 :model_class: District
 :extra:
@@ -42,3 +27,19 @@
   :fields:
     dlt_host: https://nsc-www.network.kyuden.co.jp
     dlt_path: "/LNXWPWSS01I/App"
+:sources:
+- :fields:
+    id: tbl_district.id
+    name: tbl_district.district_name
+    code: tbl_district.district_code
+    loss_rate_special_high_voltage: tbl_district.special_high_voltage_loss_rate
+    loss_rate_high_voltage: tbl_district.high_voltage_loss_rate
+    loss_rate_low_voltage: tbl_district.low_voltage_loss_rate
+    dlt_host: 
+    dlt_path: 
+    created_by: tbl_district.created_user_id
+    updated_by: tbl_district.modified_user_id
+    created_at: tbl_district.created
+    updated_at: tbl_district.modified
+  :from: tbl_district
+  :where: tbl_district.id < 10

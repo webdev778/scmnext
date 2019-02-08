@@ -1,19 +1,19 @@
 ---
 :skip: true
-:fields:
-  id: ''
-  company_id_id: ''
-  type: ''
-  login_code: ''
-  password: ''
-  comment: ''
-  created_by: ''
-  updated_by: ''
-  created_at: ''
-  updated_at: ''
-  company_id: 
-  passphrase: 
-:from: base_table_name
-:where: 0 = 0
 :model_class: CompanyAccount
 :truncate: true
+:sources:
+- :fields:
+    id: ''
+    company_id: 
+    type: ''
+    login_code: ''
+    password: ''
+    passphrase: 
+    comment: ''
+    created_by: ''
+    updated_by: ''
+    created_at: ''
+    updated_at: ''
+  :from: base_table_name
+  :where: 0 = 0

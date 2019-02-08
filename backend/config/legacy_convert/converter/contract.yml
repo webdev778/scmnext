@@ -1,17 +1,18 @@
 ---
 :truncate: true
 :model_class: Contract
-:fields:
-  id: tbl_contract_new.id
-  name: tbl_contract_new.contract_name
-  name_for_invoice: tbl_contract_new.claim_contract_name
-  voltage_type_id: tbl_contract_new.tbl_voltage_id
-  contract_item_group_id: tbl_contract_new.tbl_contract_item_group_id
-  start_date: tbl_contract_new.contract_start_ymd
-  end_date: tbl_contract_new.contract_start_ymd
-  created_by: tbl_contract_new.created_user_id
-  updated_by: tbl_contract_new.modified_user_id
-  created_at: tbl_contract_new.created
-  updated_at: tbl_contract_new.modified
-:from: tbl_contract_new
-:where: 0 = 0
+:sources:
+- :fields:
+    id: tbl_contract_new.id
+    name: tbl_contract_new.contract_name
+    name_for_invoice: tbl_contract_new.claim_contract_name
+    voltage_type_id: tbl_contract_new.tbl_voltage_id
+    contract_item_group_id: tbl_contract_new.tbl_contract_item_group_id
+    start_date: tbl_contract_new.contract_start_ymd
+    end_date: tbl_contract_new.contract_start_ymd
+    created_by: tbl_contract_new.created_user_id
+    updated_by: tbl_contract_new.modified_user_id
+    created_at: tbl_contract_new.created
+    updated_at: tbl_contract_new.modified
+  :from: tbl_contract_new
+  :where: 0 = 0
