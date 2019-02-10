@@ -2,16 +2,18 @@
 #
 # Table name: supply_points
 #
-#  id                :bigint(8)        not null, primary key
-#  number            :string(255)
-#  supply_start_date :date
-#  supply_end_date   :date
-#  facility_group_id :bigint(8)
-#  facility_id       :bigint(8)
-#  created_by        :integer
-#  updated_by        :integer
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
+#  id                 :bigint(8)        not null, primary key
+#  number             :string(255)
+#  supply_start_date  :date
+#  supply_end_date    :date
+#  supply_method_type :integer          not null
+#  base_power         :integer
+#  facility_group_id  :bigint(8)
+#  facility_id        :bigint(8)
+#  created_by         :integer
+#  updated_by         :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
 #
 
 class SupplyPoint < ApplicationRecord

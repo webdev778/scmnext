@@ -2,15 +2,15 @@
 #
 # Table name: power_usage_preliminaries
 #
-#  id            :bigint(8)        not null, primary key
-#  facility_id   :bigint(8)        not null
-#  date          :date             not null
-#  time_index_id :bigint(8)        not null
-#  value         :decimal(10, 4)
-#  created_by    :integer
-#  updated_by    :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id                :bigint(8)        not null, primary key
+#  facility_group_id :bigint(8)        not null
+#  date              :date             not null
+#  time_index_id     :bigint(8)        not null
+#  value             :decimal(10, 4)
+#  created_by        :integer
+#  updated_by        :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
 
 class PowerUsagePreliminary < ApplicationRecord

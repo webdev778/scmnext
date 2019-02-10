@@ -3,7 +3,7 @@
 # Table name: facility_groups
 #
 #  id                :bigint(8)        not null, primary key
-#  name              :string(40)       not null
+#  name              :string(255)      not null
 #  company_id        :bigint(8)
 #  district_id       :bigint(8)
 #  contract_id       :bigint(8)
