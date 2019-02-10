@@ -162,7 +162,7 @@ class Dlt::File < ApplicationRecord
     self.state_in_progress!
     begin
       zip_file = Zip::File.open_buffer(self.content.download)
-      doc = REXML::Document.new(zip_file.read(zip_file.entries.first.name))
+      doc = REXML::Document.new(zip_file.read(zip_file.entries.first.name), ignore_whitespace_nodes: :all)
       result = yield(doc)
       if result.failed_instances.count > 0
         self.state_complated_with_error!

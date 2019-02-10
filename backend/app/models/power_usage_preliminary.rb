@@ -21,13 +21,13 @@ class PowerUsagePreliminary < ApplicationRecord
   #validates_associated :facility
 
   scope :total_by_time_index, ->{
-    eager_load(:facility)
+    eager_load(:facility_group)
     .group(:time_index_id)
     .sum("value")
   }
 
   scope :total, ->{
-    eager_load(:facility)
+    eager_load(:facility_group)
     .sum("value")
   }
 
@@ -43,8 +43,8 @@ class PowerUsagePreliminary < ApplicationRecord
         jptrm = doc.elements['SBD-MSG/JPMGRP/JPTRM']
         date =  Time.strptime(jptrm.elements['JP06116'].text, "%Y%m%d")
         time_index = jptrm.elements['JP06219'].text
-        import_data = element_to_arrray_and_filter_empty_node(jptrm.elements['JPM00010']).map do |nodes_by_facility|
-          facility_node_to_import_data(nodes_by_facility, supply_point_number_map, voltage_class, date, time_index)
+        import_data = jptrm.elements['JPM00010'].to_a.map do |nodes_by_facility|
+          facility_node_to_import_data(nodes_by_facility, supply_point_number_map, voltage_class, date, time_index, setting)
         end
         import_data = import_data.flatten.compact.group_by do |item|
           [item[:date], item[:time_index_id], item[:facility_group_id]]
@@ -66,10 +66,10 @@ class PowerUsagePreliminary < ApplicationRecord
       setting.get_xml_object_and_process_high_and_low(:past, date) do |doc, voltage_class|
         jptrm = doc.elements['SBD-MSG/JPMGRP/JPTRM']
         date =  Time.strptime(jptrm.elements['JP06116'].text, "%Y%m%d")
-        import_data =  element_to_arrray_and_filter_empty_node(jptrm.elements['JPM00010']).map do |nodes_by_times|
+        import_data =  jptrm.elements['JPM00010'].to_a.map do |nodes_by_times|
           time_index = nodes_by_times.elements['JP06219'].text
-          element_to_arrray_and_filter_empty_node(nodes_by_times.elements['JPM00011']).map do |nodes_by_facility|
-            facility_node_to_import_data(nodes_by_facility, supply_point_number_map, voltage_class, date, time_index)
+          nodes_by_times.elements['JPM00011'].to_a.map do |nodes_by_facility|
+            facility_node_to_import_data(nodes_by_facility, supply_point_number_map, voltage_class, date, time_index, setting.district.is_partial_included)
           end
         end
         import_data = import_data.flatten.compact.group_by do |item|
@@ -77,10 +77,9 @@ class PowerUsagePreliminary < ApplicationRecord
         end.map do |k, values|
           {date: k[0], time_index_id: k[1], facility_group_id: k[2], value: values.sum{|v| v[:value].nil? ? 0 : BigDecimal(v[:value])}}
         end
-        result = self.import(import_data, on_duplicate_key_update: [:date, :time_index_id, :facility_group_id])
+        result = self.import(import_data, on_duplicate_key_update: [:value])
       end
     end
-
 
     private
     #
@@ -94,7 +93,7 @@ class PowerUsagePreliminary < ApplicationRecord
     # @param [Date] date 日付
     # @param [Integer] time_index 時間枠ID
     #
-    def facility_node_to_import_data(nodes_by_facility, supply_point_number_map, voltage_class, date, time_index)
+    def facility_node_to_import_data(nodes_by_facility, supply_point_number_map, voltage_class, date, time_index, setting)
       supply_point_number = nodes_by_facility.elements['JP06400'].text
       supply_point = supply_point_number_map[supply_point_number]
       if supply_point.nil?
@@ -108,23 +107,20 @@ class PowerUsagePreliminary < ApplicationRecord
         return nil
       end
       value_tag = case voltage_class when :high then "JP06123" when :low then "JP06125" end
+      value = nil
+      if nodes_by_facility.elements['JP06122'].text == "0"
+        value = BigDecimal(nodes_by_facility.elements[value_tag].text)
+        if setting.district.is_partial_included and supply_point.supply_method_type_partial? then
+          value = value - (supply_point.base_power / 2)
+          value = value >= 0 ? value : 0
+        end
+      end
       {
         date: date,
         time_index_id: time_index,
         facility_group_id: supply_point.facility_group.id,
-        value: nodes_by_facility.elements['JP06122'].text == "0" ? nodes_by_facility.elements[value_tag].text : nil,
+        value: value
       }
-    end
-
-    #
-    # elementsを取ると空白のみのエレメントが入るので除去する
-    #
-    # @param [Array] elements REXMLのElementの配列
-    # @return フィルタ化された配列
-    def element_to_arrray_and_filter_empty_node(elements)
-      elements.to_a.delete_if do |node|
-        node.is_a?(REXML::Text)
-      end
     end
   end
 end

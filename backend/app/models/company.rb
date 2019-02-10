@@ -20,9 +20,9 @@
 #
 
 class Company < ApplicationRecord
-  has_and_belongs_to_many :balancing_groups
+  has_many :bg_members
+  has_many :balancing_groups, through: :bg_members
   has_one :company_account_jepx
   has_one :company_account_occto
   has_many :consumers
-  has_many :occto_plan_by_companies, class_name: Occto::PlanByCompany.to_s
 end

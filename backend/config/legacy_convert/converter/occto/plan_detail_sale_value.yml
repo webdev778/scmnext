@@ -1,0 +1,18 @@
+---
+:skip: true
+:truncate: true
+:model_class: Occto::PlanDetailSaleValue
+:sources:
+- :fields:
+    id:
+    type:
+    plan_by_company_id:
+    resource_id:
+    time_index_id:
+    value:
+    created_by:
+    updated_by:
+    created_at:
+    updated_at:
+  :from: base_table_name
+  :where: 0 = 0

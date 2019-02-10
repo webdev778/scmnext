@@ -29,6 +29,7 @@ class Facility < ApplicationRecord
   has_one :supply_point
   has_many :facility_contracts, ->{order(start_date: :desc)}
   has_many :contracts, through: :facility_contracts
+  has_many :discount_for_facilities, ->{order(start_date: :desc)}
   belongs_to :district
   belongs_to :consumer
   belongs_to :voltage_type

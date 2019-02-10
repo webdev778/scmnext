@@ -159,9 +159,10 @@ namespace :legacy do
     end
     # その他データ登録
     if config[:extra]
+      binding.pry
       column_names = model_class.column_names
       config[:extra].each do |extra_item|
-        model_instance = model_class.find_or_initialize_by(extra_item[:cond])
+        model_instance = extra_item[:cond].nil? ? model_class.new : model_class.find_or_initialize_by(extra_item[:cond])
         extra_item[:fields].each do |field_name, value|
           if column_names.include?(field_name)
             # カラム定義があれば値としてセット
@@ -176,7 +177,7 @@ namespace :legacy do
             end
           end
         end
-        model_instance.save
+        model_instance.save!
       end
     end
   end

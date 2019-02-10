@@ -6,8 +6,9 @@
 - :fields:
     id: 
     type: 
-    resource_id: 
     plan_by_company_id: 
+    resource_id: 
+    time_index_id: 
     value: 
     created_by: 
     updated_by: 

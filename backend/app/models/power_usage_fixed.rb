@@ -20,13 +20,13 @@ class PowerUsageFixed < ApplicationRecord
     presence: true
 
   scope :total_by_time_index, ->{
-    eager_load(:facility)
+    eager_load(:facility_group)
     .group(:time_index_id)
     .sum("value")
   }
 
   scope :total, ->{
-    eager_load(:facility)
+    eager_load(:facility_group)
     .sum("value")
   }
 
@@ -53,12 +53,17 @@ class PowerUsageFixed < ApplicationRecord
               puts "供給地点特定番号:[#{supply_point_number}]は契約期間外です。需要家名=#{nodes_by_facility.elements['JP06120'].text}"
               next
             end
+            value = BigDecimal(nodes_by_time.elements['JP06424'].text)
+            if setting.district.is_partial_included and supply_point.supply_method_type_partial? then
+              value = value - (supply_point.base_power / 2)
+              value = value >= 0 ? value : 0
+            end
             nodes_by_day.elements['JPM00014'].to_a.map do |nodes_by_time|
               {
                 date: date,
                 time_index_id: nodes_by_time.elements['JP06219'].text,
                 facility_group_id: supply_point.facility_group.id,
-                value: nodes_by_time.elements['JP06424'].text
+                value: value
               }
             end
           end
@@ -68,7 +73,7 @@ class PowerUsageFixed < ApplicationRecord
         end.map do |k, values|
           {date: k[0], time_index_id: k[1], facility_group_id: k[2], value: values.sum{|v| v[:value].nil? ? 0 : BigDecimal(v[:value])}}
         end
-        result = self.import import_data, {on_duplicate_key_update: [:date, :time_index_id, :facility_group_id]}
+        result = self.import import_data, {on_duplicate_key_update: [:value]}
       end
     end
   end

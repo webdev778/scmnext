@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_07_085805) do
+ActiveRecord::Schema.define(version: 2019_02_09_102403) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -46,15 +46,15 @@ ActiveRecord::Schema.define(version: 2019_02_07_085805) do
     t.index ["leader_company_id"], name: "index_balancing_groups_on_leader_company_id"
   end
 
-  create_table "balancing_groups_companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "バランシンググループPPS関連", force: :cascade do |t|
+  create_table "bg_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "BGメンバー", force: :cascade do |t|
     t.bigint "balancing_group_id", comment: "バランシンググループID"
     t.bigint "company_id", comment: "PPS ID"
     t.integer "created_by"
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["balancing_group_id"], name: "index_balancing_groups_companies_on_balancing_group_id"
-    t.index ["company_id"], name: "index_balancing_groups_companies_on_company_id"
+    t.index ["balancing_group_id"], name: "index_bg_members_on_balancing_group_id"
+    t.index ["company_id"], name: "index_bg_members_on_company_id"
   end
 
   create_table "companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "会社(PPS)", force: :cascade do |t|
@@ -127,6 +127,18 @@ ActiveRecord::Schema.define(version: 2019_02_07_085805) do
     t.index ["voltage_type_id"], name: "index_contracts_on_voltage_type_id"
   end
 
+  create_table "discount_for_facilities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "施設別割引", force: :cascade do |t|
+    t.bigint "facility_id", comment: "設備ID"
+    t.date "start_date", null: false, comment: "適用開始日"
+    t.decimal "rate", precision: 10, scale: 4, null: false, comment: "割引率"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["facility_id", "start_date"], name: "unique_index_on_business_logic", unique: true
+    t.index ["facility_id"], name: "index_discount_for_facilities_on_facility_id"
+  end
+
   create_table "district_loss_rates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "エリア別損失率", force: :cascade do |t|
     t.bigint "district_id", comment: "エリアID"
     t.bigint "voltage_type_id", comment: "電圧種別ID"
@@ -144,11 +156,13 @@ ActiveRecord::Schema.define(version: 2019_02_07_085805) do
   create_table "districts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "供給エリア", force: :cascade do |t|
     t.string "name", comment: "名前"
     t.string "code", comment: "コード"
+    t.string "wheeler_code", comment: "託送コード"
     t.float "loss_rate_special_high_voltage", comment: "損失率(特別高圧)"
     t.float "loss_rate_high_voltage", comment: "損失率(高圧)"
     t.float "loss_rate_low_voltage", comment: "損失率(低圧)"
     t.string "dlt_host", comment: "託送ダウンロード用ホスト名"
     t.string "dlt_path", comment: "託送ダウンロードパス名"
+    t.boolean "is_partial_included", null: false, comment: "電力量データ部分供給内包有無"
     t.integer "created_by"
     t.integer "updated_by"
     t.datetime "created_at", null: false
@@ -230,6 +244,22 @@ ActiveRecord::Schema.define(version: 2019_02_07_085805) do
     t.index ["voltage_type_id"], name: "index_facility_groups_on_voltage_type_id"
   end
 
+  create_table "fuel_cost_adjustments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "燃料調整費", force: :cascade do |t|
+    t.bigint "district_id", comment: "エリアID"
+    t.integer "year", null: false, comment: "年"
+    t.integer "month", limit: 2, null: false, comment: "月"
+    t.integer "voltage_class", limit: 1, null: false, comment: "電圧クラス"
+    t.decimal "unit_price", precision: 10, scale: 4, comment: "単価"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["district_id", "year", "month"], name: "unique_index_for_import", unique: true
+    t.index ["district_id"], name: "index_fuel_cost_adjustments_on_district_id"
+    t.index ["month"], name: "index_fuel_cost_adjustments_on_month"
+    t.index ["year"], name: "index_fuel_cost_adjustments_on_year"
+  end
+
   create_table "jepx_imbalance_betas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "JEPXインバランスβ値", force: :cascade do |t|
     t.integer "year", null: false, comment: "年"
     t.integer "month", limit: 2, null: false, comment: "月"
@@ -278,30 +308,32 @@ ActiveRecord::Schema.define(version: 2019_02_07_085805) do
     t.index ["time_index_id"], name: "index_jepx_spot_trades_on_time_index_id"
   end
 
-  create_table "occto_plan_by_companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域需要調達計画(翌日)PPS別データ", force: :cascade do |t|
+  create_table "occto_plan_by_bg_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域需要調達計画(翌日)BGメンバー別データ", force: :cascade do |t|
     t.bigint "plan_id", comment: "広域需要調達計画(翌日)ID"
-    t.bigint "company_id", comment: "PPS ID"
+    t.bigint "bg_member_id", comment: "BGメンバーID"
     t.integer "created_by"
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_occto_plan_by_companies_on_company_id"
-    t.index ["plan_id", "company_id"], name: "unique_index_on_business", unique: true
-    t.index ["plan_id"], name: "index_occto_plan_by_companies_on_plan_id"
+    t.index ["bg_member_id"], name: "index_occto_plan_by_bg_members_on_bg_member_id"
+    t.index ["plan_id", "bg_member_id"], name: "unique_index_on_business", unique: true
+    t.index ["plan_id"], name: "index_occto_plan_by_bg_members_on_plan_id"
   end
 
   create_table "occto_plan_detail_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域需要調達計画(翌日)詳細値データ", force: :cascade do |t|
     t.string "type", limit: 30, comment: "データ種別"
+    t.bigint "plan_by_bg_member_id", comment: "広域需要調達計画(翌日)BGメンバー別データID"
     t.bigint "resource_id", comment: "リソースID"
-    t.bigint "plan_by_company_id", comment: "広域需要調達計画(翌日)PPS別データID"
+    t.bigint "time_index_id", comment: "時間枠ID"
     t.decimal "value", precision: 14, comment: "数量(kWh)"
     t.integer "created_by"
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["plan_by_company_id"], name: "index_occto_plan_detail_values_on_plan_by_company_id"
+    t.index ["plan_by_bg_member_id"], name: "index_occto_plan_detail_values_on_plan_by_bg_member_id"
     t.index ["resource_id"], name: "index_occto_plan_detail_values_on_resource_id"
-    t.index ["type", "resource_id", "plan_by_company_id"], name: "unique_index_on_business", unique: true
+    t.index ["time_index_id"], name: "index_occto_plan_detail_values_on_time_index_id"
+    t.index ["type", "plan_by_bg_member_id", "resource_id", "time_index_id"], name: "unique_index_on_business", unique: true
   end
 
   create_table "occto_plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域需要調達計画(翌日)", force: :cascade do |t|
@@ -313,6 +345,45 @@ ActiveRecord::Schema.define(version: 2019_02_07_085805) do
     t.datetime "updated_at", null: false
     t.index ["balancing_group_id", "date"], name: "unique_index_on_business", unique: true
     t.index ["balancing_group_id"], name: "index_occto_plans_on_balancing_group_id"
+  end
+
+  create_table "pl_base_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "損益計算基本情報", force: :cascade do |t|
+    t.bigint "facility_group_id"
+    t.string "type", null: false, comment: "種別"
+    t.date "date", null: false, comment: "日付"
+    t.bigint "time_index_id", null: false, comment: "時間枠ID"
+    t.decimal "amount_actual", precision: 10, scale: 4, comment: "使用量(kwh)"
+    t.decimal "amount_planned", precision: 10, scale: 4, comment: "計画値"
+    t.decimal "amount_loss", precision: 10, scale: 4, comment: "損失量"
+    t.decimal "amount_imbalance", precision: 10, scale: 4, comment: "インバランス"
+    t.decimal "power_factor_rate", precision: 10, scale: 4, comment: "力率"
+    t.decimal "sales_fundamental_charge", precision: 10, scale: 4, comment: "売上(基本料)"
+    t.decimal "sales_mater_rate_charge", precision: 10, scale: 4, comment: "売上(従量料金)"
+    t.decimal "sales_fuel_cost_adjustment", precision: 10, scale: 4, comment: "売上(燃料調整費)"
+    t.decimal "sales_cost_adjustment", precision: 10, scale: 4, comment: "売上(調整費)"
+    t.decimal "sales_special_discount", precision: 10, scale: 4, comment: "売上(還元割)"
+    t.decimal "usage_jbu", precision: 10, scale: 4, comment: "使用量(JBU)"
+    t.decimal "usage_jepx_spot", precision: 10, scale: 4, comment: "使用量(JPEXスポット)"
+    t.decimal "usage_jepx_1hour", precision: 10, scale: 4, comment: "使用量(JPEX一時間前)"
+    t.decimal "usage_fit", precision: 10, scale: 4, comment: "使用量(FIT)"
+    t.decimal "usage_matching", precision: 10, scale: 4, comment: "使用量(相対)"
+    t.decimal "supply_jbu_fundamental_charge", precision: 10, scale: 4, comment: "仕入(JBU基本料)"
+    t.decimal "supply_jbu_fuel_cost_adjustment", precision: 10, scale: 4, comment: "仕入(JBU燃料調整費)"
+    t.decimal "supply_jepx_spot", precision: 10, scale: 4, comment: "仕入(JEPXスポット)"
+    t.decimal "supply_jepx_1hour", precision: 10, scale: 4, comment: "仕入(JEPX一時間前)"
+    t.decimal "supply_fit", precision: 10, scale: 4, comment: "仕入(FIT)"
+    t.decimal "supply_imbalance", precision: 10, scale: 4, comment: "仕入(インバランス)"
+    t.decimal "supply_wheeler_fundamental_charge", precision: 10, scale: 4, comment: "仕入(託送基本料)"
+    t.decimal "supply_wheeler_mater_rate_charge", precision: 10, scale: 4, comment: "仕入(託送従量料金)"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_pl_base_data_on_date"
+    t.index ["facility_group_id", "date", "time_index_id"], name: "unique_index_for_import", unique: true
+    t.index ["facility_group_id"], name: "index_pl_base_data_on_facility_group_id"
+    t.index ["time_index_id"], name: "index_pl_base_data_on_time_index_id"
+    t.index ["type"], name: "index_pl_base_data_on_type"
   end
 
   create_table "power_usage_fixeds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "電力使用量(確定値)", force: :cascade do |t|
@@ -346,21 +417,23 @@ ActiveRecord::Schema.define(version: 2019_02_07_085805) do
   end
 
   create_table "resources", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "リソース", force: :cascade do |t|
-    t.bigint "company_id", comment: "会社ID"
-    t.string "code", null: false, comment: "コード"
+    t.bigint "balancing_group_id", comment: "バランシンググループID"
     t.string "type", null: false, comment: "種別"
+    t.string "code", null: false, comment: "コード"
     t.string "name", null: false, comment: "名称"
     t.integer "created_by"
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_resources_on_company_id"
+    t.index ["balancing_group_id"], name: "index_resources_on_balancing_group_id"
   end
 
   create_table "supply_points", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "供給地点", force: :cascade do |t|
     t.string "number", comment: "供給地点特定番号"
     t.date "supply_start_date", comment: "供給開始日"
     t.date "supply_end_date", comment: "供給終了日"
+    t.integer "supply_method_type", null: false, comment: "供給区分(1:全量, 2:部分)"
+    t.integer "base_power", comment: "ベース電源"
     t.bigint "facility_group_id", comment: "施設グループID"
     t.bigint "facility_id", comment: "施設ID"
     t.integer "created_by"
@@ -412,6 +485,25 @@ ActiveRecord::Schema.define(version: 2019_02_07_085805) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "wheeler_charges", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "託送料金", force: :cascade do |t|
+    t.bigint "district_id", comment: "エリアID"
+    t.integer "voltage_class", limit: 1, null: false, comment: "電圧クラス"
+    t.date "start_date", null: false, comment: "適用開始日"
+    t.decimal "fundamental_charge", precision: 10, scale: 4, comment: "基本料金(kW)"
+    t.decimal "meter_rate_charge", precision: 10, scale: 4, comment: "電力量料金(kWh)"
+    t.decimal "mater_rate_charge_daytime", precision: 10, scale: 4, comment: "電力量料金(昼間時間)(kWh)"
+    t.decimal "mater_rate_charge_night", precision: 10, scale: 4, comment: "電力量料金(夜間時間)(kWh)"
+    t.decimal "peak_shift_discount", precision: 10, scale: 4, comment: "ピークシフト割引(kW)"
+    t.decimal "a_charge", precision: 10, scale: 4, comment: "予備送電サービスA料金(kW)"
+    t.decimal "b_charge", precision: 10, scale: 4, comment: "予備送電サービスB料金(kW)"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["district_id"], name: "index_wheeler_charges_on_district_id"
+    t.index ["start_date"], name: "index_wheeler_charges_on_start_date"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

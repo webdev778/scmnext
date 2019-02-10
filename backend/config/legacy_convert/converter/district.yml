@@ -12,6 +12,7 @@
   :fields:
     dlt_host: https://www4.kepco.co.jp
     dlt_path: "/prx/000/http/kanden"
+    is_partial_included: false
 - :cond:
     id: 3
   :fields:
@@ -31,12 +32,14 @@
 - :fields:
     id: tbl_district.id
     name: tbl_district.district_name
-    code: tbl_district.district_code
+    code: SUBSTRING(tbl_district.district_code, 5, 1)
+    wheeler_code: tbl_district.district_code
     loss_rate_special_high_voltage: tbl_district.special_high_voltage_loss_rate
     loss_rate_high_voltage: tbl_district.high_voltage_loss_rate
     loss_rate_low_voltage: tbl_district.low_voltage_loss_rate
-    dlt_host: 
-    dlt_path: 
+    dlt_host:
+    dlt_path:
+    is_partial_included: 'TRUE'
     created_by: tbl_district.created_user_id
     updated_by: tbl_district.modified_user_id
     created_at: tbl_district.created

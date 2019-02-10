@@ -1,0 +1,19 @@
+---
+:truncate: true
+:model_class: FuelCostAdjustment
+:sources:
+- :fields:
+    id: 
+    district_id: tbl_fuel_cost_adjustment_new.tbl_district_id
+    year: SUBSTRING(tbl_fuel_cost_adjustment_new.application_start_ym, 1, 4)
+    month: SUBSTRING(tbl_fuel_cost_adjustment_new.application_start_ym, 6, 2)
+    voltage_class: CASE tbl_fuel_cost_adjustment_new.tbl_voltage_id WHEN '1' THEN
+      'voltage_class_special_high' WHEN '2' THEN 'voltage_class_high' ELSE 'voltage_class_low'
+      END
+    unit_price: tbl_fuel_cost_adjustment_new.fuel_cost_adjustment_rate
+    created_by: tbl_fuel_cost_adjustment_new.created_user_id
+    updated_by: tbl_fuel_cost_adjustment_new.modified_user_id
+    created_at: tbl_fuel_cost_adjustment_new.created
+    updated_at: tbl_fuel_cost_adjustment_new.modified
+  :from: tbl_fuel_cost_adjustment_new
+  :where: 0 = 0

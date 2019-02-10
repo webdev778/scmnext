@@ -1,6 +1,5 @@
 namespace :dlt do
 
-
   desc "30分データダウンロード"
   task download: :environment do |task, args|
     Dlt::File.download do |filename|
@@ -12,10 +11,6 @@ namespace :dlt do
   # テーブルへのインポート処理
   #
   namespace :import do
-    def determine_target_date(default_date)
-      ENV['DATE'] ? ENV['DATE'].in_time_zone : default_date
-    end
-
     desc "当日データを速報値テーブルへ取込む"
     task today: :environment do |task, args|
       target_date = determine_target_date(Date.today)

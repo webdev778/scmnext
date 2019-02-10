@@ -1,17 +1,23 @@
 ---
-:skip: true
 :model_class: Resource
 :truncate: true
 :sources:
-- :fields:
-    id:
-    company_id:
-    code:
-    type:
-    name:
-    created_by:
-    updated_by:
-    created_at:
-    updated_at:
-  :from: base_table_name
-  :where: 0 = 0
+:extra:
+-
+  :fields:
+    balancing_group_id: 1
+    type: ResourceSelf
+    code: LA833
+    name: エネオプBG東京需要
+-
+  :fields:
+    balancing_group_id: 1
+    type: ResourceJbu
+    code: LA693
+    name: 常時バックアップ(東京)
+-
+  :fields:
+    balancing_group_id: 1
+    type: ResourceJepxSpot
+    code: JSPT3
+    name: スポット

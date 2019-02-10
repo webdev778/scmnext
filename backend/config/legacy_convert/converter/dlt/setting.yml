@@ -6,12 +6,3 @@
     company_id: 1
     district_id: 1
 :sources: []
-# - :fields:
-#     id:
-#     company_id:
-#     district_id:
-#     state:
-#     created_at:
-#     updated_at:
-#   :from: base_table_name
-#   :where: 0 = 0

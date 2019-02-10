@@ -5,9 +5,9 @@
 :sources:
 - :fields:
     id:
-    company_id:
-    code:
+    balancing_group_id:
     type:
+    code:
     name:
     created_by:
     updated_by:

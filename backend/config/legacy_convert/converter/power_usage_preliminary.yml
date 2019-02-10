@@ -5,7 +5,7 @@
 :sources:
 - :fields:
     id: ''
-    facility_id: ''
+    facility_group_id: 
     date: ''
     time_index_id: ''
     value: ''

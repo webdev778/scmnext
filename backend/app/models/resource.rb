@@ -14,5 +14,6 @@
 #
 
 class Resource < ApplicationRecord
+  belongs_to :balancing_group
   has_many :occto_plan_detail_values, class_name: Occto::PlanDetailValue.to_s
 end

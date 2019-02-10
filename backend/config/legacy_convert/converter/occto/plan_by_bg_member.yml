@@ -1,14 +1,15 @@
 ---
+:skip: true
 :truncate: true
-:model_class: Company::HABTM_BalancingGroups
+:model_class: Occto::PlanByBgMember
 :sources:
 - :fields:
     id: 
-    balancing_group_id: tbl_bg_id
-    company_id: pps_id
+    plan_id: 
+    bg_member_id: 
     created_by: 
     updated_by: 
     created_at: 
     updated_at: 
-  :from: tbl_bg_relation_pps
+  :from: base_table_name
   :where: 0 = 0

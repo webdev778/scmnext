@@ -13,4 +13,12 @@
 class VoltageType < ApplicationRecord
   has_many :facilities
   has_many :district_loss_rates
+
+  def to_voltage_mode
+    to_voltage_class == 3 ? :low : :high
+  end
+
+  def to_voltage_class
+    id >= 3 ? 3 : id
+  end
 end

@@ -1,0 +1,14 @@
+---
+:truncate: true
+:model_class: BgMember
+:sources:
+- :fields:
+    id: id
+    balancing_group_id: tbl_bg_id
+    company_id: pps_id
+    created_by:
+    updated_by:
+    created_at:
+    updated_at:
+  :from: tbl_bg_relation_pps
+  :where: 0 = 0

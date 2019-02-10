@@ -14,4 +14,5 @@
 #
 
 class Occto::PlanDetailSupplyValue < Occto::PlanDetailValue
+  belongs_to :resource
 end

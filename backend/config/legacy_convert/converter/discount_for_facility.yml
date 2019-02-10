@@ -1,0 +1,15 @@
+---
+:truncate: true
+:model_class: DiscountForFacility
+:sources:
+- :fields:
+    id: 
+    facility_id: facility_id
+    start_date: CONCAT(month, '-01')
+    rate: discount
+    created_by: created_user_id
+    updated_by: modified_user_id
+    created_at: created
+    updated_at: modified
+  :from: tbl_facility_original_discount
+  :where: 0 = 0

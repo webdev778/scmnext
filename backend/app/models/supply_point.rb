@@ -20,10 +20,20 @@ class SupplyPoint < ApplicationRecord
   belongs_to :facility_group
   belongs_to :facility, required: false # 低圧施設の情報を外部提供受けるケースを想定して必須にはしない
 
+  enum supply_method_type: {
+    supply_method_type_all: 1,
+    supply_method_type_partial: 2
+  }
+
   validates :number,
     presence: true
   validates :facility_group,
     presence: true
+  validates :supply_method_type,
+    presence: true
+  validates :base_power,
+    absence: {unless: -> {supply_method_type_partial?}},
+    presence: {if: -> {supply_method_type_partial?}}
 
   class << self
     #

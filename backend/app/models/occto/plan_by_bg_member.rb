@@ -11,10 +11,14 @@
 #  updated_at :datetime         not null
 #
 
-class Occto::PlanByCompany < ApplicationRecord
+class Occto::PlanByBgMember < ApplicationRecord
   has_many :plan_detail_demand_values
   has_many :plan_detail_supply_values
-  has_many :plan_detail_sales_values
+  has_many :plan_detail_sale_values
   belongs_to :plan
-  belongs_to :company
+  belongs_to :bg_member
+
+  accepts_nested_attributes_for :plan_detail_demand_values
+  accepts_nested_attributes_for :plan_detail_supply_values
+  accepts_nested_attributes_for :plan_detail_sale_values
 end

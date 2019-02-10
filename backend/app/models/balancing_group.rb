@@ -14,7 +14,9 @@
 #
 
 class BalancingGroup < ApplicationRecord
-  has_and_belongs_to_many :companies
+  has_many :bg_members
+  has_many :companies, through: :bg_members
+  has_many :resources
   has_many :occto_plans, class_name: Occto::Plan.to_s
   belongs_to :district
   belongs_to :leader_company, class_name: Company.to_s

@@ -13,5 +13,6 @@
 #  updated_at         :datetime         not null
 #
 
-class Occto::PlanDetailSalesValue < Occto::PlanDetailValue
+class Occto::PlanDetailSaleValue < Occto::PlanDetailValue
+  belongs_to :resource
 end

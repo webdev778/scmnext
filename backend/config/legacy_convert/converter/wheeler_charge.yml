@@ -1,0 +1,23 @@
+---
+:truncate: true
+:model_class: WheelerCharge
+:sources:
+- :fields:
+    id: 
+    district_id: tbl_district_id
+    voltage_class: CASE tbl_voltage_id WHEN '1' THEN 'voltage_class_special_high'
+      WHEN '2' THEN 'voltage_class_high' ELSE 'voltage_class_low' END
+    start_date: CONCAT(application_start_ym, "-01")
+    fundamental_charge: basic_rate
+    meter_rate_charge: standard_rate
+    mater_rate_charge_daytime: daytime_rate
+    mater_rate_charge_night: night_rate
+    peak_shift_discount: peak_shift_discount_rate
+    a_charge: a_rate
+    b_charge: b_rate
+    created_by: created_user_id
+    updated_by: modified_user_id
+    created_at: created
+    updated_at: modified
+  :from: tbl_consignment_charge
+  :where: tbl_account_id = 1
