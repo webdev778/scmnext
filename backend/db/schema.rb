@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_09_102403) do
+ActiveRecord::Schema.define(version: 2019_02_11_031504) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -110,6 +110,18 @@ ActiveRecord::Schema.define(version: 2019_02_09_102403) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_consumers_on_company_id"
+  end
+
+  create_table "contract_basic_charges", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "契約基本料金", force: :cascade do |t|
+    t.bigint "contract_id", comment: "契約ID"
+    t.date "start_date", null: false, comment: "適用開始日"
+    t.decimal "amount", precision: 10, scale: 4, comment: "金額"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_id"], name: "index_contract_basic_charges_on_contract_id"
+    t.index ["start_date"], name: "index_contract_basic_charges_on_start_date"
   end
 
   create_table "contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "契約", force: :cascade do |t|
@@ -357,7 +369,7 @@ ActiveRecord::Schema.define(version: 2019_02_09_102403) do
     t.decimal "amount_loss", precision: 10, scale: 4, comment: "損失量"
     t.decimal "amount_imbalance", precision: 10, scale: 4, comment: "インバランス"
     t.decimal "power_factor_rate", precision: 10, scale: 4, comment: "力率"
-    t.decimal "sales_fundamental_charge", precision: 10, scale: 4, comment: "売上(基本料)"
+    t.decimal "sales_basic_charge", precision: 10, scale: 4, comment: "売上(基本料)"
     t.decimal "sales_mater_rate_charge", precision: 10, scale: 4, comment: "売上(従量料金)"
     t.decimal "sales_fuel_cost_adjustment", precision: 10, scale: 4, comment: "売上(燃料調整費)"
     t.decimal "sales_cost_adjustment", precision: 10, scale: 4, comment: "売上(調整費)"
@@ -367,7 +379,7 @@ ActiveRecord::Schema.define(version: 2019_02_09_102403) do
     t.decimal "usage_jepx_1hour", precision: 10, scale: 4, comment: "使用量(JPEX一時間前)"
     t.decimal "usage_fit", precision: 10, scale: 4, comment: "使用量(FIT)"
     t.decimal "usage_matching", precision: 10, scale: 4, comment: "使用量(相対)"
-    t.decimal "supply_jbu_fundamental_charge", precision: 10, scale: 4, comment: "仕入(JBU基本料)"
+    t.decimal "supply_jbu_basic_charge", precision: 10, scale: 4, comment: "仕入(JBU基本料)"
     t.decimal "supply_jbu_fuel_cost_adjustment", precision: 10, scale: 4, comment: "仕入(JBU燃料調整費)"
     t.decimal "supply_jepx_spot", precision: 10, scale: 4, comment: "仕入(JEPXスポット)"
     t.decimal "supply_jepx_1hour", precision: 10, scale: 4, comment: "仕入(JEPX一時間前)"
@@ -491,7 +503,7 @@ ActiveRecord::Schema.define(version: 2019_02_09_102403) do
     t.bigint "district_id", comment: "エリアID"
     t.integer "voltage_class", limit: 1, null: false, comment: "電圧クラス"
     t.date "start_date", null: false, comment: "適用開始日"
-    t.decimal "fundamental_charge", precision: 10, scale: 4, comment: "基本料金(kW)"
+    t.decimal "basic_charge", precision: 10, scale: 4, comment: "基本料金(kW)"
     t.decimal "meter_rate_charge", precision: 10, scale: 4, comment: "電力量料金(kWh)"
     t.decimal "mater_rate_charge_daytime", precision: 10, scale: 4, comment: "電力量料金(昼間時間)(kWh)"
     t.decimal "mater_rate_charge_night", precision: 10, scale: 4, comment: "電力量料金(夜間時間)(kWh)"

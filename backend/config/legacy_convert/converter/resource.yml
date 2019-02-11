@@ -3,20 +3,17 @@
 :truncate: true
 :sources:
 :extra:
--
-  :fields:
+- :fields:
     balancing_group_id: 1
     type: ResourceSelf
     code: LA833
     name: エネオプBG東京需要
--
-  :fields:
+- :fields:
     balancing_group_id: 1
     type: ResourceJbu
     code: LA693
     name: 常時バックアップ(東京)
--
-  :fields:
+- :fields:
     balancing_group_id: 1
     type: ResourceJepxSpot
     code: JSPT3

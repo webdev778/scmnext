@@ -21,4 +21,12 @@ class FacilityGroup < ApplicationRecord
   belongs_to :company
   belongs_to :district
   belongs_to :contract
+
+  #
+  # 指定された日付の基本料金を求める
+  #
+  def basic_charge_at(date)
+    contract_basic_charge = self.contract.contract_basic_charges.find{|contract_basic_charge| contract_basic_charge.start_date <= date}
+    contract_basic_charge.amount
+  end
 end

@@ -16,4 +16,5 @@
 #
 
 class Contract < ApplicationRecord
+  has_many :contract_basic_charges, ->{order(start_date: :desc)}
 end

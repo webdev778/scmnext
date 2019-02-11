@@ -18,6 +18,10 @@ class Occto::Plan < ApplicationRecord
   accepts_nested_attributes_for :plan_by_bg_members
 
   class << self
+    #
+    # 翌日需要・調達計画のインポート
+    # @param [string] filename ファイル名
+    #
     def import_data(filename)
       raise "ファイル[#{filename}]が見つかりません。" unless File.exists?(filename)
       zip_file = Zip::File.open(filename)
@@ -31,7 +35,6 @@ class Occto::Plan < ApplicationRecord
       }
       plan_attributes[:plan_by_bg_members_attributes] = node_root.elements['JPM00022'].to_a.map do |node_by_company|
         bg_member = bg.bg_members.find{|bgm| bgm.code == node_by_company.elements['JP06316'].text}
-        binding.pry if bg_member.nil?
         plan_detail_demands = node_by_company.elements['JPM00023/JPMR00023/JPM00024'].to_a.map do |node_demand_with_time_index|
           {
             time_index_id: node_demand_with_time_index.elements['JP06219'].text.to_i,
@@ -66,6 +69,30 @@ class Occto::Plan < ApplicationRecord
         }
       end
       self.create!(plan_attributes)
+    end
+  end
+
+  #
+  # BG単位の時間枠、リソース種別別のポジション表に変換する
+  #
+  def matrix_by_time_index_and_resouce_type
+    self.plan_by_bg_members.reduce({}) do |matrix, plan_by_bg_member|
+      plan_by_bg_member.plan_detail_values.reduce(matrix) do |matrix, plan_detail_value|
+        matrix[plan_detail_value.time_index_id] ||= {}
+        if plan_detail_value.is_a?(Occto::PlanDetailDemandValue)
+          type = "demand"
+        else
+          type = plan_detail_value.resource.type.underscore.sub('resource_', '')
+        end
+        matrix[plan_detail_value.time_index_id][type] ||= 0
+        if plan_detail_value.is_a?(Occto::PlanDetailSaleValue)
+          matrix[plan_detail_value.time_index_id][type] -= plan_detail_value.value
+        else
+          matrix[plan_detail_value.time_index_id][type] += plan_detail_value.value
+        end
+        matrix
+      end
+      matrix
     end
   end
 end

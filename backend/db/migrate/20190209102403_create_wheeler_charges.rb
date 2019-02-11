@@ -4,7 +4,7 @@ class CreateWheelerCharges < ActiveRecord::Migration[5.2]
       t.references "district", comment: "エリアID"
       t.integer "voltage_class", limit: 1, null: false, comment: "電圧クラス"
       t.date "start_date", null: false, index: true, comment: "適用開始日"
-      t.decimal "fundamental_charge", precision: 10, scale: 4, comment: "基本料金(kW)"
+      t.decimal "basic_charge", precision: 10, scale: 4, comment: "基本料金(kW)"
       t.decimal "meter_rate_charge", precision: 10, scale: 4, comment: "電力量料金(kWh)"
       t.decimal "mater_rate_charge_daytime", precision: 10, scale: 4, comment: "電力量料金(昼間時間)(kWh)"
       t.decimal "mater_rate_charge_night", precision: 10, scale: 4, comment: "電力量料金(夜間時間)(kWh)"
