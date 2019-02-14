@@ -29,8 +29,8 @@ namespace :legacy do
       config = config.merge({
         model_class: class_name,
       })
-      # 旧の定義を変換する
       if config[:fields].nil?
+        # 新定義の場合
         config[:sources] ||= [{}]
         config[:sources].each do |source|
           source[:fields] ||= {}
@@ -41,6 +41,7 @@ namespace :legacy do
           source[:where] ||= nil
         end
       else
+        # 旧定義の場合、新定義に置き換える
         config[:sources] ||= [{}]
         config[:sources][0]
         [:fields, :from, :where, :joins].each do |item_name|
@@ -159,7 +160,6 @@ namespace :legacy do
     end
     # その他データ登録
     if config[:extra]
-      binding.pry
       column_names = model_class.column_names
       config[:extra].each do |extra_item|
         model_instance = extra_item[:cond].nil? ? model_class.new : model_class.find_or_initialize_by(extra_item[:cond])
@@ -210,6 +210,7 @@ namespace :legacy do
         ['ApplicationRecord', 'Legacy'].include?(model_class.to_s)
       end
       model_classes.each do |model_class|
+        puts model_class.to_s
         write_convert_config(model_class.to_s, model_class.column_names)
       end
     end
