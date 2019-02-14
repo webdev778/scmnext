@@ -1,0 +1,15 @@
+---
+:truncate: true
+:model_class: ContractItemOrder
+:sources:
+- :fields:
+    id: id
+    contract_item_group_id: tbl_contract_item_group_id
+    contract_item_id: tbl_contract_item_id
+    sort_order: claim_order
+    created_by: created_user_id
+    updated_by: modified_user_id
+    created_at: created
+    updated_at: modified
+  :from: tbl_contract_item_order
+  :where: 0 = 0

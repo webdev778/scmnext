@@ -1,15 +1,14 @@
 ---
 :truncate: true
-:model_class: ContractBasicCharge
+:model_class: ContractItemGroup
 :sources:
 - :fields:
-    id: 
-    contract_id: tbl_contract_id
-    start_date: application_start_ymd
-    amount: rate
+    id: id
+    name: contract_item_group_name
+    voltage_type_id: tbl_voltage_id
     created_by: created_user_id
     updated_by: modified_user_id
     created_at: created
     updated_at: modified
-  :from: tbl_basic_charge
+  :from: tbl_contract_item_group
   :where: 0 = 0

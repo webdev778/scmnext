@@ -13,6 +13,9 @@
 class VoltageType < ApplicationRecord
   has_many :facilities
   has_many :district_loss_rates
+  has_many :contracts
+  has_many :contract_item_groups
+  has_many :contract_items
 
   def to_voltage_mode
     to_voltage_class == 3 ? :low : :high

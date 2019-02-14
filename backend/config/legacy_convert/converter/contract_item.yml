@@ -1,0 +1,16 @@
+---
+:truncate: true
+:model_class: ContractItem
+:sources:
+- :fields:
+    id: id
+    name: contract_item_name
+    voltage_type_id: tbl_voltage_id
+    calcuration_order: contract_item_cal_order
+    enabled: setting_flg
+    created_by: created_user_id
+    updated_by: modified_user_id
+    created_at: created
+    updated_at: modified
+  :from: tbl_contract_item_new
+  :where: 0 = 0

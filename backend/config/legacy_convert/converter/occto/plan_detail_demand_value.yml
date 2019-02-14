@@ -6,7 +6,7 @@
 - :fields:
     id: 
     type: 
-    plan_by_company_id: 
+    plan_by_bg_member_id: 
     resource_id: 
     time_index_id: 
     value: 

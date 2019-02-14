@@ -1,4 +1,17 @@
 ---
 :skip: true
-:truncate: false
+:truncate: true
 :model_class: ResourceJbu
+:sources:
+- :fields:
+    id: 
+    balancing_group_id: 
+    type: 
+    code: 
+    name: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
+  :from: 
+  :where: 

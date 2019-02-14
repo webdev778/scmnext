@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_11_031504) do
+ActiveRecord::Schema.define(version: 2019_02_14_065309) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -122,6 +122,56 @@ ActiveRecord::Schema.define(version: 2019_02_11_031504) do
     t.datetime "updated_at", null: false
     t.index ["contract_id"], name: "index_contract_basic_charges_on_contract_id"
     t.index ["start_date"], name: "index_contract_basic_charges_on_start_date"
+  end
+
+  create_table "contract_item_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "契約アイテムグループ", force: :cascade do |t|
+    t.string "name", null: false, comment: "名前"
+    t.bigint "voltage_type_id", comment: "電圧区分ID"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["voltage_type_id"], name: "index_contract_item_groups_on_voltage_type_id"
+  end
+
+  create_table "contract_item_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "契約アイテム順序情報", force: :cascade do |t|
+    t.bigint "contract_item_group_id", comment: "契約アイテムグループID"
+    t.bigint "contract_item_id", comment: "契約アイテムID"
+    t.integer "sort_order", comment: "並び順"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_item_group_id"], name: "index_contract_item_orders_on_contract_item_group_id"
+    t.index ["contract_item_id"], name: "index_contract_item_orders_on_contract_item_id"
+  end
+
+  create_table "contract_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "契約アイテム", force: :cascade do |t|
+    t.string "name", null: false, comment: "名前"
+    t.bigint "voltage_type_id", comment: "電圧区分ID"
+    t.integer "calcuration_order", comment: "計算順序"
+    t.boolean "enabled", comment: "有効フラグ:未使用?要確認"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["voltage_type_id"], name: "index_contract_items_on_voltage_type_id"
+  end
+
+  create_table "contract_meter_rates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "契約・契約アイテム別従量料金", force: :cascade do |t|
+    t.bigint "contract_id", comment: "契約ID"
+    t.bigint "contract_item_id", comment: "契約アイテムID"
+    t.date "start_date", comment: "開始日"
+    t.date "end_date", comment: "終了日"
+    t.decimal "rate", precision: 10, scale: 4, comment: "レート"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_id"], name: "index_contract_meter_rates_on_contract_id"
+    t.index ["contract_item_id"], name: "index_contract_meter_rates_on_contract_item_id"
+    t.index ["end_date"], name: "index_contract_meter_rates_on_end_date"
+    t.index ["start_date"], name: "index_contract_meter_rates_on_start_date"
   end
 
   create_table "contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "契約", force: :cascade do |t|

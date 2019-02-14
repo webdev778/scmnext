@@ -1,15 +1,17 @@
 ---
 :truncate: true
-:model_class: ContractBasicCharge
+:model_class: ContractMeterRate
 :sources:
 - :fields:
-    id: 
+    id: id
     contract_id: tbl_contract_id
+    contract_item_id: tbl_contract_item_id
     start_date: application_start_ymd
-    amount: rate
+    end_date: application_end_ymd
+    rate: CASE WHEN rate > 999999 THEN 999999 ELSE rate END
     created_by: created_user_id
     updated_by: modified_user_id
     created_at: created
     updated_at: modified
-  :from: tbl_basic_charge
+  :from: tbl_meter_rate
   :where: 0 = 0

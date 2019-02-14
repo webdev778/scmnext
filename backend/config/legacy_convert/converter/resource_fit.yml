@@ -4,14 +4,14 @@
 :model_class: ResourceFit
 :sources:
 - :fields:
-    id:
-    balancing_group_id:
-    type:
-    code:
-    name:
-    created_by:
-    updated_by:
-    created_at:
-    updated_at:
+    id: 
+    balancing_group_id: 
+    type: 
+    code: 
+    name: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
   :from: base_table_name
   :where: 0 = 0

@@ -1,7 +1,6 @@
 ---
-:skip: true
-:model_class: ResourceJepxSpot
 :truncate: true
+:model_class: ResourceSelf
 :sources:
 - :fields:
     id: 
@@ -13,5 +12,5 @@
     updated_by: 
     created_at: 
     updated_at: 
-  :from: base_table_name
-  :where: 0 = 0
+  :from: 
+  :where: 

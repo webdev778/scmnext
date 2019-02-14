@@ -17,4 +17,7 @@
 
 class Contract < ApplicationRecord
   has_many :contract_basic_charges, ->{order(start_date: :desc)}
+  has_many :contract_meter_rates
+  belongs_to :voltage_type
+  belongs_to :contract_item_group
 end

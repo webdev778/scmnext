@@ -1,0 +1,2 @@
+class ContractMeterRate < ApplicationRecord
+end
