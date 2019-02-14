@@ -15,3 +15,7 @@
 * 確定値取込
 * [JEPXスポット市場取引結果取込](batch/JEPXスポット市場取引結果取込.md)
 * [JEPXインバランスβ値取込](batch/JEPXインバランスβ値取込.md)
+
+# その他
+
+* [旧enepascm連携ツールについて](etc/旧enepascm連携ツール.md)
