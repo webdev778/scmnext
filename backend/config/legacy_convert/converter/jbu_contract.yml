@@ -1,0 +1,22 @@
+---
+:truncate: true
+:model_class: JbuContract
+:sources:
+- :fields:
+    id: id
+    district_id: tbl_district_id
+    company_id: tbl_account_id
+    start_date: application_start_ymd
+    end_date: application_end_ymd
+    contract_power: contract_power
+    basic_charge: basic_rate
+    meter_rate_charge_summer_season_daytime: meter_rate_summer_season_daytime
+    meter_rate_charge_other_season_daytime: meter_rate_other_season_daytime
+    meter_rate_charge_night: meter_rate_night
+    meter_rate_charge_peak_time: meter_rate_peak_time
+    created_by: created_user_id
+    updated_by: modified_user_id
+    created_at: created
+    updated_at: modified
+  :from: tbl_jbu_new
+  :where: 0 = 0

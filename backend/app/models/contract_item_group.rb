@@ -14,6 +14,7 @@
 class ContractItemGroup < ApplicationRecord
   has_many :contract_item_orders, ->{order(sort_order: :asc)}
   has_many :contract_items, through: :contract_item_orders
+  has_many :available_contract_items, ->{ where(enabled: true)}, source: :contract_item, through: :contract_item_orders
   has_many :contracts
 
   belongs_to :voltage_type

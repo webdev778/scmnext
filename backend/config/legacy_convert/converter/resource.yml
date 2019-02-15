@@ -2,6 +2,18 @@
 :model_class: Resource
 :truncate: true
 :sources:
+- :fields:
+    id: 
+    balancing_group_id: 
+    type: 
+    code: 
+    name: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
+  :from: 
+  :where: 
 :extra:
 - :fields:
     balancing_group_id: 1

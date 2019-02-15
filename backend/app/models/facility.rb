@@ -63,4 +63,15 @@ class Facility < ApplicationRecord
   def is_active_at?( date )
     sels.supply_point.is_active_at?(date)
   end
+
+  def sales_special_discount_rate_at( date )
+    discount_for_facility = self.discount_for_facility_at(date)
+    discount_for_facility ? discount_for_facility.rate : 0
+  end
+
+  def discount_for_facility_at( date )
+    discount_for_facilities.find do |discount_for_facility|
+      discount_for_facility.start_date <= date
+    end
+  end
 end

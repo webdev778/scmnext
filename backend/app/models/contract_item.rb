@@ -16,5 +16,6 @@
 class ContractItem < ApplicationRecord
   has_many :contract_item_orders
   has_many :contract_item_groups, through: :contract_item_orders
+  has_many :contract_meter_rates
   belongs_to :voltage_type
 end
