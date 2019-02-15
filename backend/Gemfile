@@ -21,6 +21,7 @@ gem 'tod'
 gem 'rubyzip', '>= 1.0.0'
 
 gem 'faraday'
+gem 'rubyXL'
 
 # for legacy access
 gem 'composite_primary_keys'
