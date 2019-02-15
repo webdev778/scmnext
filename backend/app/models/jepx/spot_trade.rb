@@ -23,4 +23,10 @@
 
 class Jepx::SpotTrade < ApplicationRecord
   has_many :spot_trade_area_data
+
+  class << self
+    def import(date = nil)
+      puts "download!"
+    end
+  end
 end

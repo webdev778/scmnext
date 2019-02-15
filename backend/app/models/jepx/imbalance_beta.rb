@@ -15,4 +15,10 @@
 
 class Jepx::ImbalanceBeta < ApplicationRecord
   belongs_to :district
+
+  class << self
+    def import
+      puts "download!"
+    end
+  end
 end
