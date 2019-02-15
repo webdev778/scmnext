@@ -3,14 +3,12 @@
 :truncate: true
 :sources:
 - :fields:
-    id: 
+    id:
     number: tbl_facility.supplying_point_number
     supply_start_date: tbl_facility.supply_start_date
     supply_end_date: tbl_facility.supply_end_date
-    supply_method_type: CASE tbl_facility.supply_method_id WHEN '1' THEN 'supply_method_type_all'
-      WHEN '2' THEN 'supply_method_type_partial' END
-    base_power: CASE tbl_facility.supply_method_id WHEN '1' THEN NULL ELSE tbl_facility.base_power
-      END
+    supply_method_type: CASE tbl_facility.supply_method_id WHEN '1' THEN 'supply_method_type_all' WHEN '2' THEN 'supply_method_type_partial' END
+    base_power: CASE tbl_facility.supply_method_id WHEN '1' THEN NULL ELSE tbl_facility.base_power END
     facility_group_id: tbl_facility.id
     facility_id: tbl_facility.id
     created_by: tbl_facility.created_user_id
@@ -20,23 +18,23 @@
   :from: tbl_facility
   :where: tbl_voltage_id IN(1, 2)
 - :fields:
-    id: 
-    number: tbl_low_power_group_supplying_point_number.supplying_point_number
-    supply_start_date: tbl_low_power_group_supplying_point_number.supply_start_date
-    supply_end_date: tbl_low_power_group_supplying_point_number.supply_end_date
+    id:
+    number: tbl_facility.supplying_point_number
+    supply_start_date: tbl_facility.supply_start_date
+    supply_end_date: tbl_facility.supply_end_date
     supply_method_type: CASE tbl_facility.supply_method_id WHEN '1' THEN 'supply_method_type_all'
       WHEN '2' THEN 'supply_method_type_partial' END
     base_power: CASE tbl_facility.supply_method_id WHEN '1' THEN NULL ELSE tbl_facility.base_power
       END
     facility_group_id: tbl_low_power_group_supplying_point_number.tbl_facility_high_power_id
-    facility_id: tbl_low_power_group_supplying_point_number.tbl_facility_low_power_id
-    created_by: tbl_low_power_group_supplying_point_number.created_user_id
-    updated_by: tbl_low_power_group_supplying_point_number.modified_user_id
-    created_at: tbl_low_power_group_supplying_point_number.created
-    updated_at: tbl_low_power_group_supplying_point_number.modified
-  :from: tbl_low_power_group_supplying_point_number
+    facility_id: tbl_facility.id
+    created_by: tbl_facility.created_user_id
+    updated_by: tbl_facility.modified_user_id
+    created_at: tbl_facility.created
+    updated_at: tbl_facility.modified
+  :from: tbl_facility
   :joins:
-  - :table: tbl_facility
-    :type: inner
+  - :table: tbl_low_power_group_supplying_point_number
+    :type: outer
     :on: tbl_facility.id = tbl_low_power_group_supplying_point_number.tbl_facility_low_power_id
-  :where: 
+  :where: NOT (tbl_facility.tbl_voltage_id IN(1, 2, 99))
