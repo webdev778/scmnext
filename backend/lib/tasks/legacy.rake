@@ -139,6 +139,8 @@ namespace :legacy do
               Arel::Nodes::InnerJoin
             when "outer"
               Arel::Nodes::OuterJoin
+            else
+              raise "結合はinnerまたはouterを指定してください。"
             end
             select_manager = select_manager.join(join_table, join_type).on(Arel.sql(join[:on]))
           end
