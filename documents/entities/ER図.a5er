@@ -37,6 +37,319 @@ SqlSeparator=0
 ShowTag=1
 ShowCommonAttributes=0
 
+[Entity]
+PName=contract_meter_rates
+LName=契約・契約アイテム別従量料金
+Comment=
+TableOption=
+Page=Main
+Left=1000
+Top=1500
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="契約ID","contract_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="契約アイテムID","contract_item_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="開始日","start_date","date",,,"","",$FFFFFFFF,""
+Field="終了日","end_date","date",,,"","",$FFFFFFFF,""
+Field="レート","rate","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,contract_id
+Index==0,contract_item_id
+Index==0,start_date
+Index==0,end_date
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",1000,1500,299,254
+
+[Entity]
+PName=contract_item_orders
+LName=契約アイテム順序情報
+Comment=
+TableOption=
+Page=Main
+Left=1400
+Top=1800
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="契約アイテムグループID","contract_item_group_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="契約アイテムID","contract_item_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="並び順","sort_order","int(11)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,contract_item_group_id
+Index==0,contract_item_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",1400,1800,299,203
+
+[Entity]
+PName=contract_item_groups
+LName=契約アイテムグループ
+Comment=
+TableOption=
+Page=Main
+Left=1400
+Top=1500
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="名前","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="電圧区分ID","voltage_type_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,voltage_type_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",1400,1500,296,178
+
+[Entity]
+PName=contract_items
+LName=契約アイテム
+Comment=
+TableOption=
+Page=Main
+Left=1400
+Top=2100
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="名前","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="電圧区分ID","voltage_type_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="計算順序","calcuration_order","int(11)",,,"","",$FFFFFFFF,""
+Field="有効フラグ","enabled","tinyint(1)",,,"","未使用?要確認",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,voltage_type_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",1400,2100,299,229
+
+[Relation]
+Entity1=facilities
+Entity2=discount_for_facilities
+RelationType1=1
+RelationType2=1
+Fields1=id
+Fields2=facility_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,270,7419,1867,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20190211163216
+LineMode=0
+Bar1=27
+Bar2=742
+Bar3=187
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=wheeler_charges
+LName=託送料金
+Comment=
+TableOption=
+Page=MAIN
+Left=2900
+Top=100
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="電圧クラス","voltage_class","tinyint(4)","NOT NULL",,"","",$FFFFFFFF,""
+Field="適用開始日","start_date","date","NOT NULL",,"","",$FFFFFFFF,""
+Field="基本料金(kW)","basic_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="電力量料金(kWh)","meter_rate_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="電力量料金(昼間時間)(kWh)","mater_rate_charge_daytime","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="電力量料金(夜間時間)(kWh)","mater_rate_charge_night","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="ピークシフト割引(kW)","peak_shift_discount","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="予備送電サービスA料金(kW)","a_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="予備送電サービスB料金(kW)","b_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,district_id
+Index==0,start_date
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",2900,100,299,381
+
+[Entity]
+PName=pl_base_data
+LName=損益計算基本情報
+Comment=
+TableOption=
+Page=MAIN
+Left=3300
+Top=100
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="facility_group_id","facility_group_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="種別","type","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="日付","date","date","NOT NULL",,"","",$FFFFFFFF,""
+Field="時間枠ID","time_index_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用量(kwh)","amount_actual","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="計画値","amount_planned","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="損失量","amount_loss","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="インバランス","amount_imbalance","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="力率","power_factor_rate","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="売上(基本料)","sales_basic_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="売上(従量料金)","sales_mater_rate_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="売上(燃料調整費)","sales_fuel_cost_adjustment","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="売上(調整費)","sales_cost_adjustment","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="売上(還元割)","sales_special_discount","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="使用量(JBU)","usage_jbu","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="使用量(JPEXスポット)","usage_jepx_spot","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="使用量(JPEX一時間前)","usage_jepx_1hour","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="使用量(FIT)","usage_fit","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="使用量(相対)","usage_matching","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="仕入(JBU基本料)","supply_jbu_basic_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="仕入(JBU燃料調整費)","supply_jbu_fuel_cost_adjustment","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="仕入(JEPXスポット)","supply_jepx_spot","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="仕入(JEPX一時間前)","supply_jepx_1hour","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="仕入(FIT)","supply_fit","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="仕入(インバランス)","supply_imbalance","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="仕入(託送基本料)","supply_wheeler_fundamental_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="仕入(託送従量料金)","supply_wheeler_mater_rate_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,facility_group_id,date,time_index_id
+Index==0,facility_group_id
+Index==0,type
+Index==0,date
+Index==0,time_index_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",3300,100,306,813
+
+[Entity]
+PName=occto_plan_by_bg_members
+LName=広域需要調達計画(翌日)BGメンバー別データ
+Comment=
+TableOption=
+Page=MAIN
+Left=500
+Top=800
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="広域需要調達計画(翌日)ID","plan_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="BGメンバーID","bg_member_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,plan_id,bg_member_id
+Index==0,plan_id
+Index==0,bg_member_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",500,800,397,178
+
+[Entity]
+PName=fuel_cost_adjustments
+LName=燃料調整費
+Comment=
+TableOption=
+Page=MAIN
+Left=1600
+Top=2500
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="年","year","int(11)","NOT NULL",,"","",$FFFFFFFF,""
+Field="月","month","smallint(6)","NOT NULL",,"","",$FFFFFFFF,""
+Field="電圧クラス","voltage_class","tinyint(4)","NOT NULL",,"","",$FFFFFFFF,""
+Field="単価","unit_price","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,district_id,year,month
+Index==0,district_id
+Index==0,year
+Index==0,month
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",1600,2500,275,254
+
+[Entity]
+PName=discount_for_facilities
+LName=施設別割引
+Comment=
+TableOption=
+Page=MAIN
+Left=2900
+Top=700
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="設備ID","facility_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="適用開始日","start_date","date","NOT NULL",,"","",$FFFFFFFF,""
+Field="割引率","rate","decimal(10,4)","NOT NULL",,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,facility_id,start_date
+Index==0,facility_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",2900,700,300,203
+
+[Entity]
+PName=contract_basic_charges
+LName=契約基本料金
+Comment=
+TableOption=
+Page=MAIN
+Left=2400
+Top=1700
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="契約ID","contract_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="適用開始日","start_date","date","NOT NULL",,"","",$FFFFFFFF,""
+Field="金額","amount","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,contract_id
+Index==0,start_date
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",2400,1700,294,203
+
+[Entity]
+PName=bg_members
+LName=BGメンバー
+Comment=
+TableOption=
+Page=MAIN
+Left=500
+Top=100
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="バランシンググループID","balancing_group_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="PPS ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,balancing_group_id
+Index==0,company_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",500,100,397,229
+
 [Relation]
 Entity1=facilities
 Entity2=facility_contracts
@@ -200,48 +513,6 @@ TermPos1=R
 TermPos2=R
 
 [Relation]
-Entity1=occto_plan_by_companies
-Entity2=occto_plan_detail_values
-RelationType1=1
-RelationType2=3
-Fields1=id
-Fields2=plan_by_company_id
-Cardinarity1=
-Cardinarity2=
-Position="MAIN",5,720,500,3827,R,R
-Dependence=0
-Caption=
-PName=
-ModifiedDateTime=20190208163550
-LineMode=5
-Bar1=72
-Bar2=50
-Bar3=383
-TermPos1=R
-TermPos2=R
-
-[Relation]
-Entity1=occto_plans
-Entity2=occto_plan_by_companies
-RelationType1=1
-RelationType2=3
-Fields1=id
-Fields2=plan_id
-Cardinarity1=
-Cardinarity2=
-Position="MAIN",5,975,389,2206,R,R
-Dependence=0
-Caption=
-PName=
-ModifiedDateTime=20190208163514
-LineMode=5
-Bar1=98
-Bar2=39
-Bar3=221
-TermPos1=R
-TermPos2=R
-
-[Relation]
 Entity1=dlt_settings
 Entity2=dlt_files
 RelationType1=1
@@ -297,8 +568,8 @@ Field="record_type","record_type","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
 Field="record_id","record_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
 Field="blob_id","blob_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=index_active_storage_attachments_uniqueness=2,record_type,record_id,name,blob_id
-Index=index_active_storage_attachments_on_blob_id=0,blob_id
+Index==2,record_type,record_id,name,blob_id
+Index==0,blob_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -320,7 +591,7 @@ Field="metadata","metadata","text",,,"","",$FFFFFFFF,""
 Field="byte_size","byte_size","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
 Field="checksum","checksum","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=index_active_storage_blobs_on_key=2,key
+Index==2,key
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -360,34 +631,12 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=index_balancing_groups_on_district_id=0,district_id
-Index=index_balancing_groups_on_leader_company_id=0,leader_company_id
+Index==0,district_id
+Index==0,leader_company_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 Position="MAIN",100,100,302,229
-
-[Entity]
-PName=balancing_groups_companies
-LName=バランシンググループPPS関連
-Comment=
-TableOption=
-Page=MAIN
-Left=500
-Top=100
-Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="バランシンググループID","balancing_group_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="PPS ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
-Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
-Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=index_balancing_groups_companies_on_balancing_group_id=0,balancing_group_id
-Index=index_balancing_groups_companies_on_company_id=0,company_id
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-Position="MAIN",500,100,302,196
 
 [Entity]
 PName=companies
@@ -436,9 +685,9 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=index_company_accounts_on_company_id=0,company_id
-Index=index_company_accounts_on_id_and_type=0,id,type
-Index=index_company_accounts_on_type=0,type
+Index==0,company_id
+Index==0,id,type
+Index==0,type
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -471,7 +720,7 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=index_consumers_on_company_id=0,company_id
+Index==0,company_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -496,8 +745,8 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=index_contracts_on_voltage_type_id=0,voltage_type_id
-Index=index_contracts_on_contract_item_group_id=0,contract_item_group_id
+Index==0,voltage_type_id
+Index==0,contract_item_group_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -509,16 +758,18 @@ LName=供給エリア
 Comment=
 TableOption=
 Page=MAIN
-Left=900
+Left=1000
 Top=100
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="名前","name","varchar(255)",,,"","",$FFFFFFFF,""
 Field="コード","code","varchar(255)",,,"","",$FFFFFFFF,""
+Field="託送コード","wheeler_code","varchar(255)",,,"","",$FFFFFFFF,""
 Field="損失率(特別高圧)","loss_rate_special_high_voltage","float",,,"","",$FFFFFFFF,""
 Field="損失率(高圧)","loss_rate_high_voltage","float",,,"","",$FFFFFFFF,""
 Field="損失率(低圧)","loss_rate_low_voltage","float",,,"","",$FFFFFFFF,""
 Field="託送ダウンロード用ホスト名","dlt_host","varchar(255)",,,"","",$FFFFFFFF,""
 Field="託送ダウンロードパス名","dlt_path","varchar(255)",,,"","",$FFFFFFFF,""
+Field="電力量データ部分供給内包有無","is_partial_included","tinyint(1)","NOT NULL",,"","",$FFFFFFFF,""
 Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
@@ -526,7 +777,7 @@ Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",900,100,302,305
+Position="MAIN",1000,100,302,373
 
 [Entity]
 PName=district_loss_rates
@@ -535,7 +786,7 @@ Comment=
 TableOption=
 Page=MAIN
 Left=2000
-Top=2100
+Top=2500
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="電圧種別ID","voltage_type_id","bigint(20)",,,"","",$FFFFFFFF,""
@@ -546,12 +797,12 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=index_district_loss_rates_on_district_id=0,district_id
-Index=index_district_loss_rates_on_voltage_type_id=0,voltage_type_id
+Index==0,district_id
+Index==0,voltage_type_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",2000,2100,298,254
+Position="MAIN",2000,2500,298,254
 
 [Entity]
 PName=dlt_files
@@ -568,7 +819,7 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=index_dlt_files_on_setting_id=0,setting_id
+Index==0,setting_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -588,8 +839,8 @@ Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="状態","state","int(11)","NOT NULL",,"0","(0:正常, 1:休止中)",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=index_dlt_settings_on_company_id=0,company_id
-Index=index_dlt_settings_on_district_id=0,district_id
+Index==0,company_id
+Index==0,district_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -624,9 +875,9 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=index_facilities_on_consumer_id=0,consumer_id
-Index=index_facilities_on_district_id=0,district_id
-Index=index_facilities_on_voltage_type_id=0,voltage_type_id
+Index==0,consumer_id
+Index==0,district_id
+Index==0,voltage_type_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -648,8 +899,8 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=index_facility_contracts_on_facility_id=0,facility_id
-Index=index_facility_contracts_on_contract_id=0,contract_id
+Index==0,facility_id
+Index==0,contract_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -674,14 +925,14 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=index_facility_groups_on_company_id=0,company_id
-Index=index_facility_groups_on_district_id=0,district_id
-Index=index_facility_groups_on_contract_id=0,contract_id
-Index=index_facility_groups_on_voltage_type_id=0,voltage_type_id
+Index==0,company_id
+Index==0,district_id
+Index==0,contract_id
+Index==0,voltage_type_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",1400,700,300,279
+Position="MAIN",1400,700,300,320
 
 [Entity]
 PName=jepx_imbalance_betas
@@ -700,8 +951,8 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=unique_index_on_business=2,year,month,district_id
-Index=index_jepx_imbalance_betas_on_district_id=0,district_id
+Index==2,year,month,district_id
+Index==0,district_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -732,8 +983,8 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=unique_index_on_business=2,date,time_index_id
-Index=index_jepx_spot_trades_on_time_index_id=0,time_index_id
+Index==2,date,time_index_id
+Index==0,time_index_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -756,9 +1007,9 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=unique_index_on_business=2,spot_trade_id,district_id
-Index=index_jepx_spot_trade_area_data_on_spot_trade_id=0,spot_trade_id
-Index=index_jepx_spot_trade_area_data_on_district_id=0,district_id
+Index==2,spot_trade_id,district_id
+Index==0,spot_trade_id
+Index==0,district_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -779,35 +1030,12 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=unique_index_on_business=2,balancing_group_id,date
-Index=index_occto_plans_on_balancing_group_id=0,balancing_group_id
+Index==2,balancing_group_id,date
+Index==0,balancing_group_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 Position="MAIN",500,500,399,178
-
-[Entity]
-PName=occto_plan_by_companies
-LName=広域需要調達計画(翌日)PPS別データ
-Comment=
-TableOption=
-Page=MAIN
-Left=500
-Top=800
-Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="広域需要調達計画(翌日)ID","plan_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="PPS ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
-Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
-Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=unique_index_on_business=2,plan_id,company_id
-Index=index_occto_plan_by_companies_on_plan_id=0,plan_id
-Index=index_occto_plan_by_companies_on_company_id=0,company_id
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-Position="MAIN",500,800,395,178
 
 [Entity]
 PName=occto_plan_detail_values
@@ -819,20 +1047,22 @@ Left=500
 Top=1100
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="データ種別","type","varchar(30)",,,"","",$FFFFFFFF,""
+Field="広域需要調達計画(翌日)BGメンバー別データID","plan_by_bg_member_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="リソースID","resource_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="広域需要調達計画(翌日)PPS別データID","plan_by_company_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="時間枠ID","time_index_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="数量(kWh)","value","decimal(14,0)",,,"","",$FFFFFFFF,""
 Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=unique_index_on_business=2,type,resource_id,plan_by_company_id
-Index=index_occto_plan_detail_values_on_resource_id=0,resource_id
-Index=index_occto_plan_detail_values_on_plan_by_company_id=0,plan_by_company_id
+Index==2,type,plan_by_bg_member_id,resource_id,time_index_id
+Index==0,plan_by_bg_member_id
+Index==0,resource_id
+Index==0,time_index_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",500,1100,399,229
+Position="MAIN",500,1100,399,254
 
 [Entity]
 PName=power_usage_fixeds
@@ -840,8 +1070,8 @@ LName=電力使用量(確定値)
 Comment=
 TableOption=
 Page=MAIN
-Left=1400
-Top=1500
+Left=1900
+Top=1900
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="施設グループID","facility_group_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
 Field="日付","date","date","NOT NULL",,"","",$FFFFFFFF,""
@@ -851,14 +1081,14 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=unique_index_for_import=2,facility_group_id,date,time_index_id
-Index=index_power_usage_fixeds_on_facility_group_id=0,facility_group_id
-Index=index_power_usage_fixeds_on_date=0,date
-Index=index_power_usage_fixeds_on_time_index_id=0,time_index_id
+Index==2,facility_group_id,date,time_index_id
+Index==0,facility_group_id
+Index==0,date
+Index==0,time_index_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",1400,1500,401,229
+Position="MAIN",1900,1900,401,229
 
 [Entity]
 PName=power_usage_preliminaries
@@ -866,8 +1096,8 @@ LName=電力使用量(速報値)
 Comment=
 TableOption=
 Page=MAIN
-Left=1400
-Top=1800
+Left=1900
+Top=2200
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="施設グループID","facility_group_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
 Field="日付","date","date","NOT NULL",,"","",$FFFFFFFF,""
@@ -877,14 +1107,14 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=unique_index_for_import=2,facility_group_id,date,time_index_id
-Index=index_power_usage_preliminaries_on_facility_group_id=0,facility_group_id
-Index=index_power_usage_preliminaries_on_date=0,date
-Index=index_power_usage_preliminaries_on_time_index_id=0,time_index_id
+Index==2,facility_group_id,date,time_index_id
+Index==0,facility_group_id
+Index==0,date
+Index==0,time_index_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",1400,1800,401,229
+Position="MAIN",1900,2200,401,229
 
 [Entity]
 PName=resources
@@ -895,15 +1125,15 @@ Page=MAIN
 Left=2700
 Top=2500
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="会社ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="コード","code","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="バランシンググループID","balancing_group_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="種別","type","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="コード","code","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
 Field="名称","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
 Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=index_resources_on_company_id=0,company_id
+Index==0,balancing_group_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
@@ -935,18 +1165,20 @@ Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="供給地点特定番号","number","varchar(255)",,,"","",$FFFFFFFF,""
 Field="供給開始日","supply_start_date","date",,,"","",$FFFFFFFF,""
 Field="供給終了日","supply_end_date","date",,,"","",$FFFFFFFF,""
+Field="供給区分(1","supply_method_type","int(11)","NOT NULL",,"","全量, 2:部分)",$FFFFFFFF,""
+Field="ベース電源","base_power","int(11)",,,"","",$FFFFFFFF,""
 Field="施設グループID","facility_group_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="施設ID","facility_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=index_supply_points_on_facility_group_id=0,facility_group_id
-Index=index_supply_points_on_facility_id=0,facility_id
+Index==0,facility_group_id
+Index==0,facility_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",1900,700,304,298
+Position="MAIN",1900,700,304,315
 
 [Entity]
 PName=time_indices
@@ -996,10 +1228,10 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index=index_users_on_email=2,email
-Index=index_users_on_uid_and_provider=2,uid,provider
-Index=index_users_on_reset_password_token=2,reset_password_token
-Index=index_users_on_accesable_type_and_accesable_id=0,accesable_type,accesable_id
+Index==2,email
+Index==2,uid,provider
+Index==2,reset_password_token
+Index==0,accesable_type,accesable_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
