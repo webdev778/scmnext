@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_14_142454) do
+ActiveRecord::Schema.define(version: 2019_02_16_024254) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -249,6 +249,46 @@ ActiveRecord::Schema.define(version: 2019_02_14_142454) do
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_dlt_settings_on_company_id"
     t.index ["district_id"], name: "index_dlt_settings_on_district_id"
+  end
+
+  create_table "dlt_usage_fixed_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "確定使用量明細", force: :cascade do |t|
+    t.bigint "usage_fixed_header_id", comment: "確定使用量ヘッダID"
+    t.date "date"
+    t.bigint "time_index_id", comment: "時間枠ID"
+    t.decimal "usage_all", precision: 10, scale: 4, comment: "使用量全量"
+    t.decimal "usage", precision: 10, scale: 4, comment: "使用量仕訳後"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["time_index_id"], name: "index_dlt_usage_fixed_details_on_time_index_id"
+    t.index ["usage_fixed_header_id"], name: "index_dlt_usage_fixed_details_on_usage_fixed_header_id"
+  end
+
+  create_table "dlt_usage_fixed_headers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "確定使用量ヘッダ", force: :cascade do |t|
+    t.bigint "file_id", comment: "ファイルID"
+    t.integer "year", null: false, comment: "年"
+    t.integer "month", limit: 2, null: false, comment: "月"
+    t.string "supply_point_number", limit: 22, null: false, comment: "供給地点特定番号"
+    t.string "consumer_code", limit: 21, comment: "需要家識別番号"
+    t.string "consumer_name", limit: 80, comment: "需要家名称"
+    t.string "supply_point_name", limit: 70, comment: "供給場所"
+    t.string "voltage_class_name", limit: 4, comment: "電圧区分"
+    t.integer "journal_code", limit: 1, comment: "仕訳コード: 1:全量,2:部分"
+    t.boolean "can_provide", comment: "提供可否"
+    t.decimal "usage_all", precision: 10, scale: 4, comment: "月間電力量全量"
+    t.decimal "usage", precision: 10, scale: 4, comment: "月間電力量仕訳後"
+    t.decimal "power_factor", precision: 10, scale: 4, comment: "力率"
+    t.decimal "max_power", precision: 10, scale: 4, comment: "最大需要電力"
+    t.date "next_meter_reading_date", comment: "次回定例検針予定日"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["file_id"], name: "index_dlt_usage_fixed_headers_on_file_id"
+    t.index ["month"], name: "index_dlt_usage_fixed_headers_on_month"
+    t.index ["supply_point_number"], name: "index_dlt_usage_fixed_headers_on_supply_point_number"
+    t.index ["year"], name: "index_dlt_usage_fixed_headers_on_year"
   end
 
   create_table "facilities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "施設", force: :cascade do |t|
@@ -510,7 +550,7 @@ ActiveRecord::Schema.define(version: 2019_02_14_142454) do
   end
 
   create_table "supply_points", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "供給地点", force: :cascade do |t|
-    t.string "number", comment: "供給地点特定番号"
+    t.string "number", limit: 30, null: false, comment: "供給地点特定番号"
     t.date "supply_start_date", comment: "供給開始日"
     t.date "supply_end_date", comment: "供給終了日"
     t.integer "supply_method_type", null: false, comment: "供給区分(1:全量, 2:部分)"
@@ -523,6 +563,7 @@ ActiveRecord::Schema.define(version: 2019_02_14_142454) do
     t.datetime "updated_at", null: false
     t.index ["facility_group_id"], name: "index_supply_points_on_facility_group_id"
     t.index ["facility_id"], name: "index_supply_points_on_facility_id"
+    t.index ["number"], name: "index_supply_points_on_number"
   end
 
   create_table "time_indices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "時間枠", force: :cascade do |t|

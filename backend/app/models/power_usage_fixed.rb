@@ -31,59 +31,23 @@ class PowerUsageFixed < ApplicationRecord
   }
 
   class << self
-    def import_data(company_id, district_id, date = nil)
-      setting = Dlt::Setting.find_by(company_id: company_id, district_id: district_id)
-      raise "設定情報が見つかりません。[company_id: #{company_id}, district_id: #{district_id}]" if setting.nil?
-      supply_point_number_map = SupplyPoint.get_map_filter_by_compay_id_and_district_id(company_id, district_id)
-
-      setting.get_xml_object_and_process_high_and_low(:fixed, date) do |doc, voltage_class|
-        jptrm = doc.elements['SBD-MSG/JPMGRP/JPTRM']
-        import_data = jptrm.elements['JPM00010'].to_a.map do |nodes_by_facility|
-          next if nodes_by_facility.elements['JP06405'].text != '0'
-          supply_point_number = nodes_by_facility.elements['JP06400'].text
-          journal_code = nodes_by_facility.elements['JP06404'].text # 仕訳コード
-          supply_point = supply_point_number_map[supply_point_number]
-          if supply_point.nil?
-            logger.error("供給地点特定番号:[#{supply_point_number}]に対応する施設が見つかりません。需要家名=#{nodes_by_facility.elements['JP06120'].text}")
-            puts "供給地点特定番号:[#{supply_point_number}]に対応する施設が見つかりません。需要家名=#{nodes_by_facility.elements['JP06120'].text}"
-            next
-          end
-          value_tag = case journal_code
-          when '1'
-            'JP06424'
-          when '2'
-            'JP06425'
-          else
-            raise "不明な仕訳コード:#{journal_code}"
-          end
-          if journal_code == '2' and not(supply_point.supply_method_type_partial?)
-            logger.error("供給地点特定番号:[#{supply_point_number}]は供給区分とxml上の仕訳コードが一致しません。")
-            puts "供給地点特定番号:[#{supply_point_number}]は供給区分とxml上の仕訳コードが一致しません。"
-          end
-          nodes_by_facility.elements['JPM00013'].to_a.map do |nodes_by_day|
-            date = Time.strptime(nodes_by_day.elements['JP06423'].text, "%Y%m%d")
-            unless supply_point.is_active_at?(date)
-              logger.error("供給地点特定番号:[#{supply_point_number}]は契約期間外です。需要家名=#{nodes_by_facility.elements['JP06120'].text}")
-              puts "供給地点特定番号:[#{supply_point_number}]は契約期間外です。需要家名=#{nodes_by_facility.elements['JP06120'].text}"
-              next
-            end
-            nodes_by_day.elements['JPM00014'].to_a.map do |nodes_by_time|
-              {
-                date: date,
-                time_index_id: nodes_by_time.elements['JP06219'].text,
-                facility_group_id: supply_point.facility_group.id,
-                value: BigDecimal(nodes_by_time.elements[value_tag].text)
-              }
-            end
-          end
-        end
-        import_data = import_data.flatten.compact.group_by do |item|
-          [item[:date], item[:time_index_id], item[:facility_group_id]]
-        end.map do |k, values|
-          {date: k[0], time_index_id: k[1], facility_group_id: k[2], value: values.sum{|v| v[:value].nil? ? 0 : BigDecimal(v[:value])}}
-        end
-        result = self.import import_data, {on_duplicate_key_update: [:value]}
-      end
+    #
+    # 確定使用量データから施設グループ単位の確定値を取得しテーブルにインポートする
+    #
+    def import_data(company_id, district_id, start_date, end_date)
+      import_data = Dlt::UsageFixedDetail
+        .joins({usage_fixed_header: :supply_point})
+        .where(["date >= ? and date <= ?" ,start_date, end_date])
+        .distinct
+        .select( [
+          :facility_group_id,
+          :date,
+          :time_index_id,
+          Arel.sql("SUM(CASE journal_code WHEN '2' THEN `dlt_usage_fixed_details`.`usage` ELSE `dlt_usage_fixed_details`.`usage_all` END) AS value")
+        ] )
+        .group(:facility_group_id, :date, :time_index_id)
+        .as_json({except: :id})
+      result = self.import import_data, {on_duplicate_key_update: [:value]}
     end
   end
 end

@@ -39,7 +39,7 @@ class PowerUsagePreliminary < ApplicationRecord
       setting = Dlt::Setting.find_by(company_id: company_id, district_id: district_id)
       raise "設定情報が見つかりません。[company_id: #{company_id}, district_id: #{district_id}]" if setting.nil?
       supply_point_number_map = SupplyPoint.get_map_filter_by_compay_id_and_district_id(company_id, district_id)
-      setting.get_xml_object_and_process_high_and_low(:today, date, time_index) do |doc, voltage_class|
+      setting.get_xml_object_and_process_high_and_low(:today, date, time_index) do |file, doc, voltage_class|
         jptrm = doc.elements['SBD-MSG/JPMGRP/JPTRM']
         date =  Time.strptime(jptrm.elements['JP06116'].text, "%Y%m%d")
         time_index = jptrm.elements['JP06219'].text
@@ -63,7 +63,7 @@ class PowerUsagePreliminary < ApplicationRecord
       raise "設定情報が見つかりません。[company_id: #{company_id}, district_id: #{district_id}]" if setting.nil?
       supply_point_number_map = SupplyPoint.get_map_filter_by_compay_id_and_district_id(company_id, district_id)
 
-      setting.get_xml_object_and_process_high_and_low(:past, date) do |doc, voltage_class|
+      setting.get_xml_object_and_process_high_and_low(:past, date) do |file, doc, voltage_class|
         jptrm = doc.elements['SBD-MSG/JPMGRP/JPTRM']
         date =  Time.strptime(jptrm.elements['JP06116'].text, "%Y%m%d")
         import_data =  jptrm.elements['JPM00010'].to_a.map do |nodes_by_times|

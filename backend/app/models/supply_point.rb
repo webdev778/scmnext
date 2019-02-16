@@ -17,8 +17,9 @@
 #
 
 class SupplyPoint < ApplicationRecord
-  before_validation :set_facility_group_id, if: ->{!self.facility_id.nil? and self.facility_group_id.nil?}
+  before_validation :set_facility_group_id, if: ->{not(self.facility_id.nil?) and self.facility_group_id.nil?}
 
+  has_many :usage_fixed_headers, class_name: Dlt::UsageFixedHeader.to_s, primary_key: :number, foreign_key: :supply_point_number
   belongs_to :facility_group
   belongs_to :facility, required: false # 低圧施設の情報を外部提供受けるケースを想定して必須にはしない
 

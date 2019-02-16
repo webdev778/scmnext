@@ -41,7 +41,7 @@ class Dlt::Setting < ApplicationRecord
       self.files.filter_by_filename(data_type, voltage_class, date, time_index).each do |row|
         logger.debug(row.filename)
         row.perform_document_read do |doc|
-          yield(doc, voltage_class)
+          yield(row, doc, voltage_class)
         end
       end
     end

@@ -12,7 +12,8 @@
 #
 
 class Dlt::File < ApplicationRecord
-  belongs_to :setting, class_name: "Dlt::Setting"
+  belongs_to :setting, class_name: Dlt::Setting.to_s
+  has_many :usage_fixed_header
   has_one_attached :content
 
   enum state: {
