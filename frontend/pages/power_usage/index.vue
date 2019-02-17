@@ -2,7 +2,7 @@
   .wrapper
     .animated.fadeIn
       b-row
-        b-col
+        b-col(cols=9)
           b-card(
             header-tag="header"
             footer-tag="footer"
@@ -12,7 +12,10 @@
               v-model="targetDate"
               v-on:change="fetchData()"
             )
-            line-chart(v-bind:chart-data="chartData")
+            line-chart(
+              v-bind:chart-data="chartData"
+              v-bind:height=250
+            )
         b-col
           b-card(
             header-tag="header"
@@ -34,6 +37,9 @@ export default {
       fixed: {}
     }
   },
+  mounted() {
+    console.log(this.chartData)
+  },
   computed: {
     tableData() {
       let result = []
@@ -51,6 +57,9 @@ export default {
       return result
     },
     chartData() {
+      if (this.preliminary.length == 0 && this.fixed.lenght == 0){
+        return null
+      }
       let chartLabels = []
       let preliminaryChart = []
       let fixedChart = []
@@ -77,7 +86,6 @@ export default {
           }
         ]
       }
-      console.log(result)
       return result
     }
   },
@@ -88,7 +96,6 @@ export default {
     fetchData(){
       this.$axios.$get('/v1/power_usages/preliminary', {params: {date: this.targetDate}})
       .then( (result)=>{
-        console.log(result)
         this.preliminary = result
       })
       this.$axios.$get('/v1/power_usages/fixed', {params: {date: this.targetDate}})

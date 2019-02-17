@@ -17,21 +17,21 @@ export default {
         {
           name: '託送データ',
           url: '/dlt/files',
+        },
+        {
+          name: '速報値・確定値',
+          url: '/power_usage',
         }
       ]
     },
     {
-      name: '電力使用量',
+      name: '損益計算',
       icon: 'icon-puzzle',
       url: '/base',
       children: [
         {
-          name: '確定値',
-          url: '/powerusage/fixed',
-        },
-        {
-          name: '速報値',
-          url: '/powerusage/preliminaries',
+          name: '施設グループ別損益',
+          url: '/profits/facility_groups',
         }
       ]
     },
