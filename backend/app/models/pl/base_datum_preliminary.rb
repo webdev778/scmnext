@@ -37,4 +37,16 @@
 #
 
 class Pl::BaseDatumPreliminary < Pl::BaseDatum
+  class << self
+    def generate(date)
+      self.where(date: date).delete_all
+      BalancingGroup.all.each do |bg|
+        puts bg.name
+        bg.bg_members.each do |bg_member|
+          puts bg_member.company.name
+          generate_each_bg_member_data(date, bg_member, PowerUsageFixed)
+        end
+      end
+    end
+  end
 end

@@ -15,5 +15,6 @@ Rails.application.routes.draw do
     end
 
     get "power_usages/:type", to: "power_usages#show", constraints: { type: /(fixed|preliminary)/ }
+    get "profits/:type", to: "profits#show", constraints: { type: /(fixed|preliminary)/ }
   end
 end

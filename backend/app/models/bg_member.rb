@@ -18,7 +18,7 @@ class BgMember < ApplicationRecord
   has_one :resource_jepx_one_hour
   has_many :resource_fits
   has_many :resource_matchings
-  belongs_to :balancing_group
+  belongs_to :balancing_group, inverse_of: :bg_members
   belongs_to :company
 
   def code

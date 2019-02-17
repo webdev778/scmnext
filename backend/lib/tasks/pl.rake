@@ -8,7 +8,7 @@ namespace :pl do
     end
 
     desc "損益計算基本データ(確定値ベース)作成"
-    task preliminary: :environment do |task, args|
+    task fixed: :environment do |task, args|
       target_date = determine_target_date(Date.yesterday)
       Pl::BaseDatumFixed.generate target_date
     end

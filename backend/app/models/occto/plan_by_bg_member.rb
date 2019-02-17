@@ -12,10 +12,10 @@
 #
 
 class Occto::PlanByBgMember < ApplicationRecord
+  has_many :plan_detail_values, dependent: :delete_all
   has_many :plan_detail_demand_values
   has_many :plan_detail_supply_values
   has_many :plan_detail_sale_values
-  has_many :plan_detail_values
   belongs_to :plan
   belongs_to :bg_member
 

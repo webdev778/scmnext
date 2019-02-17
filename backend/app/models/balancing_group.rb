@@ -14,7 +14,7 @@
 #
 
 class BalancingGroup < ApplicationRecord
-  has_many :bg_members
+  has_many :bg_members, inverse_of: :balancing_group, dependent: :destroy
   has_many :companies, through: :bg_members
   has_many :resources
   has_many :occto_plans, class_name: Occto::Plan.to_s

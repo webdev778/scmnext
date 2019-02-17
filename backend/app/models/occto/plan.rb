@@ -12,7 +12,7 @@
 #
 
 class Occto::Plan < ApplicationRecord
-  has_many :plan_by_bg_members
+  has_many :plan_by_bg_members, dependent: :destroy
   belongs_to :balancing_group
 
   accepts_nested_attributes_for :plan_by_bg_members
@@ -33,6 +33,8 @@ class Occto::Plan < ApplicationRecord
         balancing_group_id: bg.id,
         date: date
       }
+      plan = self.find_by(plan_attributes)
+      plan.destroy unless plan.nil?
       plan_attributes[:plan_by_bg_members_attributes] = node_root.elements['JPM00022'].to_a.map do |node_by_company|
         bg_member = bg.bg_members.find{|bgm| bgm.code == node_by_company.elements['JP06316'].text}
         plan_detail_demands = node_by_company.elements['JPM00023/JPMR00023/JPM00024'].to_a.map do |node_demand_with_time_index|
@@ -69,6 +71,20 @@ class Occto::Plan < ApplicationRecord
         }
       end
       self.create!(plan_attributes)
+    end
+
+    #
+    # BG IDと日付で計画を検索し、ポジション表に変換する
+    #
+    # @param [Hash] condition 検索条件を含むハッシュ(balancing_group_id及びdate)
+    #
+    def matrix_by_time_index_and_resouce_type(condition)
+      condition.assert_valid_keys(:balancing_group_id, :date)
+      plan = self
+        .includes({ plan_by_bg_members: {plan_detail_values: :resource} })
+        .find_by(condition)
+      return nil unless plan
+      plan.matrix_by_time_index_and_resouce_type
     end
   end
 
