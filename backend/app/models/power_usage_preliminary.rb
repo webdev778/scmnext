@@ -54,7 +54,7 @@ class PowerUsagePreliminary < ApplicationRecord
         import_data =  jptrm.elements['JPM00010'].to_a.map do |nodes_by_times|
           time_index = nodes_by_times.elements['JP06219'].text
           nodes_by_times.elements['JPM00011'].to_a.map do |nodes_by_facility|
-            facility_node_to_import_data(nodes_by_facility, supply_point_number_map, voltage_class, date, time_index, setting.district.is_partial_included)
+            facility_node_to_import_data(nodes_by_facility, supply_point_number_map, voltage_class, date, time_index, setting)
           end
         end
         import_data = import_data.flatten.compact.group_by do |item|

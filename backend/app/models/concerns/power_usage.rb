@@ -8,13 +8,13 @@ module PowerUsage
 
     scope :total_by_time_index, ->{
       eager_load(:facility_group)
-      .group(:time_index_id)
-      .sum("value")
+        .group(:time_index_id)
+        .sum("value")
     }
 
     scope :total, ->{
       eager_load(:facility_group)
-      .sum("value")
+        .sum("value")
     }
 
   end

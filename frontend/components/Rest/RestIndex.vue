@@ -31,6 +31,12 @@
             fixed
             xs
             )
+            template(v-for="(field, index) in fieldsModified" v-bind:slot="'HEAD_' + field.key" slot-scope="data")
+              span(v-on:click="sortField(field.key)")
+                | {{field.label}}
+                template(v-if="sort.name == field.key")
+                  i.fa.fa-sort-up(v-if="sort.dir == 'asc'")
+                  i.fa.fa-sort-down(v-if="sort.dir == 'desc'")
             template(slot="table-colgroup")
               col(v-for="(field, index) in fieldsModified" v-bind:style="getColTagStyle(field)")
             template(slot="operations" slot-scope="data")
@@ -52,7 +58,11 @@ export default {
       currentPage: null,
       data: null,
       perPages: [10, 20, 50, 100, 200],
-      perPage: 10
+      perPage: 10,
+      sort: {
+        name: null,
+        dir: 'asc'
+      }
     }
   },
   props: {
@@ -110,8 +120,22 @@ export default {
       }
       return style
     },
+    sortField(key) {
+      if (this.sort.name != key) {
+        this.sort.name = key
+        this.sort.dir = 'asc'
+      } else {
+        this.sort.dir = this.sort.dir == 'asc' ? 'desc' : 'asc'
+      }
+      console.log(this.sort)
+      this.retriveData()
+    },
     async retriveData() {
-      this.data = await this.$axios.$get(`/v1/${this.name}`, {params: {page: this.currentPage, per: this.perPage}})
+      let params = {page: this.currentPage, per: this.perPage}
+      if (this.sort.name){
+        params["q[s]"] = `${this.sort.name} ${this.sort.dir}`
+      }
+      this.data = await this.$axios.$get(`/v1/${this.name}`, {params: params})
     }
   }
 }

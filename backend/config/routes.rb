@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   get '/auth', to: 'user_sessions#show'
   scope :v1, defaults: { format: :json } do
     resources :users
-    resources :balancing_groups
+    resources :balancing_groups do
+      resources :bg_members
+    end
     resources :companies
     resources :districts
     resources :consumers
@@ -14,6 +16,7 @@ Rails.application.routes.draw do
       resources :files
     end
 
+    get "balancings", to: "balancings#show"
     get "power_usages/:type", to: "power_usages#show", constraints: { type: /(fixed|preliminary)/ }
     get "profits/:type", to: "profits#show", constraints: { type: /(fixed|preliminary)/ }
   end

@@ -5,8 +5,7 @@ module SimpleRestApi
   extend ActiveSupport::Concern
 
   included do
-    #include DeviseTokenAuth::Concerns::SetUserByToken
-
+    include DeviseTokenAuth::Concerns::SetUserByToken
     before_action :authenticate_user!
 
     class_attribute :model_name
@@ -20,7 +19,7 @@ module SimpleRestApi
   end
 
   def index
-    @q = model_class_with_includes(:index).ransack(params[:q])
+    @q = filter_for_index(model_class_with_includes(:index)).ransack(params[:q])
     results = @q.result
     if params[:page].nil?
       render json: results
@@ -32,7 +31,7 @@ module SimpleRestApi
   end
 
   def show
-    instance = model_class_with_includes(:show).find(params[:id])
+    instance = filter_for_show(model_class_with_includes(:show)).find(params[:id])
     render json: instance
   end
 
@@ -67,6 +66,18 @@ module SimpleRestApi
 
   def params_for_update
     params_for_save
+  end
+
+  def filter_for_all(relation)
+    relation
+  end
+
+  def filter_for_index(relation)
+    filter_for_all(relation)
+  end
+
+  def filter_for_show(relation)
+    filter_for_all(relation)
   end
 
   private

@@ -46,7 +46,7 @@ class Pl::BaseDatum < ApplicationRecord
         .where('facility_groups.district_id': bg_member.balancing_group.district_id, 'facility_groups.company_id': bg_member.company.id, date: date)
       # 対象データが無い場合はスキップ
       return if power_usage_relation.count == 0
-      plan_matrix_by_time_index_and_resouce_type = Occto::Plan.matrix_by_time_index_and_resouce_type(balancing_group_id: bg_member.balancing_group_id, date: date)
+      plan_matrix_by_time_index_and_resouce_type = Occto::Plan.matrix_by_time_index_and_resouce_type(bg_member_id: bg_member.id, date: date)
       # ポジション未登録の場合もスキップ
       return if plan_matrix_by_time_index_and_resouce_type.nil?
 
