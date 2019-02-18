@@ -4,6 +4,7 @@
     name="balancing_group"
     v-bind:id="id"
     v-bind:fields="fields"
+    v-bind:options="options"
   )
 </template>
 
@@ -30,16 +31,18 @@ export default {
           type: "select",
           label: "エリア"
         }
-      ]
+      ],
+      options: {district_id: {}}
     }
   },
-  async created() {
+  created() {
     this.id = Number(this.$route.params.id)
-    let options = await this.$axios.$get('/v1/districts')
-    let list = options.map( (district)=>{
-      return {value: district.id, text: district.name}
+    this.$axios.$get('/v1/districts')
+    .then(result=>{
+      this.options['district_id'] = result.map(district=>{
+        return {value: district.id, text: district.name}
+      })
     })
-    this.$set(this.fields[2], 'options', list)
   }
 }
 </script>

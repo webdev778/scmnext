@@ -4,6 +4,7 @@
     name="consumer"
     v-bind:id="id"
     v-bind:fields="fields"
+    v-bind:options="options"
   )
 </template>
 
@@ -27,7 +28,7 @@ export default {
         },
         {
           key: "company_id",
-          type: "text",
+          type: "select",
           label: "PPS ID"
         },
         {
@@ -80,11 +81,23 @@ export default {
           type: "text",
           label: "担当者カナ"
         }
-      ]
+      ],
+      options: {
+        company_id: {}
+      }
     }
   },
   created() {
     this.id = Number(this.$route.params.id)
+    this.$axios.$get(`/v1/companies`)
+    .then(result=>{
+      this.options['company_id'] = result.map(item=>{
+        return {
+          value: item.id,
+          text: item.name
+        }
+      })
+    })
   }
 }
 </script>
