@@ -24,6 +24,7 @@ class Occto::Plan < ApplicationRecord
     #
     def import_data(filename)
       raise "ファイル[#{filename}]が見つかりません。" unless File.exists?(filename)
+
       zip_file = Zip::File.open(filename)
       doc = REXML::Document.new(zip_file.read(zip_file.entries.first.name), ignore_whitespace_nodes: :all)
       node_root = doc.elements['SBD-MSG/JPMGRP/JPTRM']
@@ -36,7 +37,7 @@ class Occto::Plan < ApplicationRecord
       plan = self.find_by(plan_attributes)
       plan.destroy unless plan.nil?
       plan_attributes[:plan_by_bg_members_attributes] = node_root.elements['JPM00022'].to_a.map do |node_by_company|
-        bg_member = bg.bg_members.find{|bgm| bgm.code == node_by_company.elements['JP06316'].text}
+        bg_member = bg.bg_members.find { |bgm| bgm.code == node_by_company.elements['JP06316'].text }
         plan_detail_demands = node_by_company.elements['JPM00023/JPMR00023/JPM00024'].to_a.map do |node_demand_with_time_index|
           {
             time_index_id: node_demand_with_time_index.elements['JP06219'].text.to_i,
@@ -82,9 +83,10 @@ class Occto::Plan < ApplicationRecord
       condition.assert_valid_keys(:bg_member_id, :date)
       bg_member = BgMember.find(condition[:bg_member_id])
       plan = self
-        .includes({ plan_by_bg_members: {plan_detail_values: :resource} })
-        .find_by(balancing_group_id: bg_member.balancing_group_id, date: condition[:date])
+             .includes({ plan_by_bg_members: { plan_detail_values: :resource } })
+             .find_by(balancing_group_id: bg_member.balancing_group_id, date: condition[:date])
       return nil unless plan
+
       plan.matrix_by_time_index_and_resouce_type
     end
   end

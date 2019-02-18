@@ -20,7 +20,8 @@ class Dlt::Setting < ApplicationRecord
   #
   def connection
     return @con unless @con.nil?
-    district =self.district
+
+    district = self.district
     pkcs12 = self.company.company_account_occto.pkcs12_object
     @con = Faraday::Connection.new(
       url: district.dlt_host,

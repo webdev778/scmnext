@@ -27,9 +27,9 @@
 
 class Facility < ApplicationRecord
   has_one :supply_point
-  has_many :facility_contracts, ->{order(start_date: :desc)}
+  has_many :facility_contracts, -> { order(start_date: :desc) }
   has_many :contracts, through: :facility_contracts
-  has_many :discount_for_facilities, ->{order(start_date: :desc)}
+  has_many :discount_for_facilities, -> { order(start_date: :desc) }
   belongs_to :district
   belongs_to :consumer
   belongs_to :voltage_type
@@ -39,37 +39,37 @@ class Facility < ApplicationRecord
   # validates :city,
   #   presence: true
 
-  scope :active_at, ->(date){
+  scope :active_at, ->(date) {
     eager_load(:supply_point)
-    .where(["supply_point.supply_start_date <= ?", date])
-    .where(["supply_point.supply_end_date is null or supply_point.supply_end_date >= ?", date])
+      .where(["supply_point.supply_start_date <= ?", date])
+      .where(["supply_point.supply_end_date is null or supply_point.supply_end_date >= ?", date])
   }
 
-  scope :filter_company_id, ->(company_id){
+  scope :filter_company_id, ->(company_id) {
     eager_load(:consumer)
-    .where("consumers.company_id" => company_id)
+      .where("consumers.company_id" => company_id)
   }
 
-  scope :filter_district_id, ->(district_id){
+  scope :filter_district_id, ->(district_id) {
     where(district_id: district_id)
   }
 
-  scope :get_active_facility, ->(company_id, district_id, date){
+  scope :get_active_facility, ->(company_id, district_id, date) {
     filter_company_id(company_id)
-    .filter_district_id(district_id)
-    .active_at(date)
+      .filter_district_id(district_id)
+      .active_at(date)
   }
 
-  def is_active_at?( date )
+  def is_active_at?(date)
     sels.supply_point.is_active_at?(date)
   end
 
-  def sales_special_discount_rate_at( date )
+  def sales_special_discount_rate_at(date)
     discount_for_facility = self.discount_for_facility_at(date)
     discount_for_facility ? discount_for_facility.rate : 0
   end
 
-  def discount_for_facility_at( date )
+  def discount_for_facility_at(date)
     discount_for_facilities.find do |discount_for_facility|
       discount_for_facility.start_date <= date
     end

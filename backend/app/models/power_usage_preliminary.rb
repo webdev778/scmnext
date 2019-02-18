@@ -23,6 +23,7 @@ class PowerUsagePreliminary < ApplicationRecord
     def import_today_data(company_id, district_id, date, time_index = nil)
       setting = Dlt::Setting.find_by(company_id: company_id, district_id: district_id)
       raise "設定情報が見つかりません。[company_id: #{company_id}, district_id: #{district_id}]" if setting.nil?
+
       supply_point_number_map = SupplyPoint.get_map_filter_by_compay_id_and_district_id(company_id, district_id)
       setting.get_xml_object_and_process_high_and_low(:today, date, time_index) do |file, doc, voltage_class|
         jptrm = doc.elements['SBD-MSG/JPMGRP/JPTRM']
@@ -34,7 +35,7 @@ class PowerUsagePreliminary < ApplicationRecord
         import_data = import_data.flatten.compact.group_by do |item|
           [item[:date], item[:time_index_id], item[:facility_group_id]]
         end.map do |k, values|
-          {date: k[0], time_index_id: k[1], facility_group_id: k[2], value: values.sum{|v| v[:value].nil? ? 0 : BigDecimal(v[:value])}}
+          { date: k[0], time_index_id: k[1], facility_group_id: k[2], value: values.sum { |v| v[:value].nil? ? 0 : BigDecimal(v[:value]) } }
         end
         result = self.import(import_data, on_duplicate_key_update: [:date, :time_index_id, :facility_group_id])
       end
@@ -46,6 +47,7 @@ class PowerUsagePreliminary < ApplicationRecord
     def import_past_data(company_id, district_id, date)
       setting = Dlt::Setting.find_by(company_id: company_id, district_id: district_id)
       raise "設定情報が見つかりません。[company_id: #{company_id}, district_id: #{district_id}]" if setting.nil?
+
       supply_point_number_map = SupplyPoint.get_map_filter_by_compay_id_and_district_id(company_id, district_id)
 
       setting.get_xml_object_and_process_high_and_low(:past, date) do |file, doc, voltage_class|
@@ -60,13 +62,14 @@ class PowerUsagePreliminary < ApplicationRecord
         import_data = import_data.flatten.compact.group_by do |item|
           [item[:date], item[:time_index_id], item[:facility_group_id]]
         end.map do |k, values|
-          {date: k[0], time_index_id: k[1], facility_group_id: k[2], value: values.sum{|v| v[:value].nil? ? 0 : BigDecimal(v[:value])}}
+          { date: k[0], time_index_id: k[1], facility_group_id: k[2], value: values.sum { |v| v[:value].nil? ? 0 : BigDecimal(v[:value]) } }
         end
         result = self.import(import_data, on_duplicate_key_update: [:value])
       end
     end
 
     private
+
     #
     # 施設ごとの電力使用量のデータをインポート用のフォーマットに変換する
     # (当日・過去ファイルとも最小単位のフォーマットは同一なので兼用する)

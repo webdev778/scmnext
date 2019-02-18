@@ -18,5 +18,4 @@ class Occto::PlanDetailValue < ApplicationRecord
   belongs_to :plan_by_bg_member
   belongs_to :time_index, required: false
   belongs_to :resource, required: false
-
 end

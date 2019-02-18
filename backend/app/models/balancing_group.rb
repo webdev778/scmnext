@@ -21,7 +21,7 @@ class BalancingGroup < ApplicationRecord
   belongs_to :district
   belongs_to :leader_company, class_name: Company.to_s
 
-  scope :includes_for_index, ->{
+  scope :includes_for_index, -> {
     includes([:district])
   }
 

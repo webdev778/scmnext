@@ -25,6 +25,7 @@ class FacilityGroup < ApplicationRecord
 
   def sales_cost_adjustment
     return 0 if self.voltage_type.nil?
+
     case self.voltage_type.to_voltage_mode
     when :high
       0
@@ -35,6 +36,7 @@ class FacilityGroup < ApplicationRecord
 
   def sales_special_discount_rate_at(date)
     return 0 if self.voltage_type.nil?
+
     case self.voltage_type.to_voltage_mode
     when :high
       self.facility.sales_special_discount_rate_at(date)
@@ -45,6 +47,7 @@ class FacilityGroup < ApplicationRecord
 
   def facility
     raise "高圧顧客以外は使用できません。" unless self.voltage_type.to_voltage_mode == :high
+
     self.facilities.first
   end
 end

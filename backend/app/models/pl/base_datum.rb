@@ -42,19 +42,20 @@ class Pl::BaseDatum < ApplicationRecord
   class << self
     def generate_each_bg_member_data(date, bg_member, power_usage_class)
       power_usage_relation = power_usage_class
-        .eager_load({facility_group: {supply_points: {facility: :discount_for_facilities}, contract: :contract_basic_charges}})
-        .where('facility_groups.district_id': bg_member.balancing_group.district_id, 'facility_groups.company_id': bg_member.company.id, date: date)
+                             .eager_load({ facility_group: { supply_points: { facility: :discount_for_facilities }, contract: :contract_basic_charges } })
+                             .where('facility_groups.district_id': bg_member.balancing_group.district_id, 'facility_groups.company_id': bg_member.company.id, date: date)
       # 対象データが無い場合はスキップ
       return if power_usage_relation.count == 0
+
       plan_matrix_by_time_index_and_resouce_type = Occto::Plan.matrix_by_time_index_and_resouce_type(bg_member_id: bg_member.id, date: date)
       # ポジション未登録の場合もスキップ
       return if plan_matrix_by_time_index_and_resouce_type.nil?
 
       fuel_cost_adjustment_map_by_voltage_class = FuelCostAdjustment
-        .where(year: date.year, month: date.month, district_id: bg_member.balancing_group.district_id)
-        .map do |fuel_cost_adjustment|
-          [fuel_cost_adjustment.voltage_class, fuel_cost_adjustment]
-        end.to_h
+                                                  .where(year: date.year, month: date.month, district_id: bg_member.balancing_group.district_id)
+                                                  .map do |fuel_cost_adjustment|
+        [fuel_cost_adjustment.voltage_class, fuel_cost_adjustment]
+      end.to_h
 
       total_by_time_index = power_usage_relation.total_by_time_index
       import_data = power_usage_relation.all.map do |power_usage|
@@ -95,13 +96,13 @@ class Pl::BaseDatum < ApplicationRecord
           usage_fit: usage['jepx_fit'],
           usage_matching: usage['matching'],
           supply_jbu_basic_charge: 0,
-          supply_jbu_fuel_cost_adjustment:  0,
-          supply_jepx_spot:  0,
-          supply_jepx_1hour:  0,
-          supply_fit:  0,
-          supply_imbalance:  0,
-          supply_wheeler_fundamental_charge:  0,
-          supply_wheeler_mater_rate_charge:  0
+          supply_jbu_fuel_cost_adjustment: 0,
+          supply_jepx_spot: 0,
+          supply_jepx_1hour: 0,
+          supply_fit: 0,
+          supply_imbalance: 0,
+          supply_wheeler_fundamental_charge: 0,
+          supply_wheeler_mater_rate_charge: 0
         }
       end
       self.import import_data

@@ -33,6 +33,7 @@ class Dlt::UsageFixedHeader < ApplicationRecord
     def import_data(company_id, district_id, date = nil)
       setting = Dlt::Setting.find_by(company_id: company_id, district_id: district_id)
       raise "設定情報が見つかりません。[company_id: #{company_id}, district_id: #{district_id}]" if setting.nil?
+
       setting.get_xml_object_and_process_high_and_low(:fixed, date) do |file, doc, voltage_class|
         logger.info "start import fixed #{date} voltege mode #{voltage_class}"
         self.where(file_id: file.id).destroy_all
@@ -49,18 +50,18 @@ class Dlt::UsageFixedHeader < ApplicationRecord
             month: jptrm.elements['JP06401'].text[4, 2]
           }
           mapping = {
-            supply_point_number: {tag: 'JP06400'},
-            consumer_code: {tag: 'JP06119'},
-            consumer_name: {tag: 'JP06120'},
-            supply_point_name: {tag: 'JP06402'},
-            voltage_class_name: {tag: 'JP06403'},
-            journal_code: {tag: 'JP06404'},
-            can_provide: {tag: 'JP06405', filter: ->(v){ v == '0' }},
-            usage_all: {tag: 'JP06426'},
-            usage: {tag: 'JP06427'},
-            power_factor: {tag: 'JP06406'},
-            max_power: {tag: 'JP06445'},
-            next_meter_reading_date: {tag: 'JP06446', filter: ->(v){ Time.strptime(v, "%Y%m%d")}}
+            supply_point_number: { tag: 'JP06400' },
+            consumer_code: { tag: 'JP06119' },
+            consumer_name: { tag: 'JP06120' },
+            supply_point_name: { tag: 'JP06402' },
+            voltage_class_name: { tag: 'JP06403' },
+            journal_code: { tag: 'JP06404' },
+            can_provide: { tag: 'JP06405', filter: ->(v) { v == '0' } },
+            usage_all: { tag: 'JP06426' },
+            usage: { tag: 'JP06427' },
+            power_factor: { tag: 'JP06406' },
+            max_power: { tag: 'JP06445' },
+            next_meter_reading_date: { tag: 'JP06446', filter: ->(v) { Time.strptime(v, "%Y%m%d") } }
           }
           header_attributes = xml_to_hash(header_attributes, nodes_by_facility, mapping)
           header = self.new(header_attributes)
@@ -73,9 +74,9 @@ class Dlt::UsageFixedHeader < ApplicationRecord
                   date: date
                 }
                 mapping = {
-                  time_index_id: {tag: 'JP06219'},
-                  usage_all: {tag: 'JP06424'},
-                  usage: {tag: 'JP06425'}
+                  time_index_id: { tag: 'JP06219' },
+                  usage_all: { tag: 'JP06424' },
+                  usage: { tag: 'JP06425' }
                 }
                 xml_to_hash(detail_attributes, nodes_by_time, mapping)
               end
@@ -96,6 +97,7 @@ class Dlt::UsageFixedHeader < ApplicationRecord
     end
 
     private
+
     def xml_to_hash(hash, node, mapping)
       mapping.each do |attribute_name, config|
         element = node.elements[config[:tag]]

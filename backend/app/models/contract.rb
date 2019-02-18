@@ -16,7 +16,7 @@
 #
 
 class Contract < ApplicationRecord
-  has_many :contract_basic_charges, ->{order(start_date: :desc)}
+  has_many :contract_basic_charges, -> { order(start_date: :desc) }
   has_many :contract_meter_rates
   belongs_to :voltage_type
   belongs_to :contract_item_group
@@ -26,7 +26,7 @@ class Contract < ApplicationRecord
   #
   def basic_charge_at(date)
     contract_basic_charge = self.contract_basic_charges
-    .find do |contract_basic_charge|
+                                .find do |contract_basic_charge|
       contract_basic_charge.start_date <= date
     end
     contract_basic_charge.amount
@@ -37,6 +37,7 @@ class Contract < ApplicationRecord
   #
   def meter_rate_at(date)
     return 0 if self.contract_item.nil?
+
     contract_meter_rate = self.contract_meter_rates.find do |contract_meter_rate|
       (
         contract_meter_rate.contract_item_id == self.contract_item.id and
@@ -49,8 +50,9 @@ class Contract < ApplicationRecord
 
   def contract_item
     return nil if self.contract_item_group.nil?
+
     @contract_item ||= self.contract_item_group.contract_item_orders
-    .find do |contract_item_orders|
+                           .find do |contract_item_orders|
       true
     end.contract_item
   end
