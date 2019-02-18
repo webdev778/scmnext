@@ -2,6 +2,22 @@
   .wrapper(v-if="data")
     .animated.fadeIn
       b-card(
+        v-if="$slots['search']"
+        header-tag="header"
+        footer-tag="footer"
+        )
+        div(slot="header")
+          i.fa.fa-align-justify
+          strong {{title}}検索条件
+        b-form
+          slot(name='search')
+          b-button(
+            v-on:click.prevent.stop="retriveData"
+            variant="primary"
+            type="submit"
+          )
+            | 検索
+      b-card(
         header-tag="header"
         footer-tag="footer"
         )
@@ -13,9 +29,13 @@
             b-col
               b-pagination(
                 size="md"
+                v-bind:limit=20
                 v-bind:per-page="data.pages.per_page"
                 v-bind:total-rows="data.pages.total_count"
                 v-model="currentPage")
+            b-col
+              b-badge
+                | 総件数: {{data.pages.total_count}}
             b-col(cols=2)
               b-form-select(
                 v-model="perPage"
@@ -62,6 +82,12 @@ export default {
       sort: {
         name: null,
         dir: 'asc'
+      },
+      defaultWidth: {
+        operations: 122,
+        id: 50,
+        created_at: 180,
+        updated_at: 180
       }
     }
   },
@@ -80,6 +106,11 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+    query: {
+      type: Object,
+      required: false,
+      default: () => null
     },
     canEdit: {
       type: Boolean,
@@ -101,15 +132,20 @@ export default {
       if (this.canEdit){
         result = result.concat([{
           key: 'operations',
-          label: '',
-          width: 122
+          label: ''
         }])
       }
-      result = result.concat(this.fields)
+      result = result.concat(this.fields).map(field=>{
+        if (!field['width'] && this.defaultWidth[field.key]){
+          field['width'] = this.defaultWidth[field.key]
+        }
+        return field
+      })
       return result
     }
   },
   mounted() {
+    console.log(this)
     this.currentPage = 1
   },
   methods: {
@@ -132,8 +168,15 @@ export default {
     },
     async retriveData() {
       let params = {page: this.currentPage, per: this.perPage}
+      // 検索条件が指定されていた場合は検索条件をセットする
+      if (this.query){
+        Object.keys(this.query).forEach (key=>{
+          params[`q[${key}]`] = this.query[key]
+        })
+      }
+      // ソートが指定されていた場合はソートをセットする
       if (this.sort.name){
-        params["q[s]"] = `${this.sort.name} ${this.sort.dir}`
+        params["q[s]"] = `${this.sort.name.replace('.', '_')} ${this.sort.dir}`
       }
       this.data = await this.$axios.$get(`/v1/${this.name}`, {params: params})
     }

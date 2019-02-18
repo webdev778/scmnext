@@ -26,4 +26,15 @@
 class Consumer < ApplicationRecord
   belongs_to :company
   has_many :facilities
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: [
+          :company
+        ]
+      }
+    end
+    super options
+  end
 end

@@ -33,7 +33,7 @@
                 )
                 b-form-select(
                   v-bind:id="field.key"
-                  v-bind:options="field.options"
+                  v-bind:options="options[field.key]"
                   v-model="formData[field.key]"
                 )
             template(v-else)
@@ -79,6 +79,11 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+    options: {
+      type: Object,
+      required: false,
+      dedault: () => {}
     }
   },
   computed: {
