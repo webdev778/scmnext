@@ -18,7 +18,7 @@
             label="ファイル名"
             label-for="filename"
             )
-            b-form-input(id="status" v-model="query.content_attachment_filename_eq")
+            b-form-input(id="status" v-model="query.content_blob_filename_cont")
 </template>
 
 <script>
@@ -35,7 +35,7 @@ export default {
           width: 50
         },
         {
-          key: "filename",
+          key: "content_blob.filename",
           label: "ファイル名"
         },
         {
@@ -54,7 +54,8 @@ export default {
         }
       ],
       query: {
-        id_eq: null
+        id_eq: null,
+        content_blob_filename_cont: null
       }
     }
   },

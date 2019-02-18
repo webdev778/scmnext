@@ -60,6 +60,29 @@ class Facility < ApplicationRecord
       .active_at(date)
   }
 
+  scope :includes_for_index, -> {
+    includes([
+      {consumer: :company},
+      :district,
+      :supply_point
+    ])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: [
+          {consumer: {
+            include: :company
+          }},
+          :district,
+          :supply_point
+        ]
+      }
+    end
+    super options
+  end
+
   def is_active_at?(date)
     sels.supply_point.is_active_at?(date)
   end
