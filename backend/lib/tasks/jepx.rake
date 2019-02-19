@@ -3,7 +3,7 @@ namespace :jepx do
   namespace :download do
     desc "JEPXインバランスβ値取込"
     task imbalance_beta: :environment do |task, args|
-      Jepx::ImbalanceBeta.import
+      Jepx::ImbalanceBeta.import_data
     end
 
     desc "JEPXスポット市場取引結果取込"
