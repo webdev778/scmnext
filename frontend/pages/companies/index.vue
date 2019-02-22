@@ -20,6 +20,10 @@ export default {
           label: "ID"
         },
         {
+          key: "code",
+          label: "コード"
+        },
+        {
           key: "name",
           label: "名前"
         },

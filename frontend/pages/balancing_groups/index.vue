@@ -3,7 +3,7 @@
     title="BG一覧"
     name="balancing_groups"
     v-bind:fields="fields"
-    can-edit=true
+    can-edit=false
   )
 </template>
 

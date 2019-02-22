@@ -4,6 +4,8 @@
     name="dlt/files"
     v-bind:fields="fields"
     v-bind:query="query"
+    v-bind:list-only="true"
+    v-bind:canEdit="false"
   )
     template(slot="search")
       b-row

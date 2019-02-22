@@ -59,16 +59,30 @@
                   i.fa.fa-sort-down(v-if="sort.dir == 'desc'")
             template(slot="table-colgroup")
               col(v-for="(field, index) in fieldsModified" v-bind:style="getColTagStyle(field)")
+            template(slot="HEAD_operations" slot-scope="data")
+              template(v-if="canEdit")
+                router-link.btn.btn-sm.btn-primary(
+                  v-bind:to="{ name : name + 'create'}"
+                )
+                  i.fa.fa-plus
+                  | 新規
             template(slot="operations" slot-scope="data")
-              router-link.btn.btn-sm.btn-primary(
-                v-bind:to="{ name : name + '-id', params : { id: data.item.id }}"
-              )
-                i.fa.fa-edit
-                | 編集
-              | &nbsp;
-              .btn.btn-sm.btn-danger
-                i.fa.fa-trash
-                | 削除
+              template(v-if="canEdit")
+                router-link.btn.btn-sm.btn-primary(
+                  v-bind:to="{ name : name + '-id', params : { id: data.item.id }}"
+                )
+                  i.fa.fa-edit
+                  | 編集
+                | &nbsp;
+                .btn.btn-sm.btn-danger
+                  i.fa.fa-trash
+                  | 削除
+              template(v-else)
+                router-link.btn.btn-sm.btn-primary(
+                  v-bind:to="{ name : name + '-id', params : { id: data.item.id }}"
+                )
+                  i.fa.fa-eye
+                  | 表示
 </template>
 
 <script>
@@ -115,6 +129,11 @@ export default {
     canEdit: {
       type: Boolean,
       required: false,
+      default: () => true
+    },
+    listOnly: {
+      type: Boolean,
+      required: false,
       default: () => false
     }
   },
@@ -129,7 +148,7 @@ export default {
   computed: {
     fieldsModified() {
       let result = []
-      if (this.canEdit){
+      if (!this.listOnly){
         result = result.concat([{
           key: 'operations',
           label: ''
@@ -145,6 +164,9 @@ export default {
     }
   },
   mounted() {
+    if (this.listOnly && this.canEdit){
+      throw new Error("一覧のみで編集可能にすることはできません。")
+    }
     console.log(this)
     this.currentPage = 1
   },

@@ -35,6 +35,7 @@
                   v-bind:id="field.key"
                   v-bind:options="options[field.key]"
                   v-model="formData[field.key]"
+                  v-bind:disabled="fieldDisabled(field)"
                 )
             template(v-else)
               b-form-group(
@@ -45,8 +46,9 @@
                   v-bind:id="field.key"
                   v-bind:type="field.type"
                   v-model="formData[field.key]"
+                  v-bind:disabled="fieldDisabled(field)"
                 )
-          b-button(type="submit" variant="primary") 保存
+          b-button(v-if="canEdit" type="submit" variant="primary") 保存
 </template>
 
 <script>
@@ -83,7 +85,12 @@ export default {
     options: {
       type: Object,
       required: false,
-      dedault: () => {}
+      default: () => {}
+    },
+    canEdit: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   computed: {
@@ -117,6 +124,9 @@ export default {
     },
     back() {
       this.$router.go(-1)
+    },
+    fieldDisabled(field) {
+      return !this.canEdit || field.disabled
     }
   }
 }

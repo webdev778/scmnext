@@ -5,6 +5,7 @@
     v-bind:id="id"
     v-bind:fields="fields"
     v-bind:options="options"
+    v-bind:can-edit="false"
   )
 </template>
 
