@@ -17,6 +17,7 @@ class Jepx::ImbalanceBeta < ApplicationRecord
   belongs_to :district
 
   class << self
+    # Get and parse the .xlsx file, convert the first column into Date object, insert data into an array and call import function.
     def import_data
       conn = Faraday::Connection.new(:url => 'http://www.jepx.org') do |builder|
         builder.use Faraday::Request::UrlEncoded
@@ -27,18 +28,18 @@ class Jepx::ImbalanceBeta < ApplicationRecord
       worksheet = workbook[0]
       start_date = Date.new(1900,1,1)
       i = 1
-      j = 1
       rows = []
       while worksheet[i]
-        delta = worksheet[i][0].value
-        date = start_date + delta
-        while worksheet[i][j] && j < 10
+        timedelta = worksheet[i][0].value - 2
+        date = timedelta.days.after(start_date)
+        (1..9).each do |j|
           #district = District.find_by(code: "0#{j}")
-          rows << {year:date.year, month:date.month, district_id:j, value:worksheet[i][j].value}
-          j += 1
+          #rows << {year:date.year, month:date.month, district_id:district.id, value:worksheet[i][j].value}
+          if worksheet[i][j]
+            rows << {year:date.year, month:date.month, district_id:j, value:worksheet[i][j].value}
+          end
         end
         i += 1
-        j = 1
       end
       self.import(rows, { on_duplicate_key_update: [:value] })
     end
