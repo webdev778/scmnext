@@ -33,10 +33,9 @@ class Jepx::ImbalanceBeta < ApplicationRecord
         timedelta = worksheet[i][0].value - 2
         date = timedelta.days.after(start_date)
         (1..9).each do |j|
-          #district = District.find_by(code: "0#{j}")
-          #rows << {year:date.year, month:date.month, district_id:district.id, value:worksheet[i][j].value}
           if worksheet[i][j]
-            rows << {year:date.year, month:date.month, district_id:j, value:worksheet[i][j].value}
+            district = District.find_by(code: "0#{j}")
+            rows << {year:date.year, month:date.month, district_id:district.id, value:worksheet[i][j].value}
           end
         end
         i += 1
