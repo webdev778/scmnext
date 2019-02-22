@@ -34,6 +34,10 @@ export default {
       url: '/base',
       children: [
         {
+          name: '同時同量監視',
+          url: '/profits/balancings',
+        },
+        {
           name: '施設グループ別損益',
           url: '/profits/facility_groups',
         }

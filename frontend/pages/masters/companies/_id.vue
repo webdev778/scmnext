@@ -2,7 +2,7 @@
   rest-form(
     title="施設詳細"
     name="company"
-    v-bind:id="id"
+    v-bind:id="$route.params.id"
     v-bind:fields="fields"
   )
 </template>
@@ -24,12 +24,13 @@ export default {
           key: "name",
           type: "text",
           label: "名前"
+        },
+        {
+          key: "code",
+          label: "コード"
         }
       ]
     }
-  },
-  created() {
-    this.id = Number(this.$route.params.id)
   }
 }
 </script>

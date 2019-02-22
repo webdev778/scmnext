@@ -2,7 +2,7 @@
   rest-form(
     title="契約顧客詳細"
     name="consumer"
-    v-bind:id="id"
+    v-bind:id="$route.params.id"
     v-bind:fields="fields"
     v-bind:options="options"
   )
@@ -88,7 +88,6 @@ export default {
     }
   },
   created() {
-    this.id = Number(this.$route.params.id)
     this.$axios.$get(`/v1/companies`)
     .then(result=>{
       this.options['company_id'] = result.map(item=>{

@@ -2,7 +2,7 @@
   rest-form(
     title="BG詳細"
     name="balancing_group"
-    v-bind:id="id"
+    v-bind:id="$route.params.id"
     v-bind:fields="fields"
     v-bind:options="options"
     v-bind:can-edit="false"
@@ -37,7 +37,6 @@ export default {
     }
   },
   created() {
-    this.id = Number(this.$route.params.id)
     this.$axios.$get('/v1/districts')
     .then(result=>{
       this.options['district_id'] = result.map(district=>{

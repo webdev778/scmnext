@@ -62,24 +62,24 @@
             template(slot="HEAD_operations" slot-scope="data")
               template(v-if="canEdit")
                 router-link.btn.btn-sm.btn-primary(
-                  v-bind:to="{ name : name + 'create'}"
+                  v-bind:to="{ name : formRouteName, params: {id: 'new'}}"
                 )
                   i.fa.fa-plus
                   | 新規
             template(slot="operations" slot-scope="data")
               template(v-if="canEdit")
                 router-link.btn.btn-sm.btn-primary(
-                  v-bind:to="{ name : name + '-id', params : { id: data.item.id }}"
+                  v-bind:to="{ name : formRouteName, params : { id: data.item.id }}"
                 )
                   i.fa.fa-edit
                   | 編集
                 | &nbsp;
-                .btn.btn-sm.btn-danger
+                .btn.btn-sm.btn-danger(v-on:click="deleteItem(data.item.id)")
                   i.fa.fa-trash
                   | 削除
               template(v-else)
                 router-link.btn.btn-sm.btn-primary(
-                  v-bind:to="{ name : name + '-id', params : { id: data.item.id }}"
+                  v-bind:to="{ name : formRouteName, params : { id: data.item.id }}"
                 )
                   i.fa.fa-eye
                   | 表示
@@ -161,9 +161,13 @@ export default {
         return field
       })
       return result
+    },
+    formRouteName() {
+      return this.$store.$router.currentRoute.name + '-id'
     }
   },
   mounted() {
+    console.log(this.$store.$router.currentRoute)
     if (this.listOnly && this.canEdit){
       throw new Error("一覧のみで編集可能にすることはできません。")
     }
@@ -185,7 +189,10 @@ export default {
       } else {
         this.sort.dir = this.sort.dir == 'asc' ? 'desc' : 'asc'
       }
-      console.log(this.sort)
+      this.retriveData()
+    },
+    async deleteItem(id) {
+      await this.$axios.$delete(`/v1/${this.name}/${id}`)
       this.retriveData()
     },
     async retriveData() {

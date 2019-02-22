@@ -2,7 +2,7 @@
   rest-form(
     title="ユーザー詳細"
     name="user"
-    v-bind:id="id"
+    v-bind:id="$route.params.id"
     v-bind:fields="fields"
   )
 </template>
@@ -32,9 +32,6 @@ export default {
         }
       ]
     }
-  },
-  created() {
-    this.id = Number(this.$route.params.id)
   }
 }
 </script>
