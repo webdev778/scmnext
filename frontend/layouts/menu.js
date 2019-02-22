@@ -10,17 +10,21 @@ export default {
       }
     },
     {
-      name: 'データ管理',
+      name: '託送データ連携',
       icon: 'icon-puzzle',
       url: '/base',
       children: [
+        {
+          name: '託送ダウンロード設定',
+          url: '/dlt/settings',
+        },
         {
           name: '託送データ',
           url: '/dlt/files',
         },
         {
-          name: '速報値・確定値',
-          url: '/power_usage',
+          name: '確定使用量データ',
+          url: '/dlt/usage_fixed_headers',
         }
       ]
     },
@@ -50,28 +54,80 @@ export default {
       url: '/base',
       children: [
         {
-          name: 'ユーザー',
-          url: '/users',
-        },
-        {
           name: 'PPS',
-          url: '/companies',
+          url: '/masters/companies',
         },
         {
-          name: 'BG',
-          url: '/balancing_groups',
+          name: 'バランシンググループ',
+          url: '/masters/balancing_groups',
         },
         {
-          name: 'エリア',
-          url: '/districts',
+          name: 'BGメンバー',
+          url: '/masters/bg_members',
         },
         {
-          name: '契約顧客',
-          url: '/consumers',
+          name: '施設グループ',
+          url: '/masters/facility_groups',
+        },
+        {
+          name: '需要家',
+          url: '/masters/consumers',
         },
         {
           name: '施設',
-          url: '/facilities',
+          url: '/masters/facilities',
+        },
+        {
+          name: '施設別割引',
+          url: '/masters/discount_for_facilities',
+        },
+        {
+          name: '契約アイテム',
+          url: '/masters/contract_items',
+        },
+        {
+          name: '契約アイテムグループ',
+          url: '/masters/contract_item_groups',
+        },
+        {
+          name: '契約・契約アイテム別従量料金',
+          url: '/masters/contract_item_groups',
+        },
+        {
+          name: 'エリア',
+          url: '/masters/districts',
+        },
+        {
+          name: 'エリア別損失率',
+          url: '/masters/district_loss_rates',
+        },
+        {
+          name: '燃料調整費',
+          url: '/master/fuel_cost_adjustments',
+        },
+        {
+          name: '託送料金',
+          url: '/master/wheeler_charges',
+        },
+        {
+          name: '常時バックアップ電源契約',
+          url: '/master/jbu_contracts',
+        },
+        {
+          name: '供給電源',
+          url: '/master/resources',
+        },
+        {
+          name: '時間枠',
+          url: '/master/time_indices',
+        },
+        {
+          name: '電圧区分',
+          url: '/master/voltage_types',
+        },
+        {
+          name: 'ユーザー',
+          url: '/masters/users',
         }
       ]
     },
