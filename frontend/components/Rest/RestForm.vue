@@ -37,6 +37,17 @@
                   v-model="formData[field.key]"
                   v-bind:disabled="fieldDisabled(field)"
                 )
+            template(v-else-if="field.type=='radio'")
+              b-form-group(
+                v-bind:label="field.label"
+                v-bind:label-for="field.key"
+                )
+                b-form-radio-group(
+                  v-bind:id="field.key"
+                  v-bind:options="options[field.key]"
+                  v-model="formData[field.key]"
+                  v-bind:disabled="fieldDisabled(field)"
+                )
             template(v-else)
               b-form-group(
                 v-bind:label="field.label"
