@@ -107,27 +107,27 @@ export default {
         },
         {
           name: '燃料調整費',
-          url: '/master/fuel_cost_adjustments',
+          url: '/masters/fuel_cost_adjustments',
         },
         {
           name: '託送料金',
-          url: '/master/wheeler_charges',
+          url: '/masters/wheeler_charges',
         },
         {
           name: '常時バックアップ電源契約',
-          url: '/master/jbu_contracts',
+          url: '/masters/jbu_contracts',
         },
         {
           name: '供給電源',
-          url: '/master/resources',
+          url: '/masters/resources',
         },
         {
           name: '時間枠',
-          url: '/master/time_indices',
+          url: '/masters/time_indices',
         },
         {
           name: '電圧区分',
-          url: '/master/voltage_types',
+          url: '/masters/voltage_types',
         },
         {
           name: 'ユーザー',
