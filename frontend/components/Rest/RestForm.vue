@@ -33,8 +33,9 @@
                 )
                 b-form-select(
                   v-bind:id="field.key"
-                  v-bind:options="field.options"
+                  v-bind:options="options[field.key]"
                   v-model="formData[field.key]"
+                  v-bind:disabled="fieldDisabled(field)"
                 )
             template(v-else)
               b-form-group(
@@ -45,8 +46,9 @@
                   v-bind:id="field.key"
                   v-bind:type="field.type"
                   v-model="formData[field.key]"
+                  v-bind:disabled="fieldDisabled(field)"
                 )
-          b-button(type="submit" variant="primary") 保存
+          b-button(v-if="canEdit" type="submit" variant="primary") 保存
 </template>
 
 <script>
@@ -71,7 +73,7 @@ export default {
       default: () => null
     },
     id: {
-      type: Number,
+      type: null,
       required: true,
       default: () => null
     },
@@ -79,6 +81,16 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+    options: {
+      type: Object,
+      required: false,
+      default: () => {}
+    },
+    canEdit: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   computed: {
@@ -86,7 +98,14 @@ export default {
       return pluralize.plural(this.name)
     },
     resourceUrl() {
-      return `/v1/${this.pluralName}/${this.id}`
+      if (this.isCreateMode){
+        return `/v1/${this.pluralName}`
+      }else{
+        return `/v1/${this.pluralName}/${this.id}`
+      }
+    },
+    isCreateMode() {
+      return this.id == 'new'
     }
   },
   mounted(){
@@ -94,13 +113,26 @@ export default {
   },
   methods: {
     init() {
-      this.$axios.$get(this.resourceUrl)
-      .then( (response)=>{
-        this.formData = response
-      })
+      if (this.isCreateMode){
+        this.formData = {}
+        this.fields.forEach(field=>{
+          this.formData[field.key] = null
+        })
+      }else{
+        this.$axios.$get(this.resourceUrl)
+        .then( (response)=>{
+          this.formData = response
+        })
+      }
     },
     save() {
-      this.$axios.$put(this.resourceUrl, {[this.name]: this.formData} )
+      let method = null
+      if (this.isCreateMode){
+        method = '$post'
+      } else {
+        method = '$put'
+      }
+      this.$axios[method](this.resourceUrl, {[this.name]: this.formData} )
       .then( (response)=>{
         if (response.success){
           this.back()
@@ -112,6 +144,9 @@ export default {
     },
     back() {
       this.$router.go(-1)
+    },
+    fieldDisabled(field) {
+      return !this.canEdit || field.disabled
     }
   }
 }

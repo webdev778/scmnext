@@ -142,15 +142,12 @@ class Dlt::File < ApplicationRecord
     end
   end
 
-  def filename
-    self.content_attachment.filename
-  end
-
   def as_json(options = {})
     if options.blank?
       options = {
-        methods: [
-          :filename
+        include: [
+          :content_attachment,
+          :content_blob
         ]
       }
     end

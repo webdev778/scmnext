@@ -1,9 +1,9 @@
 <template lang="pug">
   rest-index(
-    title="施設一覧"
-    name="facilities"
+    title="BG一覧"
+    name="balancing_groups"
     v-bind:fields="fields"
-    can-edit=true
+    can-edit=false
   )
 </template>
 
@@ -22,6 +22,10 @@ export default {
         {
           key: "name",
           label: "名前"
+        },
+        {
+          key: "district.name",
+          label: "エリア名"
         },
         {
           key: "created_at",

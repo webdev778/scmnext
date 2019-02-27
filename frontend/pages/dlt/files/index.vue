@@ -3,7 +3,24 @@
     title="託送ダウンロードファイル一覧"
     name="dlt/files"
     v-bind:fields="fields"
+    v-bind:query="query"
+    v-bind:list-only="true"
+    v-bind:canEdit="false"
   )
+    template(slot="search")
+      b-row
+        b-col
+          b-form-group(
+            label="ID:"
+            label-for="id"
+            )
+            b-form-input(id="id" v-model="query.id_eq")
+        b-col
+          b-form-group(
+            label="ファイル名"
+            label-for="filename"
+            )
+            b-form-input(id="status" v-model="query.content_blob_filename_cont")
 </template>
 
 <script>
@@ -20,7 +37,7 @@ export default {
           width: 50
         },
         {
-          key: "filename",
+          key: "content_blob.filename",
           label: "ファイル名"
         },
         {
@@ -37,7 +54,11 @@ export default {
           label: "更新日時",
           width: 180,
         }
-      ]
+      ],
+      query: {
+        id_eq: null,
+        content_blob_filename_cont: null
+      }
     }
   },
   methods: {

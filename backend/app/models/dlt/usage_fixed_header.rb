@@ -37,7 +37,6 @@ class Dlt::UsageFixedHeader < ApplicationRecord
       setting.get_xml_object_and_process_high_and_low(:fixed, date) do |file, doc, voltage_class|
         logger.info "start import fixed #{date} voltege mode #{voltage_class}"
         self.where(file_id: file.id).destroy_all
-        # import不可なので、importの結果オブジェクトを生成する
         failed_instances = []
         ids = []
         num_create = 0
@@ -92,6 +91,7 @@ class Dlt::UsageFixedHeader < ApplicationRecord
             failed_instances << header
           end
         end
+        # import不可なので、自力でimportの結果オブジェクトを生成する
         ActiveRecord::Import::Result.new(failed_instances, num_create, ids, [])
       end
     end

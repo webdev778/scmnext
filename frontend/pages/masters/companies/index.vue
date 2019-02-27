@@ -1,7 +1,7 @@
 <template lang="pug">
   rest-index(
-    title="BG一覧"
-    name="balancing_groups"
+    title="PPS一覧"
+    name="companies"
     v-bind:fields="fields"
     can-edit=true
   )
@@ -20,12 +20,12 @@ export default {
           label: "ID"
         },
         {
-          key: "name",
-          label: "名前"
+          key: "code",
+          label: "コード"
         },
         {
-          key: "district.name",
-          label: "エリア名"
+          key: "name",
+          label: "名前"
         },
         {
           key: "created_at",

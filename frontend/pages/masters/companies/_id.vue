@@ -1,8 +1,8 @@
 <template lang="pug">
   rest-form(
-    title="BG詳細"
-    name="balancing_group"
-    v-bind:id="id"
+    title="施設詳細"
+    name="company"
+    v-bind:id="$route.params.id"
     v-bind:fields="fields"
   )
 </template>
@@ -26,20 +26,11 @@ export default {
           label: "名前"
         },
         {
-          key: "district_id",
-          type: "select",
-          label: "エリア"
+          key: "code",
+          label: "コード"
         }
       ]
     }
-  },
-  async created() {
-    this.id = Number(this.$route.params.id)
-    let options = await this.$axios.$get('/v1/districts')
-    let list = options.map( (district)=>{
-      return {value: district.id, text: district.name}
-    })
-    this.$set(this.fields[2], 'options', list)
   }
 }
 </script>

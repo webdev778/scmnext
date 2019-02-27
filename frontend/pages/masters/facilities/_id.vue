@@ -1,8 +1,8 @@
 <template lang="pug">
   rest-form(
     title="施設詳細"
-    name="company"
-    v-bind:id="id"
+    name="facility"
+    v-bind:id="$route.params.id"
     v-bind:fields="fields"
   )
 </template>
@@ -27,9 +27,6 @@ export default {
         }
       ]
     }
-  },
-  created() {
-    this.id = Number(this.$route.params.id)
   }
 }
 </script>

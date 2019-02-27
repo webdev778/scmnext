@@ -38,11 +38,104 @@ ShowTag=1
 ShowCommonAttributes=0
 
 [Entity]
+PName=jbu_contracts
+LName=常時バックアップ電源契約
+Comment=
+TableOption=
+Page=Main
+Left=2900
+Top=1200
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="PPS ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="開始日","start_date","date",,,"","",$FFFFFFFF,""
+Field="終了日","end_date","date",,,"","",$FFFFFFFF,""
+Field="契約容量","contract_power","int(11)",,,"","",$FFFFFFFF,""
+Field="基本料金(kW)","basic_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="従量料金(夏季昼間)","meter_rate_charge_summer_season_daytime","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="従量料金(他季昼間)","meter_rate_charge_other_season_daytime","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="従量料金(夜間)","meter_rate_charge_night","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="従量料金(ピークタイム)","meter_rate_charge_peak_time","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,district_id
+Index==0,company_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",2900,1200
+
+[Entity]
+PName=dlt_usage_fixed_headers
+LName=確定使用量ヘッダ
+Comment=
+TableOption=
+Page=Main
+Left=3700
+Top=1200
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="ファイルID","file_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="年","year","int(11)","NOT NULL",,"","",$FFFFFFFF,""
+Field="月","month","smallint(6)","NOT NULL",,"","",$FFFFFFFF,""
+Field="供給地点特定番号","supply_point_number","varchar(22)","NOT NULL",,"","",$FFFFFFFF,""
+Field="需要家識別番号","consumer_code","varchar(21)",,,"","",$FFFFFFFF,""
+Field="需要家名称","consumer_name","varchar(80)",,,"","",$FFFFFFFF,""
+Field="供給場所","supply_point_name","varchar(70)",,,"","",$FFFFFFFF,""
+Field="電圧区分","voltage_class_name","varchar(4)",,,"","",$FFFFFFFF,""
+Field="仕訳コード","journal_code","tinyint(4)",,,""," 1:全量,2:部分",$FFFFFFFF,""
+Field="提供可否","can_provide","tinyint(1)",,,"","",$FFFFFFFF,""
+Field="月間電力量全量","usage_all","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="月間電力量仕訳後","usage","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="力率","power_factor","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="最大需要電力","max_power","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="次回定例検針予定日","next_meter_reading_date","date",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,file_id
+Index==0,year
+Index==0,month
+Index==0,supply_point_number
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",3700,1200
+
+[Entity]
+PName=dlt_usage_fixed_details
+LName=確定使用量明細
+Comment=
+TableOption=
+Page=Main
+Left=3300
+Top=1200
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="確定使用量ヘッダID","usage_fixed_header_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="date","date","date",,,"","",$FFFFFFFF,""
+Field="時間枠ID","time_index_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="使用量全量","usage_all","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="使用量仕訳後","usage","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,usage_fixed_header_id
+Index==0,time_index_id
+Index==0,date
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",3300,1200
+
+[Entity]
 PName=contract_meter_rates
 LName=契約・契約アイテム別従量料金
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=1000
 Top=1500
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
@@ -62,14 +155,14 @@ Index==0,end_date
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="Main",1000,1500,299,254
+Position="MAIN",1000,1500,299,254
 
 [Entity]
 PName=contract_item_orders
 LName=契約アイテム順序情報
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=1400
 Top=1800
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
@@ -85,14 +178,14 @@ Index==0,contract_item_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="Main",1400,1800,299,203
+Position="MAIN",1400,1800,299,203
 
 [Entity]
 PName=contract_item_groups
 LName=契約アイテムグループ
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=1400
 Top=1500
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
@@ -106,14 +199,14 @@ Index==0,voltage_type_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="Main",1400,1500,296,178
+Position="MAIN",1400,1500,296,178
 
 [Entity]
 PName=contract_items
 LName=契約アイテム
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=1400
 Top=2100
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
@@ -129,7 +222,7 @@ Index==0,voltage_type_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="Main",1400,2100,299,229
+Position="MAIN",1400,2100,299,229
 
 [Relation]
 Entity1=facilities
@@ -1162,7 +1255,7 @@ Page=MAIN
 Left=1900
 Top=700
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="供給地点特定番号","number","varchar(255)",,,"","",$FFFFFFFF,""
+Field="供給地点特定番号","number","varchar(30)","NOT NULL",,"","",$FFFFFFFF,""
 Field="供給開始日","supply_start_date","date",,,"","",$FFFFFFFF,""
 Field="供給終了日","supply_end_date","date",,,"","",$FFFFFFFF,""
 Field="供給区分(1","supply_method_type","int(11)","NOT NULL",,"","全量, 2:部分)",$FFFFFFFF,""
@@ -1173,12 +1266,13 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,number
 Index==0,facility_group_id
 Index==0,facility_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",1900,700,304,315
+Position="MAIN",1900,700,304,357
 
 [Entity]
 PName=time_indices
