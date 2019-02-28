@@ -1,12 +1,12 @@
 module TaskLogging
-  def task(*args, &block)
+  def task(*args)
     Rake::Task.define_task(*args) do |task|
       if block_given?
         Rails.logger.debug "[#{task.name}] started"
         begin
-          block.call(task)
+          yield(task)
           Rails.logger.debug "[#{task.name}] finished"
-        rescue => exception
+        rescue StandardError => exception
           Rails.logger.debug "[#{task.name}] failed"
           raise exception
         end
