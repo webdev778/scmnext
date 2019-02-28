@@ -30,7 +30,7 @@ class Jepx::SpotTrade < ApplicationRecord
 
   class << self
     def import_data(year)
-      conn = Faraday::Connection.new(:url => 'http://www.jepx.org') do |builder|
+      conn = Faraday::Connection.new(url: 'http://www.jepx.org') do |builder|
         builder.use Faraday::Request::UrlEncoded
         builder.use Faraday::Adapter::NetHttp
       end
@@ -38,11 +38,11 @@ class Jepx::SpotTrade < ApplicationRecord
       csv = CSV.parse(response.body, headers: true)
       (0..csv.length - 1).each do |i|
         area = []
-        same_datetime_record = self.find_by(date: csv[i][0], time_index_id: csv[i][1])
+        same_datetime_record = find_by(date: csv[i][0], time_index_id: csv[i][1])
         if same_datetime_record
           area_data_id = same_datetime_record.spot_trade_area_data.first.id
           (1..9).each do |j|
-            area << {id: (area_data_id + j - 1), area_price: csv[i][j + 5], avoidable_price: csv[i][j + 22]}
+            area << { id: (area_data_id + j - 1), area_price: csv[i][j + 5], avoidable_price: csv[i][j + 22] }
           end
           row = {
             sell_bit_amount: csv[i][2],
@@ -61,7 +61,7 @@ class Jepx::SpotTrade < ApplicationRecord
         else
           (1..9).each do |j|
             district = District.find_by(code: "0#{j}")
-            area << {district_id: district.id, area_price: csv[i][j + 5], avoidable_price: csv[i][j + 22]}
+            area << { district_id: district.id, area_price: csv[i][j + 5], avoidable_price: csv[i][j + 22] }
           end
           row = {
             date: csv[i][0],
@@ -78,7 +78,7 @@ class Jepx::SpotTrade < ApplicationRecord
             alpha_fixed_times_spot_avg_per_price: csv[i][20],
             spot_trade_area_data_attributes: area
           }
-          self.create(row)
+          create(row)
         end
       end
     end

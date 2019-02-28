@@ -6,15 +6,15 @@ module PowerUsage
     validates :facility_group_id,
               presence: true
 
-    scope :total_by_time_index, -> {
+    scope :total_by_time_index, lambda {
       eager_load(:facility_group)
         .group(:time_index_id)
-        .sum("value")
+        .sum('value')
     }
 
-    scope :total, -> {
+    scope :total, lambda {
       eager_load(:facility_group)
-        .sum("value")
+        .sum('value')
     }
   end
 end

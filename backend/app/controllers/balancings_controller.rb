@@ -6,9 +6,9 @@ class BalancingsController < ApplicationController
     power_usage_class = "power_usage_#{params[:type]}".camelize.constantize
     power_usage_matrix = power_usage_class
                          .where(
-                           "facility_groups.district_id" => bg_member.balancing_group.district_id,
-                           "facility_groups.company_id" => bg_member.company_id,
-                           "date" => params[:date]
+                           'facility_groups.district_id' => bg_member.balancing_group.district_id,
+                           'facility_groups.company_id' => bg_member.company_id,
+                           'date' => params[:date]
                          )
                          .total_by_time_index
                          .map { |k, v| [k, { usage: v }] }

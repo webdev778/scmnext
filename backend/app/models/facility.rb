@@ -39,42 +39,42 @@ class Facility < ApplicationRecord
   # validates :city,
   #   presence: true
 
-  scope :active_at, ->(date) {
+  scope :active_at, lambda { |date|
     eager_load(:supply_point)
-      .where(["supply_point.supply_start_date <= ?", date])
-      .where(["supply_point.supply_end_date is null or supply_point.supply_end_date >= ?", date])
+      .where(['supply_point.supply_start_date <= ?', date])
+      .where(['supply_point.supply_end_date is null or supply_point.supply_end_date >= ?', date])
   }
 
-  scope :filter_company_id, ->(company_id) {
+  scope :filter_company_id, lambda { |company_id|
     eager_load(:consumer)
-      .where("consumers.company_id" => company_id)
+      .where('consumers.company_id' => company_id)
   }
 
-  scope :filter_district_id, ->(district_id) {
+  scope :filter_district_id, lambda { |district_id|
     where(district_id: district_id)
   }
 
-  scope :get_active_facility, ->(company_id, district_id, date) {
+  scope :get_active_facility, lambda { |company_id, district_id, date|
     filter_company_id(company_id)
       .filter_district_id(district_id)
       .active_at(date)
   }
 
-  scope :includes_for_index, -> {
+  scope :includes_for_index, lambda {
     includes([
-      {consumer: :company},
-      :district,
-      :supply_point
-    ])
+               { consumer: :company },
+               :district,
+               :supply_point
+             ])
   }
 
   def as_json(options = {})
     if options.blank?
       options = {
         include: [
-          {consumer: {
+          { consumer: {
             include: :company
-          }},
+          } },
           :district,
           :supply_point
         ]
@@ -88,7 +88,7 @@ class Facility < ApplicationRecord
   end
 
   def sales_special_discount_rate_at(date)
-    discount_for_facility = self.discount_for_facility_at(date)
+    discount_for_facility = discount_for_facility_at(date)
     discount_for_facility ? discount_for_facility.rate : 0
   end
 

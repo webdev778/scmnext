@@ -25,9 +25,9 @@ class PowerUsagePreliminary < ApplicationRecord
       raise "設定情報が見つかりません。[company_id: #{company_id}, district_id: #{district_id}]" if setting.nil?
 
       supply_point_number_map = SupplyPoint.get_map_filter_by_compay_id_and_district_id(company_id, district_id)
-      setting.get_xml_object_and_process_high_and_low(:today, date, time_index) do |file, doc, voltage_class|
+      setting.get_xml_object_and_process_high_and_low(:today, date, time_index) do |_file, doc, voltage_class|
         jptrm = doc.elements['SBD-MSG/JPMGRP/JPTRM']
-        date =  Time.strptime(jptrm.elements['JP06116'].text, "%Y%m%d")
+        date =  Time.strptime(jptrm.elements['JP06116'].text, '%Y%m%d')
         time_index = jptrm.elements['JP06219'].text
         import_data = jptrm.elements['JPM00010'].to_a.map do |nodes_by_facility|
           facility_node_to_import_data(nodes_by_facility, supply_point_number_map, voltage_class, date, time_index, setting)
@@ -37,7 +37,7 @@ class PowerUsagePreliminary < ApplicationRecord
         end.map do |k, values|
           { date: k[0], time_index_id: k[1], facility_group_id: k[2], value: values.sum { |v| v[:value].nil? ? 0 : BigDecimal(v[:value]) } }
         end
-        result = self.import(import_data, on_duplicate_key_update: [:date, :time_index_id, :facility_group_id])
+        result = import(import_data, on_duplicate_key_update: %i[date time_index_id facility_group_id])
       end
     end
 
@@ -50,9 +50,9 @@ class PowerUsagePreliminary < ApplicationRecord
 
       supply_point_number_map = SupplyPoint.get_map_filter_by_compay_id_and_district_id(company_id, district_id)
 
-      setting.get_xml_object_and_process_high_and_low(:past, date) do |file, doc, voltage_class|
+      setting.get_xml_object_and_process_high_and_low(:past, date) do |_file, doc, voltage_class|
         jptrm = doc.elements['SBD-MSG/JPMGRP/JPTRM']
-        date =  Time.strptime(jptrm.elements['JP06116'].text, "%Y%m%d")
+        date =  Time.strptime(jptrm.elements['JP06116'].text, '%Y%m%d')
         import_data =  jptrm.elements['JPM00010'].to_a.map do |nodes_by_times|
           time_index = nodes_by_times.elements['JP06219'].text
           nodes_by_times.elements['JPM00011'].to_a.map do |nodes_by_facility|
@@ -64,7 +64,7 @@ class PowerUsagePreliminary < ApplicationRecord
         end.map do |k, values|
           { date: k[0], time_index_id: k[1], facility_group_id: k[2], value: values.sum { |v| v[:value].nil? ? 0 : BigDecimal(v[:value]) } }
         end
-        result = self.import(import_data, on_duplicate_key_update: [:value])
+        result = import(import_data, on_duplicate_key_update: [:value])
       end
     end
 
@@ -94,12 +94,12 @@ class PowerUsagePreliminary < ApplicationRecord
         puts "供給地点特定番号:[#{supply_point_number}]は契約期間外です。需要家名=#{nodes_by_facility.elements['JP06120'].text}"
         return nil
       end
-      value_tag = case voltage_class when :high then "JP06123" when :low then "JP06125" end
+      value_tag = case voltage_class when :high then 'JP06123' when :low then 'JP06125' end
       value = nil
-      if nodes_by_facility.elements['JP06122'].text == "0"
+      if nodes_by_facility.elements['JP06122'].text == '0'
         value = BigDecimal(nodes_by_facility.elements[value_tag].text)
-        if setting.district.is_partial_included and supply_point.supply_method_type_partial? then
-          value = value - (supply_point.base_power / 2)
+        if setting.district.is_partial_included && supply_point.supply_method_type_partial?
+          value -= (supply_point.base_power / 2)
           value = value >= 0 ? value : 0
         end
       end

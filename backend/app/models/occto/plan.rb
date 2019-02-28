@@ -23,19 +23,19 @@ class Occto::Plan < ApplicationRecord
     # @param [string] filename ファイル名
     #
     def import_data(filename)
-      raise "ファイル[#{filename}]が見つかりません。" unless File.exists?(filename)
+      raise "ファイル[#{filename}]が見つかりません。" unless File.exist?(filename)
 
       zip_file = Zip::File.open(filename)
       doc = REXML::Document.new(zip_file.read(zip_file.entries.first.name), ignore_whitespace_nodes: :all)
       node_root = doc.elements['SBD-MSG/JPMGRP/JPTRM']
       bg = BalancingGroup.find_by(code: node_root.elements['JP06360'].text)
-      date = DateTime.strptime(node_root.elements['JP06171'].text, "%Y%m%d")
+      date = DateTime.strptime(node_root.elements['JP06171'].text, '%Y%m%d')
       plan_attributes = {
         balancing_group_id: bg.id,
         date: date
       }
-      plan = self.find_by(plan_attributes)
-      plan.destroy unless plan.nil?
+      plan = find_by(plan_attributes)
+      plan&.destroy
       plan_attributes[:plan_by_bg_members_attributes] = node_root.elements['JPM00022'].to_a.map do |node_by_company|
         bg_member = bg.bg_members.find { |bgm| bgm.code == node_by_company.elements['JP06316'].text }
         plan_detail_demands = node_by_company.elements['JPM00023/JPMR00023/JPM00024'].to_a.map do |node_demand_with_time_index|
@@ -68,10 +68,10 @@ class Occto::Plan < ApplicationRecord
           bg_member_id: bg_member.id,
           plan_detail_demand_values_attributes: plan_detail_demands,
           plan_detail_supply_values_attributes: plan_detail_supplies,
-          plan_detail_sale_values_attributes: plan_detail_sales,
+          plan_detail_sale_values_attributes: plan_detail_sales
         }
       end
-      self.create!(plan_attributes)
+      create!(plan_attributes)
     end
 
     #
@@ -82,9 +82,9 @@ class Occto::Plan < ApplicationRecord
     def matrix_by_time_index_and_resouce_type(condition)
       condition.assert_valid_keys(:bg_member_id, :date)
       bg_member = BgMember.find(condition[:bg_member_id])
-      plan = self
-             .includes({ plan_by_bg_members: { plan_detail_values: :resource } })
-             .find_by(balancing_group_id: bg_member.balancing_group_id, date: condition[:date])
+      plan =
+        includes(plan_by_bg_members: { plan_detail_values: :resource })
+        .find_by(balancing_group_id: bg_member.balancing_group_id, date: condition[:date])
       return nil unless plan
 
       plan.matrix_by_time_index_and_resouce_type
@@ -95,23 +95,21 @@ class Occto::Plan < ApplicationRecord
   # BG単位の時間枠、リソース種別別のポジション表に変換する
   #
   def matrix_by_time_index_and_resouce_type
-    self.plan_by_bg_members.reduce({}) do |matrix, plan_by_bg_member|
-      plan_by_bg_member.plan_detail_values.reduce(matrix) do |matrix, plan_detail_value|
+    plan_by_bg_members.each_with_object({}) do |plan_by_bg_member, matrix|
+      plan_by_bg_member.plan_detail_values.each_with_object(matrix) do |plan_detail_value, matrix|
         matrix[plan_detail_value.time_index_id] ||= {}
-        if plan_detail_value.is_a?(Occto::PlanDetailDemandValue)
-          type = "demand"
-        else
-          type = plan_detail_value.resource.type.underscore.sub('resource_', '')
-        end
+        type = if plan_detail_value.is_a?(Occto::PlanDetailDemandValue)
+                 'demand'
+               else
+                 plan_detail_value.resource.type.underscore.sub('resource_', '')
+               end
         matrix[plan_detail_value.time_index_id][type] ||= 0
         if plan_detail_value.is_a?(Occto::PlanDetailSaleValue)
           matrix[plan_detail_value.time_index_id][type] -= plan_detail_value.value
         else
           matrix[plan_detail_value.time_index_id][type] += plan_detail_value.value
         end
-        matrix
       end
-      matrix
     end
   end
 end

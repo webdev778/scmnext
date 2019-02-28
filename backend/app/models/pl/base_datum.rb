@@ -42,7 +42,7 @@ class Pl::BaseDatum < ApplicationRecord
   class << self
     def generate_each_bg_member_data(date, bg_member, power_usage_class)
       power_usage_relation = power_usage_class
-                             .eager_load({ facility_group: { supply_points: { facility: :discount_for_facilities }, contract: :contract_basic_charges } })
+                             .eager_load(facility_group: { supply_points: { facility: :discount_for_facilities }, contract: :contract_basic_charges })
                              .where('facility_groups.district_id': bg_member.balancing_group.district_id, 'facility_groups.company_id': bg_member.company.id, date: date)
       # 対象データが無い場合はスキップ
       return if power_usage_relation.count == 0
@@ -59,11 +59,10 @@ class Pl::BaseDatum < ApplicationRecord
 
       total_by_time_index = power_usage_relation.total_by_time_index
       import_data = power_usage_relation.all.map do |power_usage|
-        usage = ['demand', 'jepx_spot', 'jepx_1hour', 'jbu', 'fit', 'matching', 'self'].reduce({}) do |usage, resource_type_name|
+        usage = %w[demand jepx_spot jepx_1hour jbu fit matching self].each_with_object({}) do |resource_type_name, usage|
           usage_value = plan_matrix_by_time_index_and_resouce_type[power_usage.time_index_id][resource_type_name]
           usage_value ||= 0
           usage[resource_type_name] = usage_value * power_usage.value / total_by_time_index[power_usage.time_index_id]
-          usage
         end
         voltage_type = power_usage.facility_group.voltage_type
         if voltage_type.nil?
@@ -105,7 +104,7 @@ class Pl::BaseDatum < ApplicationRecord
           supply_wheeler_mater_rate_charge: 0
         }
       end
-      self.import import_data
+      import import_data
     end
 
     def summary(conditions, group_fields)
@@ -118,29 +117,29 @@ class Pl::BaseDatum < ApplicationRecord
     private
 
     def summary_columns
-      [
-        :amount_actual,
-        :amount_planned,
-        :amount_loss,
-        :amount_imbalance,
-        :sales_basic_charge,
-        :sales_mater_rate_charge,
-        :sales_fuel_cost_adjustment,
-        :sales_cost_adjustment,
-        :sales_special_discount,
-        :usage_jbu,
-        :usage_jepx_spot,
-        :usage_jepx_1hour,
-        :usage_fit,
-        :usage_matching,
-        :supply_jbu_basic_charge,
-        :supply_jbu_fuel_cost_adjustment,
-        :supply_jepx_spot,
-        :supply_jepx_1hour,
-        :supply_fit,
-        :supply_imbalance,
-        :supply_wheeler_fundamental_charge,
-        :supply_wheeler_mater_rate_charge
+      %i[
+        amount_actual
+        amount_planned
+        amount_loss
+        amount_imbalance
+        sales_basic_charge
+        sales_mater_rate_charge
+        sales_fuel_cost_adjustment
+        sales_cost_adjustment
+        sales_special_discount
+        usage_jbu
+        usage_jepx_spot
+        usage_jepx_1hour
+        usage_fit
+        usage_matching
+        supply_jbu_basic_charge
+        supply_jbu_fuel_cost_adjustment
+        supply_jepx_spot
+        supply_jepx_1hour
+        supply_fit
+        supply_imbalance
+        supply_wheeler_fundamental_charge
+        supply_wheeler_mater_rate_charge
       ]
     end
   end

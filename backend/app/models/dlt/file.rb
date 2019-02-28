@@ -27,19 +27,19 @@ class Dlt::File < ApplicationRecord
   #
   # パラメータで指定された条件に応じてファイル名に基づいた検索を行う
   #
-  scope :filter_by_filename, ->(data_type, voltage_class, date = nil, time_index = nil) {
+  scope :filter_by_filename, lambda { |data_type, voltage_class, date = nil, time_index = nil|
     pattern = make_filename_pattern(data_type, voltage_class, date, time_index)
     logger.debug(pattern)
-    eager_load([:content_blob, :content_attachment, :setting])
-      .where(["active_storage_blobs.filename LIKE ?", pattern])
+    eager_load(%i[content_blob content_attachment setting])
+      .where(['active_storage_blobs.filename LIKE ?', pattern])
   }
 
-  scope :includes_for_index, -> {
-    includes([:content_attachment, :content_blob])
+  scope :includes_for_index, lambda {
+    includes(%i[content_attachment content_blob])
   }
 
-  scope :includes_for_show, -> {
-    includes([:content_attachment, :content_blob])
+  scope :includes_for_show, lambda {
+    includes(%i[content_attachment content_blob])
   }
 
   # class methods
@@ -48,15 +48,15 @@ class Dlt::File < ApplicationRecord
     # ダウンロードの実行
     #
     def download
-      Dlt::Setting.all.each do |setting|
+      Dlt::Setting.all.find_each do |setting|
         file_list = get_file_list(setting)
-        filenames = file_list.map { |no, list_item| list_item[:filename] }
-        downloaded_filenames = Dlt::File.includes([:setting, :content_blob])
+        filenames = file_list.map { |_no, list_item| list_item[:filename] }
+        downloaded_filenames = Dlt::File.includes(%i[setting content_blob])
                                         .where(
-                                          "setting_id" => setting.id,
-                                          "active_storage_blobs.filename" => filenames
-                                        ).pluck("active_storage_blobs.filename")
-        file_list.each do |no, list_item|
+                                          'setting_id' => setting.id,
+                                          'active_storage_blobs.filename' => filenames
+                                        ).pluck('active_storage_blobs.filename')
+        file_list.each do |_no, list_item|
           next if downloaded_filenames.include?(list_item[:filename])
           next if block_given? && !yield(list_item[:filename])
 
@@ -79,30 +79,29 @@ class Dlt::File < ApplicationRecord
     # @param [integer] time_index 時刻コード(当日ファイルのみ指定可能、nullの場合はワイルドカード指定)
     # @return [String] ファイル名のパターン
     def make_filename_pattern(data_type, voltage_class, date = nil, time_index = nil)
-      if date.nil?
-        yyyymmdd = '________'
-      elsif date.is_a?(String)
-        yyyymmdd = date
-      else
-        yyyymmdd = date.strftime("%Y%m%d")
-      end
-      if time_index.nil?
-        time_pattern = '____'
-      else
-        time_pattern = TimeIndex.to_time_of_day(time_index).strftime("%H%M")
-      end
-      case
-      when (voltage_class == :high and data_type == :today)
+      yyyymmdd = if date.nil?
+                   '________'
+                 elsif date.is_a?(String)
+                   date
+                 else
+                   date.strftime('%Y%m%d')
+                 end
+      time_pattern = if time_index.nil?
+                       '____'
+                     else
+                       TimeIndex.to_time_of_day(time_index).strftime('%H%M')
+                     end
+      if (voltage_class == :high) && (data_type == :today)
         "W40110#{yyyymmdd}#{time_pattern}____.zip"
-      when (voltage_class == :low and data_type == :today)
+      elsif (voltage_class == :low) && (data_type == :today)
         "W41110#{yyyymmdd}#{time_pattern}______.zip"
-      when (voltage_class == :high and data_type == :past)
+      elsif (voltage_class == :high) && (data_type == :past)
         "W40120#{yyyymmdd}0000____.zip"
-      when (voltage_class == :low and data_type == :past)
+      elsif (voltage_class == :low) && (data_type == :past)
         "W41120#{yyyymmdd}0000______.zip"
-      when (voltage_class == :high and data_type == :fixed)
+      elsif (voltage_class == :high) && (data_type == :fixed)
         "W51210#{yyyymmdd}_______.zip"
-      when (voltage_class == :low and data_type == :fixed)
+      elsif (voltage_class == :low) && (data_type == :fixed)
         "W51220#{yyyymmdd}_______.zip"
       else
         raise "invalid combination of parameter: data_type=#{data_type}, voltage_class=#{voltage_class}"
@@ -117,20 +116,19 @@ class Dlt::File < ApplicationRecord
     def get_file_list(setting)
       result = setting.connection.get("#{setting.district.dlt_path}/FileListReceiver")
       file_list = result.body
-                        .gsub(/\n/, '')
-                        .gsub(/.*<comment>(.*)<\/comment>.*/, '\1')
-                        .split(",").reduce({}) do |map, line|
+                        .delete("\n")
+                        .gsub(%r{.*<comment>(.*)</comment>.*}, '\1')
+                        .split(',').each_with_object({}) do |line, map|
         case line
         when /(rfilename)([0-9]*):"(.*)"/
-          map[$2] ||= {}
-          map[$2][:filename] = $3
+          map[Regexp.last_match(2)] ||= {}
+          map[Regexp.last_match(2)][:filename] = Regexp.last_match(3)
         when /(rfilesize)([0-9]*):"(.*)"/
-          map[$2] ||= {}
-          map[$2][:size] = $3.to_i
+          map[Regexp.last_match(2)] ||= {}
+          map[Regexp.last_match(2)][:size] = Regexp.last_match(3).to_i
         else
           puts line
         end
-        map
       end
     end
 
@@ -138,16 +136,16 @@ class Dlt::File < ApplicationRecord
     # ファイルの取得
     #
     def get_file(filename, setting)
-      setting.connection.get("#{setting.district.dlt_path}/FileReceiver", { file: filename })
+      setting.connection.get("#{setting.district.dlt_path}/FileReceiver", file: filename)
     end
   end
 
   def as_json(options = {})
     if options.blank?
       options = {
-        include: [
-          :content_attachment,
-          :content_blob
+        include: %i[
+          content_attachment
+          content_blob
         ]
       }
     end
@@ -158,18 +156,18 @@ class Dlt::File < ApplicationRecord
   # ステータスを変更しつつ取込処理を実行
   #
   def perform_document_read
-    self.state_in_progress!
+    state_in_progress!
     begin
-      zip_file = Zip::File.open_buffer(self.content.download)
+      zip_file = Zip::File.open_buffer(content.download)
       doc = REXML::Document.new(zip_file.read(zip_file.entries.first.name), ignore_whitespace_nodes: :all)
       result = yield(doc)
       if result.failed_instances.count > 0
-        self.state_complated_with_error!
+        state_complated_with_error!
       else
-        self.state_complated!
+        state_complated!
       end
-    rescue => e
-      self.state_exception!
+    rescue StandardError => e
+      state_exception!
       raise e
     end
   end

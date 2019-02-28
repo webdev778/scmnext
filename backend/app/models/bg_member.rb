@@ -21,7 +21,7 @@ class BgMember < ApplicationRecord
   belongs_to :balancing_group, inverse_of: :bg_members
   belongs_to :company
 
-  scope :includes_for_index, -> {
+  scope :includes_for_index, lambda {
     includes([:company])
   }
 
@@ -30,13 +30,11 @@ class BgMember < ApplicationRecord
   end
 
   def name
-    "#{company.name}"
+    company.name.to_s
   end
 
   def as_json(options = null)
-    unless options.present?
-      options = { methods: [:name] }
-    end
+    options = { methods: [:name] } if options.blank?
     super options
   end
 end
