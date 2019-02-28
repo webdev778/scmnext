@@ -1,5 +1,4 @@
 namespace :legacy do
-
   def merge_yaml(filename)
     parentdir = File.dirname(filename)
     unless Dir.exist?(parentdir)
@@ -7,6 +6,7 @@ namespace :legacy do
     end
     config = File.exist?(filename) ? YAML.load_file(filename) : {}
     raise "Invalid yaml file. Please check format" unless config
+
     config = yield(config)
     File.open(filename, mode: "w") do |f|
       YAML.dump(config, f)
@@ -16,10 +16,10 @@ namespace :legacy do
   def write_legacy_table_definition(table_name, type, fields)
     merge_yaml(table_definition_path.join("#{table_name}.yml")) do |config|
       config.merge({
-        table_name: table_name,
-        table_type: type,
-        fields: fields
-      })
+                     table_name: table_name,
+                     table_type: type,
+                     fields: fields
+                   })
     end
   end
 
@@ -27,8 +27,8 @@ namespace :legacy do
     merge_yaml(converter_path.join("#{class_name.underscore}.yml")) do |config|
       config[:truncate] ||= true
       config = config.merge({
-        model_class: class_name,
-      })
+                              model_class: class_name,
+                            })
       if config[:fields].nil?
         # 新定義の場合
         config[:sources] ||= [{}]
@@ -70,6 +70,7 @@ namespace :legacy do
   def get_table_definition(table_name)
     path = table_definition_path.join("#{table_name}.yml")
     raise "Can't find #{table_name} yml file." unless File.exists?(path)
+
     YAML.load_file(path)
   end
 
@@ -99,11 +100,11 @@ namespace :legacy do
         ).as(field)
       end
       key_table.project(projects)
-      .join(
-        column_table, Arel::Nodes::InnerJoin
-      ).on(key_table[:id].eq(column_table[:row_id]))
-      .group(key_table[:id])
-      .as(alias_name)
+               .join(
+                 column_table, Arel::Nodes::InnerJoin
+               ).on(key_table[:id].eq(column_table[:row_id]))
+               .group(key_table[:id])
+               .as(alias_name)
     when :simple
       Arel::Table.new(table_name).alias(alias_name)
     else
@@ -121,6 +122,7 @@ namespace :legacy do
   def convert(yaml_path)
     config = YAML.load_file(yaml_path)
     return if config[:skip]
+
     legacy_con = legacy_connection
     my_con = my_connection
     puts config[:model_class]
@@ -134,18 +136,18 @@ namespace :legacy do
         if source[:joins]
           source[:joins].each do |join|
             join_table = table_object(join[:table], join[:as])
-            join_type = case join[:type]
+            case join[:type]
             when "inner"
-              Arel::Nodes::InnerJoin
+              join_type = Arel::Nodes::InnerJoin
             when "outer"
-              Arel::Nodes::OuterJoin
+              join_type = Arel::Nodes::OuterJoin
             else
               raise "結合はinnerまたはouterを指定してください。"
             end
             select_manager = select_manager.join(join_table, join_type).on(Arel.sql(join[:on]))
           end
         end
-        select_manager = select_manager.project(source[:fields].delete_if{|k, v| v.blank?}.map{|k, v| Arel.sql(v).as(k)})
+        select_manager = select_manager.project(source[:fields].delete_if { |k, v| v.blank? }.map { |k, v| Arel.sql(v).as(k) })
         select_manager = select_manager.where(Arel.sql(source[:where])) unless source[:where].blank?
         items = legacy_con.select_all(select_manager.to_sql).to_hash.map do |params|
           model_class.new params
@@ -194,10 +196,11 @@ namespace :legacy do
   end
 
   desc "DB移行"
-  task convert: :environment  do |task, args|
+  task convert: :environment do |task, args|
     if ENV['TARGET']
       yaml_file = ENV['TARGET']
       raise "指定された定義ファイル#{yaml_file}が見つかりません。" unless File.exists?(yaml_file)
+
       convert yaml_file
     else
       convert_all
@@ -223,11 +226,11 @@ namespace :legacy do
       all_legacy_tables = connection.tables
       key_value_tables = connection.select_all("select table_name from tbl_sys_item_meta_data group by table_name").rows.flatten
       key_value_tables_exist, key_value_tables_not_exist = connection.select_all("select table_name from tbl_sys_item_meta_data group by table_name")
-        .rows
-        .flatten
-        .partition do |table_name|
-          all_legacy_tables.delete(table_name) and all_legacy_tables.delete("#{table_name}_columns")
-        end
+                                                                     .rows
+                                                                     .flatten
+                                                                     .partition do |table_name|
+        all_legacy_tables.delete(table_name) and all_legacy_tables.delete("#{table_name}_columns")
+      end
       # key/valueの定義を出力
       key_value_tables_exist.each do |table_name|
         fields = connection.select_all("select field from tbl_sys_item_meta_data where table_name = '#{table_name}'").rows.flatten
@@ -236,7 +239,7 @@ namespace :legacy do
 
       # 通常の定義を出力
       all_legacy_tables.each do |table_name|
-        fields = connection.query("desc #{table_name}").map{|row| row[0]}
+        fields = connection.query("desc #{table_name}").map { |row| row[0] }
         write_legacy_table_definition(table_name, :simple, fields)
       end
     end

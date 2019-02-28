@@ -1,5 +1,4 @@
 namespace :dlt do
-
   desc "30分データダウンロード"
   task download: :environment do |task, args|
     Dlt::File.download do |filename|
@@ -46,5 +45,4 @@ namespace :dlt do
       PowerUsageFixed.import_data(1, 1, start_date, start_date.end_of_month)
     end
   end
-
 end

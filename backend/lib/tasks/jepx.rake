@@ -1,5 +1,4 @@
 namespace :jepx do
-
   namespace :download do
     desc "JEPXインバランスβ値取込"
     task imbalance_beta: :environment do |task, args|

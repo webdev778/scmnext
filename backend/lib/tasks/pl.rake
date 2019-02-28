@@ -1,5 +1,4 @@
 namespace :pl do
-
   namespace :generate do
     desc "損益計算基本データ(速報値ベース)作成"
     task preliminary: :environment do |task, args|
