@@ -1,16 +1,17 @@
 ---
+:skip: true
 :truncate: true
 :model_class: ResourceSelf
 :sources:
 - :fields:
-    id: 
-    balancing_group_id: 
-    type: 
-    code: 
-    name: 
-    created_by: 
-    updated_by: 
-    created_at: 
-    updated_at: 
-  :from: 
-  :where: 
+    id:
+    balancing_group_id:
+    type:
+    code:
+    name:
+    created_by:
+    updated_by:
+    created_at:
+    updated_at:
+  :from:
+  :where:
