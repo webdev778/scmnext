@@ -80,8 +80,8 @@ class Jepx::SpotTrade < ApplicationRecord
           same_datetime_record.update(row)
         else
           (1..9).each do |j|
-            #district = District.find_by(code: "0#{j}")
-            area << { district_id: j, area_price: line[j + COL_SYSTEM_PRICE], avoidable_price: line[j + COL_AVOIDABLE_COST] }
+            district = District.find_by(code: "0#{j}")
+            area << { district_id: district.id, area_price: line[j + COL_SYSTEM_PRICE], avoidable_price: line[j + COL_AVOIDABLE_COST] }
           end
           row = self.get_row_data(line, area)
           create(row)
