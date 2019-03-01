@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_16_024254) do
+ActiveRecord::Schema.define(version: 2019_02_28_070159) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -225,10 +225,20 @@ ActiveRecord::Schema.define(version: 2019_02_16_024254) do
     t.string "dlt_host", comment: "託送ダウンロード用ホスト名"
     t.string "dlt_path", comment: "託送ダウンロードパス名"
     t.boolean "is_partial_included", null: false, comment: "電力量データ部分供給内包有無"
+    t.bigint "daytime_start_time_index_id", comment: "昼間時間開始時間枠ID"
+    t.bigint "daytime_end_time_index_id", comment: "昼間時間終了時間枠ID"
+    t.bigint "peaktime_start_time_index_id", comment: "ピークタイム開始時間枠ID"
+    t.bigint "peaktime_end_time_index_id", comment: "ピークタイム終了時間枠ID"
+    t.integer "summer_season_start_month", comment: "夏季開始月"
+    t.integer "summer_season_end_month", comment: "夏季終了月"
     t.integer "created_by"
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["daytime_end_time_index_id"], name: "index_districts_on_daytime_end_time_index_id"
+    t.index ["daytime_start_time_index_id"], name: "index_districts_on_daytime_start_time_index_id"
+    t.index ["peaktime_end_time_index_id"], name: "index_districts_on_peaktime_end_time_index_id"
+    t.index ["peaktime_start_time_index_id"], name: "index_districts_on_peaktime_start_time_index_id"
   end
 
   create_table "dlt_files", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "ダウンロードファイル", force: :cascade do |t|
@@ -261,6 +271,7 @@ ActiveRecord::Schema.define(version: 2019_02_16_024254) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["date"], name: "ix_date"
     t.index ["time_index_id"], name: "index_dlt_usage_fixed_details_on_time_index_id"
     t.index ["usage_fixed_header_id"], name: "index_dlt_usage_fixed_details_on_usage_fixed_header_id"
   end
@@ -362,6 +373,17 @@ ActiveRecord::Schema.define(version: 2019_02_16_024254) do
     t.index ["year"], name: "index_fuel_cost_adjustments_on_year"
   end
 
+  create_table "holidays", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "休日", force: :cascade do |t|
+    t.bigint "district_id", comment: "エリアID"
+    t.date "date", comment: "日付"
+    t.string "name", comment: "名称"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["district_id"], name: "index_holidays_on_district_id"
+  end
+
   create_table "jbu_contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "常時バックアップ電源契約", force: :cascade do |t|
     t.bigint "district_id", comment: "エリアID"
     t.bigint "company_id", comment: "PPS ID"
@@ -373,6 +395,7 @@ ActiveRecord::Schema.define(version: 2019_02_16_024254) do
     t.decimal "meter_rate_charge_other_season_daytime", precision: 10, scale: 4, comment: "従量料金(他季昼間)"
     t.decimal "meter_rate_charge_night", precision: 10, scale: 4, comment: "従量料金(夜間)"
     t.decimal "meter_rate_charge_peak_time", precision: 10, scale: 4, comment: "従量料金(ピークタイム)"
+    t.decimal "fuel_cost_adjustment_charge", precision: 10, scale: 4, comment: "燃料費調整単価"
     t.integer "created_by"
     t.integer "updated_by"
     t.datetime "created_at", null: false

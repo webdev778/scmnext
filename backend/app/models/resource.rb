@@ -16,4 +16,24 @@
 class Resource < ApplicationRecord
   belongs_to :balancing_group
   has_many :occto_plan_detail_values, class_name: Occto::PlanDetailValue.to_s
+
+  #
+  # 当該リソースの指定日及び時間枠におけるレートを取得する
+  # @params date [Date] 日付
+  # @params time_index [Integer] 時間枠ID
+  # @return [Integer] レート
+  def rate_at(date, time_index)
+    get_rate_at(date, time_index)
+  end
+
+  protected
+  #
+  # レート取得の実装
+  # (継承先で必要に応じて実装する)
+  # @params date [Date] 日付
+  # @params time_index [Integer] 時間枠ID
+  # @return [Integer] レート
+  def get_rate_at(date, time_index)
+    raise "method not impremented."
+  end
 end

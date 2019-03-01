@@ -13,7 +13,8 @@
     meter_rate_charge_summer_season_daytime: meter_rate_summer_season_daytime
     meter_rate_charge_other_season_daytime: meter_rate_other_season_daytime
     meter_rate_charge_night: meter_rate_night
-    meter_rate_charge_peak_time: meter_rate_peak_time
+    meter_rate_charge_peak_time: meter_rate_summer_season_daytime
+    fuel_cost_adjustment_charge: meter_rate_peak_time
     created_by: created_user_id
     updated_by: modified_user_id
     created_at: created

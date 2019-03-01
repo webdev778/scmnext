@@ -14,4 +14,14 @@
 #
 
 class ResourceJepxSpot < Resource
+  protected
+
+  #
+  # JEPXスポット調達のレートを取得する
+  # @params date [Date] 日付
+  # @params time_index [Integer] 時間枠ID
+  # @return [Integer] レート
+  def get_rate_at(date, time_index)
+    raise "method not impremented."
+  end
 end

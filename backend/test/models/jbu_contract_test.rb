@@ -13,6 +13,7 @@
 #  meter_rate_charge_other_season_daytime  :decimal(10, 4)
 #  meter_rate_charge_night                 :decimal(10, 4)
 #  meter_rate_charge_peak_time             :decimal(10, 4)
+#  fuel_cost_adjustment_charge             :decimal(10, 4)
 #  created_by                              :integer
 #  updated_by                              :integer
 #  created_at                              :datetime         not null

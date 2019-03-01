@@ -4,6 +4,8 @@
 #
 #  id                      :bigint(8)        not null, primary key
 #  file_id                 :bigint(8)
+#  year                    :integer          not null
+#  month                   :integer          not null
 #  supply_point_number     :string(22)       not null
 #  consumer_code           :string(21)
 #  consumer_name           :string(80)

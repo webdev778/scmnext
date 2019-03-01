@@ -11,6 +11,7 @@ class CreateJbuContracts < ActiveRecord::Migration[5.2]
       t.decimal "meter_rate_charge_other_season_daytime", precision: 10, scale: 4, comment: "従量料金(他季昼間)"
       t.decimal "meter_rate_charge_night", precision: 10, scale: 4, comment: "従量料金(夜間)"
       t.decimal "meter_rate_charge_peak_time", precision: 10, scale: 4, comment: "従量料金(ピークタイム)"
+      t.decimal "fuel_cost_adjustment_charge", precision: 10, scale: 4, comment: "燃料費調整単価"
       t.stamp_fileds
     end
   end
