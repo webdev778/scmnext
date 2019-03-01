@@ -28,7 +28,7 @@ class JbuContract < ApplicationRecord
   # 基本料
   #
   # @return 契約電力 x 基本料率
-  def bacic_amount
+  def basic_amount
     contract_power * basic_charge
   end
 
@@ -36,23 +36,23 @@ class JbuContract < ApplicationRecord
   # パラメータで指定された日付及び時間枠IDにおける従量料金単価を取得する
   #
   # @param date [Date] 日付
-  # @param time_index [Integer] 時間枠ID
+  # @param time_index_id [Integer] 時間枠ID
   # @return [Decimal] 指定日時の従量料金単価
-  def meter_rate_charge(date, time_index)
+  def meter_rate_charge(date, time_index_id)
     if Holiday.get_list(district_id).include?(date)
       meter_rate_charge_night
     elsif in_summer_season(date)
       case
-      when in_peaktime(time_index)
+      when in_peaktime(time_index_id)
         meter_rate_charge_peak_time
-      when in_daytime(time_index)
+      when in_daytime(time_index_id)
         meter_rate_charge_summer_season_daytime
       else
         meter_rate_charge_night
       end
     else
       case
-      when in_daytime(time_index)
+      when in_daytime(time_index_id)
         meter_rate_charge_other_season_daytime
       else
         meter_rate_charge_night
@@ -89,7 +89,7 @@ class JbuContract < ApplicationRecord
   # 指定の時間枠IDが昼間時間に含まれるか
   # @param time_index_id [Integer] チェック対象の時間枠ID
   # @return [Boolean] 昼間時間に含まれる場合真を返す
-  def in_daytime(time_index)
+  def in_daytime(time_index_id)
     (district.daytime_start_time_index_id..district.daytime_end_time_index_id).include?(time_index_id)
   end
 end

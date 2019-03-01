@@ -49,6 +49,7 @@ class District < ApplicationRecord
         result[wheeler_charge.voltage_class] = wheeler_charge
         result
       end
+      .with_indifferent_access
   end
 
   #
@@ -62,6 +63,7 @@ class District < ApplicationRecord
         [fuel_cost_adjustment.voltage_class, fuel_cost_adjustment]
       end
       .to_h
+      .with_indifferent_access
   end
 
 end

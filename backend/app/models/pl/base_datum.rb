@@ -57,13 +57,14 @@ class Pl::BaseDatum < ApplicationRecord
       return if plan_matrix_by_time_index_and_resouce_type.nil?
 
       # 電圧区分ごとの燃料調整費・託送料データを取得する
-      fuel_cost_adjustments_map_by_voltage_class = bg_member.balancing_group.district.fuel_cost_adjustments(date)
+      fuel_cost_adjustments_map_by_voltage_class = bg_member.balancing_group.district.fuel_cost_adjustments_at(date)
       wheeler_charges_map_by_voltage_class = bg_member.balancing_group.district.wheeler_charges_at(date)
 
       # JBU契約を取得
       jbu_contract = JbuContract
-        .where(company_id: 1, district_id: 1)
+        .where(company_id: bg_member.company.id, district_id: bg_member.balancing_group.district_id)
         .where("start_date <= :date and (end_date IS NULL OR end_date <= :date)", date: date)
+        .first
 
       # 月当たりのコマ数を算出
       time_index_count = TimeIndex.time_index_count_of_month(date)
@@ -72,16 +73,17 @@ class Pl::BaseDatum < ApplicationRecord
       total_by_time_index = power_usage_relation.total_by_time_index
 
       # 当日のエリアプライスデータを時間枠ごとのhash_mapに
-      jepx_spot_area_price_map = Jepx::SpotTradeAreaDatum.includes(:spot_trade)
+      spot_trade_area_data_map_by_time_index = Jepx::SpotTradeAreaDatum.includes(:spot_trade)
         .where("jepx_spot_trades.date"=> date, "district_id"=>bg_member.balancing_group.district_id)
         .map do|spot_trade_area_datum|
-          [spot_trade_area_datum.spot_trade.time_index_id, spot_trade_area_datum.area_price_with_fuel_cost_adjustment_and_tax]
+          [spot_trade_area_datum.spot_trade.time_index_id, spot_trade_area_datum]
         end
         .to_h
 
 
       # 需要家・コマごとの処理
       import_data = power_usage_relation.all.map do |power_usage|
+        binding.pry if power_usage.facility_group.voltage_type.nil?
         # BGメンバー全体のその時間枠の使用量に対する需要家の使用量の割合を求める
         power_usage_rate = power_usage.value / total_by_time_index[power_usage.time_index_id]
 
@@ -92,7 +94,7 @@ class Pl::BaseDatum < ApplicationRecord
           usage[resource_type_name] = usage_value * power_usage_rate
         end
 
-        fuel_cost_adjustment = fuel_cost_adjustment_map_by_voltage_class[power_usage.facility_group.voltage_type.to_voltage_class]
+        fuel_cost_adjustment = fuel_cost_adjustments_map_by_voltage_class[power_usage.facility_group.voltage_type.to_voltage_class]
         fuel_cost_unit_price = fuel_cost_adjustment ? fuel_cost_adjustment.unit_price : 0
         loss_rate = 0.042
         amount_loss = power_usage.value * loss_rate
@@ -116,14 +118,14 @@ class Pl::BaseDatum < ApplicationRecord
           usage_jepx_1hour: usage['jepx_1hour'],
           usage_fit: usage['jepx_fit'],
           usage_matching: usage['matching'],
-          supply_jbu_basic_charge: jbu_contract.bacic_amount / time_index_count * power_usage_rate,
-          supply_jbu_meter_rate_charge: usage['jbu'] * jbu_contract.meter_rate_charge(date, time_index),
+          supply_jbu_basic_charge: jbu_contract.basic_amount / time_index_count * power_usage_rate,
+          supply_jbu_meter_rate_charge: usage['jbu'] * jbu_contract.meter_rate_charge(date, power_usage.time_index_id),
           supply_jbu_fuel_cost_adjustment: usage['jbu'] * jbu_contract.fuel_cost_adjustment_charge,
-          supply_jepx_spot: usage['jepx_spot'] * jepx_spot_area_price_map[time_index].area_price_with_fuel_cost_adjustment_and_tax,
+          supply_jepx_spot: usage['jepx_spot'] * spot_trade_area_data_map_by_time_index[power_usage.time_index_id].area_price_with_fuel_cost_adjustment_and_tax,
           supply_jepx_1hour: 0,
           supply_fit: 0,
           supply_matching: 0,
-          supply_imbalance: amount_imbalance * jepx_spot_area_price_map[time_index].imbalance_unit_price(power_usage_class.data_type),
+          supply_imbalance: amount_imbalance * spot_trade_area_data_map_by_time_index[power_usage.time_index_id].imbalance_unit_price(power_usage_class.data_type),
           supply_wheeler_fundamental_charge: wheeler_charges_map_by_voltage_class[power_usage.facility_group.voltage_type.to_voltage_class].basic_amount / time_index_count,
           supply_wheeler_mater_rate_charge: power_usage.value * wheeler_charges_map_by_voltage_class[power_usage.facility_group.voltage_type.to_voltage_class].meter_rate_charge
         }

@@ -6,12 +6,10 @@
 
 <script>
   import SidebarNavItem from './SidebarNavItem'
-  import SidebarNavLink from './SidebarNavLink'
   export default {
     name: 'sidebar-nav-label',
     components: {
-      SidebarNavItem,
-      SidebarNavLink
+      SidebarNavItem
     },
     props: {
       name: {

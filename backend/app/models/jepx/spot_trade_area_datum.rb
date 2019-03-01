@@ -35,7 +35,7 @@ class Jepx::SpotTradeAreaDatum < ApplicationRecord
       raise "date_typeパラメータにはpreliminaryかfixedを指定してください" unless [:preliminary, :fixed].include?(data_type.to_sym)
       imbalance_beta = district.jepx_imbalance_betas.find_by(year: spot_trade.date.year, month: spot_trade.date.month)
       raise "インバランスβ情報が見つかりません。" if imbalance_beta.nil?
-      @imbalance_unit_price[data_type] = spot_trade.send("alpha_#{data_type}_time_spot_avg_per_price") * imbalance_beta.value
+      @imbalance_unit_price[data_type] = spot_trade.send("alpha_#{data_type}_times_spot_avg_per_price") * imbalance_beta.value
     end
     @imbalance_unit_price[data_type]
   end
