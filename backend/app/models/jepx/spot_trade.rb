@@ -28,7 +28,39 @@ class Jepx::SpotTrade < ApplicationRecord
 
   require 'csv'
 
+  COL_DATE = 0
+  COL_TIME_INDEX_ID = 1
+  COL_SELL_BIT_AMOUNT = 2
+  COL_BUY_BIT_AMOUNT = 3
+  COL_EXECUTION_AMOUNT = 4
+  COL_SYSTEM_PRICE = 5
+  COL_AVOIDABLE_COST = 22
+  COL_SPOT_AVG_PRE_PRICE = 16
+  COL_ALPHA_MAX_TIMES_SPOT_AVG_PER_PRICE = 17
+  COL_ALPHA_MIN_TIMES_SPOT_AVG_PER_PRICE = 18
+  COL_ALPHA_PRELIMINARY_TIMES_SPOT_AVG_PER_PRICE = 19
+  COL_ALPHA_FIXED_TIMES_SPOT_AVG_PER_PRICE = 20
+
   class << self
+    def get_row_data(line, area)
+      row = {
+        date: line[COL_DATE],
+        time_index_id: line[COL_TIME_INDEX_ID],
+        sell_bit_amount: line[COL_SELL_BIT_AMOUNT],
+        buy_bit_amount: line[COL_BUY_BIT_AMOUNT],
+        execution_amount: line[COL_EXECUTION_AMOUNT],
+        system_price: line[COL_SYSTEM_PRICE],
+        avoidable_cost: line[COL_AVOIDABLE_COST],
+        spot_avg_per_price: line[COL_SPOT_AVG_PRE_PRICE],
+        alpha_max_times_spot_avg_per_price: line[COL_ALPHA_MAX_TIMES_SPOT_AVG_PER_PRICE],
+        alpha_min_times_spot_avg_per_price: line[COL_ALPHA_MIN_TIMES_SPOT_AVG_PER_PRICE],
+        alpha_preliminary_times_spot_avg_per_price: line[COL_ALPHA_PRELIMINARY_TIMES_SPOT_AVG_PER_PRICE],
+        alpha_fixed_times_spot_avg_per_price: line[COL_ALPHA_FIXED_TIMES_SPOT_AVG_PER_PRICE],
+        spot_trade_area_data_attributes: area
+      }
+      return row
+    end
+
     def import_data(year)
       conn = Faraday::Connection.new(url: 'http://www.jepx.org') do |builder|
         builder.use Faraday::Request::UrlEncoded
@@ -36,48 +68,22 @@ class Jepx::SpotTrade < ApplicationRecord
       end
       response = conn.get('market/excel/spot_' + year.to_s + '.csv')
       csv = CSV.parse(response.body, headers: true)
-      (0..csv.length - 1).each do |i|
+      csv.each do |line|
         area = []
-        same_datetime_record = find_by(date: csv[i][0], time_index_id: csv[i][1])
+        same_datetime_record = find_by(date: line[COL_DATE], time_index_id: line[COL_TIME_INDEX_ID])
         if same_datetime_record
-          area_data_id = same_datetime_record.spot_trade_area_data.first.id
+          area_data_id = same_datetime_record.spot_trade_area_data.pluck(:id)
           (1..9).each do |j|
-            area << { id: (area_data_id + j - 1), area_price: csv[i][j + 5], avoidable_price: csv[i][j + 22] }
+            area << { id: (area_data_id[j - 1]), area_price: line[j + COL_SYSTEM_PRICE], avoidable_price: line[j + COL_AVOIDABLE_COST] }
           end
-          row = {
-            sell_bit_amount: csv[i][2],
-            buy_bit_amount: csv[i][3],
-            execution_amount: csv[i][4],
-            system_price: csv[i][5],
-            avoidable_cost: csv[i][22],
-            spot_avg_per_price: csv[i][16],
-            alpha_max_times_spot_avg_per_price: csv[i][17],
-            alpha_min_times_spot_avg_per_price: csv[i][18],
-            alpha_preliminary_times_spot_avg_per_price: csv[i][19],
-            alpha_fixed_times_spot_avg_per_price: csv[i][20],
-            spot_trade_area_data_attributes: area
-          }
+          row = self.get_row_data(line, area)
           same_datetime_record.update(row)
         else
           (1..9).each do |j|
-            district = District.find_by(code: "0#{j}")
-            area << { district_id: district.id, area_price: csv[i][j + 5], avoidable_price: csv[i][j + 22] }
+            #district = District.find_by(code: "0#{j}")
+            area << { district_id: j, area_price: line[j + COL_SYSTEM_PRICE], avoidable_price: line[j + COL_AVOIDABLE_COST] }
           end
-          row = {
-            date: csv[i][0],
-            time_index_id: csv[i][1],
-            sell_bit_amount: csv[i][2],
-            buy_bit_amount: csv[i][3],
-            execution_amount: csv[i][4],
-            system_price: csv[i][5],
-            avoidable_cost: csv[i][22],
-            spot_avg_per_price: csv[i][16],
-            alpha_max_times_spot_avg_per_price: csv[i][17],
-            alpha_min_times_spot_avg_per_price: csv[i][18],
-            alpha_preliminary_times_spot_avg_per_price: csv[i][19],
-            alpha_fixed_times_spot_avg_per_price: csv[i][20],
-            spot_trade_area_data_attributes: area
-          }
+          row = self.get_row_data(line, area)
           create(row)
         end
       end
