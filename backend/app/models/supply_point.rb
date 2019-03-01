@@ -17,7 +17,7 @@
 #
 
 class SupplyPoint < ApplicationRecord
-  before_validation :set_facility_group_id, if: -> { !facility_id.nil? && facility_group_id.nil? }
+  # before_validation :set_facility_group_id, if: -> { !facility_id.nil? && facility_group_id.nil? }
 
   has_many :usage_fixed_headers, class_name: Dlt::UsageFixedHeader.to_s, primary_key: :number, foreign_key: :supply_point_number
   belongs_to :facility_group
@@ -61,30 +61,18 @@ class SupplyPoint < ApplicationRecord
   private
 
   def set_facility_group_id
-    return if facility.nil? || facility.consumer.nil?
+    return if facility.nil? || facility.voltage_type_id >= 99 || facility.consumer.nil?
 
-    capacity = facility.contract_capacity
-    capacity = capacity.presence || '0'
-    capacity = BigDecimal(capacity).round(-1).to_i
-    contract = facility.contracts.first
     facility_group = FacilityGroup.find_or_initialize_by(
       company_id: facility.consumer.company_id,
       district_id: facility.district_id,
       contract_id: (contract.nil? ? nil : contract.id),
-      voltage_type_id: 99,
-      contract_capacity: capacity
+      voltage_type_id: facility.voltage_type_id,
+      contract_capacity: facility.contract_capacity_for_facility_group
     )
     if facility_group.new_record?
-      facility_group.name = [
-        '低圧',
-        facility_group.district.id,
-        facility_group.district.name,
-        (contract.nil? ? '' : contract.id),
-        (contract.nil? ? '' : contract.name),
-        facility_group.contract_capacity
-      ].join('_')
+      facility_group.name = facility.name_for_facility_group
       facility_group.save
-      p facility_group
     end
     self.facility_group_id = facility_group.id
   end

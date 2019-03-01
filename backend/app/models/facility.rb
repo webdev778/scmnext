@@ -97,4 +97,27 @@ class Facility < ApplicationRecord
       discount_for_facility.start_date <= date
     end
   end
+
+  # 設備グループ用の名称を返す
+  def name_for_facility_group
+    contract = contracts.first
+    [
+      '低圧',
+      district.id,
+      district.name,
+      (contract.nil? ? '' : contract.id),
+      (contract.nil? ? '' : contract.name),
+      contract_capacity_for_facility_group
+    ].join('_')
+  end
+
+  # 低圧の設備グループ用の契約容量(10の位で丸めた数字)を返す
+  # (値が取れない場合は0とする)
+  def contract_capacity_for_facility_group
+    if contract_capacity.presence
+      BigDecimal(contract_capacity).round(-1).to_i
+    else
+      0
+    end
+  end
 end
