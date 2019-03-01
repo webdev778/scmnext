@@ -66,4 +66,10 @@ class District < ApplicationRecord
       .with_indifferent_access
   end
 
+  def get_hashed_data
+    hashed_data = self.all.map do |district|
+      [district.code, district.id]
+    end.to_h
+    return hashed_data
+  end
 end
