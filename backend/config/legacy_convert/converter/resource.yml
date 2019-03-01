@@ -3,7 +3,7 @@
 :truncate: true
 :sources:
 - :fields:
-    id: 
+    id: "'スキップ用ダミー'"
     balancing_group_id: 
     type: 
     code: 
@@ -12,8 +12,8 @@
     updated_by: 
     created_at: 
     updated_at: 
-  :from: 
-  :where: 
+  :from: tbl_account
+  :where: 1 = 0
 :extra:
 - :fields:
     balancing_group_id: 1
