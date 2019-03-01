@@ -3,7 +3,7 @@
 :truncate: true
 :sources:
 - :fields:
-    id:
+    id: 
     number: tbl_facility.supplying_point_number
     supply_start_date: tbl_facility.supply_start_date
     supply_end_date: tbl_facility.supply_end_date
@@ -11,7 +11,9 @@
       WHEN '2' THEN 'supply_method_type_partial' END
     base_power: CASE tbl_facility.supply_method_id WHEN '1' THEN NULL ELSE tbl_facility.base_power
       END
-    facility_group_id: CASE WHEN tbl_facility.tbl_voltage_id = '1' || tbl_facility.tbl_voltage_id = '2' THEN tbl_facility.id ELSE tbl_low_power_group_supplying_point_number.tbl_facility_high_power_id END
+    facility_group_id: CASE WHEN tbl_facility.tbl_voltage_id = '1' || tbl_facility.tbl_voltage_id
+      = '2' THEN tbl_facility.id ELSE tbl_low_power_group_supplying_point_number.tbl_facility_high_power_id
+      END
     facility_id: tbl_facility.id
     created_by: tbl_facility.created_user_id
     updated_by: tbl_facility.modified_user_id

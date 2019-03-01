@@ -4,14 +4,14 @@
 :sources:
 - :fields:
     id: "'スキップ用ダミー'"
-    balancing_group_id:
-    type:
-    code:
-    name:
-    created_by:
-    updated_by:
-    created_at:
-    updated_at:
+    balancing_group_id: 
+    type: 
+    code: 
+    name: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
   :from: tbl_account
   :where: 1 = 0
 :extra:

@@ -146,3 +146,13 @@
 - :fields:
     id: 48
     time: '23:30'
+:sources:
+- :fields:
+    id: "'スキップ用ダミー'"
+    time:
+    created_by:
+    updated_by:
+    created_at:
+    updated_at:
+  :from:
+  :where: 1 = 0
