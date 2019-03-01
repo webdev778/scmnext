@@ -1,34 +1,32 @@
 namespace :legacy do
-
   def merge_yaml(filename)
     parentdir = File.dirname(filename)
-    unless Dir.exist?(parentdir)
-      Dir.mkdir(parentdir)
-    end
+    Dir.mkdir(parentdir) unless Dir.exist?(parentdir)
     config = File.exist?(filename) ? YAML.load_file(filename) : {}
-    raise "Invalid yaml file. Please check format" unless config
+    raise 'Invalid yaml file. Please check format' unless config
+
     config = yield(config)
-    File.open(filename, mode: "w") do |f|
+    File.open(filename, mode: 'w') do |f|
       YAML.dump(config, f)
     end
   end
 
   def write_legacy_table_definition(table_name, type, fields)
     merge_yaml(table_definition_path.join("#{table_name}.yml")) do |config|
-      config.merge({
+      config.merge(
         table_name: table_name,
         table_type: type,
         fields: fields
-      })
+      )
     end
   end
 
   def write_convert_config(class_name, fields)
     merge_yaml(converter_path.join("#{class_name.underscore}.yml")) do |config|
       config[:truncate] ||= true
-      config = config.merge({
-        model_class: class_name,
-      })
+      config = config.merge(
+        model_class: class_name
+      )
       if config[:fields].nil?
         # 新定義の場合
         config[:sources] ||= [{}]
@@ -44,7 +42,7 @@ namespace :legacy do
         # 旧定義の場合、新定義に置き換える
         config[:sources] ||= [{}]
         config[:sources][0]
-        [:fields, :from, :where, :joins].each do |item_name|
+        %i[fields from where joins].each do |item_name|
           unless config[item_name].nil?
             config[:sources][0][item_name] = config[item_name]
             config.delete(item_name)
@@ -64,12 +62,13 @@ namespace :legacy do
   end
 
   def table_definition_path
-    Rails.root.join("config/legacy_convert/legacy_tables")
+    Rails.root.join('config/legacy_convert/legacy_tables')
   end
 
   def get_table_definition(table_name)
     path = table_definition_path.join("#{table_name}.yml")
-    raise "Can't find #{table_name} yml file." unless File.exists?(path)
+    raise "Can't find #{table_name} yml file." unless File.exist?(path)
+
     YAML.load_file(path)
   end
 
@@ -99,11 +98,11 @@ namespace :legacy do
         ).as(field)
       end
       key_table.project(projects)
-      .join(
-        column_table, Arel::Nodes::InnerJoin
-      ).on(key_table[:id].eq(column_table[:row_id]))
-      .group(key_table[:id])
-      .as(alias_name)
+               .join(
+                 column_table, Arel::Nodes::InnerJoin
+               ).on(key_table[:id].eq(column_table[:row_id]))
+               .group(key_table[:id])
+               .as(alias_name)
     when :simple
       Arel::Table.new(table_name).alias(alias_name)
     else
@@ -112,7 +111,7 @@ namespace :legacy do
   end
 
   def converter_path
-    Rails.root.join("config/legacy_convert/converter")
+    Rails.root.join('config/legacy_convert/converter')
   end
 
   #
@@ -121,44 +120,39 @@ namespace :legacy do
   def convert(yaml_path)
     config = YAML.load_file(yaml_path)
     return if config[:skip]
+
     legacy_con = legacy_connection
     my_con = my_connection
     puts config[:model_class]
     model_class = config[:model_class].constantize
     model_class.connection.execute("TRUNCATE #{model_class.table_name}") if config[:truncate]
-    if (config[:sources])
-      config[:sources].each do |source|
-        table_obj = table_object(source[:from])
-        select_manager = Arel::SelectManager.new
-        select_manager = select_manager.from(table_obj)
-        if source[:joins]
-          source[:joins].each do |join|
-            join_table = table_object(join[:table], join[:as])
-            join_type = case join[:type]
-            when "inner"
-              Arel::Nodes::InnerJoin
-            when "outer"
-              Arel::Nodes::OuterJoin
-            else
-              raise "結合はinnerまたはouterを指定してください。"
-            end
-            select_manager = select_manager.join(join_table, join_type).on(Arel.sql(join[:on]))
-          end
+    config[:sources]&.each do |source|
+      table_obj = table_object(source[:from])
+      select_manager = Arel::SelectManager.new
+      select_manager = select_manager.from(table_obj)
+      source[:joins]&.each do |join|
+        join_table = table_object(join[:table], join[:as])
+        case join[:type]
+        when 'inner'
+          join_type = Arel::Nodes::InnerJoin
+        when 'outer'
+          join_type = Arel::Nodes::OuterJoin
+        else
+          raise '結合はinnerまたはouterを指定してください。'
         end
-        select_manager = select_manager.project(source[:fields].delete_if{|k, v| v.blank?}.map{|k, v| Arel.sql(v).as(k)})
-        select_manager = select_manager.where(Arel.sql(source[:where])) unless source[:where].blank?
-        items = legacy_con.select_all(select_manager.to_sql).to_hash.map do |params|
-          model_class.new params
-        end
-        if ENV['DEBUG']
-          puts "insert items"
-          p items
-        end
-        result = model_class.import items
-        if result.failed_instances.length > 0
-          binding.pry
-        end
+        select_manager = select_manager.join(join_table, join_type).on(Arel.sql(join[:on]))
       end
+      select_manager = select_manager.project(source[:fields].delete_if { |_k, v| v.blank? }.map { |k, v| Arel.sql(v).as(k) })
+      select_manager = select_manager.where(Arel.sql(source[:where])) if source[:where].present?
+      items = legacy_con.select_all(select_manager.to_sql).to_hash.map do |params|
+        model_class.new params
+      end
+      if ENV['DEBUG']
+        puts 'insert items'
+        p items
+      end
+      result = model_class.import items
+      binding.pry unless result.failed_instances.empty?
     end
     # その他データ登録
     if config[:extra]
@@ -193,11 +187,12 @@ namespace :legacy do
     end
   end
 
-  desc "DB移行"
-  task convert: :environment  do |task, args|
+  desc 'DB移行'
+  task convert: :environment do |_task, _args|
     if ENV['TARGET']
       yaml_file = ENV['TARGET']
-      raise "指定された定義ファイル#{yaml_file}が見つかりません。" unless File.exists?(yaml_file)
+      raise "指定された定義ファイル#{yaml_file}が見つかりません。" unless File.exist?(yaml_file)
+
       convert yaml_file
     else
       convert_all
@@ -205,11 +200,11 @@ namespace :legacy do
   end
 
   namespace :generate do
-    desc "新システムの変換定義の雛形を作成"
-    task converter: :environment do |task, args|
+    desc '新システムの変換定義の雛形を作成'
+    task converter: :environment do |_task, _args|
       Rails.application.eager_load!
       model_classes = ActiveRecord::Base.descendants.delete_if do |model_class|
-        ['ApplicationRecord', 'Legacy'].include?(model_class.to_s)
+        %w[ApplicationRecord Legacy].include?(model_class.to_s)
       end
       model_classes.each do |model_class|
         puts model_class.to_s
@@ -217,17 +212,17 @@ namespace :legacy do
       end
     end
 
-    desc "旧システムのテーブル定義情報を作成"
-    task legacy_tables: :environment do |task, args|
+    desc '旧システムのテーブル定義情報を作成'
+    task legacy_tables: :environment do |_task, _args|
       connection = legacy_connection
       all_legacy_tables = connection.tables
-      key_value_tables = connection.select_all("select table_name from tbl_sys_item_meta_data group by table_name").rows.flatten
-      key_value_tables_exist, key_value_tables_not_exist = connection.select_all("select table_name from tbl_sys_item_meta_data group by table_name")
-        .rows
-        .flatten
-        .partition do |table_name|
-          all_legacy_tables.delete(table_name) and all_legacy_tables.delete("#{table_name}_columns")
-        end
+      key_value_tables = connection.select_all('select table_name from tbl_sys_item_meta_data group by table_name').rows.flatten
+      key_value_tables_exist, key_value_tables_not_exist = connection.select_all('select table_name from tbl_sys_item_meta_data group by table_name')
+                                                                     .rows
+                                                                     .flatten
+                                                                     .partition do |table_name|
+        all_legacy_tables.delete(table_name) && all_legacy_tables.delete("#{table_name}_columns")
+      end
       # key/valueの定義を出力
       key_value_tables_exist.each do |table_name|
         fields = connection.select_all("select field from tbl_sys_item_meta_data where table_name = '#{table_name}'").rows.flatten
@@ -236,7 +231,7 @@ namespace :legacy do
 
       # 通常の定義を出力
       all_legacy_tables.each do |table_name|
-        fields = connection.query("desc #{table_name}").map{|row| row[0]}
+        fields = connection.query("desc #{table_name}").map { |row| row[0] }
         write_legacy_table_definition(table_name, :simple, fields)
       end
     end

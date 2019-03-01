@@ -27,7 +27,7 @@ class Consumer < ApplicationRecord
   belongs_to :company
   has_many :facilities
 
-  scope :includes_for_index, -> {
+  scope :includes_for_index, lambda {
     includes([:company])
   }
 

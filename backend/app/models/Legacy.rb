@@ -1,4 +1,4 @@
-class Legacy < ActiveRecord::Base
+class Legacy < ApplicationRecord
   self.abstract_class = true
-  self.establish_connection(:legacy)
+  establish_connection(:legacy)
 end

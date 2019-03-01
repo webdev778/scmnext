@@ -30,19 +30,25 @@
     dlt_path: "/LNXWPWSS01I/App"
 :sources:
 - :fields:
-    id: tbl_district.id
-    name: tbl_district.district_name
-    code: tbl_district.area_id
-    wheeler_code: tbl_district.district_code
-    loss_rate_special_high_voltage: tbl_district.special_high_voltage_loss_rate
-    loss_rate_high_voltage: tbl_district.high_voltage_loss_rate
-    loss_rate_low_voltage: tbl_district.low_voltage_loss_rate
+    id: id
+    name: district_name
+    code: area_id
+    wheeler_code: district_code
+    loss_rate_special_high_voltage: special_high_voltage_loss_rate
+    loss_rate_high_voltage: high_voltage_loss_rate
+    loss_rate_low_voltage: low_voltage_loss_rate
     dlt_host:
     dlt_path:
     is_partial_included: 'TRUE'
-    created_by: tbl_district.created_user_id
-    updated_by: tbl_district.modified_user_id
-    created_at: tbl_district.created
-    updated_at: tbl_district.modified
+    daytime_start_time_index_id: CASE daytime_begin WHEN '' THEN NULL ELSE ((SUBSTR(daytime_begin, 1 ,2) * 2) + (SUBSTR(daytime_begin, 4 ,2) / 30) + 1) END
+    daytime_end_time_index_id: CASE daytime_end WHEN '' THEN NULL ELSE ((SUBSTR(daytime_end, 1 ,2) * 2) + (SUBSTR(daytime_end, 4 ,2) / 30) + 1) END
+    peaktime_start_time_index_id: CASE peaktime_from WHEN '' THEN NULL ELSE ((SUBSTR(peaktime_from, 1 ,2) * 2) + (SUBSTR(peaktime_from, 4 ,2) / 30) + 1) END
+    peaktime_end_time_index_id: CASE peaktime_to WHEN '' THEN NULL ELSE ((SUBSTR(peaktime_to, 1 ,2) * 2) + (SUBSTR(peaktime_to, 4 ,2) / 30) + 1) END
+    summer_season_start_month: SUBSTR(summer_season_begin, 1 ,2)
+    summer_season_end_month: SUBSTR(summer_season_end, 1 ,2)
+    created_by: created_user_id
+    updated_by: modified_user_id
+    created_at: created
+    updated_at: modified
   :from: tbl_district
   :where: tbl_district.id < 10

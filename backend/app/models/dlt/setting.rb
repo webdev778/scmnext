@@ -13,7 +13,7 @@
 class Dlt::Setting < ApplicationRecord
   belongs_to :company
   belongs_to :district
-  has_many :files, class_name: "Dlt::File"
+  has_many :files, class_name: 'Dlt::File'
 
   #
   # 託送への接続情報を取得
@@ -22,7 +22,7 @@ class Dlt::Setting < ApplicationRecord
     return @con unless @con.nil?
 
     district = self.district
-    pkcs12 = self.company.company_account_occto.pkcs12_object
+    pkcs12 = company.company_account_occto.pkcs12_object
     @con = Faraday::Connection.new(
       url: district.dlt_host,
       ssl: {
@@ -38,9 +38,9 @@ class Dlt::Setting < ApplicationRecord
   # 取込処理を実行する
   #
   def get_xml_object_and_process_high_and_low(data_type, date, time_index = nil)
-    [:high, :low].each do |voltage_class|
-      self.files.filter_by_filename(data_type, voltage_class, date, time_index).each do |row|
-        logger.debug(row.filename)
+    %i[high low].each do |voltage_class|
+      files.filter_by_filename(data_type, voltage_class, date, time_index).each do |row|
+        logger.debug(row.content.filename)
         row.perform_document_read do |doc|
           yield(row, doc, voltage_class)
         end

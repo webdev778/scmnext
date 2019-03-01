@@ -19,6 +19,6 @@ class CompanyAccount < ApplicationRecord
   has_one_attached :pkcs12
 
   def pkcs12_object
-    OpenSSL::PKCS12.new(self.pkcs12.download, self.passphrase)
+    OpenSSL::PKCS12.new(pkcs12.download, passphrase)
   end
 end

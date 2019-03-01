@@ -1,0 +1,15 @@
+---
+:truncate: true
+:model_class: Holiday
+:sources:
+- :fields:
+    id: 
+    district_id: CASE WHEN district_id=0 THEN NULL ELSE district_id END
+    date: date
+    name: name
+    created_by: 
+    updated_by: 
+    created_at: created
+    updated_at: modified
+  :from: tbl_holiday
+  :where: 0 = 0

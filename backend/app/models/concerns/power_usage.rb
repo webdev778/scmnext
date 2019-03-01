@@ -6,15 +6,30 @@ module PowerUsage
     validates :facility_group_id,
               presence: true
 
-    scope :total_by_time_index, -> {
+    #
+    # 時間枠ごとの合計を返す
+    #
+    scope :total_by_time_index, lambda {
       eager_load(:facility_group)
         .group(:time_index_id)
-        .sum("value")
+        .sum('value')
     }
 
-    scope :total, -> {
+    #
+    # 全ての合計を返す
+    #
+    scope :total, lambda {
       eager_load(:facility_group)
-        .sum("value")
+        .sum('value')
     }
+
+    class << self
+      #
+      # データの区分を返す
+      # @return [Symbol] preliminary or fixed
+      def data_type
+        class_name.to_s.underscore.sub(/power_usage_/, '').to_sym
+      end
+    end
   end
 end

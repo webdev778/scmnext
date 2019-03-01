@@ -1,0 +1,18 @@
+---
+:skip: true
+:truncate: true
+:model_class: Dlt::UsageFixedDetail
+:sources:
+- :fields:
+    id: 
+    usage_fixed_header_id: 
+    date: 
+    time_index_id: 
+    usage_all: 
+    usage: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
+  :from: 
+  :where: 

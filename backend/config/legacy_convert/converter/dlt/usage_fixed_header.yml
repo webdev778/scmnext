@@ -1,0 +1,28 @@
+---
+:skip: true
+:truncate: true
+:model_class: Dlt::UsageFixedHeader
+:sources:
+- :fields:
+    id: 
+    file_id: 
+    year: 
+    month: 
+    supply_point_number: 
+    consumer_code: 
+    consumer_name: 
+    supply_point_name: 
+    voltage_class_name: 
+    journal_code: 
+    can_provide: 
+    usage_all: 
+    usage: 
+    power_factor: 
+    max_power: 
+    next_meter_reading_date: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
+  :from: 
+  :where: 

@@ -4,6 +4,8 @@
 #
 #  id                      :bigint(8)        not null, primary key
 #  file_id                 :bigint(8)
+#  year                    :integer          not null
+#  month                   :integer          not null
 #  supply_point_number     :string(22)       not null
 #  consumer_code           :string(21)
 #  consumer_name           :string(80)
@@ -36,7 +38,7 @@ class Dlt::UsageFixedHeader < ApplicationRecord
 
       setting.get_xml_object_and_process_high_and_low(:fixed, date) do |file, doc, voltage_class|
         logger.info "start import fixed #{date} voltege mode #{voltage_class}"
-        self.where(file_id: file.id).destroy_all
+        where(file_id: file.id).destroy_all
         failed_instances = []
         ids = []
         num_create = 0
@@ -60,13 +62,13 @@ class Dlt::UsageFixedHeader < ApplicationRecord
             usage: { tag: 'JP06427' },
             power_factor: { tag: 'JP06406' },
             max_power: { tag: 'JP06445' },
-            next_meter_reading_date: { tag: 'JP06446', filter: ->(v) { Time.strptime(v, "%Y%m%d") } }
+            next_meter_reading_date: { tag: 'JP06446', filter: ->(v) { Time.strptime(v, '%Y%m%d') } }
           }
           header_attributes = xml_to_hash(header_attributes, nodes_by_facility, mapping)
-          header = self.new(header_attributes)
+          header = new(header_attributes)
           if header.save!
             details = nodes_by_facility.elements['JPM00013'].to_a.map do |nodes_by_day|
-              date = Time.strptime(nodes_by_day.elements['JP06423'].text, "%Y%m%d")
+              date = Time.strptime(nodes_by_day.elements['JP06423'].text, '%Y%m%d')
               nodes_by_day.elements['JPM00014'].to_a.map do |nodes_by_time|
                 detail_attributes = {
                   usage_fixed_header_id: header.id,
@@ -105,9 +107,7 @@ class Dlt::UsageFixedHeader < ApplicationRecord
           value = nil
         else
           value = node.elements[config[:tag]].text
-          if config[:filter]
-            value = config[:filter].call(value)
-          end
+          value = config[:filter].call(value) if config[:filter]
         end
         hash[attribute_name] = value
       end

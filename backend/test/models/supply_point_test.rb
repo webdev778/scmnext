@@ -3,7 +3,7 @@
 # Table name: supply_points
 #
 #  id                 :bigint(8)        not null, primary key
-#  number             :string(255)
+#  number             :string(30)       not null
 #  supply_start_date  :date
 #  supply_end_date    :date
 #  supply_method_type :integer          not null
