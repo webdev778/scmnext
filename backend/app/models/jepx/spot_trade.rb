@@ -68,7 +68,7 @@ class Jepx::SpotTrade < ApplicationRecord
       end
       response = conn.get('market/excel/spot_' + year.to_s + '.csv')
       csv = CSV.parse(response.body, headers: true)
-      district_hash = District.get_hashed_data
+      district_hash = District.get_hash
       csv.each do |line|
         area = []
         same_datetime_record = find_by(date: line[COL_DATE], time_index_id: line[COL_TIME_INDEX_ID])

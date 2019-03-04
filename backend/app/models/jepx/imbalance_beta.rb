@@ -29,7 +29,7 @@ class Jepx::ImbalanceBeta < ApplicationRecord
       start_date = Date.new(1900, 1, 1)
       i = 1
       rows = []
-      district_hash = District.get_hashed_data
+      district_hash = District.get_hash
       while worksheet[i]
         timedelta = worksheet[i][0].value - 2
         date = timedelta.days.after(start_date)
