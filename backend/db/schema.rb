@@ -126,7 +126,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_070159) do
 
   create_table "contract_item_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "契約アイテムグループ", force: :cascade do |t|
     t.string "name", null: false, comment: "名前"
-    t.bigint "voltage_type_id", comment: "電圧区分ID"
+    t.bigint "voltage_type_id", comment: "電圧種別ID"
     t.integer "created_by"
     t.integer "updated_by"
     t.datetime "created_at", null: false
@@ -148,7 +148,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_070159) do
 
   create_table "contract_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "契約アイテム", force: :cascade do |t|
     t.string "name", null: false, comment: "名前"
-    t.bigint "voltage_type_id", comment: "電圧区分ID"
+    t.bigint "voltage_type_id", comment: "電圧種別ID"
     t.integer "calcuration_order", comment: "計算順序"
     t.boolean "enabled", comment: "有効フラグ:未使用?要確認"
     t.integer "created_by"
@@ -284,7 +284,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_070159) do
     t.string "consumer_code", limit: 21, comment: "需要家識別番号"
     t.string "consumer_name", limit: 80, comment: "需要家名称"
     t.string "supply_point_name", limit: 70, comment: "供給場所"
-    t.string "voltage_class_name", limit: 4, comment: "電圧区分"
+    t.string "voltage_class_name", limit: 4, comment: "電圧区分名"
     t.integer "journal_code", limit: 1, comment: "仕訳コード: 1:全量,2:部分"
     t.boolean "can_provide", comment: "提供可否"
     t.decimal "usage_all", precision: 10, scale: 4, comment: "月間電力量全量"
@@ -345,7 +345,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_070159) do
     t.bigint "company_id", comment: "PPS ID"
     t.bigint "district_id", comment: "エリアID"
     t.bigint "contract_id", comment: "契約ID"
-    t.bigint "voltage_type_id", comment: "電圧区分ID"
+    t.bigint "voltage_type_id", comment: "電圧種別ID"
     t.string "contract_capacity", comment: "契約容量"
     t.integer "created_by"
     t.integer "updated_by"
@@ -361,7 +361,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_070159) do
     t.bigint "district_id", comment: "エリアID"
     t.integer "year", null: false, comment: "年"
     t.integer "month", limit: 2, null: false, comment: "月"
-    t.integer "voltage_class", limit: 1, null: false, comment: "電圧クラス"
+    t.integer "voltage_class", limit: 1, null: false, comment: "電圧区分"
     t.decimal "unit_price", precision: 10, scale: 4, comment: "単価"
     t.integer "created_by"
     t.integer "updated_by"
@@ -578,7 +578,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_070159) do
     t.string "number", limit: 30, null: false, comment: "供給地点特定番号"
     t.date "supply_start_date", comment: "供給開始日"
     t.date "supply_end_date", comment: "供給終了日"
-    t.integer "supply_method_type", null: false, comment: "供給区分(1:全量, 2:部分)"
+    t.integer "supply_method_type", null: false, comment: "供給区分: 1:全量, 2:部分"
     t.integer "base_power", comment: "ベース電源"
     t.bigint "facility_group_id", comment: "施設グループID"
     t.bigint "facility_id", comment: "施設ID"
@@ -626,7 +626,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_070159) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
-  create_table "voltage_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "電圧区分", force: :cascade do |t|
+  create_table "voltage_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "電圧種別", force: :cascade do |t|
     t.string "name", comment: "名前"
     t.integer "created_by"
     t.integer "updated_by"
@@ -636,7 +636,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_070159) do
 
   create_table "wheeler_charges", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "託送料金", force: :cascade do |t|
     t.bigint "district_id", comment: "エリアID"
-    t.integer "voltage_class", limit: 1, null: false, comment: "電圧クラス"
+    t.integer "voltage_class", limit: 1, null: false, comment: "電圧区分"
     t.date "start_date", null: false, comment: "適用開始日"
     t.decimal "basic_charge", precision: 10, scale: 4, comment: "基本料金(kW)"
     t.decimal "meter_rate_charge", precision: 10, scale: 4, comment: "電力量料金(kWh)"

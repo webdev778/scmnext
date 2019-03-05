@@ -5,7 +5,7 @@ class CreateFacilityGroups < ActiveRecord::Migration[5.2]
       t.references "company", comment: "PPS ID"
       t.references "district", comment: "エリアID"
       t.references "contract", comment: "契約ID"
-      t.references "voltage_type", comment: "電圧区分ID"
+      t.references "voltage_type", comment: "電圧種別ID"
       t.string "contract_capacity", comment: "契約容量"
       t.stamp_fileds
 
