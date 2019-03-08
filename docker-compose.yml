@@ -1,0 +1,40 @@
+# web:
+#   image: jwilder/nginx-proxy
+#   container_name: nginx-proxy
+#   ports:
+#     - "80:80"
+#     - "443:443"
+#   volumes:
+#     - /var/run/docker.sock:/tmp/docker.sock:ro
+#     - /mnt/share/web/lecerts:/etc/nginx/certs:ro
+#     - /etc/nginx/vhost.d
+#     - /usr/share/nginx/html
+#     - /mnt/share/web/conf.d/custom_proxy_settings.conf:/etc/nginx/conf.d/custom_proxy_settings.conf:ro
+#     #- /mnt/share/web/certs:/etc/nginx/certs:Z
+#   labels:
+#     com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "jwilder/nginx-proxy"
+#   links:
+#     - frontend
+# letsencrypt:
+#   image: jrcs/letsencrypt-nginx-proxy-companion
+#   container_name: lets-encrypt
+#   volumes:
+#     - /mnt/share/web/lecerts:/etc/nginx/certs:rw
+#     - /var/run/docker.sock:/var/run/docker.sock:ro
+#   volumes_from:
+#     - web
+#   links:
+#     - web
+frontend:
+  build: ./frontend
+  container_name: scmnext-frontend
+  environment:
+    RAILS_ENV: staging
+    RAILS_SERVE_STATIC_FILES: "TRUE"
+    SECRET_KEY_BASE: 9ae3b6e76ea66f2ecbb9d2d1e11786ae4bbe2f2253c148a06d7e96ff2e283adaf23e93ce41aea2caee4251c8381a7253cb98b62023a217ac94e5a9dbb1a50fd6
+    MUSSE_DATABASE_PASSWORD: caf48e4c-0a2c-11e7-9292-6f9eb7cfa958
+backend:
+  build: ./backend
+  container_name: scmnext-backend
+  environment:
+    RAILS_ENV: staging
