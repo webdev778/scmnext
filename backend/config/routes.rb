@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :districts
     resources :consumers
     resources :contracts
+    resources :contract_items
     resources :contract_item_groups
     resources :facilities
     resources :voltage_types

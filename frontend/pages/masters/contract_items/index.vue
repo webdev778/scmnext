@@ -1,7 +1,7 @@
 <template lang="pug">
   rest-index(
-    title="需要家一覧"
-    name="consumers"
+    title="契約アイテム一覧"
+    name="contract_items"
     v-bind:fields="fields"
     v-bind:query="query"
     v-bind:can-edit="false"
@@ -19,13 +19,13 @@
             )
         b-col
           b-form-group(
-            label="PPS"
-            label-for="company_id"
+            label="電圧種別"
+            label-for="voltage_type_id"
             )
             b-form-select(
-              id="company_id"
-              v-model="query.company_id_eq"
-              v-bind:options="companies"
+              id="voltage_type_id"
+              v-model="query.voltage_type_id_eq"
+              v-bind:options="voltage_types"
             )
 </template>
 
@@ -46,8 +46,8 @@ export default {
           label: "名前"
         },
         {
-          key: "company.name",
-          label: "PPS名"
+          key: "voltage_type.name",
+          label: "電圧種別名"
         },
         {
           key: "created_at",
@@ -62,13 +62,13 @@ export default {
       ],
       query: {
         name_cont: null,
-        company_id_eq: null
+        voltage_type_id_eq: null
       },
-      companies: []
+      voltage_types: []
     }
   },
   created() {
-    this.$axios.$get(`/v1/companies`)
+    this.$axios.$get(`/v1/voltage_types`)
     .then(result=>{
       let options = result.map(item=>{
         return {
@@ -77,7 +77,7 @@ export default {
         }
       })
       options.unshift({value: null, text: "全て"})
-      this.companies = options
+      this.voltage_types = options
     })
   }
 }

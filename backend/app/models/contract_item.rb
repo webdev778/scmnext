@@ -18,4 +18,17 @@ class ContractItem < ApplicationRecord
   has_many :contract_item_groups, through: :contract_item_orders
   has_many :contract_meter_rates
   belongs_to :voltage_type
+
+  scope :includes_for_index, lambda {
+    includes([:voltage_type])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: :voltage_type
+      }
+    end
+    super options
+  end
 end

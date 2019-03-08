@@ -49,8 +49,7 @@ export default {
       fields: [
         {
           key: "id",
-          label: "ID",
-          width: 50
+          label: "ID"
         },
         {
           key: "name",
@@ -67,13 +66,11 @@ export default {
         {
           key: "created_at",
           label: "作成日時",
-          width: 180,
           formatter: 'formatDatetime'
         },
         {
           key: "updated_at",
           label: "更新日時",
-          width: 180,
           formatter: 'formatDatetime'
         }
       ],
