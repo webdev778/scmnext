@@ -4,7 +4,7 @@
     name="facilities"
     v-bind:fields="fields"
     v-bind:query="query"
-    can-edit=true
+    v-bind:can-edit="false"
   )
     template(slot="search")
       b-row

@@ -1,10 +1,11 @@
 <template lang="pug">
   rest-form(
-    title="契約顧客詳細"
+    title="需要家詳細"
     name="consumer"
     v-bind:id="$route.params.id"
     v-bind:fields="fields"
     v-bind:options="options"
+    v-bind:can-edit="false"
   )
 </template>
 
@@ -27,14 +28,14 @@ export default {
           label: "名前"
         },
         {
-          key: "company_id",
-          type: "select",
-          label: "PPS ID"
-        },
-        {
           key: "code",
           type: "text",
           label: "コード"
+        },
+        {
+          key: "company_id",
+          type: "select",
+          label: "PPS"
         },
         {
           key: "tel",
@@ -52,6 +53,11 @@ export default {
           label: "EMAIL"
         },
         {
+          key: "url",
+          type: "text",
+          label: "URL"
+        },
+        {
           key: "postal_code",
           type: "text",
           label: "郵便番号"
@@ -59,7 +65,7 @@ export default {
         {
           key: "pref_no",
           type: "text",
-          label: "都道府県"
+          label: "都道府県番号"
         },
         {
           key: "city",
@@ -80,6 +86,11 @@ export default {
           key: "person_in_charge_kana",
           type: "text",
           label: "担当者カナ"
+        },
+        {
+          key: "password",
+          type: "text",
+          label: "パスワード"
         }
       ],
       options: {

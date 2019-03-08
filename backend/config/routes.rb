@@ -7,9 +7,11 @@ Rails.application.routes.draw do
     resources :balancing_groups do
       resources :bg_members
     end
+    resources :bg_members
     resources :companies
     resources :districts
     resources :consumers
+    resources :contracts
     resources :facilities
 
     namespace :dlt do

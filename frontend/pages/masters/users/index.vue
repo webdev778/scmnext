@@ -3,7 +3,7 @@
     title="ユーザー一覧"
     name="users"
     v-bind:fields="fields"
-    can-edit=true
+    v-bind:can-edit="false"
   )
 </template>
 

@@ -4,6 +4,7 @@
     name="user"
     v-bind:id="$route.params.id"
     v-bind:fields="fields"
+    v-bind:can-edit="false"
   )
 </template>
 

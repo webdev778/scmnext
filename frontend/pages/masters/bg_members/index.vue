@@ -1,7 +1,7 @@
 <template lang="pug">
   rest-index(
-    title="バランシンググループ一覧"
-    name="balancing_groups"
+    title="BGメンバー一覧"
+    name="bg_members"
     v-bind:fields="fields"
     v-bind:query="query"
     v-bind:can-edit="false"
@@ -10,32 +10,23 @@
       b-row
         b-col
           b-form-group(
-            label="名前"
-            label-for="name"
-            )
-            b-form-input(
-              id="name"
-              v-model="query.name_cont"
-            )
-        b-col
-          b-form-group(
-            label="エリア"
-            label-for="district_id"
+            label="バランシンググループ"
+            label-for="balancing_group_id"
             )
             b-form-select(
               id="district_id"
-              v-model="query.district_id_eq"
-              v-bind:options="districts"
+              v-model="query.balancing_group_id_eq"
+              v-bind:options="balancing_groups"
             )
         b-col
           b-form-group(
-            label="リーダーPPS"
-            label-for="leader_company_id"
+            label="PPS"
+            label-for="company_id"
             )
             b-form-select(
-              id="leader_company_id"
-              v-model="query.leader_company_id_eq"
-              v-bind:options="leader_companies"
+              id="company_id"
+              v-model="query.company_id_eq"
+              v-bind:options="companies"
             )
 </template>
 
@@ -52,16 +43,12 @@ export default {
           label: "ID"
         },
         {
-          key: "name",
-          label: "名前"
+          key: "balancing_group.name",
+          label: "バランシンググループ名"
         },
         {
-          key: "district.name",
-          label: "エリア名"
-        },
-        {
-          key: "leader_company.name",
-          label: "リーダーPPS名"
+          key: "company.name",
+          label: "PPS名"
         },
         {
           key: "created_at",
@@ -75,16 +62,15 @@ export default {
         }
       ],
       query: {
-        name_cont: null,
-        district_id_eq: null,
-        leader_company_id_eq: null
+        balancing_group_id_eq: null,
+        company_id_eq: null
       },
-      districts: [],
-      leader_companies: []
+      balancing_groups: [],
+      companies: []
     }
   },
   created() {
-    this.$axios.$get(`/v1/districts`)
+    this.$axios.$get(`/v1/balancing_groups`)
     .then(result=>{
       let options = result.map(item=>{
         return {
@@ -93,7 +79,7 @@ export default {
         }
       })
       options.unshift({value: null, text: "全て"})
-      this.districts = options
+      this.balancing_groups = options
     })
     this.$axios.$get(`/v1/companies`)
     .then(result=>{
@@ -104,7 +90,7 @@ export default {
         }
       })
       options.unshift({value: null, text: "全て"})
-      this.leader_companies = options
+      this.companies = options
     })
   }
 }

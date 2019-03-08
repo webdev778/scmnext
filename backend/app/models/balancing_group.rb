@@ -22,13 +22,13 @@ class BalancingGroup < ApplicationRecord
   belongs_to :leader_company, class_name: Company.to_s
 
   scope :includes_for_index, lambda {
-    includes([:district])
+    includes([:district, :leader_company])
   }
 
   def as_json(options = {})
     if options.blank?
       options = {
-        include: :district
+        include: [:district, :leader_company]
       }
     end
     super options

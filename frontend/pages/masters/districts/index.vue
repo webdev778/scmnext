@@ -1,9 +1,9 @@
 <template lang="pug">
   rest-index(
-    title="エリア一覧"
+    title="供給エリア一覧"
     name="districts"
     v-bind:fields="fields"
-    can-edit=true
+    v-bind:can-edit="false"
   )
 </template>
 

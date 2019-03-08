@@ -1,7 +1,7 @@
 <template lang="pug">
   rest-form(
-    title="バランシンググループ詳細"
-    name="balancing_group"
+    title="BGメンバー詳細"
+    name="bg_member"
     v-bind:id="$route.params.id"
     v-bind:fields="fields"
     v-bind:options="options"
@@ -23,42 +23,35 @@ export default {
           type: "hidden"
         },
         {
-          key: "code",
-          type: "text",
-          label: "コード"
-        },
-        {
-          key: "name",
-          type: "text",
-          label: "名前"
-        },
-        {
-          key: "district_id",
+          key: "balancing_group_id",
           type: "select",
-          label: "エリア"
+          label: "バランシンググループ"
         },
         {
-          key: "leader_company_id",
+          key: "company_id",
           type: "select",
-          label: "リーダーPPS"
+          label: "PPS"
         }
       ],
       options: {
-        district_id: {},
-        leader_company_id: {}
+        balancing_group_id: {},
+        company_id: {}
       }
     }
   },
   created() {
-    this.$axios.$get('/v1/districts')
+    this.$axios.$get('/v1/balancing_groups')
     .then(result=>{
-      this.options['district_id'] = result.map(district=>{
-        return {value: district.id, text: district.name}
+      this.options['balancing_group_id'] = result.map(item=>{
+        return {
+          value: item.id,
+          text: item.name
+        }
       })
     })
-    this.$axios.$get(`/v1/companies`)
+    this.$axios.$get('/v1/companies')
     .then(result=>{
-      this.options['leader_company_id'] = result.map(item=>{
+      this.options['company_id'] = result.map(item=>{
         return {
           value: item.id,
           text: item.name

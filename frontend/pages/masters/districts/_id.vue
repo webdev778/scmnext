@@ -1,9 +1,10 @@
 <template lang="pug">
   rest-form(
-    title="エリア詳細"
+    title="供給エリア詳細"
     name="district"
     v-bind:id="$route.params.id"
     v-bind:fields="fields"
+    v-bind:can-edit="false"
   )
 </template>
 
