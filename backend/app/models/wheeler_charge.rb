@@ -23,4 +23,11 @@ class WheelerCharge < ApplicationRecord
   include VoltageClass
 
   belongs_to :district
+
+  #
+  # 基本料率を返す
+  #
+  def basic_amount
+    0
+  end
 end

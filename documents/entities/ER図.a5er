@@ -38,11 +38,33 @@ ShowTag=1
 ShowCommonAttributes=0
 
 [Entity]
+PName=holidays
+LName=休日
+Comment=
+TableOption=
+Page=Main
+Left=3200
+Top=1700
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="日付","date","date",,,"","",$FFFFFFFF,""
+Field="名称","name","varchar(255)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,district_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",3200,1700
+
+[Entity]
 PName=jbu_contracts
 LName=常時バックアップ電源契約
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=2900
 Top=1200
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
@@ -56,6 +78,7 @@ Field="従量料金(夏季昼間)","meter_rate_charge_summer_season_daytime","de
 Field="従量料金(他季昼間)","meter_rate_charge_other_season_daytime","decimal(10,4)",,,"","",$FFFFFFFF,""
 Field="従量料金(夜間)","meter_rate_charge_night","decimal(10,4)",,,"","",$FFFFFFFF,""
 Field="従量料金(ピークタイム)","meter_rate_charge_peak_time","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="燃料費調整単価","fuel_cost_adjustment_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
 Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
@@ -65,14 +88,14 @@ Index==0,company_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="Main",2900,1200
+Position="MAIN",2900,1200
 
 [Entity]
 PName=dlt_usage_fixed_headers
 LName=確定使用量ヘッダ
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=3700
 Top=1200
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
@@ -83,7 +106,7 @@ Field="供給地点特定番号","supply_point_number","varchar(22)","NOT NULL",
 Field="需要家識別番号","consumer_code","varchar(21)",,,"","",$FFFFFFFF,""
 Field="需要家名称","consumer_name","varchar(80)",,,"","",$FFFFFFFF,""
 Field="供給場所","supply_point_name","varchar(70)",,,"","",$FFFFFFFF,""
-Field="電圧区分","voltage_class_name","varchar(4)",,,"","",$FFFFFFFF,""
+Field="電圧区分名","voltage_class_name","varchar(4)",,,"","",$FFFFFFFF,""
 Field="仕訳コード","journal_code","tinyint(4)",,,""," 1:全量,2:部分",$FFFFFFFF,""
 Field="提供可否","can_provide","tinyint(1)",,,"","",$FFFFFFFF,""
 Field="月間電力量全量","usage_all","decimal(10,4)",,,"","",$FFFFFFFF,""
@@ -102,14 +125,14 @@ Index==0,supply_point_number
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="Main",3700,1200
+Position="MAIN",3700,1200
 
 [Entity]
 PName=dlt_usage_fixed_details
 LName=確定使用量明細
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=3300
 Top=1200
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
@@ -128,7 +151,7 @@ Index==0,date
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="Main",3300,1200
+Position="MAIN",3300,1200
 
 [Entity]
 PName=contract_meter_rates
@@ -190,7 +213,7 @@ Left=1400
 Top=1500
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="名前","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
-Field="電圧区分ID","voltage_type_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="電圧種別ID","voltage_type_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
@@ -211,7 +234,7 @@ Left=1400
 Top=2100
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="名前","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
-Field="電圧区分ID","voltage_type_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="電圧種別ID","voltage_type_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="計算順序","calcuration_order","int(11)",,,"","",$FFFFFFFF,""
 Field="有効フラグ","enabled","tinyint(1)",,,"","未使用?要確認",$FFFFFFFF,""
 Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
@@ -255,7 +278,7 @@ Left=2900
 Top=100
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="電圧クラス","voltage_class","tinyint(4)","NOT NULL",,"","",$FFFFFFFF,""
+Field="電圧区分","voltage_class","tinyint(4)","NOT NULL",,"","",$FFFFFFFF,""
 Field="適用開始日","start_date","date","NOT NULL",,"","",$FFFFFFFF,""
 Field="基本料金(kW)","basic_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
 Field="電力量料金(kWh)","meter_rate_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
@@ -304,10 +327,12 @@ Field="使用量(JPEX一時間前)","usage_jepx_1hour","decimal(10,4)",,,"","",$
 Field="使用量(FIT)","usage_fit","decimal(10,4)",,,"","",$FFFFFFFF,""
 Field="使用量(相対)","usage_matching","decimal(10,4)",,,"","",$FFFFFFFF,""
 Field="仕入(JBU基本料)","supply_jbu_basic_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="仕入(JBU従量料金)","supply_jbu_meter_rate_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
 Field="仕入(JBU燃料調整費)","supply_jbu_fuel_cost_adjustment","decimal(10,4)",,,"","",$FFFFFFFF,""
 Field="仕入(JEPXスポット)","supply_jepx_spot","decimal(10,4)",,,"","",$FFFFFFFF,""
 Field="仕入(JEPX一時間前)","supply_jepx_1hour","decimal(10,4)",,,"","",$FFFFFFFF,""
 Field="仕入(FIT)","supply_fit","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="仕入(相対)","supply_matching","decimal(10,4)",,,"","",$FFFFFFFF,""
 Field="仕入(インバランス)","supply_imbalance","decimal(10,4)",,,"","",$FFFFFFFF,""
 Field="仕入(託送基本料)","supply_wheeler_fundamental_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
 Field="仕入(託送従量料金)","supply_wheeler_mater_rate_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
@@ -323,7 +348,7 @@ Index==0,time_index_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",3300,100,306,813
+Position="MAIN",3300,100,306,892
 
 [Entity]
 PName=occto_plan_by_bg_members
@@ -360,7 +385,7 @@ Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="年","year","int(11)","NOT NULL",,"","",$FFFFFFFF,""
 Field="月","month","smallint(6)","NOT NULL",,"","",$FFFFFFFF,""
-Field="電圧クラス","voltage_class","tinyint(4)","NOT NULL",,"","",$FFFFFFFF,""
+Field="電圧区分","voltage_class","tinyint(4)","NOT NULL",,"","",$FFFFFFFF,""
 Field="単価","unit_price","decimal(10,4)",,,"","",$FFFFFFFF,""
 Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
@@ -863,14 +888,24 @@ Field="損失率(低圧)","loss_rate_low_voltage","float",,,"","",$FFFFFFFF,""
 Field="託送ダウンロード用ホスト名","dlt_host","varchar(255)",,,"","",$FFFFFFFF,""
 Field="託送ダウンロードパス名","dlt_path","varchar(255)",,,"","",$FFFFFFFF,""
 Field="電力量データ部分供給内包有無","is_partial_included","tinyint(1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="昼間時間開始時間枠ID","daytime_start_time_index_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="昼間時間終了時間枠ID","daytime_end_time_index_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="ピークタイム開始時間枠ID","peaktime_start_time_index_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="ピークタイム終了時間枠ID","peaktime_end_time_index_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="夏季開始月","summer_season_start_month","int(11)",,,"","",$FFFFFFFF,""
+Field="夏季終了月","summer_season_end_month","int(11)",,,"","",$FFFFFFFF,""
 Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,daytime_start_time_index_id
+Index==0,daytime_end_time_index_id
+Index==0,peaktime_start_time_index_id
+Index==0,peaktime_end_time_index_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",1000,100,302,373
+Position="MAIN",1000,100,302,545
 
 [Entity]
 PName=district_loss_rates
@@ -1012,7 +1047,7 @@ Field="名前","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
 Field="PPS ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="契約ID","contract_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="電圧区分ID","voltage_type_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="電圧種別ID","voltage_type_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="契約容量","contract_capacity","varchar(255)",,,"","",$FFFFFFFF,""
 Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
@@ -1258,7 +1293,7 @@ Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="供給地点特定番号","number","varchar(30)","NOT NULL",,"","",$FFFFFFFF,""
 Field="供給開始日","supply_start_date","date",,,"","",$FFFFFFFF,""
 Field="供給終了日","supply_end_date","date",,,"","",$FFFFFFFF,""
-Field="供給区分(1","supply_method_type","int(11)","NOT NULL",,"","全量, 2:部分)",$FFFFFFFF,""
+Field="供給区分","supply_method_type","int(11)","NOT NULL",,""," 1:全量, 2:部分",$FFFFFFFF,""
 Field="ベース電源","base_power","int(11)",,,"","",$FFFFFFFF,""
 Field="施設グループID","facility_group_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="施設ID","facility_id","bigint(20)",,,"","",$FFFFFFFF,""
@@ -1333,7 +1368,7 @@ Position="MAIN",100,500
 
 [Entity]
 PName=voltage_types
-LName=電圧区分
+LName=電圧種別
 Comment=
 TableOption=
 Page=MAIN

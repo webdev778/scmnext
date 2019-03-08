@@ -154,5 +154,5 @@
     updated_by:
     created_at:
     updated_at:
-  :from:
+  :from: tbl_account
   :where: 1 = 0

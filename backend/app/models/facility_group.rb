@@ -21,7 +21,7 @@ class FacilityGroup < ApplicationRecord
   belongs_to :voltage_type
   belongs_to :company
   belongs_to :district
-  belongs_to :contract
+  belongs_to :contract, required: false
 
   def sales_cost_adjustment
     return 0 if voltage_type.nil?

@@ -28,8 +28,37 @@ FacilityGroup.all.where(voltage_type_id: 99).each do |facility_group|
       raise "電圧区分が判別できません。"
     end
   end
-  if facility_group.save(validate: false) # 京葉が契約がなくて保存できないのでvalidatinoしない
+  if facility_group.save(validate: false) # 京葉が契約が無いために保存できないのでvalidationしない
     count += 1
   end
 end
 puts "#{count}件 更新しました。"
+
+puts "低圧施設のうち、設備グループ登録されていないものを登録"
+facility_not_grouped = Facility
+  .includes([{supply_point: :facility_group}, :consumer])
+  .where("facility_groups.id"=>nil)
+  .where.not("consumers.id"=>nil)
+
+facility_not_grouped.group_by do |facility|
+    [
+      facility.consumer.company_id,
+      facility.district_id,
+      (facility.contracts.first.nil? ? nil : facility.contracts.first.id),
+      facility.voltage_type_id,
+      facility.contract_capacity_for_facility_group
+    ]
+  end
+  .each do |keys, facilities|
+    company_id, district_id, contract_id, voltage_type_id, contract_capacity = keys
+    facility_group = FacilityGroup.create(
+      name: facilities.first.name_for_facility_group,
+      company_id: company_id,
+      district_id: district_id,
+      contract_id: contract_id,
+      voltage_type_id: voltage_type_id,
+      contract_capacity: contract_capacity
+    )
+    SupplyPoint.where( id: facilities.map{|facility| facility.supply_point.id} ).update(facility_group_id: facility_group.id)
+  end
+

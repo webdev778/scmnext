@@ -8,7 +8,7 @@ class CreateDltUsageFixedHeaders < ActiveRecord::Migration[5.2]
       t.string "consumer_code", limit: 21, comment: "需要家識別番号"
       t.string "consumer_name", limit: 80, comment: "需要家名称"
       t.string "supply_point_name", limit: 70, comment: "供給場所"
-      t.string "voltage_class_name", limit: 4, comment: "電圧区分"
+      t.string "voltage_class_name", limit: 4, comment: "電圧区分名"
       t.integer "journal_code", limit: 1, comment: "仕訳コード: 1:全量,2:部分"
       t.boolean "can_provide", comment: "提供可否"
       t.decimal "usage_all", precision: 10, scale: 4, comment: "月間電力量全量"

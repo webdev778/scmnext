@@ -27,7 +27,7 @@
 class Dlt::UsageFixedHeader < ApplicationRecord
   has_many :usage_fixed_details, dependent: :delete_all
   belongs_to :file
-  belongs_to :supply_point, primary_key: :number, foreign_key: :supply_point_number
+  belongs_to :supply_point, primary_key: :number, foreign_key: :supply_point_number, required: false
 
   accepts_nested_attributes_for :usage_fixed_details
 
