@@ -1,0 +1,43 @@
+託送DLT確定使用量データ取込
+===========================
+
+概要
+----
+
+DTLファイルテーブルより確定使用量テーブルへの取り込みを行う。
+
+## 概要図
+
+````puml
+rectangle {
+  database "DLTファイル" as dlt_file
+  (確定使用量データ取込) as (main)
+  database "確定使用量ヘッダテーブル" as dlt_usage_fixed_header
+  database "確定使用量明細テーブル" as dlt_usage_fixed_detail
+}
+
+
+dlt_file --> main : 設定情報の参照
+main ---> dlt_usage_fixed_header
+main ---> dlt_usage_fixed_detail
+
+````
+
+## I/O
+
+| 名称 | 物理名 | 種類 | I/O種別 | 備考 |
+|------|--------|------|---------|------|
+|      |        |      |         |      |
+
+## パラメータ
+
+| 名称 | 物理名 | 備考 |
+|------|--------|------|
+|      |        |      |
+
+処理詳細
+--------
+
+### STEP X title
+
+(説明)
