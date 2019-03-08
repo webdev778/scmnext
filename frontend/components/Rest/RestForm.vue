@@ -48,6 +48,46 @@
                   v-model="formData[field.key]"
                   v-bind:disabled="fieldDisabled(field)"
                 )
+            template(v-else-if="field.type=='nested'")
+              b-form-group(
+                v-bind:label="field.label"
+                v-bind:label-for="field.key"
+              )
+                table.table
+                  thead
+                    tr
+                      th(
+                        v-for="(nestedField, nestdFieldIndex) in field.fields"
+                        v-if="nestedField.type!='hidden'"
+                      )
+                        | {{nestedField.label}}
+                  tbody
+                    tr(v-for="(nestedFormData, detailIndex) in formData[field.key]")
+                      template(v-for="(nestedField, nestdFieldIndex) in field.fields")
+                        template(v-if="nestedField.type=='hidden'")
+                          input(
+                            v-bind:id="nestedField.key"
+                            type="hidden"
+                            v-model="nestedFormData[nestedField.key]"
+                            v-bind:disabled="fieldDisabled(field)"
+                          )
+                        template(v-else-if="nestedField.type=='select'")
+                          td
+                            b-form-select(
+                              v-if="options[field.key][nestedField.key]"
+                              v-bind:id="nestedField.key"
+                              v-bind:options="options[field.key][nestedField.key]"
+                              v-model="nestedFormData[nestedField.key]"
+                              v-bind:disabled="fieldDisabled(nestedField)"
+                            )
+                        template(v-else)
+                          td
+                            b-form-input(
+                              v-bind:id="nestedField.key"
+                              v-bind:type="nestedField.type"
+                              v-model="nestedFormData[nestedField.key]"
+                              v-bind:disabled="fieldDisabled(field)"
+                            )
             template(v-else)
               b-form-group(
                 v-bind:label="field.label"

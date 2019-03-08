@@ -46,7 +46,6 @@
             v-bind:fields='fieldsModified'
             hover
             striped
-            bordered
             small
             fixed
             xs
