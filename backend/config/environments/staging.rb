@@ -84,6 +84,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.cors = {
-    origines: "http://192.168.33.21:3000"
+    origines: ENV["RAILS_CORS_ORIGINES"]
   }
 end

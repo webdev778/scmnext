@@ -1,10 +1,11 @@
-FROM ruby:2.6
+FROM ruby:2.5.1
 
 RUN apt-get update \
-  && apt-get -y install libmysqlclient-dev \
+  && apt-get -y install apt-utils \
   && apt-get -y install build-essential \
   && apt-get -y install ruby ruby-dev \
   && apt-get -y install graphviz
+#  && apt-get -y install libmysqlclient-dev \
 
 WORKDIR /usr/src/app
 COPY Gemfile* ./

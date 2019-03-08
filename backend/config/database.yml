@@ -23,7 +23,10 @@ development:
 
 staging:
   <<: *default
-  database: enepa_sys_staging
+  database: enepascm_development
+  username: scmnext_demo
+  password: a5FmMb2r
+  host: scmnext-demo.c9iofatbhoxa.ap-northeast-1.rds.amazonaws.com
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

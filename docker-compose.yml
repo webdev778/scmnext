@@ -25,16 +25,31 @@
 #     - web
 #   links:
 #     - web
-frontend:
-  build: ./frontend
-  container_name: scmnext-frontend
-  environment:
-    RAILS_ENV: staging
-    RAILS_SERVE_STATIC_FILES: "TRUE"
-    SECRET_KEY_BASE: 9ae3b6e76ea66f2ecbb9d2d1e11786ae4bbe2f2253c148a06d7e96ff2e283adaf23e93ce41aea2caee4251c8381a7253cb98b62023a217ac94e5a9dbb1a50fd6
-    MUSSE_DATABASE_PASSWORD: caf48e4c-0a2c-11e7-9292-6f9eb7cfa958
-backend:
-  build: ./backend
-  container_name: scmnext-backend
-  environment:
-    RAILS_ENV: staging
+version: '2'
+services:
+  frontend:
+    build: ./frontend
+    container_name: scmnext-frontend
+    hostname: frontend
+    ports:
+      - "80:80"
+    links:
+      - backend
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 80
+      AXIOS_HOST: 13.114.230.18
+      AXIOS_PORT: 3000
+  backend:
+    build: ./backend
+    container_name: scmnext-backend
+    hostname: backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - /home/ubuntu/config/master.key:/usr/src/app/config/master.key:ro
+    environment:
+      RAILS_ENV: staging
+      RAILS_CORS_ORIGINES: "http://13.114.230.18"
+
