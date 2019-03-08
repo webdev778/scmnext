@@ -1,7 +1,7 @@
 <template lang="pug">
   rest-form(
-    title="バランシンググループ詳細"
-    name="balancing_group"
+    title="エリア別損失率詳細"
+    name="district_loss_rate"
     v-bind:id="$route.params.id"
     v-bind:fields="fields"
     v-bind:options="options"
@@ -23,34 +23,39 @@ export default {
           type: "hidden"
         },
         {
-          key: "code",
-          type: "text",
-          label: "コード"
-        },
-        {
-          key: "name",
-          type: "text",
-          label: "名前"
-        },
-        {
           key: "district_id",
           type: "select",
           label: "エリア"
         },
         {
-          key: "leader_company_id",
+          key: "voltage_type_id",
           type: "select",
-          label: "リーダーPPS"
+          label: "電圧種別"
+        },
+        {
+          key: "rate",
+          type: "text",
+          label: "損失率"
+        },
+        {
+          key: "application_start_date",
+          type: "text",
+          label: "適用開始日"
+        },
+        {
+          key: "application_end_date",
+          type: "text",
+          label: "適用終了日"
         }
       ],
       options: {
         district_id: {},
-        leader_company_id: {}
+        voltage_type_id: {}
       }
     }
   },
   created() {
-    this.$axios.$get('/v1/districts')
+    this.$axios.$get(`/v1/districts`)
     .then(result=>{
       let districts = result.map(item=>{
         return {
@@ -61,16 +66,16 @@ export default {
       districts.unshift({value: null, text: ""})
       this.options['district_id'] = districts
     })
-    this.$axios.$get(`/v1/companies`)
+    this.$axios.$get(`/v1/voltage_types`)
     .then(result=>{
-      let companies = result.map(item=>{
+      let voltage_types = result.map(item=>{
         return {
           value: item.id,
           text: item.name
         }
       })
-      companies.unshift({value: null, text: ""})
-      this.options['leader_company_id'] = companies
+      voltage_types.unshift({value: null, text: ""})
+      this.options['voltage_type_id'] = voltage_types
     })
   }
 }

@@ -101,12 +101,14 @@ export default {
   created() {
     this.$axios.$get(`/v1/companies`)
     .then(result=>{
-      this.options['company_id'] = result.map(item=>{
+      let companies = result.map(item=>{
         return {
           value: item.id,
           text: item.name
         }
       })
+      companies.unshift({value: null, text: ""})
+      this.options['company_id'] = companies
     })
   }
 }

@@ -1,7 +1,7 @@
 <template lang="pug">
   rest-form(
-    title="契約詳細"
-    name="contract"
+    title="契約・契約アイテム別従量料金詳細"
+    name="contract_meter_rate"
     v-bind:id="$route.params.id"
     v-bind:fields="fields"
     v-bind:options="options"
@@ -23,24 +23,14 @@ export default {
           type: "hidden"
         },
         {
-          key: "name",
-          type: "text",
-          label: "名称"
-        },
-        {
-          key: "name_for_invoice",
-          type: "text",
-          label: "請求用名称"
-        },
-        {
-          key: "voltage_type_id",
+          key: "contract_id",
           type: "select",
-          label: "電圧種別"
+          label: "契約"
         },
         {
-          key: "contract_item_group_id",
+          key: "contract_item_id",
           type: "select",
-          label: "契約アイテムグループ"
+          label: "契約アイテム"
         },
         {
           key: "start_date",
@@ -51,36 +41,41 @@ export default {
           key: "end_date",
           type: "text",
           label: "終了日"
+        },
+        {
+          key: "rate",
+          type: "text",
+          label: "レート"
         }
       ],
       options: {
-        voltage_type_id: {},
-        contract_item_group_id: {}
+        contract_id: {},
+        contract_item_id: {}
       }
     }
   },
   created() {
-    this.$axios.$get(`/v1/voltage_types`)
+    this.$axios.$get(`/v1/contracts`)
     .then(result=>{
-      let voltage_types = result.map(item=>{
+      let contracts = result.map(item=>{
         return {
           value: item.id,
           text: item.name
         }
       })
-      voltage_types.unshift({value: null, text: ""})
-      this.options['voltage_type_id'] = voltage_types
+      contracts.unshift({value: null, text: ""})
+      this.options['contract_id'] = contracts
     })
-    this.$axios.$get(`/v1/contract_item_groups`)
+    this.$axios.$get(`/v1/contract_items`)
     .then(result=>{
-      let contract_item_groups = result.map(item=>{
+      let contract_items = result.map(item=>{
         return {
           value: item.id,
           text: item.name
         }
       })
-      contract_item_groups.unshift({value: null, text: ""})
-      this.options['contract_item_group_id'] = contract_item_groups
+      contract_items.unshift({value: null, text: ""})
+      this.options['contract_item_id'] = contract_items
     })
   }
 }

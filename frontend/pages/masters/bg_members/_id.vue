@@ -42,21 +42,25 @@ export default {
   created() {
     this.$axios.$get('/v1/balancing_groups')
     .then(result=>{
-      this.options['balancing_group_id'] = result.map(item=>{
+      let balancing_groups = result.map(item=>{
         return {
           value: item.id,
           text: item.name
         }
       })
+      balancing_groups.unshift({value: null, text: ""})
+      this.options['balancing_group_id'] = balancing_groups
     })
     this.$axios.$get('/v1/companies')
     .then(result=>{
-      this.options['company_id'] = result.map(item=>{
+      let companies = result.map(item=>{
         return {
           value: item.id,
           text: item.name
         }
       })
+      companies.unshift({value: null, text: ""})
+      this.options['company_id'] = companies
     })
   }
 }

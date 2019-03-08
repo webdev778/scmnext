@@ -10,15 +10,19 @@ Rails.application.routes.draw do
     resources :bg_members
     resources :companies
     resources :districts
+    resources :district_loss_rates
     resources :consumers
     resources :contracts
     resources :contract_items
     resources :contract_item_groups
+    resources :contract_meter_rates
     resources :facilities
+    resources :time_indices
     resources :voltage_types
 
     namespace :dlt do
       resources :files
+      resources :settings
     end
 
     get "balancings", to: "balancings#show"

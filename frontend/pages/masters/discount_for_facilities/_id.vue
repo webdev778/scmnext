@@ -1,7 +1,7 @@
 <template lang="pug">
   rest-form(
-    title="契約アイテム詳細"
-    name="contract_item"
+    title="施設別割引詳細"
+    name="discount_for_facility"
     v-bind:id="$route.params.id"
     v-bind:fields="fields"
     v-bind:options="options"
@@ -23,42 +23,37 @@ export default {
           type: "hidden"
         },
         {
-          key: "name",
-          type: "text",
-          label: "名前"
-        },
-        {
-          key: "voltage_type_id",
+          key: "facility_id",
           type: "select",
-          label: "電圧種別"
+          label: "施設"
         },
         {
-          key: "calculation_order",
+          key: "start_date",
           type: "text",
-          label: "計算順序"
+          label: "適用開始日"
         },
         {
-          key: "enabled",
+          key: "rate",
           type: "text",
-          label: "有効フラグ"
+          label: "割引率"
         }
       ],
       options: {
-        voltage_type_id: {}
+        facility_id: {}
       }
     }
   },
   created() {
-    this.$axios.$get(`/v1/voltage_types`)
+    this.$axios.$get(`/v1/facilities`)
     .then(result=>{
-      let voltage_types = result.map(item=>{
+      let facilities = result.map(item=>{
         return {
           value: item.id,
           text: item.name
         }
       })
-      voltage_types.unshift({value: null, text: ""})
-      this.options['voltage_type_id'] = voltage_types
+      facilities.unshift({value: null, text: ""})
+      this.options['facility_id'] = facilities
     })
   }
 }

@@ -14,4 +14,17 @@
 
 class DiscountForFacility < ApplicationRecord
   belongs_to :facility
+
+  scope :includes_for_index, lambda {
+    includes([:facility])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: :facility
+      }
+    end
+    super options
+  end
 end

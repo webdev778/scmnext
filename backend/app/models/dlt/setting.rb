@@ -15,6 +15,19 @@ class Dlt::Setting < ApplicationRecord
   belongs_to :district
   has_many :files, class_name: 'Dlt::File'
 
+  scope :includes_for_index, lambda {
+    includes([:company, :district])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: [:company, :district]
+      }
+    end
+    super options
+  end
+
   #
   # 託送への接続情報を取得
   #

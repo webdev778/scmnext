@@ -15,5 +15,19 @@
 #
 
 class DistrictLossRate < ApplicationRecord
+  belongs_to :district_id
   belongs_to :voltage_type
+
+  scope :includes_for_index, lambda {
+    includes([:district_id, :voltage_type])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: [:district_id, :voltage_type]
+      }
+    end
+    super options
+  end
 end

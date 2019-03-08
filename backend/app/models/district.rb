@@ -37,6 +37,19 @@ class District < ApplicationRecord
   belongs_to :peaktime_start_time_index, class_name: TimeIndex.to_s, required: false
   belongs_to :peaktime_end_time_index, class_name: TimeIndex.to_s, required: false
 
+  scope :includes_for_index, lambda {
+    includes([:daytime_start_time_index, :daytime_end_time_index, :peaktime_start_time_index, :peaktime_end_time_index])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: [:daytime_start_time_index, :daytime_end_time_index, :peaktime_start_time_index, :peaktime_end_time_index]
+      }
+    end
+    super options
+  end
+
   #
   # 指定日における電圧クラスごとの託送料金テーブルを取得する
   # @param date [Date] 取得する日付
