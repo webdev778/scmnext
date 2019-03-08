@@ -21,6 +21,19 @@ class Contract < ApplicationRecord
   belongs_to :voltage_type
   belongs_to :contract_item_group
 
+  scope :includes_for_index, lambda {
+    includes([:voltage_type, :contract_item_group])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: [:voltage_type, :contract_item_group]
+      }
+    end
+    super options
+  end
+
   #
   # 指定された日付の基本料金を求める
   #

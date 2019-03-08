@@ -150,12 +150,16 @@ export default {
           url: '/masters/time_indices',
         },
         {
-          name: '電圧区分',
+          name: '電圧種別',
           url: '/masters/voltage_types',
         },
         {
           name: 'ユーザー',
           url: '/masters/users',
+        },
+        {
+          name: '休日',
+          url: '/masters/holidays',
         }
       ]
     },
