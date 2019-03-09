@@ -28,7 +28,11 @@
 version: '2'
 services:
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        AXIOS_HOST: 13.114.230.18
+        AXIOS_PORT: 3000
     container_name: scmnext-frontend
     hostname: frontend
     ports:

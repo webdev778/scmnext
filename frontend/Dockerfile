@@ -1,5 +1,8 @@
 FROM node:8-alpine
 
+ARG AXIOS_HOST
+ARG AXIOS_PORT
+
 WORKDIR /usr/src/app
 
 RUN apk update && \
