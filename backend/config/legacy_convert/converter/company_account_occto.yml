@@ -1,27 +1,76 @@
 ---
-:truncate: true
+:truncate: false
 :model_class: CompanyAccountOccto
 :extra:
-- :cond:
+- :fields:
     company_id: 1
-  :fields:
-    login_code: 10000409
-    password: eneop0125
+    login_code: dummy
+    password: dummy
     passphrase: 62466263
-    pkcs12: certs/occto/power_optimizer.p12
+    pkcs12: certs/occto/EPP_47493_000000000000046892.p12
+- :cond:
+    company_id: 3
+  :fields:
+    passphrase: 63562474
+    pkcs12: certs/occto/EPP_45618_000000000000045018.p12
+- :cond:
+    company_id: 8
+  :fields:
+    passphrase: 38227793
+    pkcs12: certs/occto/ESX352000002.p12
+- :cond:
+    company_id: 12
+  :fields:
+    passphrase: 22274995
+    pkcs12: certs/occto/EPP_41108_000000000000040508.p12
+- :fields:
+    company_id: 17
+    login_code: dummy
+    password: dummy
+    passphrase: 98408974
+    pkcs12: certs/occto/EPP_33914_000000000000033314.p12
+- :fields:
+    company_id: 18
+    login_code: dummy
+    password: dummy
+    passphrase: 45563882
+    pkcs12: certs/occto/EPP_45418_000000000000044818.p12
+- :fields:
+    company_id: 19
+    login_code: dummy
+    password: dummy
+    passphrase: 58302524
+    pkcs12: certs/occto/EPP_34031_000000000000033431.p12
+- :cond:
+    company_id: 21
+  :fields:
+    passphrase: kgdcis0068js
+    pkcs12: certs/occto/ESX116000068.p12
+- :fields:
+    company_id: 23
+    login_code: dummy
+    password: dummy
+    passphrase: 87199329
+    pkcs12: certs/occto/ESZ057000001.p12
+- :fields:
+    company_id: 24
+    login_code: 10003145
+    password: =)t"([(:wg
+    passphrase: 22415128
+    pkcs12: certs/occto/EPP_60158_000000000000059555.p12
 :sources:
 - :fields:
-    id: 
+    id:
     company_id: tbl_account.id
-    type: 
+    type:
     login_code: tbl_company.occto_userid
     password: tbl_company.occto_password
-    passphrase: 
-    comment: 
-    created_by: 
-    updated_by: 
-    created_at: 
-    updated_at: 
+    passphrase:
+    comment:
+    created_by:
+    updated_by:
+    created_at:
+    updated_at:
   :from: tbl_company
   :where: tbl_company.occto_userid IS NOT NULL AND tbl_company.occto_userid <> ''
   :joins:

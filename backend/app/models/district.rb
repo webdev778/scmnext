@@ -38,6 +38,13 @@ class District < ApplicationRecord
   belongs_to :peaktime_end_time_index, class_name: TimeIndex.to_s, required: false
 
   #
+  # エリアコード1桁を返す
+  #
+  def code_1digit
+    code.nil? ? nil : code[1]
+  end
+
+  #
   # 指定日における電圧クラスごとの託送料金テーブルを取得する
   # @param date [Date] 取得する日付
   # @return [Hash] voltage_classをkey,WheelerChargeのインスタンスを値とするハッシュ
