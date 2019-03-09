@@ -45,11 +45,21 @@ class Dlt::File < ApplicationRecord
   # class methods
   class << self
     #
-    # ダウンロードの実行
+    # サーバーから取得可能なファイルの一覧を取得して、ダウンロードを行う
+    # ブロックが与えられた場合は、取得可能な各ファイルを引数とし、偽を返した場合は
+    # 当該ファイルのダウンロードをスキップする
+    #
+    # @yield [filename] 偽を返した場合はダウンロードをスキップする
     #
     def download
       Dlt::Setting.all.find_each do |setting|
+        target_name = "#{setting.company.name} #{setting.district.name}"
+        if setting.connection.nil?
+          logger.error("[#{target_name}]のダウンロードをスキップしました。")
+          next
+        end
         file_list = get_file_list(setting)
+        logger.info("[#{target_name}]の託送データをダウンロードします。")
         filenames = file_list.map { |_no, list_item| list_item[:filename] }
         downloaded_filenames = Dlt::File.includes(%i[setting content_blob])
                                         .where(
@@ -60,13 +70,14 @@ class Dlt::File < ApplicationRecord
           next if downloaded_filenames.include?(list_item[:filename])
           next if block_given? && !yield(list_item[:filename])
 
-          puts "download:#{list_item[:filename]}"
+          logger.info("download:#{list_item[:filename]}")
           result = get_file(list_item[:filename], setting)
           # @todo ファイルサイズをここでチェックする
           Dlt::File
             .create(setting_id: setting.id)
             .content.attach(io: StringIO.new(result.body), filename: list_item[:filename])
         end
+        logger.info("[#{target_name}]のダウンロードを完了しました。")
       end
     end
 
@@ -114,7 +125,12 @@ class Dlt::File < ApplicationRecord
     # ファイル一覧の取得
     #
     def get_file_list(setting)
-      result = setting.connection.get("#{setting.district.dlt_path}/FileListReceiver")
+      begin
+        result = setting.connection.get("#{setting.path_prefix}/FileListReceiver")
+      rescue
+        logger.error("接続できません。")
+        return []
+      end
       file_list = result.body
                         .delete("\n")
                         .gsub(%r{.*<comment>(.*)</comment>.*}, '\1')
@@ -127,7 +143,7 @@ class Dlt::File < ApplicationRecord
           map[Regexp.last_match(2)] ||= {}
           map[Regexp.last_match(2)][:size] = Regexp.last_match(3).to_i
         else
-          puts line
+          logger.debug(line)
         end
       end
     end
@@ -136,7 +152,7 @@ class Dlt::File < ApplicationRecord
     # ファイルの取得
     #
     def get_file(filename, setting)
-      setting.connection.get("#{setting.district.dlt_path}/FileReceiver", file: filename)
+      setting.connection.get("#{setting.path_prefix}/FileReceiver", file: filename)
     end
   end
 
