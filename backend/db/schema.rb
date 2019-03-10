@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_28_070159) do
+ActiveRecord::Schema.define(version: 2019_03_10_114811) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -149,7 +149,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_070159) do
   create_table "contract_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "契約アイテム", force: :cascade do |t|
     t.string "name", null: false, comment: "名前"
     t.bigint "voltage_type_id", comment: "電圧種別ID"
-    t.integer "calcuration_order", comment: "計算順序"
+    t.integer "calculation_order"
     t.boolean "enabled", comment: "有効フラグ:未使用?要確認"
     t.integer "created_by"
     t.integer "updated_by"
@@ -189,7 +189,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_070159) do
     t.index ["voltage_type_id"], name: "index_contracts_on_voltage_type_id"
   end
 
-  create_table "discount_for_facilities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "施設別割引", force: :cascade do |t|
+  create_table "discounts_for_facilities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "施設別割引", force: :cascade do |t|
     t.bigint "facility_id", comment: "設備ID"
     t.date "start_date", null: false, comment: "適用開始日"
     t.decimal "rate", precision: 10, scale: 4, null: false, comment: "割引率"
@@ -198,7 +198,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_070159) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["facility_id", "start_date"], name: "unique_index_on_business_logic", unique: true
-    t.index ["facility_id"], name: "index_discount_for_facilities_on_facility_id"
+    t.index ["facility_id"], name: "index_discounts_for_facilities_on_facility_id"
   end
 
   create_table "district_loss_rates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "エリア別損失率", force: :cascade do |t|
