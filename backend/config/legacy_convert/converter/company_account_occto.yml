@@ -6,11 +6,8 @@
     company_id: 1
     login_code: dummy
     password: dummy
-    passphrase: 63562474
-    pkcs12: certs/occto/EPP_45618_000000000000045018.p12
-    # 広域証明書がエネオプになっているようなのでひとまずこちらは退避
-    # passphrase: 62466263
-    # pkcs12: certs/occto/EPP_47493_000000000000046892.p12
+    passphrase: 62466263
+    pkcs12: certs/occto/EPP_47493_000000000000046892.p12
 - :cond:
     company_id: 3
   :fields:
