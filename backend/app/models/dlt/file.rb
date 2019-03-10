@@ -182,6 +182,8 @@ class Dlt::File < ApplicationRecord
       else
         state_complated!
       end
+      zip_file = nil
+      doc = nil
     rescue StandardError => e
       state_exception!
       raise e
