@@ -19,8 +19,10 @@ namespace :dlt do
     task today: :environment do |_task, _args|
       target_date = determine_target_date(Date.today)
       logger.debug("処理日:#{target_date}")
-      (1..48).each do |i|
-        PowerUsagePreliminary.import_today_data(1, 1, target_date, i)
+      Dlt::Setting.find_each do |setting|
+        (1..48).each do |i|
+          PowerUsagePreliminary.import_today_data(setting.company_id, setting.district_id, target_date, i)
+        end
       end
     end
 
