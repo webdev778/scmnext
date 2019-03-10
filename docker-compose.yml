@@ -54,6 +54,7 @@ services:
     volumes:
       - /home/ubuntu/config/master.key:/usr/src/app/config/master.key:ro
     environment:
-      RAILS_ENV: staging
+      RAILS_ENV: "staging"
+      RAILS_LOG_TO_STDOUT: "true"
       RAILS_CORS_ORIGINES: "http://13.114.230.18"
 

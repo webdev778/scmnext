@@ -10,7 +10,7 @@ aws_staging:
   service: S3
   access_key_id: <%= Rails.application.credentials.dig(:aws_staging, :access_key_id) %>
   secret_access_key: <%= Rails.application.credentials.dig(:aws_staging, :secret_access_key) %>
-  region: ap-northeast
+  region: ap-northeast-1
   bucket: scmnext-demo
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
