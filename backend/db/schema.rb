@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_10_114811) do
+ActiveRecord::Schema.define(version: 2019_03_10_115410) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -190,7 +190,7 @@ ActiveRecord::Schema.define(version: 2019_03_10_114811) do
   end
 
   create_table "discounts_for_facilities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "施設別割引", force: :cascade do |t|
-    t.bigint "facility_id", comment: "設備ID"
+    t.bigint "facility_id", comment: "施設ID"
     t.date "start_date", null: false, comment: "適用開始日"
     t.decimal "rate", precision: 10, scale: 4, null: false, comment: "割引率"
     t.integer "created_by"

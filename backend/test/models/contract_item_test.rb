@@ -5,7 +5,7 @@
 #  id                :bigint(8)        not null, primary key
 #  name              :string(255)      not null
 #  voltage_type_id   :bigint(8)
-#  calcuration_order :integer
+#  calculation_order :integer
 #  enabled           :boolean
 #  created_by        :integer
 #  updated_by        :integer
