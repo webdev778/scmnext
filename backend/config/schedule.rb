@@ -19,9 +19,9 @@
 
 # docker環境を前提に書き換える
 docker_command = "cd /home/ubuntu/scmnext && sudo docker-compose exec backend"
-job_type :rake,    "#{docker_command} :environment_variable=:environment bundle exec rake :task --silent :output"
-job_type :runner,  "#{docker_command} bin/rails runner -e :environment ':task' :output"
-job_type :script,  "#{docker_command} :environment_variable=:environment bundle exec script/:task :output"
+job_type :rake,    "#{docker_command} rails :task --silent :output"
+job_type :runner,  "#{docker_command} rails runner ':task' :output"
+job_type :script,  "#{docker_command} bundle exec script/:task :output"
 
 # 託送データのダウンロードと速報値当日データの取り込み
 every 10.minute do # 1.minute 1.day 1.week 1.month 1.year is also supported
