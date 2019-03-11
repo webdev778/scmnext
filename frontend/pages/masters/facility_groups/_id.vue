@@ -1,7 +1,7 @@
 <template lang="pug">
   rest-form(
-    title="施設詳細"
-    name="facility"
+    title="施設グループ詳細"
+    name="facility_group"
     v-bind:id="$route.params.id"
     v-bind:fields="fields"
     v-bind:options="options"
@@ -28,19 +28,19 @@ export default {
           label: "名前"
         },
         {
-          key: "code",
-          type: "text",
-          label: "コード"
-        },
-        {
-          key: "consumer_id",
+          key: "company_id",
           type: "select",
-          label: "需要家"
+          label: "PPS"
         },
         {
           key: "district_id",
           type: "select",
           label: "エリア"
+        },
+        {
+          key: "contract_id",
+          type: "select",
+          label: "契約"
         },
         {
           key: "voltage_type_id",
@@ -51,76 +51,27 @@ export default {
           key: "contract_capacity",
           type: "text",
           label: "契約容量"
-        },
-        {
-          key: "tel",
-          type: "text",
-          label: "TEL"
-        },
-        {
-          key: "fax",
-          type: "text",
-          label: "FAX"
-        },
-        {
-          key: "email",
-          type: "text",
-          label: "EMAIL"
-        },
-        {
-          key: "url",
-          type: "text",
-          label: "URL"
-        },
-        {
-          key: "postal_code",
-          type: "text",
-          label: "郵便番号"
-        },
-        {
-          key: "pref_no",
-          type: "text",
-          label: "都道府県番号"
-        },
-        {
-          key: "city",
-          type: "text",
-          label: "市区町村"
-        },
-        {
-          key: "address",
-          type: "text",
-          label: "住所"
-        },
-        {
-          key: "person_in_charge",
-          type: "text",
-          label: "担当者"
-        },
-        {
-          key: "person_in_charge_kana",
-          type: "text",
-          label: "担当者カナ"
         }
       ],
       options: {
-        consumer_id: {},
+        company_id: {},
         district_id: {},
+        contract_id: {},
         voltage_type_id: {}
       }
     }
   },
   created() {
-    this.$axios.$get(`/v1/consumers`)
+    this.$axios.$get(`/v1/companies`)
     .then(result=>{
-      let consumers = result.map(item=>{
+      let companies = result.map(item=>{
         return {
           value: item.id,
           text: item.name
         }
       })
-      consumers.unshift({value: null, text: ""})
-      this.options['consumer_id'] = consumers
+      companies.unshift({value: null, text: ""})
+      this.options['company_id'] = companies
     })
     this.$axios.$get(`/v1/districts`)
     .then(result=>{
@@ -132,6 +83,17 @@ export default {
       })
       districts.unshift({value: null, text: ""})
       this.options['district_id'] = districts
+    })
+    this.$axios.$get(`/v1/contracts`)
+    .then(result=>{
+      let contracts = result.map(item=>{
+        return {
+          value: item.id,
+          text: item.name
+        }
+      })
+      contracts.unshift({value: null, text: ""})
+      this.options['contract_id'] = contracts
     })
     this.$axios.$get(`/v1/voltage_types`)
     .then(result=>{

@@ -16,6 +16,19 @@
 class Jepx::ImbalanceBeta < ApplicationRecord
   belongs_to :district
 
+  scope :includes_for_index, lambda {
+    includes([:district])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: :district
+      }
+    end
+    super options
+  end
+
   class << self
     # Get and parse the .xlsx file, convert the first column into Date object, insert data into an array and call import function.
     def import_data

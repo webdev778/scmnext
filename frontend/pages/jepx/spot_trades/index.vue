@@ -1,7 +1,7 @@
 <template lang="pug">
   rest-index(
-    title="ユーザー一覧"
-    name="users"
+    title="JEPXスポット市場取引結果一覧"
+    name="jepx/spot_trades"
     v-bind:fields="fields"
     v-bind:can-edit="false"
   )
@@ -20,20 +20,14 @@ export default {
           label: "ID"
         },
         {
-          key: "uid",
-          label: "uid"
-        },
-        {
-          key: "email",
-          label: "E-mail"
-        },
-        {
           key: "created_at",
-          label: "作成日時"
+          label: "作成日時",
+          formatter: 'formatDatetime'
         },
         {
           key: "updated_at",
-          label: "更新日時"
+          label: "更新日時",
+          formatter: 'formatDatetime'
         }
       ]
     }

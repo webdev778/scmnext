@@ -31,6 +31,19 @@ class Dlt::UsageFixedHeader < ApplicationRecord
 
   accepts_nested_attributes_for :usage_fixed_details
 
+  scope :includes_for_index, lambda {
+    includes([:file, :supply_point])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: [:file, :supply_point]
+      }
+    end
+    super options
+  end
+
   class << self
     def import_data(company_id, district_id, date = nil)
       setting = Dlt::Setting.find_by(company_id: company_id, district_id: district_id)
