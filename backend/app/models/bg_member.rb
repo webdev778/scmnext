@@ -22,7 +22,7 @@ class BgMember < ApplicationRecord
   belongs_to :company
 
   scope :includes_for_index, lambda {
-    includes([:company])
+    includes([:balancing_group, :company])
   }
 
   def code
@@ -33,8 +33,12 @@ class BgMember < ApplicationRecord
     company.name.to_s
   end
 
-  def as_json(options = null)
-    options = { methods: [:name] } if options.blank?
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: [:balancing_group, :company]
+      }
+    end
     super options
   end
 end

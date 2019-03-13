@@ -17,4 +17,17 @@
 class ContractMeterRate < ApplicationRecord
   belongs_to :contract
   belongs_to :contract_item
+
+  scope :includes_for_index, lambda {
+    includes([:contract, :contract_item])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: [:contract, :contract_item]
+      }
+    end
+    super options
+  end
 end

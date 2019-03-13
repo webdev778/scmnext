@@ -19,6 +19,19 @@ class Holiday < ApplicationRecord
     where(district_id: [district_id, nil])
   }
 
+  scope :includes_for_index, lambda {
+    includes([:district])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: :district
+      }
+    end
+    super options
+  end
+
   class << self
     #
     # 指定されたエリアの休日を取得する

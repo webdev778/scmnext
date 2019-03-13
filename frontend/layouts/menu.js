@@ -86,6 +86,10 @@ export default {
           url: '/masters/discount_for_facilities',
         },
         {
+          name: '契約',
+          url: '/masters/contracts',
+        },
+        {
           name: '契約アイテム',
           url: '/masters/contract_items',
         },
@@ -95,15 +99,27 @@ export default {
         },
         {
           name: '契約・契約アイテム別従量料金',
-          url: '/masters/contract_item_groups',
+          url: '/masters/contract_meter_rates',
         },
         {
-          name: 'エリア',
+          name: '供給エリア',
           url: '/masters/districts',
         },
         {
           name: 'エリア別損失率',
           url: '/masters/district_loss_rates',
+        },
+        {
+          name: 'ダウンロードファイル',
+          url: '/dlt/files',
+        },
+        {
+          name: 'ダウンロード設定',
+          url: '/dlt/settings',
+        },
+        {
+          name: '確定使用量ヘッダ',
+          url: '/dlt/usage_fixed_headers',
         },
         {
           name: '燃料調整費',
@@ -118,7 +134,15 @@ export default {
           url: '/masters/jbu_contracts',
         },
         {
-          name: '供給電源',
+          name: 'JEPXインバランスβ値',
+          url: '/jepx/imbalance_betas',
+        },
+        {
+          name: 'JEPXスポット市場取引結果',
+          url: '/jepx/spot_trades',
+        },
+        {
+          name: 'リソース',
           url: '/masters/resources',
         },
         {
@@ -126,12 +150,16 @@ export default {
           url: '/masters/time_indices',
         },
         {
-          name: '電圧区分',
+          name: '電圧種別',
           url: '/masters/voltage_types',
         },
         {
           name: 'ユーザー',
           url: '/masters/users',
+        },
+        {
+          name: '休日',
+          url: '/masters/holidays',
         }
       ]
     },

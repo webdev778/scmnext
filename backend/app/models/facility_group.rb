@@ -23,6 +23,19 @@ class FacilityGroup < ApplicationRecord
   belongs_to :district
   belongs_to :contract, required: false
 
+  scope :includes_for_index, lambda {
+    includes([:company, :district, :contract, :voltage_type])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: [:company, :district, :contract, :voltage_type]
+      }
+    end
+    super options
+  end
+
   def sales_cost_adjustment
     return 0 if voltage_type.nil?
 

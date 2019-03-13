@@ -17,6 +17,19 @@ class Resource < ApplicationRecord
   belongs_to :balancing_group
   has_many :occto_plan_detail_values, class_name: Occto::PlanDetailValue.to_s
 
+  scope :includes_for_index, lambda {
+    includes([:balancing_group])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: :balancing_group
+      }
+    end
+    super options
+  end
+
   #
   # 当該リソースの指定日及び時間枠におけるレートを取得する
   # @params date [Date] 日付

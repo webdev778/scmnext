@@ -7,13 +7,34 @@ Rails.application.routes.draw do
     resources :balancing_groups do
       resources :bg_members
     end
+    resources :bg_members
     resources :companies
     resources :districts
+    resources :district_loss_rates
     resources :consumers
+    resources :contracts
+    resources :contract_items
+    resources :contract_item_groups
+    resources :contract_meter_rates
     resources :facilities
+    resources :facility_groups
+    resources :fuel_cost_adjustments
+    resources :jbu_contracts
+    resources :resources
+    resources :time_indices
+    resources :voltage_types
+    resources :wheeler_charges
+    resources :holidays
 
     namespace :dlt do
       resources :files
+      resources :settings
+      resources :usage_fixed_headers
+    end
+
+    namespace :jepx do
+      resources :imbalance_betas
+      resources :spot_trades
     end
 
     get "balancings", to: "balancings#show"

@@ -37,6 +37,19 @@ class District < ApplicationRecord
   belongs_to :peaktime_start_time_index, class_name: TimeIndex.to_s, required: false
   belongs_to :peaktime_end_time_index, class_name: TimeIndex.to_s, required: false
 
+  scope :includes_for_index, lambda {
+    includes([:daytime_start_time_index, :daytime_end_time_index, :peaktime_start_time_index, :peaktime_end_time_index])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: [:daytime_start_time_index, :daytime_end_time_index, :peaktime_start_time_index, :peaktime_end_time_index]
+      }
+    end
+    super options
+  end
+
   #
   # エリアコード1桁を返す
   #
@@ -73,4 +86,10 @@ class District < ApplicationRecord
       .with_indifferent_access
   end
 
+  def self.get_hash
+    hash = self.all.map do |district|
+      [district.code, district.id]
+    end.to_h
+    return hash
+  end
 end

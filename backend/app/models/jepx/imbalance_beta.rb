@@ -16,6 +16,19 @@
 class Jepx::ImbalanceBeta < ApplicationRecord
   belongs_to :district
 
+  scope :includes_for_index, lambda {
+    includes([:district])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: :district
+      }
+    end
+    super options
+  end
+
   class << self
     # Get and parse the .xlsx file, convert the first column into Date object, insert data into an array and call import function.
     def import_data
@@ -29,13 +42,13 @@ class Jepx::ImbalanceBeta < ApplicationRecord
       start_date = Date.new(1900, 1, 1)
       i = 1
       rows = []
+      district_hash = District.get_hash
       while worksheet[i]
         timedelta = worksheet[i][0].value - 2
         date = timedelta.days.after(start_date)
         (1..9).each do |j|
           if worksheet[i][j]
-            district = District.find_by(code: "0#{j}")
-            rows << { year: date.year, month: date.month, district_id: district.id, value: worksheet[i][j].value }
+            rows << { year: date.year, month: date.month, district_id: district_hash["0#{j}"], value: worksheet[i][j].value }
           end
         end
         i += 1

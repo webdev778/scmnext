@@ -1,10 +1,10 @@
 <template lang="pug">
   rest-index(
-    title="契約顧客一覧"
+    title="需要家一覧"
     name="consumers"
     v-bind:fields="fields"
     v-bind:query="query"
-    can-edit=true
+    v-bind:can-edit="false"
   )
     template(slot="search")
       b-row
@@ -39,8 +39,7 @@ export default {
       fields: [
         {
           key: "id",
-          label: "ID",
-          width: 50
+          label: "ID"
         },
         {
           key: "name",
@@ -48,22 +47,21 @@ export default {
         },
         {
           key: "company.name",
-          label: "PPS"
+          label: "PPS名"
         },
         {
           key: "created_at",
           label: "作成日時",
-          width: 180,
           formatter: 'formatDatetime'
         },
         {
           key: "updated_at",
           label: "更新日時",
-          width: 180,
           formatter: 'formatDatetime'
         }
       ],
       query: {
+        name_cont: null,
         company_id_eq: null
       },
       companies: []

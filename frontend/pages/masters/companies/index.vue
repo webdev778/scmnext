@@ -3,8 +3,20 @@
     title="PPS一覧"
     name="companies"
     v-bind:fields="fields"
-    can-edit=true
+    v-bind:query="query"
+    v-bind:can-edit="false"
   )
+    template(slot="search")
+      b-row
+        b-col
+          b-form-group(
+            label="名前"
+            label-for="name"
+            )
+            b-form-input(
+              id="name"
+              v-model="query.name_cont"
+            )
 </template>
 
 <script>
@@ -37,7 +49,10 @@ export default {
           label: "更新日時",
           formatter: 'formatDatetime'
         }
-      ]
+      ],
+      query: {
+        name_cont: null
+      }
     }
   }
 }

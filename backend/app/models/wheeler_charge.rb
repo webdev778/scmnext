@@ -24,6 +24,19 @@ class WheelerCharge < ApplicationRecord
 
   belongs_to :district
 
+  scope :includes_for_index, lambda {
+    includes([:district])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: :district
+      }
+    end
+    super options
+  end
+
   #
   # 基本料率を返す
   #
