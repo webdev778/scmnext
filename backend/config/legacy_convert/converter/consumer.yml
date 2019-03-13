@@ -11,7 +11,7 @@
     fax: tbl_contract_customer.contractcustomer_fax
     email: tbl_contract_customer.contractcustomer_email
     url: tbl_contract_customer.contractcustomer_url
-    postral_code: tbl_contract_customer.contractcustomer_zip
+    postal_code: tbl_contract_customer.contractcustomer_zip
     pref_no: tbl_contract_customer.contractcustomer_pref
     city: tbl_contract_customer.contractcustomer_city
     address: tbl_contract_customer.contractcustomer_address

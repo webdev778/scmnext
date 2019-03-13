@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_10_115410) do
+ActiveRecord::Schema.define(version: 2019_03_13_012100) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 2019_03_10_115410) do
     t.string "fax", comment: "FAX"
     t.string "email", comment: "EMAIL"
     t.string "url", comment: "URL"
-    t.string "postral_code", comment: "郵便番号"
+    t.string "postal_code"
     t.integer "pref_no", comment: "都道府県番号"
     t.string "city", comment: "市区町村"
     t.string "address", comment: "住所"
@@ -313,7 +313,7 @@ ActiveRecord::Schema.define(version: 2019_03_10_115410) do
     t.string "fax", comment: "FAX"
     t.string "email", comment: "EMAIL"
     t.string "url", comment: "URL"
-    t.string "postral_code", comment: "郵便番号"
+    t.string "postal_code"
     t.integer "pref_no", comment: "都道府県番号"
     t.string "city", comment: "市区町村"
     t.string "address", comment: "住所"
@@ -502,7 +502,7 @@ ActiveRecord::Schema.define(version: 2019_03_10_115410) do
     t.decimal "amount_imbalance", precision: 10, scale: 4, comment: "インバランス"
     t.decimal "power_factor_rate", precision: 10, scale: 4, comment: "力率"
     t.decimal "sales_basic_charge", precision: 10, scale: 4, comment: "売上(基本料)"
-    t.decimal "sales_mater_rate_charge", precision: 10, scale: 4, comment: "売上(従量料金)"
+    t.decimal "sales_meter_rate_charge", precision: 10, scale: 4
     t.decimal "sales_fuel_cost_adjustment", precision: 10, scale: 4, comment: "売上(燃料調整費)"
     t.decimal "sales_cost_adjustment", precision: 10, scale: 4, comment: "売上(調整費)"
     t.decimal "sales_special_discount", precision: 10, scale: 4, comment: "売上(還元割)"
@@ -520,7 +520,7 @@ ActiveRecord::Schema.define(version: 2019_03_10_115410) do
     t.decimal "supply_matching", precision: 10, scale: 4, comment: "仕入(相対)"
     t.decimal "supply_imbalance", precision: 10, scale: 4, comment: "仕入(インバランス)"
     t.decimal "supply_wheeler_fundamental_charge", precision: 10, scale: 4, comment: "仕入(託送基本料)"
-    t.decimal "supply_wheeler_mater_rate_charge", precision: 10, scale: 4, comment: "仕入(託送従量料金)"
+    t.decimal "supply_wheeler_meter_rate_charge", precision: 10, scale: 4
     t.integer "created_by"
     t.integer "updated_by"
     t.datetime "created_at", null: false
@@ -640,8 +640,8 @@ ActiveRecord::Schema.define(version: 2019_03_10_115410) do
     t.date "start_date", null: false, comment: "適用開始日"
     t.decimal "basic_charge", precision: 10, scale: 4, comment: "基本料金(kW)"
     t.decimal "meter_rate_charge", precision: 10, scale: 4, comment: "電力量料金(kWh)"
-    t.decimal "mater_rate_charge_daytime", precision: 10, scale: 4, comment: "電力量料金(昼間時間)(kWh)"
-    t.decimal "mater_rate_charge_night", precision: 10, scale: 4, comment: "電力量料金(夜間時間)(kWh)"
+    t.decimal "meter_rate_charge_daytime", precision: 10, scale: 4
+    t.decimal "meter_rate_charge_night", precision: 10, scale: 4
     t.decimal "peak_shift_discount", precision: 10, scale: 4, comment: "ピークシフト割引(kW)"
     t.decimal "a_charge", precision: 10, scale: 4, comment: "予備送電サービスA料金(kW)"
     t.decimal "b_charge", precision: 10, scale: 4, comment: "予備送電サービスB料金(kW)"

@@ -10,7 +10,7 @@
 #  fax                   :string(255)
 #  email                 :string(255)
 #  url                   :string(255)
-#  postral_code          :string(255)
+#  postal_code           :string(255)
 #  pref_no               :integer
 #  city                  :string(255)
 #  address               :string(255)

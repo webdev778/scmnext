@@ -13,7 +13,7 @@
 #  amount_imbalance                  :decimal(10, 4)
 #  power_factor_rate                 :decimal(10, 4)
 #  sales_basic_charge                :decimal(10, 4)
-#  sales_mater_rate_charge           :decimal(10, 4)
+#  sales_meter_rate_charge           :decimal(10, 4)
 #  sales_fuel_cost_adjustment        :decimal(10, 4)
 #  sales_cost_adjustment             :decimal(10, 4)
 #  sales_special_discount            :decimal(10, 4)
@@ -31,7 +31,7 @@
 #  supply_matching                   :decimal(10, 4)
 #  supply_imbalance                  :decimal(10, 4)
 #  supply_wheeler_fundamental_charge :decimal(10, 4)
-#  supply_wheeler_mater_rate_charge  :decimal(10, 4)
+#  supply_wheeler_meter_rate_charge  :decimal(10, 4)
 #  created_by                        :integer
 #  updated_by                        :integer
 #  created_at                        :datetime         not null
@@ -111,7 +111,7 @@ class Pl::BaseDatum < ApplicationRecord
           amount_imbalance: amount_imbalance,
           power_factor_rate: 1,
           sales_basic_charge: power_usage.facility_group.contract.basic_charge_at(date),
-          sales_mater_rate_charge: power_usage.facility_group.contract.meter_rate_at(date) * power_usage.value,
+          sales_meter_rate_charge: power_usage.facility_group.contract.meter_rate_at(date) * power_usage.value,
           sales_fuel_cost_adjustment: fuel_cost_unit_price * power_usage.value,
           sales_cost_adjustment: power_usage.facility_group.sales_cost_adjustment,
           sales_special_discount: power_usage.facility_group.sales_special_discount_rate_at(date),
@@ -129,7 +129,7 @@ class Pl::BaseDatum < ApplicationRecord
           supply_matching: 0,
           supply_imbalance: amount_imbalance * spot_trade_area_data_map_by_time_index[power_usage.time_index_id].imbalance_unit_price(power_usage_class.data_type),
           supply_wheeler_fundamental_charge: wheeler_charges_map_by_voltage_class[power_usage.facility_group.voltage_type.to_voltage_class].basic_amount / time_index_count,
-          supply_wheeler_mater_rate_charge: power_usage.value * wheeler_charges_map_by_voltage_class[power_usage.facility_group.voltage_type.to_voltage_class].meter_rate_charge
+          supply_wheeler_meter_rate_charge: power_usage.value * wheeler_charges_map_by_voltage_class[power_usage.facility_group.voltage_type.to_voltage_class].meter_rate_charge
         }
       end
       import import_data
@@ -159,7 +159,7 @@ class Pl::BaseDatum < ApplicationRecord
         amount_loss
         amount_imbalance
         sales_basic_charge
-        sales_mater_rate_charge
+        sales_meter_rate_charge
         sales_fuel_cost_adjustment
         sales_cost_adjustment
         sales_special_discount
@@ -176,7 +176,7 @@ class Pl::BaseDatum < ApplicationRecord
         supply_matching
         supply_imbalance
         supply_wheeler_fundamental_charge
-        supply_wheeler_mater_rate_charge
+        supply_wheeler_meter_rate_charge
       ]
     end
   end

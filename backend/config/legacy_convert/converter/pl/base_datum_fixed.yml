@@ -15,7 +15,7 @@
     amount_imbalance: 
     power_factor_rate: 
     sales_basic_charge: 
-    sales_mater_rate_charge: 
+    sales_meter_rate_charge: 
     sales_fuel_cost_adjustment: 
     sales_cost_adjustment: 
     sales_special_discount: 
@@ -33,7 +33,7 @@
     supply_matching: 
     supply_imbalance: 
     supply_wheeler_fundamental_charge: 
-    supply_wheeler_mater_rate_charge: 
+    supply_wheeler_meter_rate_charge: 
     created_by: 
     updated_by: 
     created_at: 

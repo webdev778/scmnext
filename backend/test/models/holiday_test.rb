@@ -4,7 +4,7 @@
 #
 #  id          :bigint(8)        not null, primary key
 #  district_id :bigint(8)
-#  date        :string(255)
+#  date        :date
 #  name        :string(255)
 #  created_by  :integer
 #  updated_by  :integer
