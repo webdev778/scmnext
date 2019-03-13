@@ -3,8 +3,21 @@
     title="燃料調整費一覧"
     name="fuel_cost_adjustments"
     v-bind:fields="fields"
+    v-bind:query="query"
     v-bind:can-edit="false"
   )
+    template(slot="search")
+      b-row
+        b-col
+          b-form-group(
+            label="エリア"
+            label-for="district_id"
+            )
+            b-form-select(
+              id="district_id"
+              v-model="query.district_id_eq"
+              v-bind:options="districts"
+            )
 </template>
 
 <script>
@@ -20,6 +33,10 @@ export default {
           label: "ID"
         },
         {
+          key: "district.name",
+          label: "エリア"
+        },
+        {
           key: "created_at",
           label: "作成日時",
           formatter: 'formatDatetime'
@@ -29,8 +46,25 @@ export default {
           label: "更新日時",
           formatter: 'formatDatetime'
         }
-      ]
+      ],
+      query: {
+        district_id_eq: null
+      },
+      districts: []
     }
+  },
+  created() {
+    this.$axios.$get(`/v1/districts`)
+    .then(result=>{
+      let options = result.map(item=>{
+        return {
+          value: item.id,
+          text: item.name
+        }
+      })
+      options.unshift({value: null, text: "全て"})
+      this.districts = options
+    })
   }
 }
 </script>

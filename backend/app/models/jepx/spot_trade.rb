@@ -23,8 +23,22 @@
 
 class Jepx::SpotTrade < ApplicationRecord
   has_many :spot_trade_area_data
+  belongs_to :time_index
 
   accepts_nested_attributes_for :spot_trade_area_data
+
+  scope :includes_for_index, lambda {
+    includes([:time_index])
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: :time_index
+      }
+    end
+    super options
+  end
 
   require 'csv'
 

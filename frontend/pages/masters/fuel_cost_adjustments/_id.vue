@@ -4,6 +4,7 @@
     name="fuel_cost_adjustment"
     v-bind:id="$route.params.id"
     v-bind:fields="fields"
+    v-bind:options="options"
     v-bind:can-edit="false"
   )
 </template>
@@ -23,8 +24,8 @@ export default {
         },
         {
           key: "district_id",
-          type: "text",
-          label: "エリアID"
+          type: "select",
+          label: "エリア"
         },
         {
           key: "year",
@@ -46,8 +47,24 @@ export default {
           type: "text",
           label: "単価"
         }
-      ]
+      ],
+      options: {
+        district_id: {}
+      }
     }
+  },
+  created() {
+    this.$axios.$get('/v1/districts')
+    .then(result=>{
+      let districts = result.map(item=>{
+        return {
+          value: item.id,
+          text: item.name
+        }
+      })
+      districts.unshift({value: null, text: ""})
+      this.options['district_id'] = districts
+    })
   }
 }
 </script>
