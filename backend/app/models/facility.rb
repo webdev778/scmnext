@@ -78,11 +78,7 @@ class Facility < ApplicationRecord
           } },
           :district,
           :supply_point,
-<<<<<<< HEAD
           :voltage_type
-=======
-          :facility_contracts
->>>>>>> master
         ]
       }
     end
