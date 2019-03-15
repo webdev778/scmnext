@@ -1,7 +1,7 @@
 <template lang="pug">
   rest-form(
     title="施設別割引詳細"
-    name="discount_for_facility"
+    name="discounts_for_facility"
     v-bind:id="$route.params.id"
     v-bind:fields="fields"
     v-bind:options="options"

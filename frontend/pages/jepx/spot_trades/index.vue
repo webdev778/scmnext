@@ -33,7 +33,7 @@ export default {
           label: "ID"
         },
         {
-          key: "time_index_id",
+          key: "time_index.time",
           label: "時間枠"
         },
         {
