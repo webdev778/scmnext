@@ -64,7 +64,8 @@ class Facility < ApplicationRecord
     includes([
                { consumer: :company },
                :district,
-               :supply_point
+               :supply_point,
+               :voltage_type
              ])
   }
 
@@ -76,7 +77,8 @@ class Facility < ApplicationRecord
             include: :company
           } },
           :district,
-          :supply_point
+          :supply_point,
+          :voltage_type
         ]
       }
     end

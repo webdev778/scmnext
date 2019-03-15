@@ -31,4 +31,9 @@ class TimeIndex < ApplicationRecord
       target_date.end_of_month.day * TimeIndex.count
     end
   end
+
+  private
+    ransacker :time_text do
+      Arel.sql("time_format(time, '%H:%i')")
+    end
 end

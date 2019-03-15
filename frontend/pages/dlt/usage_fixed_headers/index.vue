@@ -23,10 +23,9 @@
             label="供給地点特定番号"
             label-for="supply_point_number"
             )
-            b-form-select(
+            b-form-input(
               id="supply_point_number"
-              v-model="query.supply_point_number_eq"
-              v-bind:options="supply_points"
+              v-model="query.supply_point_number_cont"
             )
 </template>
 
@@ -43,7 +42,7 @@ export default {
           label: "ID"
         },
         {
-          key: "file_id",
+          key: "file.content_blob.filename",
           label: "ファイル名"
         },
         {
@@ -61,10 +60,9 @@ export default {
       ],
       query: {
         file_id_eq: null,
-        supply_point_number_eq: null
+        supply_point_number_cont: null
       },
-      files: [],
-      supply_points: []
+      files: []
     }
   },
   created() {
@@ -73,22 +71,11 @@ export default {
       let options = result.map(item=>{
         return {
           value: item.id,
-          text: item.name
+          text: item.content_blob.filename
         }
       })
       options.unshift({value: null, text: "全て"})
       this.files = options
-    })
-    this.$axios.$get(`/v1/supply_points`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.supply_points = options
     })
   }
 }

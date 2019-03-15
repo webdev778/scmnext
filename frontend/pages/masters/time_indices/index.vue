@@ -3,6 +3,7 @@
     title="時間枠一覧"
     name="time_indices"
     v-bind:fields="fields"
+    v-bind:list-only="true"
     v-bind:query="query"
     v-bind:can-edit="false"
   )
@@ -15,7 +16,7 @@
             )
             b-form-input(
               id="time"
-              v-model="query.time_cont"
+              v-model="query.time_text_cont"
             )
 </template>
 
@@ -47,7 +48,7 @@ export default {
         }
       ],
       query: {
-        time_cont: null
+        time_text_cont: null
       }
     }
   }
