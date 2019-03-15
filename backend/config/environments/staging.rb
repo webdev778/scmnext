@@ -30,7 +30,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :local
+  config.active_storage.service = :aws_staging
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
@@ -84,6 +84,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.cors = {
-    origines: "http://192.168.33.21:3000"
+    origines: ENV["RAILS_CORS_ORIGINES"]
   }
 end

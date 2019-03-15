@@ -182,7 +182,7 @@ namespace :legacy do
   # 全ての定義ファイルに対して変換処理を行う
   #
   def convert_all
-    Dir.glob("#{converter_path}/**/*.yml") do |yaml_path|
+    Dir.glob("#{converter_path}/**/*.yml").sort.each do |yaml_path|
       convert yaml_path
     end
   end

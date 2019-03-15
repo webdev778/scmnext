@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import BarChart from '~/components/Charts/BarChart.vue'
+import BarChart from '~/components/charts/BarChart.vue'
 
 export default {
   components: {BarChart},

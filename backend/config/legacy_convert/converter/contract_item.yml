@@ -6,7 +6,7 @@
     id: id
     name: contract_item_name
     voltage_type_id: tbl_voltage_id
-    calcuration_order: contract_item_cal_order
+    calculation_order: contract_item_cal_order
     enabled: setting_flg
     created_by: created_user_id
     updated_by: modified_user_id

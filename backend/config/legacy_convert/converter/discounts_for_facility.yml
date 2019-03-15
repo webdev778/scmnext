@@ -1,9 +1,9 @@
 ---
 :truncate: true
-:model_class: DiscountForFacility
+:model_class: DiscountsForFacility
 :sources:
 - :fields:
-    id: 
+    id:
     facility_id: facility_id
     start_date: CONCAT(month, '-01')
     rate: discount

@@ -11,23 +11,60 @@
     id: 2
   :fields:
     dlt_host: https://www4.kepco.co.jp
-    dlt_path: "/prx/000/http/kanden"
+    dlt_path: "/prx/000/http/kanden/jidoDL"
     is_partial_included: false
 - :cond:
     id: 3
   :fields:
     dlt_host: https://epcdss-www.chuden.co.jp
-    dlt_path: "/41294"
+    dlt_path: "/:company_area_code"
+- :cond:
+    id: 4
+  :fields:
+    dlt_host: https://nsc.hepco.co.jp
+    dlt_path: "/LNXWPWSS01OH"
 - :cond:
     id: 5
   :fields:
     dlt_host: https://takuso-web.takuso.tohoku-epco.co.jp
     dlt_path: "/G83PPS_Auto"
 - :cond:
+    id: 6
+  :fields:
+    dlt_host: https://dummy.hokuriku
+    dlt_path: "/"
+- :cond:
+    id: 7
+  :fields:
+    dlt_host: https://plins-www.energia.co.jp
+    dlt_path: "/PPS2"
+- :cond:
+    id: 8
+  :fields:
+    dlt_host: https://wsc3.yonden.co.jp
+    dlt_path: "/PPS/30min"
+- :cond:
     id: 9
   :fields:
     dlt_host: https://nsc-www.network.kyuden.co.jp
     dlt_path: "/LNXWPWSS01I/App"
+- :fields:
+    id: 10
+    name: 沖縄電力
+    code: 10
+    wheeler_code: 
+    loss_rate_special_high_voltage: 
+    loss_rate_high_voltage: 
+    loss_rate_low_voltage: 
+    dlt_host: https://dummy.okinawa/
+    dlt_path: "/LNXWPWSS01I/App"
+    is_partial_included: 'TRUE'
+    daytime_start_time_index_id: 
+    daytime_end_time_index_id: 
+    peaktime_start_time_index_id: 
+    peaktime_end_time_index_id: 
+    summer_season_start_month: 
+    summer_season_end_month: 
 :sources:
 - :fields:
     id: id

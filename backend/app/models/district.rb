@@ -2,26 +2,26 @@
 #
 # Table name: districts
 #
-#  id                              :bigint(8)        not null, primary key
-#  name                            :string(255)
-#  code                            :string(255)
-#  wheeler_code                    :string(255)
-#  loss_rate_special_high_voltage  :float(24)
-#  loss_rate_high_voltage          :float(24)
-#  loss_rate_low_voltage           :float(24)
-#  dlt_host                        :string(255)
-#  dlt_path                        :string(255)
-#  is_partial_included             :boolean          not null
-#  daytime_start_time_index_id_id  :bigint(8)
-#  daytime_end_time_index_id_id    :bigint(8)
-#  peaktime_start_time_index_id_id :bigint(8)
-#  peaktime_end_time_index_id_id   :bigint(8)
-#  summer_season_start_month       :integer
-#  summer_season_end_month         :integer
-#  created_by                      :integer
-#  updated_by                      :integer
-#  created_at                      :datetime         not null
-#  updated_at                      :datetime         not null
+#  id                             :bigint(8)        not null, primary key
+#  name                           :string(255)
+#  code                           :string(255)
+#  wheeler_code                   :string(255)
+#  loss_rate_special_high_voltage :float(24)
+#  loss_rate_high_voltage         :float(24)
+#  loss_rate_low_voltage          :float(24)
+#  dlt_host                       :string(255)
+#  dlt_path                       :string(255)
+#  is_partial_included            :boolean          not null
+#  daytime_start_time_index_id    :bigint(8)
+#  daytime_end_time_index_id      :bigint(8)
+#  peaktime_start_time_index_id   :bigint(8)
+#  peaktime_end_time_index_id     :bigint(8)
+#  summer_season_start_month      :integer
+#  summer_season_end_month        :integer
+#  created_by                     :integer
+#  updated_by                     :integer
+#  created_at                     :datetime         not null
+#  updated_at                     :datetime         not null
 #
 
 class District < ApplicationRecord
@@ -48,6 +48,13 @@ class District < ApplicationRecord
       }
     end
     super options
+  end
+
+  #
+  # エリアコード1桁を返す
+  #
+  def code_1digit
+    code.nil? ? nil : code[1]
   end
 
   #

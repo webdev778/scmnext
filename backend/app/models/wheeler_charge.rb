@@ -8,8 +8,8 @@
 #  start_date                :date             not null
 #  basic_charge              :decimal(10, 4)
 #  meter_rate_charge         :decimal(10, 4)
-#  mater_rate_charge_daytime :decimal(10, 4)
-#  mater_rate_charge_night   :decimal(10, 4)
+#  meter_rate_charge_daytime :decimal(10, 4)
+#  meter_rate_charge_night   :decimal(10, 4)
 #  peak_shift_discount       :decimal(10, 4)
 #  a_charge                  :decimal(10, 4)
 #  b_charge                  :decimal(10, 4)

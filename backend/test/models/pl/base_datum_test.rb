@@ -13,7 +13,7 @@
 #  amount_imbalance                  :decimal(10, 4)
 #  power_factor_rate                 :decimal(10, 4)
 #  sales_basic_charge                :decimal(10, 4)
-#  sales_mater_rate_charge           :decimal(10, 4)
+#  sales_meter_rate_charge           :decimal(10, 4)
 #  sales_fuel_cost_adjustment        :decimal(10, 4)
 #  sales_cost_adjustment             :decimal(10, 4)
 #  sales_special_discount            :decimal(10, 4)
@@ -23,13 +23,15 @@
 #  usage_fit                         :decimal(10, 4)
 #  usage_matching                    :decimal(10, 4)
 #  supply_jbu_basic_charge           :decimal(10, 4)
+#  supply_jbu_meter_rate_charge      :decimal(10, 4)
 #  supply_jbu_fuel_cost_adjustment   :decimal(10, 4)
 #  supply_jepx_spot                  :decimal(10, 4)
 #  supply_jepx_1hour                 :decimal(10, 4)
 #  supply_fit                        :decimal(10, 4)
+#  supply_matching                   :decimal(10, 4)
 #  supply_imbalance                  :decimal(10, 4)
 #  supply_wheeler_fundamental_charge :decimal(10, 4)
-#  supply_wheeler_mater_rate_charge  :decimal(10, 4)
+#  supply_wheeler_meter_rate_charge  :decimal(10, 4)
 #  created_by                        :integer
 #  updated_by                        :integer
 #  created_at                        :datetime         not null

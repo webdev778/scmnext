@@ -34,7 +34,7 @@ FacilityGroup.all.where(voltage_type_id: 99).each do |facility_group|
 end
 puts "#{count}件 更新しました。"
 
-puts "低圧施設のうち、設備グループ登録されていないものを登録"
+puts "低圧施設のうち、施設グループ登録されていないものを登録"
 facility_not_grouped = Facility
   .includes([{supply_point: :facility_group}, :consumer])
   .where("facility_groups.id"=>nil)

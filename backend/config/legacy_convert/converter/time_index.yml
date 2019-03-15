@@ -149,10 +149,10 @@
 :sources:
 - :fields:
     id: "'スキップ用ダミー'"
-    time:
-    created_by:
-    updated_by:
-    created_at:
-    updated_at:
+    time: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
   :from: tbl_account
   :where: 1 = 0

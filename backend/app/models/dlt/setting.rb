@@ -33,6 +33,14 @@ class Dlt::Setting < ApplicationRecord
   #
   def connection
     return @con unless @con.nil?
+    if company.company_account_occto.nil?
+      logger.error("#{company.name}の広域アカウント情報がありません。")
+      return nil
+    end
+    if company.company_account_occto.pkcs12_object.nil?
+      logger.error("#{company.name}の広域アカウント情報の証明書を読み込むことができません。")
+      return nil
+    end
 
     district = self.district
     pkcs12 = company.company_account_occto.pkcs12_object
@@ -43,7 +51,21 @@ class Dlt::Setting < ApplicationRecord
         client_cert: pkcs12.certificate
       }
     )
-    @con
+  end
+
+  #
+  # PPSエリア別コードを返す
+  #
+  def company_area_code
+    company.code + district.code_1digit
+  end
+
+  #
+  # 託送データ取得用urlのprefixを返す
+  # (dlt_pathに:company_area_codeとある場合のみPPSエリア別コードに置換する)
+  #
+  def path_prefix
+    district.dlt_path.gsub(':company_area_code', company_area_code)
   end
 
   #

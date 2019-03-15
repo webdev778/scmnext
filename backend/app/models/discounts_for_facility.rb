@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: discount_for_facilities
+# Table name: discounts_for_facilities
 #
 #  id          :bigint(8)        not null, primary key
 #  facility_id :bigint(8)
@@ -12,7 +12,7 @@
 #  updated_at  :datetime         not null
 #
 
-class DiscountForFacility < ApplicationRecord
+class DiscountsForFacility < ApplicationRecord
   belongs_to :facility
 
   scope :includes_for_index, lambda {
