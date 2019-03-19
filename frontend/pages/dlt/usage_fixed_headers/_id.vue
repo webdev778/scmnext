@@ -39,7 +39,7 @@ export default {
         },
         {
           key: "supply_point_number",
-          type: "select",
+          type: "text",
           label: "供給地点特定番号"
         },
         {
@@ -99,33 +99,21 @@ export default {
         }
       ],
       options: {
-        file_id: {},
-        supply_point_number: {}
+        file_id: {}
       }
     }
   },
   created() {
-    this.$axios.$get('/v1/dlt/files')
+    this.$axios.$get(`/v1/dlt/files`)
     .then(result=>{
       let files = result.map(item=>{
         return {
           value: item.id,
-          text: item.name
+          text: item.content_blob.filename
         }
       })
       files.unshift({value: null, text: ""})
       this.options['file_id'] = files
-    })
-    this.$axios.$get('/v1/supply_points')
-    .then(result=>{
-      let supply_points = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      supply_points.unshift({value: null, text: ""})
-      this.options['supply_point_number'] = supply_points
     })
   }
 }

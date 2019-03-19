@@ -24,6 +24,7 @@ class Resource < ApplicationRecord
   def as_json(options = {})
     if options.blank?
       options = {
+        methods: [:type],
         include: :balancing_group
       }
     end

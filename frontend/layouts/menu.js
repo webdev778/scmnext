@@ -83,7 +83,7 @@ export default {
         },
         {
           name: '施設別割引',
-          url: '/masters/discount_for_facilities',
+          url: '/masters/discounts_for_facilities',
         },
         {
           name: '契約',

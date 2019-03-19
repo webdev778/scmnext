@@ -3,8 +3,29 @@
     title="ユーザー一覧"
     name="users"
     v-bind:fields="fields"
+    v-bind:query="query"
     v-bind:can-edit="false"
   )
+    template(slot="search")
+      b-row
+        b-col
+          b-form-group(
+            label="UID"
+            label-for="uid"
+            )
+            b-form-input(
+              id="uid"
+              v-model="query.uid_cont"
+            )
+        b-col
+          b-form-group(
+            label="E-Mail"
+            label-for="email"
+            )
+            b-form-input(
+              id="email"
+              v-model="query.email_cont"
+            )
 </template>
 
 <script>
@@ -21,11 +42,11 @@ export default {
         },
         {
           key: "uid",
-          label: "uid"
+          label: "UID"
         },
         {
           key: "email",
-          label: "E-mail"
+          label: "E-Mail"
         },
         {
           key: "created_at",
@@ -35,7 +56,11 @@ export default {
           key: "updated_at",
           label: "更新日時"
         }
-      ]
+      ],
+      query: {
+        uid_cont: null,
+        email_cont: null
+      }
     }
   }
 }

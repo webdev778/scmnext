@@ -4,6 +4,7 @@
     name="jepx/spot_trade"
     v-bind:id="$route.params.id"
     v-bind:fields="fields"
+    v-bind:options="options"
     v-bind:can-edit="false"
   )
 </template>
@@ -28,8 +29,8 @@ export default {
         },
         {
           key: "time_index_id",
-          type: "text",
-          label: "時間枠ID"
+          type: "select",
+          label: "時間枠"
         },
         {
           key: "sell_bit_amount",
@@ -81,8 +82,24 @@ export default {
           type: "text",
           label: "α確報値×スポット・時間前平均価格(円/kWh)"
         }
-      ]
+      ],
+      options: {
+        time_index_id: {}
+      }
     }
+  },
+  created() {
+    this.$axios.$get('/v1/time_indices')
+    .then(result=>{
+      let time_indices = result.map(item=>{
+        return {
+          value: item.id,
+          text: item.time
+        }
+      })
+      time_indices.unshift({value: null, text: ""})
+      this.options['time_index_id'] = time_indices
+    })
   }
 }
 </script>

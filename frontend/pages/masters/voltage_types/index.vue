@@ -3,6 +3,7 @@
     title="電圧種別一覧"
     name="voltage_types"
     v-bind:fields="fields"
+    v-bind:list-only="true"
     v-bind:query="query"
     v-bind:can-edit="false"
   )

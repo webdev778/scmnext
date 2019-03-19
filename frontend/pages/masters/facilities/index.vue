@@ -57,6 +57,15 @@
               v-bind:options="districts"
             )
         b-col
+          b-form-group(
+            label="電圧種別"
+            label-for="voltage_type_id"
+            )
+            b-form-select(
+              id="voltage_type_id"
+              v-model="query.voltage_type_id_eq"
+              v-bind:options="voltage_types"
+            )
 </template>
 
 <script>
@@ -82,7 +91,7 @@ export default {
         },
         {
           key: "consumer.company.name",
-          label: "PPS"
+          label: "PPS名"
         },
         {
           key: "consumer.name",
@@ -90,8 +99,12 @@ export default {
         },
         {
           key: "district.name",
-          label: "エリア",
+          label: "エリア名",
           width: 70
+        },
+        {
+          key: "voltage_type.name",
+          label: "電圧種別名"
         },
         {
           key: "created_at",
@@ -109,10 +122,12 @@ export default {
         supply_point_number_cont: null,
         consumer_name_cont: null,
         consumer_company_id_eq: null,
-        district_id_eq: null
+        district_id_eq: null,
+        voltage_type_id_eq: null
       },
       companies: [],
-      districts: []
+      districts: [],
+      voltage_types: []
     }
   },
   created() {
@@ -137,6 +152,17 @@ export default {
       })
       options.unshift({value: null, text: "全て"})
       this.districts = options
+    })
+    this.$axios.$get(`/v1/voltage_types`)
+    .then(result=>{
+      let options = result.map(item=>{
+        return {
+          value: item.id,
+          text: item.name
+        }
+      })
+      options.unshift({value: null, text: "全て"})
+      this.voltage_types = options
     })
   }
 }

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     end
     resources :bg_members
     resources :companies
+    resources :discounts_for_facilities
     resources :districts
     resources :district_loss_rates
     resources :consumers
