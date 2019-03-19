@@ -67,6 +67,9 @@ group :development do
   gem 'yard'
   gem 'annotate'
   gem 'rails-erd'
+  gem 'asciidoctor'
+  gem 'asciidoctor-diagram'
+  gem 'asciidoctor-pdf'
 end
 
 

@@ -1,60 +1,66 @@
-# web:
-#   image: jwilder/nginx-proxy
-#   container_name: nginx-proxy
-#   ports:
-#     - "80:80"
-#     - "443:443"
-#   volumes:
-#     - /var/run/docker.sock:/tmp/docker.sock:ro
-#     - /mnt/share/web/lecerts:/etc/nginx/certs:ro
-#     - /etc/nginx/vhost.d
-#     - /usr/share/nginx/html
-#     - /mnt/share/web/conf.d/custom_proxy_settings.conf:/etc/nginx/conf.d/custom_proxy_settings.conf:ro
-#     #- /mnt/share/web/certs:/etc/nginx/certs:Z
-#   labels:
-#     com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "jwilder/nginx-proxy"
-#   links:
-#     - frontend
-# letsencrypt:
-#   image: jrcs/letsencrypt-nginx-proxy-companion
-#   container_name: lets-encrypt
-#   volumes:
-#     - /mnt/share/web/lecerts:/etc/nginx/certs:rw
-#     - /var/run/docker.sock:/var/run/docker.sock:ro
-#   volumes_from:
-#     - web
-#   links:
-#     - web
 version: '2'
 services:
+  web:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /home/ubuntu/config/lecerts:/etc/nginx/certs:ro
+      - /etc/nginx/vhost.d
+      - /usr/share/nginx/html
+      # - /mnt/share/web/conf.d/custom_proxy_settings.conf:/etc/nginx/conf.d/custom_proxy_settings.conf:ro
+    labels:
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "jwilder/nginx-proxy"
+    links:
+      - frontend
+      - backend
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: lets-encrypt
+    volumes:
+      - /home/ubuntu/config/lecerts:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    volumes_from:
+      - web
+    links:
+      - web
   frontend:
     build:
       context: ./frontend
       args:
-        AXIOS_HOST: 13.114.230.18
-        AXIOS_PORT: 3000
+        AXIOS_HOST: staging.api.next.enepascm.net
+        AXIOS_PORT: 80
     container_name: scmnext-frontend
     hostname: frontend
-    ports:
-      - "80:80"
     links:
       - backend
     environment:
+      VIRTUAL_HOST: "staging.www.next.enepascm.net"
+      LETSENCRYPT_HOST: "staging.www.next.enepascm.net"
+      VIRTUAL_PORT: "80"
+      HTTPS_METHOD: "noredirect"
+      CERT_NAME: "staging.www.next.enepascm.net"
       NODE_ENV: production
       HOST: 0.0.0.0
       PORT: 80
-      AXIOS_HOST: 13.114.230.18
-      AXIOS_PORT: 3000
+      AXIOS_HOST: staging.api.next.enepascm.net
+      AXIOS_PORT: 443
   backend:
     build: ./backend
     container_name: scmnext-backend
     hostname: backend
-    ports:
-      - "3000:3000"
     volumes:
       - /home/ubuntu/config/master.key:/usr/src/app/config/master.key:ro
     environment:
+      VIRTUAL_HOST: "staging.api.next.enepascm.net"
+      LETSENCRYPT_HOST: "staging.api.next.enepascm.net"
+      VIRTUAL_PORT: "3000"
+      HTTPS_METHOD: "noredirect"
+      CERT_NAME: "staging.api.next.enepascm.net"
       RAILS_ENV: "staging"
       RAILS_LOG_TO_STDOUT: "true"
-      RAILS_CORS_ORIGINES: "http://13.114.230.18"
+      RAILS_CORS_ORIGINES: "https://staging.www.next.enepascm.net"
 
