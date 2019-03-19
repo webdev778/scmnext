@@ -2,6 +2,7 @@ FROM node:8-alpine
 
 ARG AXIOS_HOST
 ARG AXIOS_PORT
+ARG AXIOS_HTTPS
 
 WORKDIR /usr/src/app
 
@@ -18,7 +19,7 @@ ENV PATH $HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH
 
 COPY . .
 RUN yarn install
-RUN yarn run build 
+RUN yarn run build
 
 EXPOSE 80
 

@@ -1,5 +1,6 @@
 const axiosHost = process.env.AXIOS_HOST || '192.168.33.22'
 const axiosPort = process.env.AXIOS_PORT || '3000'
+const axiosHttps = process.env.AXIOS_HTTPS || false
 
 const changeLoaderOptions = loaders => {
   if (loaders) {
@@ -94,7 +95,8 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
     host: axiosHost,
-    port: axiosPort
+    port: axiosPort,
+    https: axiosHttps
   },
 
   /*
