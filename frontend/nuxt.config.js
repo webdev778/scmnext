@@ -1,6 +1,6 @@
 const axiosHost = process.env.AXIOS_HOST || '192.168.33.22'
 const axiosPort = process.env.AXIOS_PORT || '3000'
-const axiosHttps = process.env.AXIOS_HTTPS || false
+const axiosHttps = (process.env.AXIOS_HTTPS == 'true') || false
 
 const changeLoaderOptions = loaders => {
   if (loaders) {

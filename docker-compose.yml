@@ -13,6 +13,8 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     labels:
       com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "jwilder/nginx-proxy"
+    environment:
+      DHPARAM_GENERATION: "false"
   letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: lets-encrypt
@@ -28,7 +30,7 @@ services:
       args:
         AXIOS_HOST: staging.api.next.enepascm.net
         AXIOS_PORT: 443
-        AXIOS_HTTPS: true
+        AXIOS_HTTPS: "true"
     container_name: scmnext-frontend
     hostname: frontend
     depends_on:
@@ -45,7 +47,7 @@ services:
       PORT: 80
       AXIOS_HOST: staging.api.next.enepascm.net
       AXIOS_PORT: 443
-      AXIOS_HTTPS: true
+      AXIOS_HTTPS: "true"
   backend:
     build: ./backend
     container_name: scmnext-backend
