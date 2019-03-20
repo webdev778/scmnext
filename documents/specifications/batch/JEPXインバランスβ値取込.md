@@ -9,6 +9,28 @@ JEPXのサイトよりインバランスβ値のExcelを取得し、関連テー
 ## 概要図
 
 ````puml
+salt
+{
+  検索条件
+  {
+      id | "XXXXX" | バランシンググループ名 | "XXXXX"
+      PPS 名 | "XXXXX"
+    [検索]
+  }
+  一覧
+  {
+    {#
+      前へ | 1 | 2 | 3 | 4 | 次へ
+    } | ^10件^
+  }
+  {#
+    . |id|バランシンググループ名|PPS 名
+    [表示] | XXXXX|XXXXX|XXXXX
+  }
+}
+````
+
+````puml
 cloud JEPX {
   file "インバランスβ値ファイル" as input
 }
