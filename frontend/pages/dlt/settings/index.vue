@@ -28,6 +28,16 @@
               v-model="query.district_id_eq"
               v-bind:options="districts"
             )
+        b-col
+          b-form-group(
+            label="状態"
+            label-for="state_eq"
+            )
+            b-form-select(
+              id="state_eq"
+              v-model="query.state_eq"
+              v-bind:options="states"
+            )
 </template>
 
 <script>
@@ -51,6 +61,10 @@ export default {
           label: "エリア名"
         },
         {
+          key: "state_i18n",
+          label: "状態"
+        },
+        {
           key: "created_at",
           label: "作成日時"
         },
@@ -61,34 +75,26 @@ export default {
       ],
       query: {
         company_id_eq: null,
-        district_id_eq: null
+        district_id_eq: null,
+        state_eq: null
       },
       companies: [],
-      districts: []
+      districts: [],
+      states: []
     }
   },
   created() {
-    this.$axios.$get(`/v1/companies`)
+    this.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
     .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.companies = options
+      this.companies = result
     })
-    this.$axios.$get(`/v1/districts`)
+    this.$restApi.list('districts', null, {format: 'options', emptyValue: '全て'})
     .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.districts = options
+      this.districts = result
+    })
+    this.$restApi.enums('dlt/settings', 'states', {format: 'options', emptyValue: '全て'})
+    .then(result=>{
+      this.states = result
     })
   }
 }

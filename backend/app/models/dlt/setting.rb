@@ -20,6 +20,17 @@ class Dlt::Setting < ApplicationRecord
     state_stop: 1
   }
 
+  ransacker :state, formatter: proc { |v|
+    value = self.states[v]
+    if value.blank?
+      -1
+    else
+      value
+    end
+  } do |parent|
+    parent.table[:state]
+  end
+
   scope :includes_for_index, lambda {
     includes([:company, :district])
   }
@@ -27,6 +38,9 @@ class Dlt::Setting < ApplicationRecord
   def as_json(options = {})
     if options.blank?
       options = {
+        methods: [
+          :state_i18n
+        ],
         include: [:company, :district]
       }
     end
@@ -77,12 +91,17 @@ class Dlt::Setting < ApplicationRecord
   # 指定されたデータ区分、日付、時間枠(当日データのみ)に一致するダウンロードデータを高圧・低圧とも検索し
   # 取込処理を実行する
   #
-  def get_xml_object_and_process_high_and_low(data_type, date, time_index = nil)
+  # @param data_type [symbol] today/past/fixedのいずれかの値
+  # @param date [Date] 日付
+  # @param time_index [Integer] 時間枠ID
+  # @param skip_complated [boolean] 完了分を無視するか否か
+  #
+  def get_xml_object_and_process_high_and_low(data_type, date, time_index = nil, skip_complated = true)
     %i[high low].each do |voltage_class|
-      files.filter_by_filename(data_type, voltage_class, date, time_index).each do |row|
-        logger.debug(row.content.filename)
-        row.perform_document_read do |doc|
-          yield(row, doc, voltage_class)
+      files.filter_by_filename(data_type, voltage_class, date, time_index).skip_complated_if(skip_complated).each do |file|
+        logger.debug(file.content.filename)
+        file.perform_document_read do |doc|
+          yield(file, doc, voltage_class)
         end
       end
     end

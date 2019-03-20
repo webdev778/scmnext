@@ -25,7 +25,7 @@ export default {
         {
           key: "company_id",
           type: "select",
-          label: "PPS"
+          label: "PPS",
         },
         {
           key: "district_id",
@@ -34,38 +34,29 @@ export default {
         },
         {
           key: "state",
-          type: "text",
+          type: "radio",
           label: "状態"
         }
       ],
       options: {
         company_id: {},
-        district_id: {}
+        district_id: {},
+        state: {}
       }
     }
   },
   created() {
-    this.$axios.$get('/v1/companies')
+    this.$restApi.list('companies', null, {format: 'options', emptyValue: '未設定'})
     .then(result=>{
-      let companies = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      companies.unshift({value: null, text: ""})
-      this.options['company_id'] = companies
+      this.options['company_id'] = result
     })
-    this.$axios.$get('/v1/districts')
+    this.$restApi.list('districts', null, {format: 'options', emptyValue: '未設定'})
     .then(result=>{
-      let districts = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      districts.unshift({value: null, text: ""})
-      this.options['district_id'] = districts
+      this.options['district_id'] = result
+    })
+    this.$restApi.enums('dlt/settings', 'state', {format: 'options'})
+    .then(result=>{
+      this.options['state'] = result
     })
   }
 }

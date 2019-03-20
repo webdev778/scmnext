@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     end
     concern :enumable do
       collection do
-        get 'enums/:name', action: 'enum'
+        get 'enums/:name', action: 'enums'
       end
     end
 
