@@ -31,6 +31,10 @@ class Dlt::Setting < ApplicationRecord
     parent.table[:state]
   end
 
+  scope :filter_state_active, lambda {
+    where(state: :state_active)
+  }
+
   scope :includes_for_index, lambda {
     includes([:company, :district])
   }

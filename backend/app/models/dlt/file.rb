@@ -34,6 +34,14 @@ class Dlt::File < ApplicationRecord
       .where(['active_storage_blobs.filename LIKE ?', pattern])
   }
 
+  scope :skip_complated_if, lambda { |skip_complated|
+    if skip_complated
+      where.not(state: [:state_complated, :state_in_progress])
+    else
+      where.not(state: :state_in_progress)
+    end
+  }
+
   scope :includes_for_index, lambda {
     includes(%i[content_attachment content_blob])
   }
@@ -52,7 +60,7 @@ class Dlt::File < ApplicationRecord
     # @yield [filename] 偽を返した場合はダウンロードをスキップする
     #
     def download
-      Dlt::Setting.all.find_each do |setting|
+      Dlt::Setting.filter_state_active.find_each do |setting|
         target_name = "#{setting.company.name} #{setting.district.name}"
         if setting.connection.nil?
           logger.error("[#{target_name}]のダウンロードをスキップしました。")
