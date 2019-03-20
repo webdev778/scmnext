@@ -13,7 +13,12 @@
 class Dlt::Setting < ApplicationRecord
   belongs_to :company
   belongs_to :district
-  has_many :files, class_name: 'Dlt::File'
+  has_many :files, class_name: Dlt::File.to_s
+
+  enum state: {
+    state_active: 0,
+    state_stop: 1
+  }
 
   scope :includes_for_index, lambda {
     includes([:company, :district])

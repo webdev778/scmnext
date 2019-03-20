@@ -26,6 +26,7 @@ gem 'rubyXL'
 gem 'activerecord-import'
 gem 'aws-sdk-s3', '~> 1'
 gem 'whenever'
+gem 'enum_help'
 
 # for legacy access
 gem 'composite_primary_keys'
