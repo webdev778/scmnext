@@ -15,15 +15,15 @@ export default {
       url: '/base',
       children: [
         {
-          name: '託送ダウンロード設定',
+          name: 'ダウンロード設定',
           url: '/dlt/settings',
         },
         {
-          name: '託送データ',
+          name: 'ダウンロードファイル',
           url: '/dlt/files',
         },
         {
-          name: '確定使用量データ',
+          name: '確定使用量ヘッダ',
           url: '/dlt/usage_fixed_headers',
         }
       ]
@@ -110,18 +110,6 @@ export default {
           url: '/masters/district_loss_rates',
         },
         {
-          name: 'ダウンロードファイル',
-          url: '/dlt/files',
-        },
-        {
-          name: 'ダウンロード設定',
-          url: '/dlt/settings',
-        },
-        {
-          name: '確定使用量ヘッダ',
-          url: '/dlt/usage_fixed_headers',
-        },
-        {
           name: '燃料調整費',
           url: '/masters/fuel_cost_adjustments',
         },
@@ -160,6 +148,21 @@ export default {
         {
           name: '休日',
           url: '/masters/holidays',
+        }
+      ]
+    },
+    {
+      name: 'JEPXデータ連携',
+      icon: 'icon-puzzle',
+      url: '/base',
+      children: [
+        {
+          name: 'インバランスβ',
+          url: '/jepx/imbalance_betas',
+        },
+        {
+          name: 'スポット市場取引結果',
+          url: '/jepx/spot_trades',
         }
       ]
     },
