@@ -50,27 +50,13 @@ export default {
     }
   },
   created() {
-    this.$axios.$get('/v1/districts')
+    this.$restApi.list('districts', null, {format: 'options', emptyValue: '未設定'})
     .then(result=>{
-      let districts = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      districts.unshift({value: null, text: ""})
-      this.options['district_id'] = districts
+      this.options['district_id'] = result
     })
-    this.$axios.$get(`/v1/companies`)
+    this.$restApi.list('companies', null, {format: 'options', emptyValue: '未設定'})
     .then(result=>{
-      let companies = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      companies.unshift({value: null, text: ""})
-      this.options['leader_company_id'] = companies
+      this.options['leader_company_id'] = result
     })
   }
 }

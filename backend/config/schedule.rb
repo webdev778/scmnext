@@ -18,7 +18,7 @@
 # end
 
 # docker環境を前提に書き換える
-docker_command = "cd /home/ubuntu/scmnext && sudo docker-compose exec backend"
+docker_command = "cd /home/ubuntu/scmnext && sudo /usr/local/bin/docker-compose exec -T backend"
 job_type :rake,    "#{docker_command} rails :task --silent :output"
 job_type :runner,  "#{docker_command} rails runner ':task' :output"
 job_type :script,  "#{docker_command} bundle exec script/:task :output"
@@ -27,6 +27,11 @@ job_type :script,  "#{docker_command} bundle exec script/:task :output"
 every 10.minute do # 1.minute 1.day 1.week 1.month 1.year is also supported
   rake 'dlt:download'
   rake 'dlt:import:today'
+end
+
+# マスタデータの同期
+every 1.day, at: '1:00' do
+  rake 'legacy:convert'
 end
 
 # 速報値過去データの取り込み

@@ -52,6 +52,17 @@ module SimpleRestApi
     execute_action_and_send_result(instance, &:destroy)
   end
 
+  def list
+    label = params[:text]
+    label ||= 'name'
+    model_class.column_names.include?(label)
+    render json: model_class.pluck(:id, label).to_h
+  end
+
+  def enums
+    render json: model_class.send("#{params[:name].pluralize}_i18n")
+  end
+
   protected
 
   def params_for_save

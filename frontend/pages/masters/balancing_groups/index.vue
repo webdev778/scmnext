@@ -84,27 +84,13 @@ export default {
     }
   },
   created() {
-    this.$axios.$get(`/v1/districts`)
+    this.$restApi.list('districts', null, {format: 'options', emptyValue: '全て'})
     .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.districts = options
+      this.districts = result
     })
-    this.$axios.$get(`/v1/companies`)
+    this.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
     .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.leader_companies = options
+      this.leader_companies = result
     })
   }
 }
