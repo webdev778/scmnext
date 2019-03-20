@@ -1,0 +1,59 @@
+=== 施設別割引詳細画面
+
+==== 概要
+
+[.lead]
+施設別割引の詳細情報を表示する。
+
+[plantuml]
+--
+rectangle {
+  database "施設別割引" as input
+  database "施設" as facilities
+
+  ("施設別割引詳細画面") as (prog)
+}
+
+input --> prog : input
+facilities --> prog : input
+--
+
+===== I/O
+
+|======================================
+| 名称 | 物理名 | 種類 | I/O種別 | 備考
+| 施設別割引 | discounts_for_facilities | DB | I |
+| 施設 | facilities | DB | I | IDをfacility_idと外部結合
+|======================================
+
+<<<
+
+==== 画面項目定義
+
+==== 詳細情報
+|======================================
+| 項目名 | 物理項目名 | 取得元 | I/O | 備考
+| id | id | discounts_for_facilities | O | 
+| 施設ID | facility_id | discounts_for_facilities | O | 関連テーブルの全データを取得しドロップダウンにセットする
+| 適用開始日 | start_date | discounts_for_facilities | O | 
+| 割引率 | rate | discounts_for_facilities | O | 
+| 作成者 | created_by | discounts_for_facilities | O | 
+| 更新者 | updated_by | discounts_for_facilities | O | 
+| 作成日時 | created_at | discounts_for_facilities | O | 
+| 更新日時 | updated_at | discounts_for_facilities | O | 
+|======================================
+
+<<<
+
+==== 機能詳細
+
+===== 初期表示
+
+施設別割引の一覧API(show)を呼び出して結果を画面にマップする。
+
+===== 戻るボタン押下時
+
+一覧画面に戻る。
+
+<<<
+

@@ -1,0 +1,124 @@
+=== 施設グループ一覧画面
+
+==== 概要
+
+[.lead]
+施設グループの一覧を表示する。
+
+===== 画面イメージ
+[plantuml]
+--
+salt
+{
+  検索条件
+  {
+      id | "XXXXX" | 名前 | "XXXXX"
+      電圧種別名 | "XXXXX" | PPS 名 | "XXXXX"
+      エリア名 | "XXXXX" | 契約名 | "XXXXX"
+    [検索]
+  }
+  一覧
+  {
+    {#
+      前へ | 1 | 2 | 3 | 4 | 次へ
+    } | ^10件^
+  }
+  {#
+    . |id|名前|電圧種別名|PPS 名|エリア名|契約名
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+      }
+}
+
+--
+[plantuml]
+--
+rectangle {
+  database "施設グループ" as input
+  database "電圧種別" as voltage_types
+  database "会社(PPS)" as companies
+  database "供給エリア" as districts
+  database "契約" as contracts
+
+  ("施設グループ一覧画面") as (prog)
+}
+
+input --> prog : input
+voltage_types --> prog : input
+companies --> prog : input
+districts --> prog : input
+contracts --> prog : input
+--
+
+===== I/O
+
+|======================================
+| 名称 | 物理名 | 種類 | I/O種別 | 備考
+| 施設グループ | facility_groups | DB | I |
+| 電圧種別 | voltage_types | DB | I | IDをvoltage_type_idと外部結合
+| 会社(PPS) | companies | DB | I | IDをcompany_idと外部結合
+| 供給エリア | districts | DB | I | IDをdistrict_idと外部結合
+| 契約 | contracts | DB | I | IDをcontract_idと外部結合
+|======================================
+
+<<<
+
+==== 画面項目定義
+
+===== 検索条件
+|======================================
+| 項目名 | 物理項目名 | 取得元 | I/O | 備考
+| id | id | facility_groups | I |
+| 名前 | name | facility_groups | I |
+| 電圧種別名 | voltage_type.name | facility_groups | I |
+| PPS 名 | company.name | facility_groups | I |
+| エリア名 | district.name | facility_groups | I |
+| 契約名 | contract.name | facility_groups | I |
+|======================================
+
+===== 一覧
+|======================================
+| 項目名 | 物理項目名 | 取得元 | I/O | 備考
+| id | id | facility_groups | O |
+| 名前 | name | facility_groups | O |
+| 電圧種別名 | voltage_type.name | facility_groups | O |
+| PPS 名 | company.name | facility_groups | O |
+| エリア名 | district.name | facility_groups | O |
+| 契約名 | contract.name | facility_groups | O |
+|======================================
+
+<<<
+
+==== 機能詳細
+
+===== 初期表示
+
+施設グループの一覧API(index)を呼び出して結果を画面にマップする。
+
+===== 表示ボタン押下時
+
+施設グループ詳細閲覧画面に遷移する。
+
+===== 検索ボタン押下時
+
+指定された検索条件をパラメータにセットし、一覧API(index)を呼び出して結果を画面にマップする。
+
+===== 一覧のヘッダ項目押下時
+
+押下された項目でソートを行う。押下された時点において該当の項目が既に昇順ないし降順でソートされた状態ならば昇順・降順を入れ替えてソートする。
+ソートされていない状態の場合は、昇順でのソートを行う。
+
+===== ページネーター押下時
+
+指定されたページの内容を表示する。
+
+<<<
+

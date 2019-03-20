@@ -1,0 +1,111 @@
+=== エリア別損失率一覧画面
+
+==== 概要
+
+[.lead]
+エリア別損失率の一覧を表示する。
+
+===== 画面イメージ
+[plantuml]
+--
+salt
+{
+  検索条件
+  {
+      id | "XXXXX" | エリア名 | "XXXXX"
+      電圧種別名 | "XXXXX"
+    [検索]
+  }
+  一覧
+  {
+    {#
+      前へ | 1 | 2 | 3 | 4 | 次へ
+    } | ^10件^
+  }
+  {#
+    . |id|エリア名|電圧種別名
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+      }
+}
+
+--
+[plantuml]
+--
+rectangle {
+  database "エリア別損失率" as input
+  database "供給エリア" as districts
+  database "電圧種別" as voltage_types
+
+  ("エリア別損失率一覧画面") as (prog)
+}
+
+input --> prog : input
+districts --> prog : input
+voltage_types --> prog : input
+--
+
+===== I/O
+
+|======================================
+| 名称 | 物理名 | 種類 | I/O種別 | 備考
+| エリア別損失率 | district_loss_rates | DB | I |
+| 供給エリア | districts | DB | I | IDをdistrict_idと外部結合
+| 電圧種別 | voltage_types | DB | I | IDをvoltage_type_idと外部結合
+|======================================
+
+<<<
+
+==== 画面項目定義
+
+===== 検索条件
+|======================================
+| 項目名 | 物理項目名 | 取得元 | I/O | 備考
+| id | id | district_loss_rates | I |
+| エリア名 | district.name | district_loss_rates | I |
+| 電圧種別名 | voltage_type.name | district_loss_rates | I |
+|======================================
+
+===== 一覧
+|======================================
+| 項目名 | 物理項目名 | 取得元 | I/O | 備考
+| id | id | district_loss_rates | O |
+| エリア名 | district.name | district_loss_rates | O |
+| 電圧種別名 | voltage_type.name | district_loss_rates | O |
+|======================================
+
+<<<
+
+==== 機能詳細
+
+===== 初期表示
+
+エリア別損失率の一覧API(index)を呼び出して結果を画面にマップする。
+
+===== 表示ボタン押下時
+
+エリア別損失率詳細閲覧画面に遷移する。
+
+===== 検索ボタン押下時
+
+指定された検索条件をパラメータにセットし、一覧API(index)を呼び出して結果を画面にマップする。
+
+===== 一覧のヘッダ項目押下時
+
+押下された項目でソートを行う。押下された時点において該当の項目が既に昇順ないし降順でソートされた状態ならば昇順・降順を入れ替えてソートする。
+ソートされていない状態の場合は、昇順でのソートを行う。
+
+===== ページネーター押下時
+
+指定されたページの内容を表示する。
+
+<<<
+

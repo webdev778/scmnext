@@ -1,0 +1,59 @@
+=== 休日詳細画面
+
+==== 概要
+
+[.lead]
+休日の詳細情報を表示する。
+
+[plantuml]
+--
+rectangle {
+  database "休日" as input
+  database "供給エリア" as districts
+
+  ("休日詳細画面") as (prog)
+}
+
+input --> prog : input
+districts --> prog : input
+--
+
+===== I/O
+
+|======================================
+| 名称 | 物理名 | 種類 | I/O種別 | 備考
+| 休日 | holidays | DB | I |
+| 供給エリア | districts | DB | I | IDをdistrict_idと外部結合
+|======================================
+
+<<<
+
+==== 画面項目定義
+
+==== 詳細情報
+|======================================
+| 項目名 | 物理項目名 | 取得元 | I/O | 備考
+| id | id | holidays | O | 
+| エリアID | district_id | holidays | O | 関連テーブルの全データを取得しドロップダウンにセットする
+| 日付 | date | holidays | O | 
+| 名称 | name | holidays | O | 
+| 作成者 | created_by | holidays | O | 
+| 更新者 | updated_by | holidays | O | 
+| 作成日時 | created_at | holidays | O | 
+| 更新日時 | updated_at | holidays | O | 
+|======================================
+
+<<<
+
+==== 機能詳細
+
+===== 初期表示
+
+休日の一覧API(show)を呼び出して結果を画面にマップする。
+
+===== 戻るボタン押下時
+
+一覧画面に戻る。
+
+<<<
+

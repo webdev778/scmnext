@@ -28,6 +28,7 @@ sudo -u vagrant cat > ${MYHOME}/.railsrc <<EOF
 EOF
 
 apt-get install -y language-pack-ja
+timedatectl set-timezone Asia/Tokyo
 update-locale LANG=ja_JP.UTF-8
 
 apt-get -y install screen
