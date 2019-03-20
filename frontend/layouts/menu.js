@@ -122,14 +122,6 @@ export default {
           url: '/masters/jbu_contracts',
         },
         {
-          name: 'JEPXインバランスβ値',
-          url: '/jepx/imbalance_betas',
-        },
-        {
-          name: 'JEPXスポット市場取引結果',
-          url: '/jepx/spot_trades',
-        },
-        {
           name: 'リソース',
           url: '/masters/resources',
         },
