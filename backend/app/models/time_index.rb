@@ -33,7 +33,8 @@ class TimeIndex < ApplicationRecord
   end
 
   private
-    ransacker :time_text do
-      Arel.sql("time_format(time, '%H:%i')")
-    end
+
+  ransacker :time_text do
+    Arel.sql("time_format(time, '%H:%i')")
+  end
 end

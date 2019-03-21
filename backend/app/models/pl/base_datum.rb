@@ -64,9 +64,9 @@ class Pl::BaseDatum < ApplicationRecord
 
       # JBU契約を取得
       jbu_contract = JbuContract
-        .where(company_id: bg_member.company.id, district_id: bg_member.balancing_group.district_id)
-        .where("start_date <= :date and (end_date IS NULL OR end_date <= :date)", date: date)
-        .first
+                     .where(company_id: bg_member.company.id, district_id: bg_member.balancing_group.district_id)
+                     .where("start_date <= :date and (end_date IS NULL OR end_date <= :date)", date: date)
+                     .first
 
       # 月当たりのコマ数を算出
       time_index_count = TimeIndex.time_index_count_of_month(date)
@@ -76,12 +76,11 @@ class Pl::BaseDatum < ApplicationRecord
 
       # 当日のエリアプライスデータを時間枠ごとのhash_mapに
       spot_trade_area_data_map_by_time_index = Jepx::SpotTradeAreaDatum.includes(:spot_trade)
-        .where("jepx_spot_trades.date"=> date, "district_id"=>bg_member.balancing_group.district_id)
-        .map do|spot_trade_area_datum|
-          [spot_trade_area_datum.spot_trade.time_index_id, spot_trade_area_datum]
-        end
-        .to_h
-
+                                                                       .where("jepx_spot_trades.date" => date, "district_id" => bg_member.balancing_group.district_id)
+                                                                       .map do |spot_trade_area_datum|
+        [spot_trade_area_datum.spot_trade.time_index_id, spot_trade_area_datum]
+      end
+                                                                       .to_h
 
       # 需要家・コマごとの処理
       import_data = power_usage_relation.all.map do |power_usage|

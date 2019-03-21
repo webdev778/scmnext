@@ -45,15 +45,15 @@ class Dlt::File < ApplicationRecord
 
   scope :includes_for_index, lambda {
     includes([
-      :content_attachment,
-      :content_blob,
-      {
-        setting: [
-          :company,
-          :district
-        ]
-      }
-    ])
+               :content_attachment,
+               :content_blob,
+               {
+                 setting: [
+                   :company,
+                   :district
+                 ]
+               }
+             ])
   }
 
   scope :includes_for_show, lambda {

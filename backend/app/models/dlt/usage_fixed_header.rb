@@ -32,7 +32,7 @@ class Dlt::UsageFixedHeader < ApplicationRecord
   accepts_nested_attributes_for :usage_fixed_details
 
   scope :includes_for_index, lambda {
-    includes([{file: [:content_attachment, :content_blob]}])
+    includes([{ file: [:content_attachment, :content_blob] }])
   }
 
   def as_json(options = {})

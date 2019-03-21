@@ -12,8 +12,6 @@ class CreateWheelerCharges < ActiveRecord::Migration[5.2]
       t.decimal "a_charge", precision: 10, scale: 4, comment: "予備送電サービスA料金(kW)"
       t.decimal "b_charge", precision: 10, scale: 4, comment: "予備送電サービスB料金(kW)"
       t.stamp_fileds
-
-
     end
   end
 end

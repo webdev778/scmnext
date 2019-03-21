@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
   get '/auth', to: 'user_sessions#show'
   scope :v1, defaults: { format: :json } do
-
     concern :listable do
       collection do
         get 'list', action: 'list'

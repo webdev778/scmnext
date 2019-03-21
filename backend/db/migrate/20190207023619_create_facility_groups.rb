@@ -8,7 +8,6 @@ class CreateFacilityGroups < ActiveRecord::Migration[5.2]
       t.references "voltage_type", comment: "電圧種別ID"
       t.string "contract_capacity", comment: "契約容量"
       t.stamp_fileds
-
     end
   end
 end

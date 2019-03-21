@@ -41,6 +41,7 @@ class Resource < ApplicationRecord
   end
 
   protected
+
   #
   # レート取得の実装
   # (継承先で必要に応じて実装する)

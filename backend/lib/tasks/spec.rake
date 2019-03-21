@@ -14,6 +14,7 @@ def field_to_screen_item(target_model, fieldname)
   }
   column = target_model.columns_hash[fieldname]
   return nil if column.nil?
+
   screen_item = {}
   screen_item[:key] = fieldname
   if stamp_fields[fieldname.to_sym]
@@ -71,7 +72,7 @@ task spec: :environment do |_task, _args|
     DistrictLossRate,
     Dlt::File,
     Dlt::Setting,
-    #Dlt::UsageFixedHeader,
+    # Dlt::UsageFixedHeader,
     Facility,
     FacilityGroup,
     FuelCostAdjustment,
@@ -97,7 +98,7 @@ task spec: :environment do |_task, _args|
     @screen_items << field_to_screen_item(target_model, 'name')
     target_model
       .reflect_on_all_associations
-      .select {|reflection| reflection.belongs_to?}
+      .select { |reflection| reflection.belongs_to? }
       .each do |reflection|
         @extra_ios << association_to_extra_io(target_model, reflection)
         @screen_items << association_to_screen_item(target_model, reflection)
@@ -109,7 +110,7 @@ task spec: :environment do |_task, _args|
     write_to_file(document_root.join('pages', @filename), erb_list.result(binding))
 
     # 詳細画面仕様
-    foreign_key_map = target_model.reflect_on_all_associations.select(&:belongs_to?).map{|r| [r.foreign_key, r]}.to_h
+    foreign_key_map = target_model.reflect_on_all_associations.select(&:belongs_to?).map { |r| [r.foreign_key, r] }.to_h
 
     @program_name = "#{@main_table_name_jp}詳細画面"
     @extra_ios = []
@@ -129,7 +130,6 @@ task spec: :environment do |_task, _args|
     write_to_file(document_root.join('pages', @filename), erb_show.result(binding))
 
     write_to_file(document_root.join('pages', 'index.adoc'), erb_index.result(binding))
-
   end
   File.open(document_root.join("index.adoc"), "w").write(content)
 end

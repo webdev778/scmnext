@@ -46,6 +46,7 @@ class Dlt::Setting < ApplicationRecord
   #
   def connection
     return @con unless @con.nil?
+
     if company.company_account_occto.nil?
       logger.error("#{company.name}の広域アカウント情報がありません。")
       return nil

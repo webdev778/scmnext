@@ -15,7 +15,7 @@
 class Holiday < ApplicationRecord
   belongs_to :district
 
-  scope :filter_district_id, ->(district_id){
+  scope :filter_district_id, ->(district_id) {
     where(district_id: [district_id, nil])
   }
 

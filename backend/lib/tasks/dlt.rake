@@ -4,7 +4,7 @@ namespace :dlt do
     if ENV['FROM']
       # FROMが指定されていた場合はその日付までを取得する
       Dlt::File.download do |filename|
-      	ENV['FROM'].in_timezone < DateTime.strptime(filename[6, 8], '%Y%m%d')
+        ENV['FROM'].in_timezone < DateTime.strptime(filename[6, 8], '%Y%m%d')
       end
     else
       Dlt::File.download

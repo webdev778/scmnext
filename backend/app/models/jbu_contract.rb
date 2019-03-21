@@ -74,6 +74,7 @@ class JbuContract < ApplicationRecord
   end
 
   private
+
   #
   # 指定日が休日か否か
   # @param date [Date] チェック対象の日付

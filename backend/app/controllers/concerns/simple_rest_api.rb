@@ -59,7 +59,7 @@ module SimpleRestApi
     if model_class.column_names.include?(label)
       result = ransack.result.pluck(:id, label).to_h
     else
-      result = ransack.result.map{|r| [r.id, r.send(label)]}.to_h
+      result = ransack.result.map { |r| [r.id, r.send(label)] }.to_h
     end
     render json: result
   end
