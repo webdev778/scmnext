@@ -11,16 +11,29 @@
       b-row
         b-col
           b-form-group(
-            label="ID:"
-            label-for="id"
+            label="PPS名"
+            label-for="setting_company_id_eq"
             )
-            b-form-input(id="id" v-model="query.id_eq")
+            b-form-select(id="setting_company_id_eq" v-model="query.setting_company_id_eq" v-bind:options="companies")
+        b-col
+          b-form-group(
+            label="エリア名"
+            label-for="setting_district_id_eq"
+            )
+            b-form-select(id="setting_district_id_eq" v-model="query.setting_district_id_eq" v-bind:options="districts")
         b-col
           b-form-group(
             label="ファイル名"
             label-for="filename"
             )
-            b-form-input(id="status" v-model="query.content_blob_filename_cont")
+            b-form-input(id="filename" v-model="query.content_blob_filename_cont")
+      b-row
+        b-col
+          b-form-group(
+            label="ステータス"
+            label-for="state_in"
+            )
+            b-form-checkbox-group(id="state_in" name="state_in" v-model="query.state_in" v-bind:options="states")
 </template>
 
 <script>
@@ -33,16 +46,26 @@ export default {
       fields: [
         {
           key: "id",
-          label: "ID",
-          width: 50
+          label: "ID"
+        },
+        {
+          key: "setting.company.name",
+          label: "PPS名"
+        },
+        {
+          key: "setting.district.name",
+          label: "エリア名",
+          width: 80
         },
         {
           key: "content_blob.filename",
-          label: "ファイル名"
+          label: "ファイル名",
+          width: 240
         },
         {
-          key: "state",
-          label: "ステータス"
+          key: "state_i18n",
+          label: "ステータス",
+          width: 80
         },
         {
           key: "created_at",
@@ -57,15 +80,29 @@ export default {
       ],
       query: {
         id_eq: null,
+        setting_company_id_eq: null,
+        setting_district_id_eq: null,
         content_blob_filename_cont: null
-      }
+      },
+      companies: [],
+      districts: [],
+      states: []
     }
   },
-  methods: {
-    formatStatus(value) {
-      console.log(value)
-      return value
-    }
+  created (){
+    this.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
+    .then(result=>{
+      this.companies = result
+    })
+    this.$restApi.list('districts', null, {format: 'options', emptyValue: '全て'})
+    .then(result=>{
+      this.districts = result
+    })
+    this.$restApi.enums('dlt/files', 'states', {format: 'options'})
+    .then(result=>{
+      this.states = result
+    })
+
   }
 }
 </script>

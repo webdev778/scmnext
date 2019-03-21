@@ -12,11 +12,12 @@
 #
 
 class Dlt::File < ApplicationRecord
+  include RansackableEnum
   belongs_to :setting, class_name: Dlt::Setting.to_s
   has_many :usage_fixed_header
   has_one_attached :content
 
-  enum state: {
+  ransackable_enum state: {
     state_untreated: 0,
     state_complated: 1,
     state_in_progress: 2,
@@ -43,12 +44,41 @@ class Dlt::File < ApplicationRecord
   }
 
   scope :includes_for_index, lambda {
-    includes(%i[content_attachment content_blob])
+    includes([
+      :content_attachment,
+      :content_blob,
+      {
+        setting: [
+          :company,
+          :district
+        ]
+      }
+    ])
   }
 
   scope :includes_for_show, lambda {
     includes(%i[content_attachment content_blob])
   }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        methods: [
+          :state_i18n
+        ],
+        include: [
+          :content_attachment,
+          :content_blob,
+          {
+            setting: {
+              include: [:company, :district]
+            }
+          }
+        ]
+      }
+    end
+    super options
+  end
 
   # class methods
   class << self
@@ -162,18 +192,6 @@ class Dlt::File < ApplicationRecord
     def get_file(filename, setting)
       setting.connection.get("#{setting.path_prefix}/FileReceiver", file: filename)
     end
-  end
-
-  def as_json(options = {})
-    if options.blank?
-      options = {
-        include: %i[
-          content_attachment
-          content_blob
-        ]
-      }
-    end
-    super options
   end
 
   #

@@ -11,25 +11,15 @@
 #
 
 class Dlt::Setting < ApplicationRecord
+  include RansackableEnum
   belongs_to :company
   belongs_to :district
   has_many :files, class_name: Dlt::File.to_s
 
-  enum state: {
+  ransackable_enum state: {
     state_active: 0,
     state_stop: 1
   }
-
-  ransacker :state, formatter: proc { |v|
-    value = self.states[v]
-    if value.blank?
-      -1
-    else
-      value
-    end
-  } do |parent|
-    parent.table[:state]
-  end
 
   scope :filter_state_active, lambda {
     where(state: :state_active)
