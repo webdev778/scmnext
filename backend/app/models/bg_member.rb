@@ -25,6 +25,10 @@ class BgMember < ApplicationRecord
     includes([:balancing_group, :company])
   }
 
+  scope :includes_for_list, lambda {
+    includes([:company])
+  }
+
   def code
     "#{company.code}#{balancing_group.district.code}"
   end

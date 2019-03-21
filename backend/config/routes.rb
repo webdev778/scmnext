@@ -16,9 +16,7 @@ Rails.application.routes.draw do
     end
 
     resources :users, concerns: [:listable]
-    resources :balancing_groups do
-      resources :bg_members
-    end
+    resources :balancing_groups, concerns: [:listable]
     resources :bg_members, concerns: [:listable]
     resources :companies, concerns: [:listable]
     resources :discounts_for_facilities

@@ -58,6 +58,7 @@ export default {
       balancingGroups: [],
       bgMemberId: null,
       bgMembers: [],
+      targetDate: null,
       dataType: 'preliminary',
       dataTypes: [
         {value: 'preliminary', text: '速報値'},
@@ -107,7 +108,6 @@ export default {
           stack: 'actual'
         }
       ],
-      targetDate: null,
       tableData: []
     }
   },
@@ -136,77 +136,31 @@ export default {
         datasets: datasets
       }
     }
-    // tableData() {
-    //   let result = []
-    //   if (this.preliminary.length == 0 && this.fixed.lenght == 0){
-    //     return null
-    //   }
-    //   for(let i=1; i<=48 ; i++){
-    //     let title = ("0" + Math.floor((i-1)/2)).substr(-2) + ":" + ((i-1)%2==0 ? "00" : "30")
-    //     result.push({
-    //       label: title,
-    //       preliminary: (this.preliminary[i] ? this.preliminary[i] : '-'),
-    //       fixed: (this.fixed[i] ? this.fixed[i] : '-'),
-    //     })
-    //   }
-    //   return result
-    // },
-    // chartData() {
-    //   if (this.preliminary.length == 0 && this.fixed.lenght == 0){
-    //     return null
-    //   }
-    //   let chartLabels = []
-    //   let preliminaryChart = []
-    //   let fixedChart = []
-    //   for(let i=1; i<=48 ; i++){
-    //     let title = ("0" + Math.floor((i-1)/2)).substr(-2) + ":" + ((i-1)%2==0 ? "00" : "30")
-    //     chartLabels.push(title)
-    //     preliminaryChart.push((this.preliminary[i] ? this.preliminary[i] : 0))
-    //     fixedChart.push((this.fixed[i] ? this.fixed[i] : 0))
-    //   }
-    //   let result = {
-    //     labels: chartLabels,
-    //     datasets: [
-    //       {
-    //         label: "速報値",
-    //         data: preliminaryChart,
-    //         backgroundColor: "#ff0000",
-    //         fill: false
-    //       },
-    //       {
-    //         label: "確定値",
-    //         data: fixedChart,
-    //         backgroundColor: "#00ff00",
-    //         fill: false
-    //       }
-    //     ]
-    //   }
-    //   return result
-    // }
   },
   created() {
     this.init()
   },
   watch: {
     balancingGroupId(val){
-      this.$axios.$get(`/v1/balancing_groups/${val}/bg_members`)
+      this.$restApi.list('bg_members', {"q[balancing_group_id_eq]": val}, {format: 'options'})
       .then( (result)=>{
-        this.bgMemberId = result[0].id
-        this.bgMembers = result.map((item)=>{
-          return {value: item.id, text: item.name}
-        })
+        this.bgMembers = result
+        if (result.length > 0){
+          this.bgMemberId = result[0].value
+        }
       })
     }
   },
   methods: {
     init(){
-      this.$axios.$get('/v1/balancing_groups')
+      this.$restApi.list('balancing_groups', null, {format: 'options'})
       .then( (result)=>{
-        this.balancingGroupId = result[0].id
-        this.balancingGroups = result.map((item)=>{
-          return {value: item.id, text: item.name}
-        })
+        this.balancingGroups = result
+        if (result.length > 0){
+          this.balancingGroupId = result[0].value
+        }
       })
+      this.targetDate = this.$moment().format('YYYY-MM-DD')
     },
     fetchData(){
       this.$axios.$get('/v1/balancings', {params: {date: this.targetDate, type: this.dataType, bg_member_id: this.bgMemberId}})

@@ -104,7 +104,7 @@ export default function ({ app, $axios }, inject) {
     // @return 結果セットまたはそれをoptions型の配列に変換したもの
     //
     list: (modelName, params, options) => {
-      return $axios.get(`/v1/${modelName}/list`, params)
+      return $axios.get(`/v1/${modelName}/list`, {params: params})
       .then( response => {
         return formatResult(response.data, options)
       })
@@ -125,8 +125,6 @@ export default function ({ app, $axios }, inject) {
       .then( response => {
         return formatResult(response.data, options)
       })
-    },
-    //
-    //
+    }
   })
 }

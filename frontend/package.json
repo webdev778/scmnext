@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/moment": "^1.2.0",
     "bootstrap-vue": "^2.0.0-rc.1",
     "chart.js": "^2.7.1",
     "cookieparser": "^0.1.0",
@@ -20,6 +21,7 @@
     "flag-icon-css": "^2.9.0",
     "font-awesome": "^4.7.0",
     "js-cookie": "^2.2.0",
+    "moment": "^2.24.0",
     "nuxt": "^2.0.0",
     "pluralize": "^7.0.0",
     "pug": "^2.0.3",
