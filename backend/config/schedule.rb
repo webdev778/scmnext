@@ -25,7 +25,7 @@ job_type :script,  "#{docker_command} bundle exec script/:task :output"
 
 # 託送データのダウンロードと速報値当日データの取り込み
 every 15.minute do # 1.minute 1.day 1.week 1.month 1.year is also supported
-  rake 'dlt:download' 'dlt:import:today'
+  rake 'dlt:download dlt:import:today'
 end
 
 # マスタデータの同期
