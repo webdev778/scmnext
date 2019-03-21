@@ -24,9 +24,8 @@ job_type :runner,  "#{docker_command} rails runner ':task' :output"
 job_type :script,  "#{docker_command} bundle exec script/:task :output"
 
 # 託送データのダウンロードと速報値当日データの取り込み
-every 10.minute do # 1.minute 1.day 1.week 1.month 1.year is also supported
-  rake 'dlt:download'
-  rake 'dlt:import:today'
+every 15.minute do # 1.minute 1.day 1.week 1.month 1.year is also supported
+  rake 'dlt:download' 'dlt:import:today'
 end
 
 # マスタデータの同期
@@ -40,7 +39,7 @@ every 1.day, at: '9:00' do
 end
 
 # 確定値の取り込み
-every 1.day, at: '9:00' do
+every 1.day, at: '20:00' do
   rake 'dlt:import:fixed'
 end
 
