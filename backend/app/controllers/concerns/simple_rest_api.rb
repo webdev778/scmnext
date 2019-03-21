@@ -55,8 +55,13 @@ module SimpleRestApi
   def list
     label = params[:text]
     label ||= 'name'
-    model_class.column_names.include?(label)
-    render json: model_class.pluck(:id, label).to_h
+    ransack = model_class_with_includes(:list).ransack(params[:q])
+    if model_class.column_names.include?(label)
+      result = ransack.result.pluck(:id, label).to_h
+    else
+      result = ransack.result.map{|r| [r.id, r.send(label)]}.to_h
+    end
+    render json: result
   end
 
   def enums
