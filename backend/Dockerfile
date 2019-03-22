@@ -4,7 +4,8 @@ ARG RAILS_ENV
 ENV DEBIAN_FRONTEND noninteractive
 
 # タイムゾーンをAsia/Tokyoに
-RUN timedatectl set-timezone Asia/Tokyo
+RUN apt-get install -y tzdata \
+  && ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 RUN apt-get update \
   && apt-get -y install apt-utils \
