@@ -2,6 +2,10 @@ FROM ruby:2.5.1
 
 ARG RAILS_ENV
 ENV DEBIAN_FRONTEND noninteractive
+
+# タイムゾーンをAsia/Tokyoに
+RUN timedatectl set-timezone Asia/Tokyo
+
 RUN apt-get update \
   && apt-get -y install apt-utils \
   && apt-get -y install build-essential \

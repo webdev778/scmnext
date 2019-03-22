@@ -6,6 +6,12 @@ ARG AXIOS_HTTPS
 
 WORKDIR /usr/src/app
 
+# タイムゾーンをAsia/Tokyoに
+RUN apk add --update --no-cache tzdata && \
+    cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
+    echo "Asia/Tokyo" > /etc/timezone && \
+    apk del tzdata
+
 RUN apk update && \
     apk add git && \
     apk add --no-cache curl && \
