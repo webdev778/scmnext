@@ -17,7 +17,7 @@ namespace :dlt do
   namespace :import do
     desc '当日データを速報値テーブルへ取込む'
     task today: :environment do |_task, _args|
-      target_date = determine_target_date(Date.yesterday)
+      target_date = determine_target_date(Date.today)
       force = ENV['FORCE'].present? || ENV['FORCE'] == 'true'
       logger.info("処理日:#{target_date}")
       Dlt::Setting.filter_state_active.find_each do |setting|
