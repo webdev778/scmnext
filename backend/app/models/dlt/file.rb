@@ -19,6 +19,9 @@ class Dlt::File < ApplicationRecord
 
   before_save :set_file_information
 
+  validates :content,
+    presence: true
+
   ransackable_enum voltage_mode: {
     high: 1,
     low: 2
@@ -119,9 +122,9 @@ class Dlt::File < ApplicationRecord
           logger.info("download:#{list_item[:filename]}")
           result = get_file(list_item[:filename], setting)
           # @todo ファイルサイズをここでチェックする
-          Dlt::File
-            .create(setting_id: setting.id)
-            .content.attach(io: StringIO.new(result.body), filename: list_item[:filename])
+          Dlt::File.create(setting_id: setting.id) do |file|
+            file.content.attach(io: StringIO.new(result.body), filename: list_item[:filename])
+          end
         end
         logger.info("[#{target_name}]のダウンロードを完了しました。")
       end
