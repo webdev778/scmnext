@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_13_012100) do
+ActiveRecord::Schema.define(version: 2019_03_23_050152) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -243,6 +243,12 @@ ActiveRecord::Schema.define(version: 2019_03_13_012100) do
 
   create_table "dlt_files", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "ダウンロードファイル", force: :cascade do |t|
     t.bigint "setting_id", comment: "ダウンロード設定ID"
+    t.integer "voltage_mode", limit: 1, comment: "電圧モード"
+    t.integer "data_type", limit: 1, comment: "データ種別"
+    t.date "record_date", comment: "記録日:速報値の場合は、取得開始年月日、確定値の場合は検針日"
+    t.integer "record_time_index_id", limit: 2, comment: "記録時間枠ID:当日データのみ"
+    t.integer "section_number", comment: "分割番号"
+    t.integer "revision", limit: 2, comment: "更新番号"
     t.integer "state", default: 0, null: false, comment: "状態:(0:未取込,1:取込完了,2:処理中,3:一部取込(エラーあり))"
     t.integer "created_by"
     t.integer "updated_by"

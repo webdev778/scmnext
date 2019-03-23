@@ -23,6 +23,16 @@ class TimeIndex < ApplicationRecord
     end
 
     #
+    # Timeオブジェクトから時間枠IDオブジェクトを取得する
+    #
+    # @param time [Time] Timeオブジェクト
+    # @return [TimeIndex]
+    def from_time(time)
+      time_index_id = (time.hour * 2 + time.minute / 30) + 1
+      self.find(time_index_id)
+    end
+
+    #
     # 対象日におけるその月のコマ数(時間枠の数)を取得する
     #
     # @param target_date [Date] 対象日

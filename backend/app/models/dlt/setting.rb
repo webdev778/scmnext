@@ -101,4 +101,15 @@ class Dlt::Setting < ApplicationRecord
       end
     end
   end
+
+  def get_xml_object_and_process_high_and_low(data_type, date, time_index = nil, skip_complated = true)
+    %i[high low].each do |voltage_class|
+      files.filter_by_filename(data_type, voltage_class, date, time_index).skip_complated_if(skip_complated).each do |file|
+        logger.debug(file.content.filename)
+        file.perform_document_read do |doc|
+          yield(file, doc, voltage_class)
+        end
+      end
+    end
+  end
 end

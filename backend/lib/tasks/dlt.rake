@@ -17,11 +17,12 @@ namespace :dlt do
   namespace :import do
     desc '当日データを速報値テーブルへ取込む'
     task today: :environment do |_task, _args|
-      target_date = determine_target_date(Date.today)
-      logger.debug("処理日:#{target_date}")
+      target_date = determine_target_date(Date.yesterday)
+      force = ENV['FORCE'].present? || ENV['FORCE'] == 'true'
+      logger.info("処理日:#{target_date}")
       Dlt::Setting.filter_state_active.find_each do |setting|
         (1..48).each do |i|
-          PowerUsagePreliminary.import_today_data(setting.company_id, setting.district_id, target_date, i)
+          PowerUsagePreliminary.import_today_data(setting, target_date, i, force)
         end
       end
     end
@@ -29,19 +30,20 @@ namespace :dlt do
     desc '過去データを速報値テーブルへ取込む'
     task past: :environment do |_task, _args|
       target_date = determine_target_date(Date.yesterday)
-      logger.debug("処理日:#{target_date}")
+      force = ENV['FORCE'].present? || ENV['FORCE'] == 'true'
+      logger.info("処理日:#{target_date}")
       Dlt::Setting.filter_state_active.find_each do |setting|
-        PowerUsagePreliminary.import_past_data(setting.company_id, setting.district_id, target_date)
+        PowerUsagePreliminary.import_past_data(setting, target_date, force)
       end
     end
 
     desc '確定使用量データを確定使用量テーブルに取り込む'
     task fixed: :environment do |_task, _args|
-      start_date = Date.new(2018, 11, 1)
-      (start_date..start_date.next_month.end_of_month).each do |date|
-        Dlt::Setting.filter_state_active.find_each do |setting|
-          Dlt::UsageFixedHeader.import_data(setting.company_id, setting.district_id, date)
-        end
+      target_date = determine_target_date(Date.yesterday)
+      force = ENV['FORCE'].present? || ENV['FORCE'] == 'true'
+      logger.info("処理日:#{target_date}")
+      Dlt::Setting.filter_state_active.find_each do |setting|
+        Dlt::UsageFixedHeader.import_data(setting, target_date, force)
       end
     end
   end

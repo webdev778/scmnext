@@ -17,12 +17,37 @@ class Dlt::File < ApplicationRecord
   has_many :usage_fixed_header
   has_one_attached :content
 
+  before_save :set_file_information
+
+  ransackable_enum voltage_mode: {
+    high: 1,
+    low: 2
+  }
+
+  ransackable_enum data_type: {
+    today: 1,
+    past: 2,
+    fixed: 3,
+    exchange: 4,
+    extra: 5
+  }
+
   ransackable_enum state: {
     state_untreated: 0,
     state_complated: 1,
     state_in_progress: 2,
     state_complated_with_error: 3,
     state_exception: 4
+  }
+
+  #
+  # 確定値データで絞り込む
+  # @param voltage_class [Symbol] 高圧か低圧か(:high or :low)
+  # @param date [Date] 日付
+  # @param time_index [Integer] 時間枠ID
+  #
+  scope :filter_by_fixed, lambda { |voltage_class, date|
+    filter_by_filename(:fixed, voltage_class, date)
   }
 
   #
@@ -35,11 +60,14 @@ class Dlt::File < ApplicationRecord
       .where(['active_storage_blobs.filename LIKE ?', pattern])
   }
 
-  scope :skip_complated_if, lambda { |skip_complated|
-    if skip_complated
+  #
+  # 全てのデータを取込の対象とするか
+  #
+  # @param force [Boolean] falseを指定すると処理中及び完了分のみ。trueだとすべてを対象にする
+  #
+  scope :filter_force, lambda { |force|
+    unless force
       where.not(state: [:state_complated, :state_in_progress])
-    else
-      where.not(state: :state_in_progress)
     end
   }
 
@@ -127,7 +155,7 @@ class Dlt::File < ApplicationRecord
     # @param [Date/String] date 日付(YYYYMMDD形式の文字列もしくは日付型の日付、nullの場合はワイルドカード指定
     # @param [integer] time_index 時刻コード(当日ファイルのみ指定可能、nullの場合はワイルドカード指定)
     # @return [String] ファイル名のパターン
-    def make_filename_pattern(data_type, voltage_class, date = nil, time_index = nil)
+    def make_filename_pattern(data_type, voltage_class = nil, date = nil, time_index = nil)
       yyyymmdd = if date.nil?
                    '________'
                  elsif date.is_a?(String)
@@ -200,9 +228,7 @@ class Dlt::File < ApplicationRecord
   def perform_document_read
     state_in_progress!
     begin
-      zip_file = Zip::File.open_buffer(content.download)
-      doc = REXML::Document.new(zip_file.read(zip_file.entries.first.name), ignore_whitespace_nodes: :all)
-      result = yield(doc)
+      result = yield(xml_document)
       if result.failed_instances.count > 0
         state_complated_with_error!
       else
@@ -213,6 +239,87 @@ class Dlt::File < ApplicationRecord
     rescue StandardError => e
       state_exception!
       raise e
+    end
+  end
+
+  #
+  # コンテンツ中のXMLをREXMLオブジェクトとして返す
+  # @return [REXML::Document] コンテンツ中のXML
+  #
+  def xml_document
+    file_buffer = content.download
+    zip_file = Zip::File.open_buffer(file_buffer)
+    xml_entry = zip_file.entries.first.name
+    xml_buffer = zip_file.read(xml_entry)
+    doc = REXML::Document.new(xml_buffer, ignore_whitespace_nodes: :all)
+    zip_file = nil
+    xml_entry = nil
+    xml_buffer = nil
+    GC.start
+    doc
+  end
+
+  private
+  #
+  # ファイル名から電圧モード、データ種別、記録日、記録時間枠ID、更新番号、分割番号をセットする
+  #
+  def set_file_information
+    filename = content.filename.to_s
+    case filename[0, 2]
+    when "W4"
+      case filename[2, 2]
+      when "01"
+        self.voltage_mode = :high
+      when "11"
+        self.voltage_mode = :low
+      else
+        raise "不明な電圧モード [#{filename[2, 2]}]"
+      end
+      case filename[4..5]
+      when "10"
+        self.data_type = :today
+      when "20"
+        self.data_type = :past
+      else
+        raise "不明なデータ種別 [#{filename[4, 2]}]"
+      end
+      record_time = DateTime.strptime(filename[6, 12], '%Y%m%d%H%M')
+      self.record_date = record_time.to_date
+      if data_type.to_sym == :today
+        self.record_time_index_id = TimeIndex.from_time(record_time).id
+      end
+      self.revision = filename[18, 2].to_i
+      case voltage_mode.to_sym
+      when :high
+        self.section_number = filename[20, 2].to_i
+      when :low
+        self.section_number = filename[20, 4].to_i
+      end
+    when "W5"
+      case filename[2, 2]
+      when "12"
+        self.data_type = :fixed
+      when "13"
+        self.data_type = :exchange
+      when "14"
+        self.data_type = :extra
+      else
+        raise "不明なデータ種別 [#{filename[2, 2]}]"
+      end
+      case filename[4, 2]
+      when "10"
+        self.voltage_mode = :high
+      when "20"
+        self.voltage_mode = :low
+      else
+        raise "不明な電圧モード [#{filename[4, 2]}]"
+      end
+      record_time = DateTime.strptime(filename[6, 8], '%Y%m%d')
+      self.record_date = record_time.to_date
+      self.revision = filename[14, 2].to_i
+      self.section_number = filename[16, 5].to_i
+    else
+      raise "不明なBPID副機関コードド [#{filename[0, 2]}]"
     end
   end
 end
