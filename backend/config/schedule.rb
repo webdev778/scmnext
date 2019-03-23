@@ -28,9 +28,9 @@ every 15.minute do # 1.minute 1.day 1.week 1.month 1.year is also supported
   rake 'dlt:download dlt:import:today'
 end
 
-# マスタデータの同期
+# 旧システムデータの取り込み及びJEPXデータの取り込み
 every 1.day, at: '1:00' do
-  rake 'legacy:convert'
+  rake 'legacy:convert jepx:download:imbalance_beta jepx:download:spot_trade'
 end
 
 # 速報値過去データの取り込み

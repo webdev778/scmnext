@@ -82,34 +82,4 @@ class Dlt::Setting < ApplicationRecord
     district.dlt_path.gsub(':company_area_code', company_area_code)
   end
 
-  #
-  # 指定されたデータ区分、日付、時間枠(当日データのみ)に一致するダウンロードデータを高圧・低圧とも検索し
-  # 取込処理を実行する
-  #
-  # @param data_type [symbol] today/past/fixedのいずれかの値
-  # @param date [Date] 日付
-  # @param time_index [Integer] 時間枠ID
-  # @param skip_complated [boolean] 完了分を無視するか否か
-  #
-  def get_xml_object_and_process_high_and_low(data_type, date, time_index = nil, skip_complated = true)
-    %i[high low].each do |voltage_class|
-      files.filter_by_filename(data_type, voltage_class, date, time_index).skip_complated_if(skip_complated).each do |file|
-        logger.debug(file.content.filename)
-        file.perform_document_read do |doc|
-          yield(file, doc, voltage_class)
-        end
-      end
-    end
-  end
-
-  def get_xml_object_and_process_high_and_low(data_type, date, time_index = nil, skip_complated = true)
-    %i[high low].each do |voltage_class|
-      files.filter_by_filename(data_type, voltage_class, date, time_index).skip_complated_if(skip_complated).each do |file|
-        logger.debug(file.content.filename)
-        file.perform_document_read do |doc|
-          yield(file, doc, voltage_class)
-        end
-      end
-    end
-  end
 end
