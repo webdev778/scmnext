@@ -75,6 +75,8 @@ class Dlt::File < ApplicationRecord
     if options.blank?
       options = {
         methods: [
+          :voltage_mode_i18n,
+          :data_type_i18n,
           :state_i18n
         ],
         include: [
