@@ -31,7 +31,7 @@ services:
         AXIOS_HOST: staging.api.next.enepascm.net
         AXIOS_PORT: 443
         AXIOS_HTTPS: "true"
-    container_name: scmnext-frontend
+    image: scmnext/frontend
     hostname: frontend
     depends_on:
       - web
@@ -50,13 +50,14 @@ services:
       AXIOS_HTTPS: "true"
   backend:
     build: ./backend
-    container_name: scmnext-backend
+    image: scmnext/backend
     hostname: backend
     depends_on:
       - web
       - letsencrypt
     volumes:
-      - /home/ubuntu/config/master.key:/usr/src/app/config/master.key:ro
+      - /home/ubuntu/docker-volume/backend/master.key:/usr/src/app/config/master.key:ro
+      - /home/ubuntu/docker-volume/backend/log:/usr/src/app/log:rw
     environment:
       VIRTUAL_HOST: "staging.api.next.enepascm.net"
       LETSENCRYPT_HOST: "staging.api.next.enepascm.net"
@@ -64,6 +65,5 @@ services:
       HTTPS_METHOD: "noredirect"
       CERT_NAME: "staging.api.next.enepascm.net"
       RAILS_ENV: "staging"
-      RAILS_LOG_TO_STDOUT: "true"
       RAILS_CORS_ORIGINES: "https://staging.www.next.enepascm.net"
 
