@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       resources :files, concerns: [:enumable]
       resources :settings, concerns: [:enumable]
       resources :usage_fixed_headers
+      resources :invalid_supply_points
     end
 
     namespace :jepx do

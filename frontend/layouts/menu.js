@@ -25,6 +25,10 @@ export default {
         {
           name: '確定使用量ヘッダ',
           url: '/dlt/usage_fixed_headers',
+        },
+        {
+          name: '不整合供給地点特定番号',
+          url: '/dlt/invalid_supply_points',
         }
       ]
     },

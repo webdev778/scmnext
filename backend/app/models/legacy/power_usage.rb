@@ -66,14 +66,12 @@ class Legacy::PowerUsage
     end
 
     #
-    # 指定された会社、エリア、日付における新旧比較を行う
+    # 指定された会社、エリア、日付、時間枠における施設別の新旧比較を行う
+    # (現行は低圧Gが2重計上されているので、この値が正)
     #
-    def high_details(company_id, disctrict_id, date, time_index_id)
+    def detail(company_id, disctrict_id, date, time_index_id)
       next_detail = PowerUsagePreliminary
         .eager_load(:facility_group)
-        .where(
-          'facility_groups.voltage_type_id' => [1, 2]
-        )
         .where(
           'facility_groups.district_id' => disctrict_id,
           'facility_groups.company_id' => company_id,

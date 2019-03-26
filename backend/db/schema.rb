@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_23_050152) do
+ActiveRecord::Schema.define(version: 2019_03_26_065706) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -255,6 +255,21 @@ ActiveRecord::Schema.define(version: 2019_03_23_050152) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["setting_id"], name: "index_dlt_files_on_setting_id"
+  end
+
+  create_table "dlt_invalid_supply_points", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "不整合供給地点", force: :cascade do |t|
+    t.bigint "company_id", comment: "PPS ID"
+    t.bigint "district_id", comment: "エリアID"
+    t.string "number", comment: "供給地点特定番号"
+    t.string "name", comment: "顧客名"
+    t.string "comment", comment: "内容"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id", "district_id", "number"], name: "unique_index_for_business", unique: true
+    t.index ["company_id"], name: "index_dlt_invalid_supply_points_on_company_id"
+    t.index ["district_id"], name: "index_dlt_invalid_supply_points_on_district_id"
   end
 
   create_table "dlt_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "ダウンロード設定", force: :cascade do |t|
