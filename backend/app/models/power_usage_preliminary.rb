@@ -127,7 +127,7 @@ class PowerUsagePreliminary < ApplicationRecord
       import_data = []
       TmpPowerUsage.joins(:supply_point).distinct.group("supply_points.facility_group_id", "supply_points.supply_method_type", "supply_points.base_power", "date", "time_index_id").sum("value").each do |keys, value|
         facility_group_id, supply_method_type, base_power, date, time_index_id = keys
-        if district.is_partial_included && supply_method_type == "supply_method_type_partial"
+        if district.is_partial_included &&  SupplyPoint.supply_method_types.invert[supply_method_type] == "supply_method_type_partial"
           value -= (base_power / 2)
           value = value >= 0 ? value : 0
         end
