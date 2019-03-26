@@ -23,7 +23,7 @@ class PowerUsagePreliminary < ApplicationRecord
     def import_today_data(setting, date, time_index, force = false)
       target_files = setting.files.filter_force(force).where(data_type: :today, record_date: date, record_time_index_id: time_index)
 
-      process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting.district) do |file|
+      process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting) do |file|
         jptrm = file.xml_document.elements['SBD-MSG/JPMGRP/JPTRM']
         date =  Time.strptime(jptrm.elements['JP06116'].text, '%Y%m%d')
         time_index = jptrm.elements['JP06219'].text
@@ -40,7 +40,7 @@ class PowerUsagePreliminary < ApplicationRecord
     def import_past_data(setting, date, force = false)
       target_files = setting.files.filter_force(force).where(data_type: :past, record_date: date)
 
-      process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting.district) do |file|
+      process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting) do |file|
         jptrm = file.xml_document.elements['SBD-MSG/JPMGRP/JPTRM']
         date =  Time.strptime(jptrm.elements['JP06116'].text, '%Y%m%d')
         jptrm.elements['JPM00010'].to_a.reduce([]) do |result, nodes_by_times|
@@ -54,7 +54,7 @@ class PowerUsagePreliminary < ApplicationRecord
     end
 
     private
-    def process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, district)
+    def process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting)
       init_tmp_power_usage
       begin
         target_files.update_all(state: :state_in_progress)
@@ -62,12 +62,13 @@ class PowerUsagePreliminary < ApplicationRecord
           logger.info(file.content.filename.to_s)
           yield file
         end
-        if import_from_tmp_to_power_usage(district)
+        if import_from_tmp_to_power_usage(setting)
           target_files.update_all(state: :state_complated)
         else
           target_files.update_all(state: :state_complated_with_error)
         end
-      rescue
+      rescue Exception => ex
+        logger.error(ex)
         target_files.update_all(state: :state_exception)
       end
     end
@@ -75,7 +76,6 @@ class PowerUsagePreliminary < ApplicationRecord
     #
     # 施設ごとの電力使用量のデータをインポート用のフォーマットに変換する
     # (当日・過去ファイルとも最小単位のフォーマットは同一なので兼用する)
-    # 施設が見つからないor期間外の場合はnilを返す
     #
     # @param [Hash] nodes_by_facility 施設ごとのxmlデータ
     # @param [Symbol] voltage_mode 電圧区分(:high or :low)
@@ -94,6 +94,7 @@ class PowerUsagePreliminary < ApplicationRecord
         date: date,
         time_index_id: time_index,
         supply_point_number: nodes_by_facility.elements['JP06400'].text,
+        name: nodes_by_facility.elements['JP06120'].text,
         control_number: nodes_by_facility.elements['JP06121'].text,
         value: value
       }
@@ -108,6 +109,7 @@ class PowerUsagePreliminary < ApplicationRecord
         t.integer "time_index_id", null: false, limit: 2
         t.string "supply_point_number", null: false, limit: 22
         t.string "control_number", limit: 16
+        t.string "name"
         t.decimal "value", precision: 10, scale: 4
         t.index [:date, :time_index_id, :supply_point_number, :control_number], name: :unique_index_for_business, unique: true
       end
@@ -122,12 +124,31 @@ class PowerUsagePreliminary < ApplicationRecord
 
     #
     # TempPowerUsageに登録されたデータを速報値データとして取り込む
+    # また、合わせて供給地点特定番号がない顧客を洗い出し、不整合供給地点に登録する
     #
-    def import_from_tmp_to_power_usage(district)
+    def import_from_tmp_to_power_usage(setting)
+      invalid_data = []
+      TmpPowerUsage
+        .left_joins(:supply_point)
+        .where("supply_points.id"=>nil)
+        .select(:supply_point_number, :name)
+        .distinct
+        .all
+        .each do |tmp_power_usage|
+          invalid_data << {
+            company_id: setting.company_id,
+            district_id: setting.district_id,
+            number: tmp_power_usage.supply_point_number,
+            name: tmp_power_usage.name,
+            comment: "供給地点番号未登録"
+          }
+        end
+      Dlt::InvalidSupplyPoint.import(invalid_data, on_duplicate_key_update: [:name, :comment])
+
       import_data = []
       TmpPowerUsage.joins(:supply_point).distinct.group("supply_points.facility_group_id", "supply_points.supply_method_type", "supply_points.base_power", "date", "time_index_id").sum("value").each do |keys, value|
         facility_group_id, supply_method_type, base_power, date, time_index_id = keys
-        if district.is_partial_included && supply_method_type == "supply_method_type_partial"
+        if setting.district.is_partial_included &&  SupplyPoint.supply_method_types.invert[supply_method_type] == "supply_method_type_partial"
           value -= (base_power / 2)
           value = value >= 0 ? value : 0
         end

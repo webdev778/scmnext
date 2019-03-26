@@ -19,10 +19,18 @@ namespace :dlt do
     task today: :environment do |_task, _args|
       target_date = determine_target_date(Date.today)
       force = ENV['FORCE'].present? || ENV['FORCE'] == 'true'
+      time_index_id = ENV['TIME_INDEX'].present? ?  ENV['TIME_INDEX'].to_i : nil
       logger.info("処理日:#{target_date}")
-      Dlt::Setting.filter_state_active.find_each do |setting|
-        (1..48).each do |i|
-          PowerUsagePreliminary.import_today_data(setting, target_date, i, force)
+      if time_index_id
+        logger.info("時間枠:#{time_index_id}")
+        Dlt::Setting.filter_state_active.find_each do |setting|
+          PowerUsagePreliminary.import_today_data(setting, target_date, time_index_id, force)
+        end
+      else
+        Dlt::Setting.filter_state_active.find_each do |setting|
+          (1..48).each do |i|
+            PowerUsagePreliminary.import_today_data(setting, target_date, i, force)
+          end
         end
       end
     end
