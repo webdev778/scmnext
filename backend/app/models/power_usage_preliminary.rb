@@ -56,20 +56,25 @@ class PowerUsagePreliminary < ApplicationRecord
     private
     def process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting)
       init_tmp_power_usage
-      begin
-        target_files.update_all(state: :state_in_progress)
-        target_files.find_each do |file|
+      # ActiveRecordRelation Objectで検索条件に含まれているステータスの変更をブロック内で行っているため
+      # 思わぬ動作をしてしまうので、最初に配列にしておく
+      file_ids = target_files.pluck(:id)
+      file_list = target_files.to_a
+    begin
+        Dlt::File.where(id: file_ids).update_all(state: :state_in_progress)
+        file_list.each do |file|
           logger.info(file.content.filename.to_s)
           yield file
         end
         if import_from_tmp_to_power_usage(setting)
-          target_files.update_all(state: :state_complated)
+          Dlt::File.where(id: file_ids).update_all(state: :state_complated)
         else
-          target_files.update_all(state: :state_complated_with_error)
+          Dlt::File.where(id: file_ids).update_all(state: :state_complated_with_error)
         end
       rescue Exception => ex
         logger.error(ex)
-        target_files.update_all(state: :state_exception)
+        Dlt::File.where(id: file_ids).update_all(state: :state_exception)
+        raise $!
       end
     end
 
