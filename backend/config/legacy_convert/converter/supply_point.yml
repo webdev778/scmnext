@@ -3,7 +3,7 @@
 :truncate: true
 :sources:
 - :fields:
-    id: 
+    id:
     number: tbl_facility.supplying_point_number
     supply_start_date: tbl_facility.supply_start_date
     supply_end_date: tbl_facility.supply_end_date
@@ -20,8 +20,23 @@
     created_at: tbl_facility.created
     updated_at: tbl_facility.modified
   :from: tbl_facility
-  :where: tbl_voltage_id < 99
+  :where: tbl_voltage_id < 99 and tbl_voltage_id
   :joins:
   - :table: tbl_low_power_group_supplying_point_number
     :type: outer
     :on: tbl_facility.id = tbl_low_power_group_supplying_point_number.tbl_facility_low_power_id
+- :fields:
+    id:
+    number: supplying_point_number
+    supply_start_date: supply_start_date
+    supply_end_date: supply_end_date
+    supply_method_type: "'supply_method_type_all'"
+    base_power:
+    facility_group_id: tbl_facility_high_power_id
+    facility_id:
+    created_by: created_user_id
+    updated_by: modified_user_id
+    created_at: created
+    updated_at: modified
+  :from: tbl_low_power_group_supplying_point_number
+  :where: tbl_facility_low_power_id IS NULL
