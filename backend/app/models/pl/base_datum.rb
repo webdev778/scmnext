@@ -48,15 +48,21 @@ class Pl::BaseDatum < ApplicationRecord
     def generate_each_bg_member_data(date, bg_member, power_usage_class)
       # 使用量データを取得
       power_usage_relation = power_usage_class
-                             .eager_load(facility_group: { supply_points: { facility: :discount_for_facilities }, contract: :contract_basic_charges })
+                             .eager_load(facility_group: { supply_points: { facility: :discounts_for_facilities }, contract: :contract_basic_charges })
                              .where('facility_groups.district_id': bg_member.balancing_group.district_id, 'facility_groups.company_id': bg_member.company.id, date: date)
       # 対象データが無い場合はスキップ
-      return if power_usage_relation.count == 0
+      if power_usage_relation.count == 0
+        logger.info "使用量データ未登録のためスキップしました。"
+        return
+      end
 
       # ポジションデータを取得
       plan_matrix_by_time_index_and_resouce_type = Occto::Plan.matrix_by_time_index_and_resouce_type(bg_member_id: bg_member.id, date: date)
       # ポジション未登録の場合もスキップ
-      return if plan_matrix_by_time_index_and_resouce_type.nil?
+      if plan_matrix_by_time_index_and_resouce_type.nil?
+        logger.info "ポジションデータ未登録のためスキップしました。"
+        return
+      end
 
       # 電圧区分ごとの燃料調整費・託送料データを取得する
       fuel_cost_adjustments_map_by_voltage_class = bg_member.balancing_group.district.fuel_cost_adjustments_at(date)
@@ -76,11 +82,13 @@ class Pl::BaseDatum < ApplicationRecord
 
       # 当日のエリアプライスデータを時間枠ごとのhash_mapに
       spot_trade_area_data_map_by_time_index = Jepx::SpotTradeAreaDatum.includes(:spot_trade)
-                                                                       .where("jepx_spot_trades.date" => date, "district_id" => bg_member.balancing_group.district_id)
-                                                                       .map do |spot_trade_area_datum|
-        [spot_trade_area_datum.spot_trade.time_index_id, spot_trade_area_datum]
+        .where("jepx_spot_trades.date" => date, "district_id" => bg_member.balancing_group.district_id)
+        .map do |spot_trade_area_datum|
+          [spot_trade_area_datum.spot_trade.time_index_id, spot_trade_area_datum]
+        end.to_h
+      if spot_trade_area_data_map_by_time_index.count != 48
+        raise "エリアプライスデータが未登録です"
       end
-                                                                       .to_h
 
       # 需要家・コマごとの処理
       import_data = power_usage_relation.all.map do |power_usage|

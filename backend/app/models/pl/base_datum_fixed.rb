@@ -42,10 +42,12 @@ class Pl::BaseDatumFixed < Pl::BaseDatum
   class << self
     def generate(date)
       where(date: date).delete_all
+      logger.info "確定値ベースの損益データを作成"
+      logger.info "処理日:#{date}"
       BalancingGroup.all.find_each do |bg|
-        puts bg.name
+        logger.info "BG:#{bg.name}"
         bg.bg_members.each do |bg_member|
-          puts bg_member.company.name
+          logger.info "PPS:#{bg_member.company.name}"
           generate_each_bg_member_data(date, bg_member, PowerUsageFixed)
         end
       end

@@ -11,7 +11,7 @@
                 .alert.alert-danger(v-if='loginErrors.length > 0')
                   ul
                     li(v-for="(msg, index) in loginErrors") {{msg}}
-                form
+                form(v-on:submit.prevent.stop="login")
                   b-input-group.mb-3
                     b-input-group-prepend
                       b-input-group-text
@@ -24,7 +24,7 @@
                     input.form-control(type="password" placeholder="パスワード" v-model="password")
                   b-row
                     b-col(cols="6")
-                      b-button.px-4(variant="primary" v-on:click="login") ログイン
+                      b-button.px-4(type="submit" variant="primary") ログイン
                     b-col.text-right(cols="6")
                       b-button.px-0(variant="link") パスワードを忘れた場合
 </template>

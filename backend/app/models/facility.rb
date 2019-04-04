@@ -29,7 +29,7 @@ class Facility < ApplicationRecord
   has_one :supply_point
   has_many :facility_contracts, -> { order(start_date: :desc) }
   has_many :contracts, through: :facility_contracts
-  has_many :discount_for_facilities, -> { order(start_date: :desc) }
+  has_many :discounts_for_facilities, -> { order(start_date: :desc) }
   belongs_to :district
   belongs_to :consumer
   belongs_to :voltage_type
@@ -90,13 +90,13 @@ class Facility < ApplicationRecord
   end
 
   def sales_special_discount_rate_at(date)
-    discount_for_facility = discount_for_facility_at(date)
-    discount_for_facility ? discount_for_facility.rate : 0
+    discounts_for_facility = discounts_for_facility_at(date)
+    discounts_for_facility ? discounts_for_facility.rate : 0
   end
 
-  def discount_for_facility_at(date)
-    discount_for_facilities.find do |discount_for_facility|
-      discount_for_facility.start_date <= date
+  def discounts_for_facility_at(date)
+    discounts_for_facilities.find do |discounts_for_facility|
+      discounts_for_facility.start_date <= date
     end
   end
 

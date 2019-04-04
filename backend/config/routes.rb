@@ -1,19 +1,19 @@
 Rails.application.routes.draw do
+  concern :listable do
+    collection do
+      get 'list', action: 'list'
+    end
+  end
+  concern :enumable do
+    collection do
+      get 'enums/:name', action: 'enums'
+    end
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   mount_devise_token_auth_for 'User', at: 'auth'
   get '/auth', to: 'user_sessions#show'
   scope :v1, defaults: { format: :json } do
-    concern :listable do
-      collection do
-        get 'list', action: 'list'
-      end
-    end
-    concern :enumable do
-      collection do
-        get 'enums/:name', action: 'enums'
-      end
-    end
-
     resources :users, concerns: [:listable]
     resources :balancing_groups, concerns: [:listable]
     resources :bg_members, concerns: [:listable]
@@ -41,6 +41,10 @@ Rails.application.routes.draw do
       resources :settings, concerns: [:enumable]
       resources :usage_fixed_headers
       resources :invalid_supply_points
+    end
+
+    namespace :occto do
+      resources :plans
     end
 
     namespace :jepx do

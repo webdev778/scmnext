@@ -1,6 +1,6 @@
-export default function ({store, route}) {
+export default function ({store, route, redirect}) {
   const loginPath = '/session/new'
   if (!store.getters.isLoggedIn && route.path != loginPath ){
-    store.$router.push(loginPath)
+    redirect(loginPath)
   }
 }

@@ -7,16 +7,30 @@ namespace :jepx do
 
     desc 'JEPXスポット市場取引結果取込'
     task spot_trade: :environment do |_task, _args|
-      year = ENV['YEAR'] ? ENV['YEAR'].to_i : nil
-      target_date = Date.today
-      if year
-        Jepx::SpotTrade.import_data(year)
-      elsif [4, 5].include?(target_date.month) && Jepx::SpotTrade.where(date: Date(target_date.year, 3, 31)).exists?
-        Jepx::SpotTrade.import_data(target_date.year)
-        Jepx::SpotTrade.import_data(target_date.year - 1)
+      years = []
+      if ENV['YEAR']
+        # パラメータ指定時はパラメータの年度を
+        years << ENV['YEAR'].to_i
       else
-        target_year = target_date.month >= 4 ? target_date.year : target_date.year - 1
-        Jepx::SpotTrade.import_data(target_year)
+        # パラメータ未指定時は
+        # 4～5月は前年度と当年度
+        # それ以外は当年度のデータを取得
+        today = Date.today
+        case
+        when (1..3).include?(today.month)
+          years << today.year - 1
+        when (4..5).include?(today.month)
+          if [4, 5].include?(today.month) and not Jepx::SpotTrade.where(date: Date.new(today.year, 3, 1).end_of_month).exists?
+            years << today.year - 1
+          end
+          years << today.year
+        when
+          years << today.year
+        end
+      end
+      years.each do |year|
+        logger.info "#{year}年度のJEPX市場取引結果データを取り込みます"
+        Jepx::SpotTrade.import_data(year)
       end
     end
   end

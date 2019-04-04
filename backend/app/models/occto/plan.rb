@@ -17,6 +17,19 @@ class Occto::Plan < ApplicationRecord
 
   accepts_nested_attributes_for :plan_by_bg_members
 
+  scope :includes_for_index, lambda {
+    includes(:balancing_group)
+  }
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        include: [:balancing_group]
+      }
+    end
+    super options
+  end
+
   class << self
     #
     # 翌日需要・調達計画のインポート

@@ -10,6 +10,21 @@ export default {
       }
     },
     {
+      name: '損益計算',
+      icon: 'icon-puzzle',
+      url: '/base',
+      children: [
+        {
+          name: '同時同量監視',
+          url: '/profits/balancings',
+        },
+        {
+          name: '施設グループ別損益',
+          url: '/profits/facility_groups',
+        }
+      ]
+    },
+    {
       name: '託送データ連携',
       icon: 'icon-puzzle',
       url: '/base',
@@ -33,17 +48,13 @@ export default {
       ]
     },
     {
-      name: '損益計算',
+      name: '広域データ連携',
       icon: 'icon-puzzle',
       url: '/base',
       children: [
         {
-          name: '同時同量監視',
-          url: '/profits/balancings',
-        },
-        {
-          name: '施設グループ別損益',
-          url: '/profits/facility_groups',
+          name: '翌日需要調達計画',
+          url: '/occto/plans',
         }
       ]
     },
