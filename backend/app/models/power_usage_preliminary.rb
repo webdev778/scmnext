@@ -99,7 +99,7 @@ class PowerUsagePreliminary < ApplicationRecord
         date: date,
         time_index_id: time_index,
         supply_point_number: nodes_by_facility.elements['JP06400'].text,
-        name: nodes_by_facility.elements['JP06120'].text,
+	name: (nodes_by_facility.elements['JP06120'].nil? ? nil : nodes_by_facility.elements['JP06120'].text),
         control_number: nodes_by_facility.elements['JP06121'].text,
         value: value
       }
