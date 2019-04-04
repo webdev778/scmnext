@@ -4,7 +4,7 @@ def logger
 end
 
 def determine_target_date(default_date)
-  ENV['DATE'] ? ENV['DATE'].in_time_zone : default_date
+  ENV['DATE'] ? ENV['DATE'].in_time_zone.to_date : default_date
 end
 
 desc 'Setup a common setting for every tasks'

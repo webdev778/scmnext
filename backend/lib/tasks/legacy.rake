@@ -187,6 +187,76 @@ namespace :legacy do
     end
   end
 
+  #
+  # 施設グループデータの修正
+  #
+  def fix_facility_group
+    # 電圧区分が正しく取れないものについて、補正する
+    logger.info "低圧グループ(99)の電圧区分を本来の電圧区分に付け替える"
+    count = 0
+    FacilityGroup.all.where(voltage_type_id: 99).each do |facility_group|
+      # 京葉は名前から区分を推測
+      if facility_group.company_id == 21
+        facility_group.voltage_type_id = case facility_group.name
+        when /従量電灯A/
+          4
+        when /従量電灯B/
+          5
+        when /従量電灯C/
+          6
+        when /低圧/
+          3
+        else
+          raise "電圧区分が判別できません。"
+        end
+      else
+        # その他は契約から区分を取得
+        facility_group.voltage_type_id = facility_group.contract.voltage_type_id
+      end
+      if facility_group.save(validate: false) # 京葉が契約が無いために保存できないのでvalidationしない
+        count += 1
+      end
+    end
+    logger.info "#{count}件 更新しました。"
+
+    logger.info "施設グループに登録されていない低圧施設を探し、施設グループを作成"
+    count = 0
+    facility_not_grouped = Facility
+      .includes([{ supply_point: :facility_group }, :consumer])
+      .where("facility_groups.id" => nil)
+      .where.not("consumers.id" => nil)
+
+    facility_not_grouped
+      .group_by do |facility|
+        [
+          facility.consumer.company_id,
+          facility.district_id,
+          (facility.contracts.first.nil? ? nil : facility.contracts.first.id),
+          facility.voltage_type_id,
+          facility.contract_capacity_for_facility_group
+        ]
+      end
+      .each do |keys, facilities|
+        company_id, district_id, contract_id, voltage_type_id, contract_capacity = keys
+        facility_group = FacilityGroup.create(
+          name: facilities.first.name_for_facility_group,
+          company_id: company_id,
+          district_id: district_id,
+          contract_id: contract_id,
+          voltage_type_id: voltage_type_id,
+          contract_capacity: contract_capacity
+        )
+        count += 1
+        SupplyPoint.where(id: facilities.map { |facility| facility.supply_point.id }).update(facility_group_id: facility_group.id)
+      end
+      logger.info "#{count}件 登録しました。"
+    end
+
+  desc '施設グループデータを修正する'
+  task fix_facility_group: :environment do |_task, _args|
+    fix_facility_group
+  end
+
   desc 'DB移行'
   task convert: :environment do |_task, _args|
     if ENV['TARGET']
@@ -196,6 +266,7 @@ namespace :legacy do
       convert yaml_file
     else
       convert_all
+      fix_facility_group
     end
   end
 

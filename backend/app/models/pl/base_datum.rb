@@ -85,8 +85,10 @@ class Pl::BaseDatum < ApplicationRecord
         .where("jepx_spot_trades.date" => date, "district_id" => bg_member.balancing_group.district_id)
         .map do |spot_trade_area_datum|
           [spot_trade_area_datum.spot_trade.time_index_id, spot_trade_area_datum]
-        end.to_h
+        end
+        .to_h
       if spot_trade_area_data_map_by_time_index.count != 48
+        binding.pry
         raise "エリアプライスデータが未登録です"
       end
 

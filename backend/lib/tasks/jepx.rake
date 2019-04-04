@@ -2,6 +2,7 @@ namespace :jepx do
   namespace :download do
     desc 'JEPXインバランスβ値取込'
     task imbalance_beta: :environment do |_task, _args|
+      logger.info "JEPXインバランスβ値データを取り込みます"
       Jepx::ImbalanceBeta.import_data
     end
 
