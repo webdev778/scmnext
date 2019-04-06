@@ -18,11 +18,11 @@
   :fields:
     passphrase: 38227793
     pkcs12: certs/occto/ESX352000002.p12
-- :cond:
-    company_id: 12
-  :fields:
-    passphrase: 22274995
-    pkcs12: certs/occto/EPP_41108_000000000000040508.p12
+# - :cond:
+#     company_id: 12
+#   :fields:
+#     passphrase: 22274995
+#     pkcs12: certs/occto/EPP_41108_000000000000040508.p12
 - :fields:
     company_id: 17
     login_code: dummy
