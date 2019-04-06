@@ -56,15 +56,17 @@ class Dlt::File < ApplicationRecord
 
   scope :includes_for_index, lambda {
     includes([
-               :content_attachment,
-               :content_blob,
-               {
-                 setting: [
-                   :company,
-                   :district
-                 ]
-               }
-             ])
+      :content_attachment,
+      :content_blob,
+      {
+        setting: {
+          bg_member: [
+            :company,
+            :balancing_group
+          ]
+        }
+      }
+    ])
   }
 
   scope :includes_for_show, lambda {
@@ -84,7 +86,14 @@ class Dlt::File < ApplicationRecord
           :content_blob,
           {
             setting: {
-              include: [:company, :district]
+              include: {
+                bg_member: {
+                  include: [
+                    :company,
+                    :balancing_group
+                  ]
+                }
+              }
             }
           }
         ]

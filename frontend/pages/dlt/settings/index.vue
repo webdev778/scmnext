@@ -10,7 +10,7 @@
       b-row
         b-col
           b-form-group(
-            label="BG名"
+            label="バランシンググループ名"
             label-for="bg_member_balancing_group_id_eq"
             )
             b-form-select(
@@ -54,7 +54,7 @@ export default {
         },
         {
           key: "bg_member.balancing_group.name",
-          label: "BG名"
+          label: "バランシンググループ名"
         },
         {
           key: "bg_member.company.name",

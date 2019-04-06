@@ -11,16 +11,16 @@
       b-row
         b-col
           b-form-group(
-            label="PPS名"
-            label-for="setting_company_id_eq"
+            label="バランシンググループ名"
+            label-for="setting_bg_member_balancing_group_id_eq"
             )
-            b-form-select(id="setting_company_id_eq" v-model="query.setting_company_id_eq" v-bind:options="companies")
+            b-form-select(id="setting_bg_member_balancing_group_id_eq" v-model="query.setting_bg_member_balancing_group_id_eq" v-bind:options="balancing_groups")
         b-col
           b-form-group(
-            label="エリア名"
-            label-for="setting_district_id_eq"
+            label="PPS名"
+            label-for="setting_bg_member_company_id_eq"
             )
-            b-form-select(id="setting_district_id_eq" v-model="query.setting_district_id_eq" v-bind:options="districts")
+            b-form-select(id="setting_bg_member_company_id_eq" v-model="query.setting_bg_member_company_id_eq" v-bind:options="companies")
         b-col
           b-form-group(
             label="ファイル名"
@@ -74,13 +74,13 @@ export default {
           label: "ID"
         },
         {
-          key: "setting.company.name",
-          label: "PPS名"
+          key: "setting.bg_member.balancing_group.name",
+          label: "バランシンググループ名",
+          width: 180
         },
         {
-          key: "setting.district.name",
-          label: "エリア名",
-          width: 80
+          key: "setting.bg_member.company.name",
+          label: "PPS名"
         },
         {
           key: "voltage_mode_i18n",
@@ -135,8 +135,8 @@ export default {
       ],
       query: {
         id_eq: null,
-        setting_company_id_eq: null,
-        setting_district_id_eq: null,
+        setting_bg_member_balancing_group_id_eq: null,
+        setting_bg_member_company_id_eq: null,
         content_blob_filename_cont: null,
         record_date_gteq: null,
         record_date_lteq: null,
@@ -144,21 +144,21 @@ export default {
         data_type_in: null,
         state_in: null
       },
+      balancing_groups: [],
       companies: [],
-      districts: [],
       voltage_modes: [],
       data_types: [],
       states: []
     }
   },
   created (){
+    this.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
+    .then(result=>{
+      this.balancing_groups = result
+    })
     this.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
     .then(result=>{
       this.companies = result
-    })
-    this.$restApi.list('districts', null, {format: 'options', emptyValue: '全て'})
-    .then(result=>{
-      this.districts = result
     })
     this.$restApi.enums('dlt/files', 'voltage_modes', {format: 'options'})
     .then(result=>{

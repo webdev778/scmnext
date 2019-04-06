@@ -44,7 +44,7 @@ export default {
         },
         {
           key: "bg_member.balancing_group.name",
-          label: "BG名"
+          label: "バランシンググループ名"
         },
         {
           key: "bg_member.company.name",
