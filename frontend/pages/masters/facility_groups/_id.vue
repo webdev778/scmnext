@@ -28,19 +28,14 @@ export default {
           label: "名前"
         },
         {
-          key: "company_id",
+          key: "bg_member_id",
           type: "select",
-          label: "PPS"
-        },
-        {
-          key: "district_id",
-          type: "select",
-          label: "エリア"
+          label: "BGメンバー名"
         },
         {
           key: "contract_id",
           type: "select",
-          label: "契約"
+          label: "契約名"
         },
         {
           key: "voltage_type_id",
@@ -54,57 +49,24 @@ export default {
         }
       ],
       options: {
-        company_id: {},
-        district_id: {},
+        bg_member_id: {},
         contract_id: {},
         voltage_type_id: {}
       }
     }
   },
   created() {
-    this.$axios.$get(`/v1/companies`)
+    this.$restApi.list('bg_members', null, {format: 'options', emptyValue: '未設定'})
     .then(result=>{
-      let companies = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      companies.unshift({value: null, text: ""})
-      this.options['company_id'] = companies
+      this.options.bg_member_id = result
     })
-    this.$axios.$get(`/v1/districts`)
+    this.$restApi.list('contracts', null, {format: 'options', emptyValue: '未設定'})
     .then(result=>{
-      let districts = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      districts.unshift({value: null, text: ""})
-      this.options['district_id'] = districts
+      this.options.contract_id = result
     })
-    this.$axios.$get(`/v1/contracts`)
+    this.$restApi.list('voltage_types', null, {format: 'options', emptyValue: '未設定'})
     .then(result=>{
-      let contracts = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      contracts.unshift({value: null, text: ""})
-      this.options['contract_id'] = contracts
-    })
-    this.$axios.$get(`/v1/voltage_types`)
-    .then(result=>{
-      let voltage_types = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      voltage_types.unshift({value: null, text: ""})
-      this.options['voltage_type_id'] = voltage_types
+      this.options.voltage_type_id = result
     })
   }
 }

@@ -49,7 +49,7 @@ class Pl::BaseDatum < ApplicationRecord
       # 使用量データを取得
       power_usage_relation = power_usage_class
                              .eager_load(facility_group: { supply_points: { facility: :discounts_for_facilities }, contract: :contract_basic_charges })
-                             .where('facility_groups.district_id': bg_member.balancing_group.district_id, 'facility_groups.company_id': bg_member.company.id, date: date)
+                             .where('facility_groups.bg_member_id': bg_member.id, date: date)
       # 対象データが無い場合はスキップ
       if power_usage_relation.count == 0
         logger.info "使用量データ未登録のためスキップしました。"
@@ -70,7 +70,7 @@ class Pl::BaseDatum < ApplicationRecord
 
       # JBU契約を取得
       jbu_contract = JbuContract
-                     .where(company_id: bg_member.company.id, district_id: bg_member.balancing_group.district_id)
+                     .where(bg_member_id: bg_member.id)
                      .where("start_date <= :date and (end_date IS NULL OR end_date <= :date)", date: date)
                      .first
 

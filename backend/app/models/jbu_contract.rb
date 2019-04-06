@@ -21,17 +21,31 @@
 #
 
 class JbuContract < ApplicationRecord
-  belongs_to :company
-  belongs_to :district
+  # don't use this relation.
+  # belongs_to :company
+  # belongs_to :district
+  belongs_to :bg_member, required: false
 
   scope :includes_for_index, lambda {
-    includes([:district, :company])
+    includes(bg_member: [:company, {balancing_group: :district}])
   }
 
   def as_json(options = {})
     if options.blank?
       options = {
-        include: [:district, :company]
+        include: {
+          bg_member: {
+            include:
+              [
+                :company,
+                {
+                  balancing_group: {
+                    include: :district
+                  }
+                }
+              ]
+          }
+        }
       }
     end
     super options
@@ -52,7 +66,7 @@ class JbuContract < ApplicationRecord
   # @param time_index_id [Integer] 時間枠ID
   # @return [Decimal] 指定日時の従量料金単価
   def meter_rate_charge(date, time_index_id)
-    if Holiday.get_list(district_id).include?(date)
+    if Holiday.get_list(bg_member.balancing_group.district_id).include?(date)
       meter_rate_charge_night
     elsif in_summer_season(date)
       case
@@ -80,7 +94,7 @@ class JbuContract < ApplicationRecord
   # @param date [Date] チェック対象の日付
   # @return [Boolean] 休日の場合真を返す
   def is_holiday(date)
-    Holiday.get_list(district_id).include?(date)
+    Holiday.get_list(bg_member.balancing_group.district_id).include?(date)
   end
 
   #
@@ -88,7 +102,7 @@ class JbuContract < ApplicationRecord
   # @param date [Date] チェック対象の日付
   # @return [Boolean] 夏季に含まれる場合真を返す
   def in_summer_season(date)
-    (district.summer_season_start_month..district.summer_season_end_month).include?(date.month)
+    (bg_member.balancing_group.district.summer_season_start_month..bg_member.balancing_group.district.summer_season_end_month).include?(date.month)
   end
 
   #
@@ -96,7 +110,7 @@ class JbuContract < ApplicationRecord
   # @param time_index_id [Integer] チェック対象の時間枠ID
   # @return [Boolean] ピークタイムに含まれる場合真を返す
   def in_peaktime(time_index_id)
-    (district.peaktime_start_time_index_id..district.peaktime_end_time_index_id).include?(time_index_id)
+    (bg_member.balancing_group.district.peaktime_start_time_index_id..bg_member.balancing_group.district.peaktime_end_time_index_id).include?(time_index_id)
   end
 
   #
@@ -104,6 +118,6 @@ class JbuContract < ApplicationRecord
   # @param time_index_id [Integer] チェック対象の時間枠ID
   # @return [Boolean] 昼間時間に含まれる場合真を返す
   def in_daytime(time_index_id)
-    (district.daytime_start_time_index_id..district.daytime_end_time_index_id).include?(time_index_id)
+    (bg_member.balancing_group.district.daytime_start_time_index_id..bg_member.balancing_group.district.daytime_end_time_index_id).include?(time_index_id)
   end
 end

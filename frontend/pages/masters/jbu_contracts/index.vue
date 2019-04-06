@@ -10,22 +10,22 @@
       b-row
         b-col
           b-form-group(
-            label="エリア"
-            label-for="district_id"
+            label="バランシンググループ名"
+            label-for="bg_member_balancing_group_id_eq"
             )
             b-form-select(
-              id="district_id"
-              v-model="query.district_id_eq"
-              v-bind:options="districts"
+              id="bg_member_balancing_group_id_eq"
+              v-model="query.bg_member_balancing_group_id_eq"
+              v-bind:options="balancing_groups"
             )
         b-col
           b-form-group(
-            label="PPS"
-            label-for="company_id"
+            label="PPS名"
+            label-for="bg_member_company_id_eq"
             )
             b-form-select(
-              id="company_id"
-              v-model="query.company_id_eq"
+              id="bg_member_company_id_eq"
+              v-model="query.bg_member_company_id_eq"
               v-bind:options="companies"
             )
 </template>
@@ -43,12 +43,24 @@ export default {
           label: "ID"
         },
         {
-          key: "district.name",
-          label: "エリア名"
+          key: "bg_member.balancing_group.name",
+          label: "BG名"
         },
         {
-          key: "company.name",
+          key: "bg_member.company.name",
           label: "PPS名"
+        },
+        {
+          key: "start_date",
+          label: "開始日"
+        },
+        {
+          key: "end_date",
+          label: "終了日"
+        },
+        {
+          key: "contract_power",
+          label: "契約容量"
         },
         {
           key: "created_at",
@@ -62,35 +74,21 @@ export default {
         }
       ],
       query: {
-        district_id_eq: null,
-        company_id_eq: null
+        bg_member_balancing_group_id_eq: null,
+        bg_member_company_id_eq: null
       },
-      districts: [],
+      balancing_groups: [],
       companies: []
     }
   },
   created() {
-    this.$axios.$get(`/v1/districts`)
+    this.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
     .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.districts = options
+      this.balancing_groups = result
     })
-    this.$axios.$get(`/v1/companies`)
+    this.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
     .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.companies = options
+      this.companies = result
     })
   }
 }

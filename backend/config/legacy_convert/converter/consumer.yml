@@ -23,4 +23,4 @@
     created_at: tbl_contract_customer.created
     updated_at: tbl_contract_customer.modified
   :from: tbl_contract_customer
-  :where: 0 = 0
+  :where: tbl_contract_customer.tbl_account_id NOT IN(2, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15)

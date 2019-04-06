@@ -19,18 +19,35 @@ class FacilityGroup < ApplicationRecord
   has_many :supply_points
   has_many :facilities, through: :supply_points
   belongs_to :voltage_type
-  belongs_to :company
-  belongs_to :district
+  # don't use this relation.
+  # belongs_to :company
+  # belongs_to :district
+  belongs_to :bg_member, required: false
   belongs_to :contract, required: false
 
   scope :includes_for_index, lambda {
-    includes([:company, :district, :contract, :voltage_type])
+    includes([{bg_member: [:company, {balancing_group: :district}]}, :contract, :voltage_type])
   }
 
   def as_json(options = {})
     if options.blank?
       options = {
-        include: [:company, :district, :contract, :voltage_type]
+        include: [
+          :contract,
+          :voltage_type,
+          {
+            bg_member: {
+              include: [
+                :company,
+                {
+                  balancing_group: {
+                    include: :district
+                  }
+                }
+              ]
+            }
+          }
+        ]
       }
     end
     super options

@@ -249,12 +249,51 @@ namespace :legacy do
         count += 1
         SupplyPoint.where(id: facilities.map { |facility| facility.supply_point.id }).update(facility_group_id: facility_group.id)
       end
-      logger.info "#{count}件 登録しました。"
+    logger.info "#{count}件 登録しました。"
+  end
+
+  def set_bg_memeber_id
+    logger.info "エリア、会社からbg_member_idをセット"
+    count_per_class = {}
+    # PPS IDとエリアIDの配列をkey、bg_memeber_idを値とするHashを生成
+    bg_member_map = BgMember
+      .eager_load(:balancing_group)
+      .select("company_id", "district_id")
+      .map do |bg_member|
+        [[bg_member.company_id, bg_member.balancing_group.district_id], bg_member.id]
+      end
+      .to_h
+    [Dlt::Setting, Dlt::InvalidSupplyPoint, FacilityGroup, JbuContract].each do |target_model_class|
+      select_count = 0
+      update_count = 0
+      target_model_class.find_each do |target_model_instance|
+        select_count += 1
+        bg_member_id = bg_member_map[[target_model_instance.company_id, target_model_instance.district_id]]
+        if bg_member_id
+          target_model_instance.update(bg_member_id: bg_member_id)
+          update_count += 1
+        else
+          logger.error("対応するBG MemberIDが見つかりません。model:#{target_model_class} id:#{target_model_instance.id} company_id:#{target_model_instance.company_id} district_id:#{target_model_instance.district_id}")
+        end
+      end
+      count_per_class[target_model_class.to_s] = {select: select_count, update: update_count}
     end
+    logger.info "処理結果"
+    logger.info sprintf('%-25s|%6s|%6s', 'class name', 'select', 'update' )
+    count_per_class.each do |model_name, count|
+      logger.info sprintf('%-25s|%6d|%6d', model_name, count[:select], count[:update] )
+    end
+
+  end
 
   desc '施設グループデータを修正する'
   task fix_facility_group: :environment do |_task, _args|
     fix_facility_group
+  end
+
+  desc 'BGメンバーIDのセット'
+  task set_bg_memeber_id: :environment do |_task, _args|
+    set_bg_memeber_id
   end
 
   desc 'DB移行'
@@ -267,6 +306,7 @@ namespace :legacy do
     else
       convert_all
       fix_facility_group
+      set_bg_memeber_id
     end
   end
 

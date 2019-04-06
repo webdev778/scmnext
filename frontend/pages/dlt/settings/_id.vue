@@ -23,14 +23,9 @@ export default {
           type: "hidden"
         },
         {
-          key: "company_id",
+          key: "bg_member_id",
           type: "select",
-          label: "PPS",
-        },
-        {
-          key: "district_id",
-          type: "select",
-          label: "エリア"
+          label: "BGメンバー",
         },
         {
           key: "state",
@@ -39,20 +34,15 @@ export default {
         }
       ],
       options: {
-        company_id: {},
-        district_id: {},
+        bg_member_id: {},
         state: {}
       }
     }
   },
   created() {
-    this.$restApi.list('companies', null, {format: 'options', emptyValue: '未設定'})
+    this.$restApi.list('bg_members', null, {format: 'options', emptyValue: '未設定'})
     .then(result=>{
-      this.options['company_id'] = result
-    })
-    this.$restApi.list('districts', null, {format: 'options', emptyValue: '未設定'})
-    .then(result=>{
-      this.options['district_id'] = result
+      this.options['bg_member_id'] = result
     })
     this.$restApi.enums('dlt/settings', 'state', {format: 'options'})
     .then(result=>{

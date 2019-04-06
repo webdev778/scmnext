@@ -19,41 +19,40 @@
             )
         b-col
           b-form-group(
-            label="PPS"
-            label-for="company_id"
+            label="バランシンググループ名"
+            label-for="bg_member_balancing_group_id_eq"
             )
             b-form-select(
-              id="company_id"
-              v-model="query.company_id_eq"
+              id="bg_member_balancing_group_id_eq"
+              v-model="query.bg_member_balancing_group_id_eq"
+              v-bind:options="balancing_groups"
+            )
+        b-col
+          b-form-group(
+            label="PPS名"
+            label-for="bg_member_company_id_eq"
+            )
+            b-form-select(
+              id="bg_member_company_id_eq"
+              v-model="query.bg_member_company_id_eq"
               v-bind:options="companies"
             )
         b-col
           b-form-group(
-            label="エリア"
-            label-for="district_id"
+            label="契約名"
+            label-for="contract_name_cont"
             )
-            b-form-select(
-              id="district_id"
-              v-model="query.district_id_eq"
-              v-bind:options="districts"
-            )
-        b-col
-          b-form-group(
-            label="契約"
-            label-for="contract_id"
-            )
-            b-form-select(
-              id="contract_id"
-              v-model="query.contract_id_eq"
-              v-bind:options="contracts"
+            b-form-input(
+              id="contract_name_cont"
+              v-model="query.contract_name_cont"
             )
         b-col
           b-form-group(
             label="電圧種別"
-            label-for="voltage_type_id"
+            label-for="voltage_type_id_eq"
             )
             b-form-select(
-              id="voltage_type_id"
+              id="voltage_type_id_eq"
               v-model="query.voltage_type_id_eq"
               v-bind:options="voltage_types"
             )
@@ -76,12 +75,12 @@ export default {
           label: "名前"
         },
         {
-          key: "company.name",
-          label: "PPS名"
+          key: "bg_member.balancing_group.name",
+          label: "BG名"
         },
         {
-          key: "district.name",
-          label: "エリア名"
+          key: "bg_member.company.name",
+          label: "PPS名"
         },
         {
           key: "contract.name",
@@ -104,61 +103,28 @@ export default {
       ],
       query: {
         name_cont: null,
-        company_id_eq: null,
-        district_id_eq: null,
-        contract_id_eq: null,
+        bg_member_balancing_group_id_eq: null,
+        bg_member_company_id_eq: null,
+        contract_name_cont: null,
         voltage_type_id_eq: null
       },
+      balancing_groups: [],
       companies: [],
-      districts: [],
-      contracts: [],
       voltage_types: []
     }
   },
   created() {
-    this.$axios.$get(`/v1/companies`)
+    this.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
     .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.companies = options
+      this.balancing_groups = result
     })
-    this.$axios.$get(`/v1/districts`)
+    this.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
     .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.districts = options
+      this.companies = result
     })
-    this.$axios.$get(`/v1/contracts`)
+    this.$restApi.list('voltage_types', null, {format: 'options', emptyValue: '全て'})
     .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.contracts = options
-    })
-    this.$axios.$get(`/v1/voltage_types`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.voltage_types = options
+      this.voltage_types = result
     })
   }
 }

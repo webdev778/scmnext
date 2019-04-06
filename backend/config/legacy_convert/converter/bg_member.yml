@@ -6,9 +6,43 @@
     id: id
     balancing_group_id: tbl_bg_id
     company_id: pps_id
-    created_by: 
-    updated_by: 
-    created_at: 
-    updated_at: 
+    created_by:
+    updated_by:
+    created_at:
+    updated_at:
   :from: tbl_bg_relation_pps
-  :where: 0 = 0
+  :where: pps_id NOT IN(2, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15)
+:extra:
+- :fields:
+    balancing_group_id: 13
+    company_id: 16
+- :fields:
+    balancing_group_id: 14
+    company_id: 16
+- :fields:
+    balancing_group_id: 16
+    company_id: 16
+- :fields:
+    balancing_group_id: 1
+    company_id: 17
+- :fields:
+    balancing_group_id: 1
+    company_id: 18
+- :fields:
+    balancing_group_id: 3
+    company_id: 18
+- :fields:
+    balancing_group_id: 4
+    company_id: 19
+- :fields:
+    balancing_group_id: 1
+    company_id: 23
+- :fields:
+    balancing_group_id: 2
+    company_id: 23
+- :fields:
+    balancing_group_id: 3
+    company_id: 23
+- :fields:
+    balancing_group_id: 3
+    company_id: 24

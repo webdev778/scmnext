@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_26_065706) do
+ActiveRecord::Schema.define(version: 2019_04_05_023608) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -260,6 +260,7 @@ ActiveRecord::Schema.define(version: 2019_03_26_065706) do
   create_table "dlt_invalid_supply_points", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "不整合供給地点", force: :cascade do |t|
     t.bigint "company_id", comment: "PPS ID"
     t.bigint "district_id", comment: "エリアID"
+    t.bigint "bg_member_id", comment: "BGメンバーID"
     t.string "number", comment: "供給地点特定番号"
     t.string "name", comment: "顧客名"
     t.string "comment", comment: "内容"
@@ -267,6 +268,7 @@ ActiveRecord::Schema.define(version: 2019_03_26_065706) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["bg_member_id"], name: "index_dlt_invalid_supply_points_on_bg_member_id"
     t.index ["company_id", "district_id", "number"], name: "unique_index_for_business", unique: true
     t.index ["company_id"], name: "index_dlt_invalid_supply_points_on_company_id"
     t.index ["district_id"], name: "index_dlt_invalid_supply_points_on_district_id"
@@ -275,9 +277,11 @@ ActiveRecord::Schema.define(version: 2019_03_26_065706) do
   create_table "dlt_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "ダウンロード設定", force: :cascade do |t|
     t.bigint "company_id", comment: "会社ID"
     t.bigint "district_id", comment: "エリアID"
+    t.bigint "bg_member_id", comment: "BGメンバーID"
     t.integer "state", default: 0, null: false, comment: "状態:(0:正常, 1:休止中)"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["bg_member_id"], name: "index_dlt_settings_on_bg_member_id"
     t.index ["company_id"], name: "index_dlt_settings_on_company_id"
     t.index ["district_id"], name: "index_dlt_settings_on_district_id"
   end
@@ -365,6 +369,7 @@ ActiveRecord::Schema.define(version: 2019_03_26_065706) do
     t.string "name", null: false, comment: "名前"
     t.bigint "company_id", comment: "PPS ID"
     t.bigint "district_id", comment: "エリアID"
+    t.bigint "bg_member_id", comment: "BGメンバーID"
     t.bigint "contract_id", comment: "契約ID"
     t.bigint "voltage_type_id", comment: "電圧種別ID"
     t.string "contract_capacity", comment: "契約容量"
@@ -372,6 +377,7 @@ ActiveRecord::Schema.define(version: 2019_03_26_065706) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["bg_member_id"], name: "index_facility_groups_on_bg_member_id"
     t.index ["company_id"], name: "index_facility_groups_on_company_id"
     t.index ["contract_id"], name: "index_facility_groups_on_contract_id"
     t.index ["district_id"], name: "index_facility_groups_on_district_id"
@@ -407,6 +413,7 @@ ActiveRecord::Schema.define(version: 2019_03_26_065706) do
 
   create_table "jbu_contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "常時バックアップ電源契約", force: :cascade do |t|
     t.bigint "district_id", comment: "エリアID"
+    t.bigint "bg_member_id", comment: "BGメンバーID"
     t.bigint "company_id", comment: "PPS ID"
     t.date "start_date", comment: "開始日"
     t.date "end_date", comment: "終了日"
@@ -421,6 +428,7 @@ ActiveRecord::Schema.define(version: 2019_03_26_065706) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["bg_member_id"], name: "index_jbu_contracts_on_bg_member_id"
     t.index ["company_id"], name: "index_jbu_contracts_on_company_id"
     t.index ["district_id"], name: "index_jbu_contracts_on_district_id"
   end

@@ -23,14 +23,9 @@ export default {
           type: "hidden"
         },
         {
-          key: "district_id",
+          key: "bg_member_id",
           type: "select",
-          label: "エリア"
-        },
-        {
-          key: "company_id",
-          type: "select",
-          label: "PPS"
+          label: "BGメンバー名"
         },
         {
           key: "start_date",
@@ -79,33 +74,14 @@ export default {
         }
       ],
       options: {
-        district_id: {},
-        company_id: {}
+        bg_member_id: {}
       }
     }
   },
   created() {
-    this.$axios.$get(`/v1/districts`)
+    this.$restApi.list('bg_members', null, {format: 'options', emptyValue: '未設定'})
     .then(result=>{
-      let districts = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      districts.unshift({value: null, text: ""})
-      this.options['district_id'] = districts
-    })
-    this.$axios.$get(`/v1/companies`)
-    .then(result=>{
-      let companies = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      companies.unshift({value: null, text: ""})
-      this.options['company_id'] = companies
+      this.options.bg_member_id = result
     })
   }
 }

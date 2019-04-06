@@ -20,4 +20,4 @@
     created_at: created
     updated_at: modified
   :from: tbl_jbu_new
-  :where: 0 = 0
+  :where: tbl_account_id NOT IN(2, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15) AND (tbl_account_id != 21 OR (tbl_account_id = 21 AND tbl_district_id = 1))

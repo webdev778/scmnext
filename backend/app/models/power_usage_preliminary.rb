@@ -141,8 +141,8 @@ class PowerUsagePreliminary < ApplicationRecord
         .all
         .each do |tmp_power_usage|
           invalid_data << {
-            company_id: setting.company_id,
-            district_id: setting.district_id,
+            company_id: setting.bg_member.company_id,
+            district_id: setting.bg_member.balancing_group.district_id,
             number: tmp_power_usage.supply_point_number,
             name: tmp_power_usage.name,
             comment: "供給地点番号未登録"
@@ -153,7 +153,7 @@ class PowerUsagePreliminary < ApplicationRecord
       import_data = []
       TmpPowerUsage.joins(:supply_point).distinct.group("supply_points.facility_group_id", "supply_points.supply_method_type", "supply_points.base_power", "date", "time_index_id").sum("value").each do |keys, value|
         facility_group_id, supply_method_type, base_power, date, time_index_id = keys
-        if setting.district.is_partial_included &&  SupplyPoint.supply_method_types.invert[supply_method_type] == "supply_method_type_partial"
+        if setting.bg_member.balancing_group.district.is_partial_included &&  SupplyPoint.supply_method_types.invert[supply_method_type] == "supply_method_type_partial"
           value -= (base_power / 2)
           value = value >= 0 ? value : 0
         end

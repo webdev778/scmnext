@@ -26,9 +26,9 @@
 - :fields:
     company_id: 8
     district_id: 9
-- :fields:
-    company_id: 12
-    district_id: 3
+# - :fields:
+#     company_id: 12
+#     district_id: 3
 - :fields:
     company_id: 17
     district_id: 1
@@ -53,9 +53,9 @@
 - :fields:
     company_id: 18
     district_id: 5
-- :fields:
-    company_id: 18
-    district_id: 6
+# - :fields:
+#     company_id: 18
+#     district_id: 6
 - :fields:
     company_id: 18
     district_id: 7
@@ -65,9 +65,9 @@
 - :fields:
     company_id: 18
     district_id: 9
-- :fields:
-    company_id: 18
-    district_id: 10
+# - :fields:
+#     company_id: 18
+#     district_id: 10
 - :fields:
     company_id: 19
     district_id: 1
@@ -92,9 +92,9 @@
 - :fields:
     company_id: 23
     district_id: 5
-- :fields:
-    company_id: 23
-    district_id: 6
+# - :fields:
+#     company_id: 23
+#     district_id: 6
 - :fields:
     company_id: 23
     district_id: 7
@@ -104,7 +104,7 @@
 - :fields:
     company_id: 23
     district_id: 9
-- :fields:
-    company_id: 23
-    district_id: 10
+# - :fields:
+#     company_id: 23
+#     district_id: 10
 :sources: []

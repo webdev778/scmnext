@@ -12,8 +12,10 @@
 
 class Dlt::Setting < ApplicationRecord
   include RansackableEnum
-  belongs_to :company
-  belongs_to :district
+  # don't use this relation.
+  # belongs_to :company
+  # belongs_to :district
+  belongs_to :bg_member, required: false
   has_many :files, class_name: Dlt::File.to_s
 
   ransackable_enum state: {
@@ -26,7 +28,7 @@ class Dlt::Setting < ApplicationRecord
   }
 
   scope :includes_for_index, lambda {
-    includes([:company, :district])
+    includes(bg_member: [:company, {balancing_group: :district}])
   }
 
   def as_json(options = {})
@@ -35,7 +37,19 @@ class Dlt::Setting < ApplicationRecord
         methods: [
           :state_i18n
         ],
-        include: [:company, :district]
+        include: {
+          bg_member: {
+            include:
+              [
+                :company,
+                {
+                  balancing_group: {
+                    include: :district
+                  }
+                }
+              ]
+          }
+        }
       }
     end
     super options
@@ -47,19 +61,18 @@ class Dlt::Setting < ApplicationRecord
   def connection
     return @con unless @con.nil?
 
-    if company.company_account_occto.nil?
+    if bg_member.company.company_account_occto.nil?
       logger.error("#{company.name}の広域アカウント情報がありません。")
       return nil
     end
-    if company.company_account_occto.pkcs12_object.nil?
-      logger.error("#{company.name}の広域アカウント情報の証明書を読み込むことができません。")
+    if bg_member.company.company_account_occto.pkcs12_object.nil?
+      logger.error("#{bg_member.company.name}の広域アカウント情報の証明書を読み込むことができません。")
       return nil
     end
 
-    district = self.district
-    pkcs12 = company.company_account_occto.pkcs12_object
+    pkcs12 = bg_member.company.company_account_occto.pkcs12_object
     @con = Faraday::Connection.new(
-      url: district.dlt_host,
+      url: bg_member.balancing_group.district.dlt_host,
       ssl: {
         client_key: pkcs12.key,
         client_cert: pkcs12.certificate
@@ -71,7 +84,7 @@ class Dlt::Setting < ApplicationRecord
   # PPSエリア別コードを返す
   #
   def company_area_code
-    company.code + district.code_1digit
+    bg_member.company.code + bg_member.balancing_group.district.code_1digit
   end
 
   #
@@ -79,7 +92,7 @@ class Dlt::Setting < ApplicationRecord
   # (dlt_pathに:company_area_codeとある場合のみPPSエリア別コードに置換する)
   #
   def path_prefix
-    district.dlt_path.gsub(':company_area_code', company_area_code)
+    bg_member.balancing_group.district.dlt_path.gsub(':company_area_code', company_area_code)
   end
 
 end

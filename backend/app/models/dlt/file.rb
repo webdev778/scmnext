@@ -104,13 +104,13 @@ class Dlt::File < ApplicationRecord
     #
     def download
       Dlt::Setting.filter_state_active.find_each do |setting|
-        target_name = "#{setting.company.name} #{setting.district.name}"
+        target_name = "#{setting.bg_member.company.name} #{setting.bg_member.balancing_group.district.name}"
         if setting.connection.nil?
           logger.error("[#{target_name}]のダウンロードをスキップしました。")
           next
         end
-        file_list = get_file_list(setting)
         logger.info("[#{target_name}]の託送データをダウンロードします。")
+        file_list = get_file_list(setting)
         filenames = file_list.map { |_no, list_item| list_item[:filename] }
         downloaded_filenames = Dlt::File.includes(%i[setting content_blob])
                                         .where(
@@ -139,8 +139,9 @@ class Dlt::File < ApplicationRecord
     def get_file_list(setting)
       begin
         result = setting.connection.get("#{setting.path_prefix}/FileListReceiver")
-      rescue
+      rescue Exception=>ex
         logger.error("接続できません。")
+        logger.error(ex)
         return []
       end
       file_list = result.body

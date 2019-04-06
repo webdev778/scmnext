@@ -19,7 +19,7 @@
     created_at: tbl_company.created
     updated_at: tbl_company.modified
   :from: tbl_company
-  :where: 0 = 0
+  :where: tbl_account.id NOT IN(2, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15)
   :joins:
   - :table: tbl_account
     :type: inner
