@@ -80,7 +80,7 @@ class Jepx::SpotTrade < ApplicationRecord
         builder.use Faraday::Request::UrlEncoded
         builder.use Faraday::Adapter::NetHttp
       end
-      response = conn.get('market/excel/spot_' + year.to_s + '.csv')
+      response = conn.get("market/excel/spot_#{year}.csv")
       csv = CSV.parse(response.body, headers: true)
       district_hash = District.get_hash
       csv.each do |line|

@@ -4,7 +4,7 @@ namespace :dlt do
     if ENV['FROM']
       # FROMが指定されていた場合はその日付までを取得する
       Dlt::File.download do |filename|
-        ENV['FROM'].in_timezone < DateTime.strptime(filename[6, 8], '%Y%m%d')
+        ENV['FROM'].in_time_zone < DateTime.strptime(filename[6, 8], '%Y%m%d')
       end
     else
       Dlt::File.download
@@ -62,9 +62,10 @@ namespace :dlt do
   namespace :summary do
     desc '確定使用量テーブルのデータを確定値テーブルへ取込む'
     task fixed: :environment do |_task, _args|
-      start_date = Date.new(2018, 11, 1)
+      start_date = ENV['FROM'].present? ?  ENV['FROM'].in_time_zone : 1.month.before(Date.today).begining_of_month
+      end_date = ENV['TO'].present? ? ENV['TO'].in_time_zone : start_date.end_of_month
       Dlt::Setting.filter_state_active.find_each do |setting|
-        PowerUsageFixed.import_data(setting.company_id, setting.district_id, start_date, start_date.end_of_month)
+        PowerUsageFixed.import_data(setting, start_date, start_date.end_of_month)
       end
     end
   end

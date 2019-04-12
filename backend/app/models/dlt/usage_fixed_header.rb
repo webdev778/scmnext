@@ -51,6 +51,8 @@ class Dlt::UsageFixedHeader < ApplicationRecord
 
   class << self
     def import_data(setting, date, force)
+      target_name = "#{setting.bg_member.company.name} #{setting.bg_member.balancing_group.district.name}"
+      logger.info("[#{target_name}]の確定使用量データの取り込み処理を開始")
       target_files = setting.files.filter_force(force).where(data_type: :fixed, record_date: date)
       target_files.each do |file|
         logger.info(file.content.filename.to_s)

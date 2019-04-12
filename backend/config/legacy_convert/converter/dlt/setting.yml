@@ -3,108 +3,143 @@
 :model_class: Dlt::Setting
 :extra:
 - :fields:
+    id: 1
     company_id: 1
     district_id: 1
 - :fields:
+    id: 2
     company_id: 1
     district_id: 2
 - :fields:
+    id: 3
     company_id: 1
     district_id: 3
 - :fields:
+    id: 4
     company_id: 1
     district_id: 5
 - :fields:
+    id: 5
     company_id: 1
     district_id: 9
 - :fields:
+    id: 6
     company_id: 8
     district_id: 2
 - :fields:
+    id: 7
     company_id: 8
     district_id: 7
 - :fields:
+    id: 8
     company_id: 8
     district_id: 9
 # - :fields:
+#     id: 9
 #     company_id: 12
 #     district_id: 3
 - :fields:
+    id: 10
     company_id: 17
     district_id: 1
 - :fields:
+    id: 11
     company_id: 17
     district_id: 2
 - :fields:
+    id: 12
     company_id: 17
     district_id: 7
 - :fields:
+    id: 13
     company_id: 18
     district_id: 1
 - :fields:
+    id: 14
     company_id: 18
     district_id: 2
 - :fields:
+    id: 15
     company_id: 18
     district_id: 3
 - :fields:
+    id: 16
     company_id: 18
     district_id: 4
 - :fields:
+    id: 17
     company_id: 18
     district_id: 5
 # - :fields:
+#     id: 18
 #     company_id: 18
 #     district_id: 6
 - :fields:
+    id: 19
     company_id: 18
     district_id: 7
 - :fields:
+    id: 20
     company_id: 18
     district_id: 8
 - :fields:
+    id: 21
     company_id: 18
     district_id: 9
 # - :fields:
+#     id: 22
 #     company_id: 18
 #     district_id: 10
 - :fields:
+    id: 23
     company_id: 19
     district_id: 1
 - :fields:
+    id: 24
     company_id: 19
     district_id: 9
 - :fields:
+    id: 25
     company_id: 21
     district_id: 1
 - :fields:
+    id: 26
     company_id: 23
     district_id: 1
 - :fields:
+    id: 27
     company_id: 23
     district_id: 2
 - :fields:
+    id: 28
     company_id: 23
     district_id: 3
 - :fields:
+    id: 29
     company_id: 23
     district_id: 4
 - :fields:
+    id: 30
     company_id: 23
     district_id: 5
 # - :fields:
+#     id: 31
 #     company_id: 23
 #     district_id: 6
 - :fields:
+    id: 32
     company_id: 23
     district_id: 7
 - :fields:
+    id: 33
     company_id: 23
     district_id: 8
 - :fields:
+    id: 34
     company_id: 23
     district_id: 9
 # - :fields:
+#     id: 35
 #     company_id: 23
 #     district_id: 10
 :sources: []

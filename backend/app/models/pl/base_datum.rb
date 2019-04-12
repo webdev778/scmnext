@@ -149,11 +149,11 @@ class Pl::BaseDatum < ApplicationRecord
     #
     # @param conditions [String | Array | Hash] データを絞り込む条件
     # @param group_fields [Array] 集計単位として使用するカラム名のリスト
-    def summary(conditions, group_fields)
+    def summary(relation_obj, group_fields)
       select_items = group_fields + summary_columns.map do |col_name|
         "SUM(#{col_name}) AS #{col_name}"
       end
-      includes(:facility_group).select(select_items).distinct.group(group_fields).where(conditions)
+      relation_obj.joins(:facility_group).preload(:facility_group).select(select_items).group(group_fields).distinct
     end
 
     private

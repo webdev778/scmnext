@@ -54,6 +54,14 @@ Rails.application.routes.draw do
 
     get "balancings", to: "balancings#show"
     get "power_usages/:type", to: "power_usages#show", constraints: { type: /(fixed|preliminary)/ }
-    get "profits/:type", to: "profits#show", constraints: { type: /(fixed|preliminary)/ }
+    get "profits/:type/:bg_member_id.:format",
+      to: "profits#group_by_facility_group_id",
+      constraints: { type: /(fixed|preliminary)/, format: /(json|csv|xlsx)/ }
+    get "profits/:type/:bg_member_id/:facility_group_id.:format",
+      to: "profits#group_by_date",
+      constraints: { type: /(fixed|preliminary)/, format: /(json|csv|xlsx)/ }
+    get "profits/:type/:bg_member_id/:facility_group_id/:date.:format",
+      to: "profits#group_by_time_index",
+      constraints: { type: /(fixed|preliminary)/, format: /(json|csv|xlsx)/ }
   end
 end

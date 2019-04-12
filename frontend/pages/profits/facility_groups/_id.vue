@@ -40,15 +40,15 @@
                   b-button(
                     v-on:click="fetchData('json')"
                   ) 表示
-                  b-link.btn.btn-secondary(
-                    v-bind:href="urlFor('csv')"
+                  b-button(
+                    v-on:click="fetchData('csv')"
                   ) CSVエクスポート
-                  b-link.btn.btn-secondary(
-                    v-bind:href="urlFor('xlsx')"
+                  b-button(
+                    v-on:click="fetchData('xlsx')"
                   ) EXCELエクスポート
             b-table(small v-bind:items="items" v-bind:fields="fields" style="width: 2000px;")
-              template(slot="links" slot-scope="data")
-                b-link(v-bind:to="{ path: `/profits/facility_groups/${data.item.facility_group_id}` }")
+              template(slot="links" slot-scope="row")
+                b-link(v-bind:to="{ path: 'profits/facility_group', params: { id: row.facility_group_id } }")
                   | 日付詳細
 </template>
 
@@ -101,8 +101,7 @@ export default {
       dataTypes: [
         {value: 'preliminary', text: '速報値'},
         {value: 'fixed', text: '確定値'}
-      ],
-      csvUrl: null
+      ]
     }
   },
   computed: {
@@ -140,17 +139,11 @@ export default {
       this.targetYear = this.$moment().format('YYYY')
       this.targetMonth = this.$moment().format('MM')
     },
-    urlFor(format){
-      return this.$axios.defaults.baseURL + this.pathFor(format)
-    },
-    pathFor(format){
-      return `/v1/profits/${this.dataType}/${this.bgMemberId}.${format}?target_year_month=${this.targetYearMonth}`
-    },
-    fetchData(){
+    fetchData(format){
       let params = {
-        target_year_month: this.targetYearMonth
+        target_year_month: this.targetYearMonth,
       }
-      this.$axios.$get(this.pathFor('json'), {params: params} )
+      this.$axios.$get(`/v1/profits/${this.dataType}/${this.bgMemberId}.${format}`, {params: params} )
       .then( (result)=>{
         if (result == null) {
           alert('エラー')

@@ -23,9 +23,9 @@ development:
 
 staging:
   <<: *default
-  database: enepascm_development
-  username: scmnext_demo
-  password: a5FmMb2r
+  database: <%= Rails.application.credentials.dig(:database_staging, :database) %>
+  username: <%= Rails.application.credentials.dig(:database_staging, :username) %>
+  password: <%= Rails.application.credentials.dig(:database_staging, :password) %>
   host: scmnext-demo.c9iofatbhoxa.ap-northeast-1.rds.amazonaws.com
 
 # Warning: The database defined as "test" will be erased and
