@@ -112,7 +112,7 @@ namespace :legacy do
 
     legacy_con = legacy_connection
     my_con = my_connection
-    logger.info("#{config[:model_class]}の処理を開始します"
+    logger.info "#{config[:model_class]}の処理を開始します。"
     model_class = config[:model_class].constantize
     model_class.connection.execute("TRUNCATE #{model_class.table_name}") if config[:truncate]
     config[:sources]&.each do |source|
@@ -357,7 +357,7 @@ namespace :legacy do
         %w[ApplicationRecord Legacy].include?(model_class.to_s)
       end
       model_classes.each do |model_class|
-        logger.info("#{model_class.to_s}の雛形を作成/更新します"
+        logger.info "#{model_class.to_s}の雛形を作成/更新します。"
         write_convert_config(model_class.to_s, model_class.column_names)
       end
     end
