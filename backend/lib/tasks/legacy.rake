@@ -140,10 +140,14 @@ namespace :legacy do
         logger.debug(items)
       end
       result = model_class.import items
-      if ENV['RAILS_ENV'] == 'development'
-        binding.pry unless result.failed_instances.empty?
-      else
-        logger.error(result.failed_instances)
+
+      unless result.failed_instances.empty?
+        if ENV['RAILS_ENV'] == 'development'
+          binding.pry
+        else
+          logger.error(result.failed_instances)
+          raise "保存時にエラーが発生しました。"
+        end
       end
     end
     # その他データ登録
@@ -165,10 +169,14 @@ namespace :legacy do
             end
           end
         end
-        if Rails.env == 'development'
-          binding.pry if model_instance.invalid?
+        unless model_instance.save
+          if Rails.env == 'development'
+            binding.pry
+          else
+            logger.error(model_instance.erros.full_messages)
+            raise "保存時にエラーが発生しました。"
+          end
         end
-        model_instance.save!
       end
     end
   end
