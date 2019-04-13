@@ -112,7 +112,7 @@ namespace :legacy do
 
     legacy_con = legacy_connection
     my_con = my_connection
-    puts config[:model_class]
+    logger.info("#{config[:model_class]}の処理を開始します"
     model_class = config[:model_class].constantize
     model_class.connection.execute("TRUNCATE #{model_class.table_name}") if config[:truncate]
     config[:sources]&.each do |source|
@@ -142,7 +142,9 @@ namespace :legacy do
       end
       result = model_class.import items
 
-      unless result.failed_instances.empty?
+      if result.failed_instances.empty?
+        logger.info("#{source[:from]}から#{items.count}件のインポートを行いました。"
+      else
         if ENV['RAILS_ENV'] == 'development'
           binding.pry
         else
@@ -179,6 +181,7 @@ namespace :legacy do
           end
         end
       end
+      logger.info("定義ファイルより#{config[:extra].count}件を登録/更新しました。"
     end
   end
 
@@ -186,7 +189,7 @@ namespace :legacy do
   # 全ての定義ファイルに対して変換処理を行う
   #
   def convert_all
-    # 定義ファイルをすべて取得し、skipを除外の後、依存関係に応じてソートする(belongs_toの相手を先に処理するようにする)
+    # 定義ファイルをすべて取得し、skipを除外の後、クラスをkey,configを値とするハッシュを生成
     config_list = Dir.glob("#{converter_path}/**/*.yml")
       .map do |yaml_path|
         YAML.load_file(yaml_path)
@@ -200,6 +203,7 @@ namespace :legacy do
       end
       .to_h
 
+    # 依存関係に応じてソートする(belongs_toの相手を先に処理するようにする)ために、TSort用のツリーを作成
     dep_tree = config_list
       .map do |model_class, config|
         child = model_class
@@ -217,29 +221,6 @@ namespace :legacy do
         convert config_list[model_class]
       end
     end
-    #   .sort do |a, b|
-    #     a_class = a[:model_class].constantize
-    #     a_class_belongs_to = a_class.reflections.values.select{|reflection| reflection.is_a?(ActiveRecord::Reflection::BelongsToReflection)}
-    #     b_class = b[:model_class].constantize
-    #     b_class_belongs_to = b_class.reflections.values.select{|reflection| reflection.is_a?(ActiveRecord::Reflection::BelongsToReflection)}
-    #     b_belongs_to_a = a_class_belongs_to.any?{|a_belongs_to| a_belongs_to.klass == b_class}
-    #     a_belongs_to_b = b_class_belongs_to.any?{|b_belongs_to| b_belongs_to.klass == a_class}
-    #     if a_belongs_to_b and b_belongs_to_a
-    #       binding.pry
-    #       raise "相互参照してます #{a_class.name} #{b_class.name}"
-    #     end
-    #     case
-    #     when a_belongs_to_b
-    #       -1
-    #     when b_belongs_to_a
-    #       1
-    #     else
-    #       0
-    #     end
-    #   end
-    # config_list.each do |config|
-    #   convert config
-    # end
   end
 
   #
@@ -376,7 +357,7 @@ namespace :legacy do
         %w[ApplicationRecord Legacy].include?(model_class.to_s)
       end
       model_classes.each do |model_class|
-        puts model_class.to_s
+        logger.info("#{model_class.to_s}の雛形を作成/更新します"
         write_convert_config(model_class.to_s, model_class.column_names)
       end
     end
