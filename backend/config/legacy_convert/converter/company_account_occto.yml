@@ -2,10 +2,9 @@
 :truncate: false
 :model_class: CompanyAccountOccto
 :extra:
-- :fields:
+- :cond:
     company_id: 1
-    login_code: dummy
-    password: dummy
+- :fields:
     passphrase: 62466263
     pkcs12: certs/occto/EPP_47493_000000000000046892.p12
 - :cond:
@@ -23,22 +22,19 @@
 #   :fields:
 #     passphrase: 22274995
 #     pkcs12: certs/occto/EPP_41108_000000000000040508.p12
-- :fields:
+- :cond:
     company_id: 17
-    login_code: dummy
-    password: dummy
+- :fields:
     passphrase: 98408974
     pkcs12: certs/occto/EPP_33914_000000000000033314.p12
-- :fields:
+- :cond:
     company_id: 18
-    login_code: dummy
-    password: dummy
+- :fields:
     passphrase: 45563882
     pkcs12: certs/occto/EPP_45418_000000000000044818.p12
-- :fields:
+- :cond:
     company_id: 19
-    login_code: dummy
-    password: dummy
+- :fields:
     passphrase: 58302524
     pkcs12: certs/occto/EPP_34031_000000000000033431.p12
 - :cond:
@@ -46,14 +42,14 @@
   :fields:
     passphrase: kgdcis0068js
     pkcs12: certs/occto/ESX116000068.p12
-- :fields:
+- :cond:
     company_id: 23
-    login_code: dummy
-    password: dummy
+- :fields:
     passphrase: 87199329
     pkcs12: certs/occto/ESZ057000001.p12
-- :fields:
+- :cond:
     company_id: 24
+- :fields:
     login_code: 10003145
     password: =)t"([(:wg
     passphrase: 22415128
