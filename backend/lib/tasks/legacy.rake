@@ -341,7 +341,7 @@ namespace :legacy do
     if ENV['TARGET']
       yaml_file = ENV['TARGET']
       raise "指定された定義ファイル#{yaml_file}が見つかりません。" unless File.exist?(yaml_file)
-      config = YAML.load_file(yaml_path)
+      config = YAML.load_file(yaml_file)
       convert config
     else
       convert_all
