@@ -156,6 +156,209 @@ class Pl::BaseDatum < ApplicationRecord
       relation_obj.joins(:facility_group).preload(:facility_group).select(select_items).group(group_fields).distinct
     end
 
+    #
+    # 集計表で使用するアイテムの定義
+    #
+    def common_table_definitions_for_summary
+      [
+        {
+          key: :id,
+          category_label: "基本情報",
+          label: "需要家ID"
+        },
+        {
+          key: :facility_group_name,
+          category_label: "基本情報",
+          label: "需要家名"
+        },
+        {
+          key: :facility_group_name,
+          category_label: "基本情報",
+          label: "需要家区分"
+        },
+        {
+          key: :facility_group_name,
+          category_label: "基本情報",
+          label: "契約kw"
+        },
+        {
+          key: :facility_group_name,
+          category_label: "基本情報",
+          label: "全量or部分"
+        },
+        {
+          key: :facility_group_name,
+          category_label: "基本情報",
+          label: "損失率"
+        },
+        {
+          key: :amount_actual,
+          category_label: "基本情報",
+          label: "電力使用量(部分考慮)"
+        },
+        {
+          key: :amount_actual,
+          category_label: "基本情報",
+          label: "電力使用量(全量時)"
+        },
+        {
+          key: :amount_planned,
+          category_label: "基本情報",
+          label: "計画値"
+        },
+        {
+          key: :amount_loss,
+          category_label: "基本情報",
+          label: "損失量"
+        },
+        {
+          key: :amount_imbalance,
+          category_label: "基本情報",
+          label: "インバランス余剰量"
+        },
+        {
+          key: :amount_imbalance,
+          category_label: "基本情報",
+          label: "インバランス不足量"
+        },
+        {
+          key: :amount_imbalance,
+          category_label: "基本情報",
+          label: "力率"
+        },
+        {
+          key: :sales_basic_charge,
+          category_label: "売上料金",
+          label: "基本料金"
+        },
+        {
+          key: :sales_meter_rate_charge,
+          category_label: "売上料金",
+          label: "従量料金"
+        },
+        {
+          key: :sales_fuel_cost_adjustment,
+          category_label: "売上料金",
+          label: "燃料調整費"
+        },
+        {
+          key: :sales_total,
+          category_label: "売上料金",
+          label: "合計"
+        },
+        {
+          key: :sales_kw_unit_price,
+          category_label: "売上料金",
+          label: "kw単価"
+        },
+        {
+          key: :usage_jbu,
+          category_label: "仕入量",
+          label: "JBU使用量"
+        },
+        {
+          key: :usage_jepx_spot,
+          category_label: "仕入量",
+          label: "JEPXスポット使用量"
+        },
+        {
+          key: :usage_jepx_1hour,
+          category_label: "仕入量",
+          label: "JEPX一時間前使用量"
+        },
+        {
+          key: :usage_fit,
+          category_label: "仕入量",
+          label: "FIT使用量"
+        },
+        {
+          key: :usage_matching,
+          category_label: "仕入量",
+          label: "相対使用量"
+        },
+        {
+          key: :supply_jbu_basic_charge,
+          category_label: "仕入料金",
+          label: "JBU基本"
+        },
+        {
+          key: :supply_jbu_meter_rate_charge,
+          category_label: "仕入料金",
+          label: "JBU従量"
+        },
+        {
+          key: :supply_jbu_fuel_cost_adjustment,
+          category_label: "仕入料金",
+          label: "JBU燃料調整費"
+        },
+        {
+          key: :supply_jepx_spot,
+          category_label: "仕入料金",
+          label: "JEPXスポット料金"
+        },
+        {
+          key: :supply_jepx_1hour,
+          category_label: "仕入料金",
+          label: "JEPX一時間前料金"
+        },
+        {
+          key: :supply_fit,
+          category_label: "仕入料金",
+          label: "FIT料金"
+        },
+        {
+          key: :supply_matching,
+          category_label: "仕入料金",
+          label: "相対料金"
+        },
+        {
+          key: :supply_imbalance,
+          category_label: "仕入料金",
+          label: "インバランス余剰金"
+        },
+        {
+          key: :supply_imbalance,
+          category_label: "仕入料金",
+          label: "インバランス不足金"
+        },
+        {
+          key: :supply_wheeler_fundamental_charge,
+          category_label: "仕入料金",
+          label: "託送基本料金"
+        },
+        {
+          key: :supply_wheeler_meter_rate_charge,
+          category_label: "仕入料金",
+          label: "託送従量料金"
+        },
+        {
+          key: :supply_total,
+          category_label: "仕入料金",
+          label: "合計"
+        },
+        {
+          key: :supply_kw_unit_price,
+          category_label: "仕入料金",
+          label: "kw単価"
+        },
+        {
+          key: :profit_value,
+          category_label: "利益",
+          label: "粗利益"
+        },
+        {
+          key: :profit_rate,
+          category_label: "利益",
+          label: "利益率"
+        },
+        {
+          key: :load_factor,
+          category_label: "負荷",
+          label: "負荷率"
+        }
+      ]
+    end
+
     private
 
     #
@@ -178,6 +381,7 @@ class Pl::BaseDatum < ApplicationRecord
         usage_fit
         usage_matching
         supply_jbu_basic_charge
+        supply_jbu_meter_rate_charge
         supply_jbu_fuel_cost_adjustment
         supply_jepx_spot
         supply_jepx_1hour
@@ -197,5 +401,45 @@ class Pl::BaseDatum < ApplicationRecord
   # @return [String] 設備グループ名
   def facility_group_name
     facility_group.name
+  end
+
+  def sales_total
+    sales_basic_charge
+    + sales_meter_rate_charge
+    + sales_fuel_cost_adjustment
+    + sales_cost_adjustment
+    + sales_special_discount
+  end
+
+  def sales_kw_unit_price
+    sales_total / amount_actual
+  end
+
+  def supply_total
+    supply_jbu_basic_charge
+    + supply_jbu_fuel_cost_adjustment
+    + supply_jepx_spot
+    + supply_jepx_1hour
+    + supply_fit
+    + supply_matching
+    + supply_imbalance
+    + supply_wheeler_fundamental_charge
+    + supply_wheeler_meter_rate_charge
+  end
+
+  def supply_kw_unit_price
+    supply_total / amount_actual
+  end
+
+  def profit_value
+    sales_total - supply_total
+  end
+
+  def profit_rate
+    profit_value / sales_total
+  end
+
+  def load_factor
+    0
   end
 end
