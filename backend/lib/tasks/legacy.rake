@@ -166,6 +166,7 @@ namespace :legacy do
             # カラム定義がなければ添付ファイル扱い
             path = Rails.root.join('config/legacy_convert', value)
             if File.exist?(path)
+              model_instance.send(field_name).purge
               model_instance.send(field_name).attach(io: File.open(path, 'r'), filename: path.basename)
             else
               logger.error("file:#{path} not found.")
