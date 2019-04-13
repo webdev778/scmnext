@@ -1,3 +1,4 @@
+require 'tsort'
 namespace :legacy do
   def merge_yaml(filename)
     parentdir = File.dirname(filename)
@@ -193,29 +194,52 @@ namespace :legacy do
       .delete_if do |config|
         config[:skip]
       end
-      .sort do |a, b|
-        a_class = a[:model_class].constantize
-        a_class_belongs_to = a_class.reflections.values.select{|reflection| reflection.is_a?(ActiveRecord::Reflection::BelongsToReflection)}
-        b_class = b[:model_class].constantize
-        b_class_belongs_to = b_class.reflections.values.select{|reflection| reflection.is_a?(ActiveRecord::Reflection::BelongsToReflection)}
-        b_belongs_to_a = a_class_belongs_to.any?{|a_belongs_to| a_belongs_to.klass == b_class}
-        a_belongs_to_b = b_class_belongs_to.any?{|b_belongs_to| b_belongs_to.klass == a_class}
-        if a_belongs_to_b and b_belongs_to_a
-          binding.pry
-          raise "相互参照してます #{a_class.name} #{b_class.name}"
-        end
-        case
-        when a_belongs_to_b
-          -1
-        when b_belongs_to_a
-          1
-        else
-          0
-        end
+      .map do |config|
+        model_class = config[:model_class].constantize
+        [model_class, config]
       end
-    config_list.each do |config|
-      convert config
+      .to_h
+
+    dep_tree = config_list
+      .map do |model_class, config|
+        child = model_class
+          .reflections
+          .values
+          .select{|reflection| reflection.is_a?(ActiveRecord::Reflection::BelongsToReflection)}
+          .map{|reflection| reflection.klass}
+        [model_class, child]
+      end
+      .to_h
+    each_node = lambda {|&b| dep_tree.each_key(&b) }
+    each_child = lambda {|n, &b| dep_tree[n].each(&b) }
+    TSort.each_strongly_connected_component(each_node, each_child) do |models|
+      models.each do |model_class|
+        convert config_list[model_class]
+      end
     end
+    #   .sort do |a, b|
+    #     a_class = a[:model_class].constantize
+    #     a_class_belongs_to = a_class.reflections.values.select{|reflection| reflection.is_a?(ActiveRecord::Reflection::BelongsToReflection)}
+    #     b_class = b[:model_class].constantize
+    #     b_class_belongs_to = b_class.reflections.values.select{|reflection| reflection.is_a?(ActiveRecord::Reflection::BelongsToReflection)}
+    #     b_belongs_to_a = a_class_belongs_to.any?{|a_belongs_to| a_belongs_to.klass == b_class}
+    #     a_belongs_to_b = b_class_belongs_to.any?{|b_belongs_to| b_belongs_to.klass == a_class}
+    #     if a_belongs_to_b and b_belongs_to_a
+    #       binding.pry
+    #       raise "相互参照してます #{a_class.name} #{b_class.name}"
+    #     end
+    #     case
+    #     when a_belongs_to_b
+    #       -1
+    #     when b_belongs_to_a
+    #       1
+    #     else
+    #       0
+    #     end
+    #   end
+    # config_list.each do |config|
+    #   convert config
+    # end
   end
 
   #
