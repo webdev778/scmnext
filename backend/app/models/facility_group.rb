@@ -23,7 +23,7 @@ class FacilityGroup < ApplicationRecord
   # belongs_to :company
   # belongs_to :district
   belongs_to :bg_member, required: false
-  belongs_to :contract, required: false
+  belongs_to :contract
 
   scope :includes_for_index, lambda {
     includes([{bg_member: [:company, {balancing_group: :district}]}, :contract, :voltage_type])

@@ -38,16 +38,6 @@ namespace :legacy do
           source[:from] ||= nil
           source[:where] ||= nil
         end
-      else
-        # 旧定義の場合、新定義に置き換える
-        config[:sources] ||= [{}]
-        config[:sources][0]
-        %i[fields from where joins].each do |item_name|
-          unless config[item_name].nil?
-            config[:sources][0][item_name] = config[item_name]
-            config.delete(item_name)
-          end
-        end
       end
       config
     end
@@ -117,9 +107,7 @@ namespace :legacy do
   #
   # 個別の変換処理
   #
-  def convert(yaml_path)
-    config = YAML.load_file(yaml_path)
-    return if config[:skip]
+  def convert(config)
 
     legacy_con = legacy_connection
     my_con = my_connection
@@ -148,11 +136,15 @@ namespace :legacy do
         model_class.new params
       end
       if ENV['DEBUG']
-        puts 'insert items'
-        p items
+        logger.debug('insert items')
+        logger.debug(items)
       end
       result = model_class.import items
-      binding.pry unless result.failed_instances.empty?
+      if ENV['RAILS_ENV'] == 'development'
+        binding.pry unless result.failed_instances.empty?
+      else
+        logger.error(result.failed_instances)
+      end
     end
     # その他データ登録
     if config[:extra]
@@ -169,9 +161,12 @@ namespace :legacy do
             if File.exist?(path)
               model_instance.send(field_name).attach(io: File.open(path, 'r'), filename: path.basename)
             else
-              puts "file:#{path} not found."
+              logger.error("file:#{path} not found.")
             end
           end
+        end
+        if Rails.env == 'development'
+          binding.pry if model_instance.invalid?
         end
         model_instance.save!
       end
@@ -182,8 +177,36 @@ namespace :legacy do
   # 全ての定義ファイルに対して変換処理を行う
   #
   def convert_all
-    Dir.glob("#{converter_path}/**/*.yml").sort.each do |yaml_path|
-      convert yaml_path
+    # 定義ファイルをすべて取得し、skipを除外の後、依存関係に応じてソートする(belongs_toの相手を先に処理するようにする)
+    config_list = Dir.glob("#{converter_path}/**/*.yml")
+      .map do |yaml_path|
+        YAML.load_file(yaml_path)
+      end
+      .delete_if do |config|
+        config[:skip]
+      end
+      .sort do |a, b|
+        a_class = a[:model_class].constantize
+        a_class_belongs_to = a_class.reflections.values.select{|reflection| reflection.is_a?(ActiveRecord::Reflection::BelongsToReflection)}
+        b_class = b[:model_class].constantize
+        b_class_belongs_to = b_class.reflections.values.select{|reflection| reflection.is_a?(ActiveRecord::Reflection::BelongsToReflection)}
+        b_belongs_to_a = a_class_belongs_to.any?{|a_belongs_to| a_belongs_to.klass == b_class}
+        a_belongs_to_b = b_class_belongs_to.any?{|b_belongs_to| b_belongs_to.klass == a_class}
+        if a_belongs_to_b and b_belongs_to_a
+          binding.pry
+          raise "相互参照してます #{a_class.name} #{b_class.name}"
+        end
+        case
+        when a_belongs_to_b
+          -1
+        when b_belongs_to_a
+          1
+        else
+          0
+        end
+      end
+    config_list.each do |config|
+      convert config
     end
   end
 
@@ -225,7 +248,6 @@ namespace :legacy do
       .includes([{ supply_point: :facility_group }, :consumer])
       .where("facility_groups.id" => nil)
       .where.not("consumers.id" => nil)
-
     facility_not_grouped
       .group_by do |facility|
         [
@@ -296,13 +318,17 @@ namespace :legacy do
     set_bg_memeber_id
   end
 
+  #
+  # DBの変換の実施
+  # TARGET指定の場合はそのymlの変換のみ実施(TARGET指定時はskip/beforeのオプションは考慮されない)
+  # TARGET未指定時は全てのymlの変換を行った上で設備、bg_member_idの設定を行う
   desc 'DB移行'
   task convert: :environment do |_task, _args|
     if ENV['TARGET']
       yaml_file = ENV['TARGET']
       raise "指定された定義ファイル#{yaml_file}が見つかりません。" unless File.exist?(yaml_file)
-
-      convert yaml_file
+      config = YAML.load_file(yaml_path)
+      convert config
     else
       convert_all
       fix_facility_group
