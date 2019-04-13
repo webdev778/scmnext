@@ -143,7 +143,7 @@ namespace :legacy do
       result = model_class.import items
 
       if result.failed_instances.empty?
-        logger.info("#{source[:from]}から#{items.count}件のインポートを行いました。"
+        logger.info "#{source[:from]}から#{items.count}件のインポートを行いました。"
       else
         if ENV['RAILS_ENV'] == 'development'
           binding.pry
@@ -181,7 +181,7 @@ namespace :legacy do
           end
         end
       end
-      logger.info("定義ファイルより#{config[:extra].count}件を登録/更新しました。"
+      logger.info "定義ファイルから#{config[:extra].count}件の登録/更新を行いました。"
     end
   end
 
