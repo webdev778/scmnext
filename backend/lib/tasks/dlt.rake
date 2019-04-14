@@ -19,11 +19,12 @@ namespace :dlt do
     task today: :environment do |_task, _args|
       target_date = determine_target_date(Date.today)
       force = ENV['FORCE'].present? || ENV['FORCE'] == 'true'
+      setting_id = ENV['SETTING_ID'].present? ? ENV['SETTING_ID'].to_i : null
       time_index_id = ENV['TIME_INDEX'].present? ?  ENV['TIME_INDEX'].to_i : nil
       logger.info("処理日:#{target_date}")
       if time_index_id
         logger.info("時間枠:#{time_index_id}")
-        Dlt::Setting.filter_state_active.find_each do |setting|
+        Dlt::Setting.filter_state_active.filter_id_unless_nil(setting_id).find_each do |setting|
           PowerUsagePreliminary.import_today_data(setting, target_date, time_index_id, force)
         end
       else
@@ -39,8 +40,9 @@ namespace :dlt do
     task past: :environment do |_task, _args|
       target_date = determine_target_date(Date.yesterday)
       force = ENV['FORCE'].present? || ENV['FORCE'] == 'true'
+      setting_id = ENV['SETTING_ID'].present? ? ENV['SETTING_ID'].to_i : null
       logger.info("処理日:#{target_date}")
-      Dlt::Setting.filter_state_active.find_each do |setting|
+      Dlt::Setting.filter_state_active.filter_id_unless_nil(setting_id).find_each do |setting|
         PowerUsagePreliminary.import_past_data(setting, target_date, force)
       end
     end
@@ -49,8 +51,9 @@ namespace :dlt do
     task fixed: :environment do |_task, _args|
       target_date = determine_target_date(Date.yesterday)
       force = ENV['FORCE'].present? || ENV['FORCE'] == 'true'
+      setting_id = ENV['SETTING_ID'].present? ? ENV['SETTING_ID'].to_i : null
       logger.info("処理日:#{target_date}")
-      Dlt::Setting.filter_state_active.find_each do |setting|
+      Dlt::Setting.filter_state_active.filter_id_unless_nil(setting_id).find_each do |setting|
         Dlt::UsageFixedHeader.import_data(setting, target_date, force)
       end
     end
@@ -64,8 +67,9 @@ namespace :dlt do
     task fixed: :environment do |_task, _args|
       start_date = ENV['FROM'].present? ?  ENV['FROM'].in_time_zone : 1.month.before(Date.today).begining_of_month
       end_date = ENV['TO'].present? ? ENV['TO'].in_time_zone : start_date.end_of_month
-      Dlt::Setting.filter_state_active.find_each do |setting|
-        PowerUsageFixed.import_data(setting, start_date, start_date.end_of_month)
+      setting_id = ENV['SETTING_ID'].present? ? ENV['SETTING_ID'].to_i : null
+      Dlt::Setting.filter_state_active.filter_id_unless_nil(setting_id).find_each do |setting|
+        PowerUsageFixed.import_data(setting, start_date, end_of_date)
       end
     end
   end

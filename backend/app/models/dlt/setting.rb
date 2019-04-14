@@ -27,6 +27,12 @@ class Dlt::Setting < ApplicationRecord
     where(state: :state_active)
   }
 
+  scope :filter_id_unless_nil, lambda { |setting_id = nil|
+    unless setting_id.nil?
+      where(id: setting_id)
+    end
+  }
+
   scope :includes_for_index, lambda {
     includes(bg_member: [:company, {balancing_group: :district}])
   }

@@ -21,6 +21,8 @@ class PowerUsagePreliminary < ApplicationRecord
     # 当日データの取り込み
     #
     def import_today_data(setting, date, time_index, force = false)
+      target_name = "#{setting.bg_member.company.name} #{setting.bg_member.balancing_group.district.name}"
+      logger.info("[#{target_name}]の速報値当日データ取込処理を開始 (記録日:#{date} コマ:#{time_index})")
       target_files = setting.files.filter_force(force).where(data_type: :today, record_date: date, record_time_index_id: time_index)
 
       process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting) do |file|
@@ -38,6 +40,8 @@ class PowerUsagePreliminary < ApplicationRecord
     # 過去データの取り込み
     #
     def import_past_data(setting, date, force = false)
+      target_name = "#{setting.bg_member.company.name} #{setting.bg_member.balancing_group.district.name}"
+      logger.info("[#{target_name}]の速報値過去データ取込処理を開始 (記録日:#{date})")
       target_files = setting.files.filter_force(force).where(data_type: :past, record_date: date)
 
       process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting) do |file|
@@ -99,7 +103,7 @@ class PowerUsagePreliminary < ApplicationRecord
         date: date,
         time_index_id: time_index,
         supply_point_number: nodes_by_facility.elements['JP06400'].text,
-	name: (nodes_by_facility.elements['JP06120'].nil? ? nil : nodes_by_facility.elements['JP06120'].text),
+        name: (nodes_by_facility.elements['JP06120'].nil? ? nil : nodes_by_facility.elements['JP06120'].text),
         control_number: nodes_by_facility.elements['JP06121'].text,
         value: value
       }
