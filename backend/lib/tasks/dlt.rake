@@ -19,7 +19,7 @@ namespace :dlt do
     task today: :environment do |_task, _args|
       target_date = determine_target_date(Date.today)
       force = ENV['FORCE'].present? || ENV['FORCE'] == 'true'
-      setting_id = ENV['SETTING_ID'].present? ? ENV['SETTING_ID'].to_i : null
+      setting_id = ENV['SETTING_ID'].present? ? ENV['SETTING_ID'].to_i : nil
       time_index_id = ENV['TIME_INDEX'].present? ?  ENV['TIME_INDEX'].to_i : nil
       logger.info("処理日:#{target_date}")
       if time_index_id
@@ -40,7 +40,7 @@ namespace :dlt do
     task past: :environment do |_task, _args|
       target_date = determine_target_date(Date.yesterday)
       force = ENV['FORCE'].present? || ENV['FORCE'] == 'true'
-      setting_id = ENV['SETTING_ID'].present? ? ENV['SETTING_ID'].to_i : null
+      setting_id = ENV['SETTING_ID'].present? ? ENV['SETTING_ID'].to_i : nil
       logger.info("処理日:#{target_date}")
       Dlt::Setting.filter_state_active.filter_id_unless_nil(setting_id).find_each do |setting|
         PowerUsagePreliminary.import_past_data(setting, target_date, force)
@@ -51,7 +51,7 @@ namespace :dlt do
     task fixed: :environment do |_task, _args|
       target_date = determine_target_date(Date.yesterday)
       force = ENV['FORCE'].present? || ENV['FORCE'] == 'true'
-      setting_id = ENV['SETTING_ID'].present? ? ENV['SETTING_ID'].to_i : null
+      setting_id = ENV['SETTING_ID'].present? ? ENV['SETTING_ID'].to_i : nil
       logger.info("処理日:#{target_date}")
       Dlt::Setting.filter_state_active.filter_id_unless_nil(setting_id).find_each do |setting|
         Dlt::UsageFixedHeader.import_data(setting, target_date, force)
