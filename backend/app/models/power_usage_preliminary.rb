@@ -147,7 +147,7 @@ class PowerUsagePreliminary < ApplicationRecord
           invalid_data << {
             company_id: setting.bg_member.company_id,
             district_id: setting.bg_member.balancing_group.district_id,
-            setting_id: setting.id,
+            bg_member_id: setting.bg_member_id,
             number: tmp_power_usage.supply_point_number,
             name: tmp_power_usage.name,
             comment: "供給地点番号未登録"
