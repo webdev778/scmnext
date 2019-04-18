@@ -4,6 +4,7 @@
 #
 #  id                                      :bigint(8)        not null, primary key
 #  district_id                             :bigint(8)
+#  bg_member_id                            :bigint(8)
 #  company_id                              :bigint(8)
 #  start_date                              :date
 #  end_date                                :date

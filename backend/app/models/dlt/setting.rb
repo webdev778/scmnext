@@ -2,12 +2,13 @@
 #
 # Table name: dlt_settings
 #
-#  id          :bigint(8)        not null, primary key
-#  company_id  :bigint(8)
-#  district_id :bigint(8)
-#  state       :integer          default(0), not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id           :bigint(8)        not null, primary key
+#  company_id   :bigint(8)
+#  district_id  :bigint(8)
+#  bg_member_id :bigint(8)
+#  state        :integer          default("state_active"), not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 
 class Dlt::Setting < ApplicationRecord

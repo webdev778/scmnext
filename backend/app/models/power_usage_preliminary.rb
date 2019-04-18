@@ -64,7 +64,7 @@ class PowerUsagePreliminary < ApplicationRecord
       # 思わぬ動作をしてしまうので、最初に配列にしておく
       file_ids = target_files.pluck(:id)
       file_list = target_files.to_a
-    begin
+      begin
         Dlt::File.where(id: file_ids).update_all(state: :state_in_progress)
         file_list.each do |file|
           logger.info(file.content.filename.to_s)

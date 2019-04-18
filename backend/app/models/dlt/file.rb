@@ -2,13 +2,19 @@
 #
 # Table name: dlt_files
 #
-#  id         :bigint(8)        not null, primary key
-#  setting_id :bigint(8)
-#  state      :integer          default("state_untreated"), not null
-#  created_by :integer
-#  updated_by :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                   :bigint(8)        not null, primary key
+#  setting_id           :bigint(8)
+#  voltage_mode         :integer
+#  data_type            :integer
+#  record_date          :date
+#  record_time_index_id :integer
+#  section_number       :integer
+#  revision             :integer
+#  state                :integer          default("state_untreated"), not null
+#  created_by           :integer
+#  updated_by           :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
 #
 
 class Dlt::File < ApplicationRecord

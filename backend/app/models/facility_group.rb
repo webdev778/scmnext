@@ -6,6 +6,7 @@
 #  name              :string(255)      not null
 #  company_id        :bigint(8)
 #  district_id       :bigint(8)
+#  bg_member_id      :bigint(8)
 #  contract_id       :bigint(8)
 #  voltage_type_id   :bigint(8)
 #  contract_capacity :string(255)
