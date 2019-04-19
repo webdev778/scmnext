@@ -28,8 +28,17 @@ class TimeIndex < ApplicationRecord
     # @param time [Time] Timeオブジェクト
     # @return [TimeIndex]
     def from_time(time)
-      time_index_id = (time.hour * 2 + time.minute / 30) + 1
+      time_index_id = from_time_to_time_index_id(time)
       self.find(time_index_id)
+    end
+
+    #
+    # Timeオブジェクトから時間枠IDを取得する
+    #
+    # @param time [Time] Timeオブジェクト
+    # @return [Integer] 時間枠IDオブジェクト
+    def from_time_to_time_index_id(time)
+      (time.hour * 2 + time.min / 30) + 1
     end
 
     #

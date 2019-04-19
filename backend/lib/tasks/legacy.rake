@@ -1,5 +1,25 @@
 require 'tsort'
 namespace :legacy do
+  def resource_name_map
+    BalancingGroup.pluck(:code, :name).to_h
+    .merge({
+      # 相対
+      'LE944'=>'エネトレードBG（中部）',
+      'G0013'=>'東京ガス社相対電源',
+      'G0143'=>'ダイヤモンドパワー社相対電源',
+      'LB703'=>'FNJ東京',
+      'LA456'=>'シナネン_06_L',
+      # JBU契約
+      'LA693'=>'常時バックアップ(東京)',
+      'LA304'=>'常時バックアップ(中部)',
+      'LA376'=>'常時バックアップ(関西)',
+      'G0449'=>'九州電力(小売・発電)自社発電ＢＧ',
+      # FIT
+      'G1184'=>'愛知電力株式会社',
+      'G0633'=>'京葉瓦斯株式会社'
+    })
+  end
+
   def merge_yaml(filename)
     parentdir = File.dirname(filename)
     Dir.mkdir(parentdir) unless Dir.exist?(parentdir)
@@ -109,7 +129,6 @@ namespace :legacy do
   # 個別の変換処理
   #
   def convert(config)
-
     legacy_con = legacy_connection
     my_con = my_connection
     logger.info "#{config[:model_class]}の処理を開始します。"
@@ -164,6 +183,7 @@ namespace :legacy do
             model_instance[field_name] = value
           else
             # カラム定義がなければ添付ファイル扱い
+            binding.pry
             path = Rails.root.join('config/legacy_convert', value)
             if File.exist?(path)
               model_instance.send(field_name).purge
@@ -319,7 +339,78 @@ namespace :legacy do
     count_per_class.each do |model_name, count|
       logger.info sprintf('%-25s|%6d|%6d', model_name, count[:select], count[:update] )
     end
+  end
 
+  def make_resource_yml
+    resources = []
+
+    bg_id_list = BalancingGroup.pluck(:id)
+
+    BalancingGroup.all.each do |bg|
+      resources << {
+        "balancing_group_id"=> bg.id,
+        "type"=> ResourceJepxSpot.to_s,
+        "code"=> "JSPT3",
+        "name"=> "スポット"
+      }
+      resources << {
+        "balancing_group_id"=> bg.id,
+        "type"=> ResourceJepxOneHour.to_s,
+        "code"=> "J1HR3",
+        "name"=> "1時間前"
+      }
+      resources << {
+        "balancing_group_id"=> bg.id,
+        "type"=> ResourceSelf.to_s,
+        "code"=> bg.code,
+        "name"=> bg.name
+      }
+    end
+
+    legacy_con = legacy_connection
+    table_obj = table_object("tbl_bg_relation_pps")
+    select_manager = Arel::SelectManager.new
+    select_manager = select_manager.project('id', 'tbl_bg_id', 'supplier_code_jpexspot', 'supplier_code_jpex1h', 'supplier_code_jbu', 'supplier_code_fit', 'supplier_code_etc')
+    select_manager = select_manager.from(table_obj)
+    tbl_bg_relation_pps_data = legacy_con.select_all(select_manager.to_sql).to_hash
+
+    tbl_bg_relation_pps_data.each do |row|
+      {
+        "jbu"=>ResourceJbu.to_s,
+        "fit"=>ResourceFit.to_s,
+        "etc"=>ResourceMatching.to_s
+      }.each do |supplier_type, class_type|
+        supplier_code_or_settings = row["supplier_code_#{supplier_type}"]
+        unless supplier_code_or_settings.blank?
+          if supplier_code_or_settings.length == 5
+            supplier_code = supplier_code_or_settings
+            resources << {
+              "balancing_group_id"=> row["tbl_bg_id"].to_i,
+              "type"=> class_type,
+              "code"=> supplier_code,
+              "name"=> resource_name_map[supplier_code]
+            }
+          else
+            JSON.parse(supplier_code_or_settings).each do |supplier_code, limit|
+              resource_name_map[supplier_code]
+              resources << {
+                "balancing_group_id"=> row["tbl_bg_id"].to_i,
+                "type"=> class_type,
+                "code"=> supplier_code,
+                "name"=> resource_name_map[supplier_code]
+              }
+            end
+          end
+        end
+      end
+    end
+    resources = resources.uniq.sort{|a, b| a["balancing_group_id"]<=>b["balancing_group_id"]}
+    merge_yaml(converter_path.join("resource.yml")) do |config|
+      config[:extra] = resources.map.with_index(1) do |rec, index|
+        { cond: {"id"=> index}, fields: rec }
+      end
+      config
+    end
   end
 
   desc '施設グループデータを修正する'
@@ -330,6 +421,14 @@ namespace :legacy do
   desc 'BGメンバーIDのセット'
   task set_bg_memeber_id: :environment do |_task, _args|
     set_bg_memeber_id
+  end
+
+  #
+  # カラム内でjsonで分ける等、コンバータで対応しきれないので別途取り扱う
+  #
+  desc 'リソースデータ用yml生成'
+  task make_resource_yml: :environment do |_task, _args|
+    make_resource_yml
   end
 
   #

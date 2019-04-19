@@ -15,18 +15,325 @@
   :from: tbl_account
   :where: 1 = 0
 :extra:
-- :fields:
-    balancing_group_id: 1
-    type: ResourceSelf
-    code: LA833
-    name: エネオプBG東京需要
-- :fields:
-    balancing_group_id: 1
-    type: ResourceJbu
-    code: LA693
-    name: 常時バックアップ(東京)
-- :fields:
+- :cond:
+    id: 1
+  :fields:
     balancing_group_id: 1
     type: ResourceJepxSpot
     code: JSPT3
     name: スポット
+- :cond:
+    id: 2
+  :fields:
+    balancing_group_id: 1
+    type: ResourceJepxOneHour
+    code: J1HR3
+    name: 1時間前
+- :cond:
+    id: 3
+  :fields:
+    balancing_group_id: 1
+    type: ResourceSelf
+    code: LA833
+    name: エネオプ東京需要BG
+- :cond:
+    id: 4
+  :fields:
+    balancing_group_id: 1
+    type: ResourceJbu
+    code: LA693
+    name: 常時バックアップ(東京)
+- :cond:
+    id: 5
+  :fields:
+    balancing_group_id: 1
+    type: ResourceMatching
+    code: LC052
+    name: エネオプ東北需要BG
+- :cond:
+    id: 6
+  :fields:
+    balancing_group_id: 2
+    type: ResourceJepxSpot
+    code: JSPT3
+    name: スポット
+- :cond:
+    id: 7
+  :fields:
+    balancing_group_id: 2
+    type: ResourceJepxOneHour
+    code: J1HR3
+    name: 1時間前
+- :cond:
+    id: 8
+  :fields:
+    balancing_group_id: 2
+    type: ResourceSelf
+    code: LA586
+    name: エネオプ関西需要BG
+- :cond:
+    id: 9
+  :fields:
+    balancing_group_id: 2
+    type: ResourceJbu
+    code: LA376
+    name: 常時バックアップ(関西)
+- :cond:
+    id: 10
+  :fields:
+    balancing_group_id: 2
+    type: ResourceMatching
+    code: LA456
+    name: シナネン_06_L
+- :cond:
+    id: 11
+  :fields:
+    balancing_group_id: 3
+    type: ResourceJepxSpot
+    code: JSPT3
+    name: スポット
+- :cond:
+    id: 12
+  :fields:
+    balancing_group_id: 3
+    type: ResourceJepxOneHour
+    code: J1HR3
+    name: 1時間前
+- :cond:
+    id: 13
+  :fields:
+    balancing_group_id: 3
+    type: ResourceSelf
+    code: LA514
+    name: エネオプ中部需要BG
+- :cond:
+    id: 14
+  :fields:
+    balancing_group_id: 3
+    type: ResourceJbu
+    code: LA304
+    name: 常時バックアップ(中部)
+- :cond:
+    id: 15
+  :fields:
+    balancing_group_id: 4
+    type: ResourceJepxSpot
+    code: JSPT3
+    name: スポット
+- :cond:
+    id: 16
+  :fields:
+    balancing_group_id: 4
+    type: ResourceJepxOneHour
+    code: J1HR3
+    name: 1時間前
+- :cond:
+    id: 17
+  :fields:
+    balancing_group_id: 4
+    type: ResourceSelf
+    code: LC052
+    name: エネオプ東北需要BG
+- :cond:
+    id: 18
+  :fields:
+    balancing_group_id: 4
+    type: ResourceMatching
+    code: LA833
+    name: エネオプ東京需要BG
+- :cond:
+    id: 19
+  :fields:
+    balancing_group_id: 5
+    type: ResourceJepxSpot
+    code: JSPT3
+    name: スポット
+- :cond:
+    id: 20
+  :fields:
+    balancing_group_id: 5
+    type: ResourceJepxOneHour
+    code: J1HR3
+    name: 1時間前
+- :cond:
+    id: 21
+  :fields:
+    balancing_group_id: 5
+    type: ResourceSelf
+    code: LA289
+    name: アメニティ九州需要BG
+- :cond:
+    id: 22
+  :fields:
+    balancing_group_id: 5
+    type: ResourceJbu
+    code: G0449
+    name: 九州電力(小売・発電)自社発電ＢＧ
+- :cond:
+    id: 23
+  :fields:
+    balancing_group_id: 5
+    type: ResourceFit
+    code: G0449
+    name: 九州電力(小売・発電)自社発電ＢＧ
+- :cond:
+    id: 24
+  :fields:
+    balancing_group_id: 5
+    type: ResourceMatching
+    code: LB439
+    name: エネオプ九州需要BG
+- :cond:
+    id: 25
+  :fields:
+    balancing_group_id: 13
+    type: ResourceJepxSpot
+    code: JSPT3
+    name: スポット
+- :cond:
+    id: 26
+  :fields:
+    balancing_group_id: 13
+    type: ResourceJepxOneHour
+    code: J1HR3
+    name: 1時間前
+- :cond:
+    id: 27
+  :fields:
+    balancing_group_id: 13
+    type: ResourceSelf
+    code: LD777
+    name: エネオプ中国需要BG
+- :cond:
+    id: 28
+  :fields:
+    balancing_group_id: 13
+    type: ResourceMatching
+    code: LA586
+    name: エネオプ関西需要BG
+- :cond:
+    id: 29
+  :fields:
+    balancing_group_id: 14
+    type: ResourceJepxSpot
+    code: JSPT3
+    name: スポット
+- :cond:
+    id: 30
+  :fields:
+    balancing_group_id: 14
+    type: ResourceJepxOneHour
+    code: J1HR3
+    name: 1時間前
+- :cond:
+    id: 31
+  :fields:
+    balancing_group_id: 14
+    type: ResourceSelf
+    code: LB439
+    name: エネオプ九州需要BG
+- :cond:
+    id: 32
+  :fields:
+    balancing_group_id: 14
+    type: ResourceMatching
+    code: LA289
+    name: アメニティ九州需要BG
+- :cond:
+    id: 33
+  :fields:
+    balancing_group_id: 15
+    type: ResourceJepxSpot
+    code: JSPT3
+    name: スポット
+- :cond:
+    id: 34
+  :fields:
+    balancing_group_id: 15
+    type: ResourceJepxOneHour
+    code: J1HR3
+    name: 1時間前
+- :cond:
+    id: 35
+  :fields:
+    balancing_group_id: 15
+    type: ResourceSelf
+    code: LG533
+    name: 京葉瓦斯（需要BG）
+- :cond:
+    id: 36
+  :fields:
+    balancing_group_id: 15
+    type: ResourceJbu
+    code: LA693
+    name: 常時バックアップ(東京)
+- :cond:
+    id: 37
+  :fields:
+    balancing_group_id: 15
+    type: ResourceFit
+    code: G0633
+    name: 京葉瓦斯株式会社
+- :cond:
+    id: 38
+  :fields:
+    balancing_group_id: 15
+    type: ResourceMatching
+    code: G0013
+    name: 東京ガス社相対電源
+- :cond:
+    id: 39
+  :fields:
+    balancing_group_id: 15
+    type: ResourceMatching
+    code: G0143
+    name: ダイヤモンドパワー社相対電源
+- :cond:
+    id: 40
+  :fields:
+    balancing_group_id: 15
+    type: ResourceMatching
+    code: LB703
+    name: FNJ東京
+- :cond:
+    id: 41
+  :fields:
+    balancing_group_id: 16
+    type: ResourceJepxSpot
+    code: JSPT3
+    name: スポット
+- :cond:
+    id: 42
+  :fields:
+    balancing_group_id: 16
+    type: ResourceJepxOneHour
+    code: J1HR3
+    name: 1時間前
+- :cond:
+    id: 43
+  :fields:
+    balancing_group_id: 16
+    type: ResourceSelf
+    code: LG838
+    name: エネオプ四国需要BG
+- :cond:
+    id: 44
+  :fields:
+    balancing_group_id: 17
+    type: ResourceJepxSpot
+    code: JSPT3
+    name: スポット
+- :cond:
+    id: 45
+  :fields:
+    balancing_group_id: 17
+    type: ResourceJepxOneHour
+    code: J1HR3
+    name: 1時間前
+- :cond:
+    id: 46
+  :fields:
+    balancing_group_id: 17
+    type: ResourceSelf
+    code: LJ381
+    name: エネオプ北海道需要BG
