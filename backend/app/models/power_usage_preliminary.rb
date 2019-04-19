@@ -23,16 +23,11 @@ class PowerUsagePreliminary < ApplicationRecord
     def import_today_data(setting, date, time_index, force = false)
       target_name = "#{setting.bg_member.company.name} #{setting.bg_member.balancing_group.district.name}"
       logger.info("[#{target_name}]の速報値当日データ取込処理を開始 (記録日:#{date} コマ:#{time_index})")
-      target_files = setting.files.filter_force(force).where(data_type: :today, record_date: date, record_time_index_id: time_index)
-
-      process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting) do |file|
-        jptrm = file.xml_document.elements['SBD-MSG/JPMGRP/JPTRM']
-        date =  Time.strptime(jptrm.elements['JP06116'].text, '%Y%m%d')
-        time_index = jptrm.elements['JP06219'].text
-        tmp_import_data = jptrm.elements['JPM00010'].to_a.map do |nodes_by_facility|
-          facility_node_to_tmp_power_usage_data(nodes_by_facility, file.voltage_mode, date, time_index)
+      [:high, :low].each do |voltage_mode|
+        target_files = setting.files.filter_force(force).where(data_type: :today, voltage_mode: voltage_mode, record_date: date, record_time_index_id: time_index)
+        process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting) do |file|
+          today_xml_importer(file)
         end
-        TmpPowerUsage.import(tmp_import_data, on_duplicate_key_update: [:value])
       end
     end
 
@@ -42,17 +37,10 @@ class PowerUsagePreliminary < ApplicationRecord
     def import_past_data(setting, date, force = false)
       target_name = "#{setting.bg_member.company.name} #{setting.bg_member.balancing_group.district.name}"
       logger.info("[#{target_name}]の速報値過去データ取込処理を開始 (記録日:#{date})")
-      target_files = setting.files.filter_force(force).where(data_type: :past, record_date: date)
-
-      process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting) do |file|
-        jptrm = file.xml_document.elements['SBD-MSG/JPMGRP/JPTRM']
-        date =  Time.strptime(jptrm.elements['JP06116'].text, '%Y%m%d')
-        jptrm.elements['JPM00010'].to_a.reduce([]) do |result, nodes_by_times|
-          time_index = nodes_by_times.elements['JP06219'].text
-          tmp_import_data = nodes_by_times.elements['JPM00011'].to_a.map do |nodes_by_facility|
-            facility_node_to_tmp_power_usage_data(nodes_by_facility, file.voltage_mode, date, time_index)
-          end
-          TmpPowerUsage.import(tmp_import_data, on_duplicate_key_update: [:value])
+      [:high, :low].each do |voltage_mode|
+        target_files = setting.files.filter_force(force).where(data_type: :past, voltage_mode: voltage_mode, record_date: date)
+        process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting) do |file|
+          past_xml_importer(file)
         end
       end
     end
@@ -60,6 +48,10 @@ class PowerUsagePreliminary < ApplicationRecord
     private
     def process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting)
       init_tmp_power_usage
+      # 最新の更新番号を取る
+      # (一意なデータ種別となっている前提で処理する)
+      max_revision = target_files.maximum(:revision)
+      logger.debug("最新更新番号:#{max_revision}")
       # ActiveRecordRelation Objectで検索条件に含まれているステータスの変更をブロック内で行っているため
       # 思わぬ動作をしてしまうので、最初に配列にしておく
       file_ids = target_files.pluck(:id)
@@ -67,8 +59,12 @@ class PowerUsagePreliminary < ApplicationRecord
       begin
         Dlt::File.where(id: file_ids).update_all(state: :state_in_progress)
         file_list.each do |file|
-          logger.info(file.content.filename.to_s)
-          yield file
+          if file.revision == max_revision
+            logger.info("#{file.content.filename.to_s}:読込")
+            yield file
+          else
+            logger.info("#{file.content.filename.to_s}:スキップ(過去データ)")
+          end
         end
         if import_from_tmp_to_power_usage(setting)
           Dlt::File.where(id: file_ids).update_all(state: :state_complated)
@@ -130,6 +126,28 @@ class PowerUsagePreliminary < ApplicationRecord
         Object.const_set('TmpPowerUsage', klass)
       end
     end
+
+    def today_xml_importer(file)
+      jptrm = file.xml_document.elements['SBD-MSG/JPMGRP/JPTRM']
+      date =  Time.strptime(jptrm.elements['JP06116'].text, '%Y%m%d')
+      time_index = jptrm.elements['JP06219'].text
+      tmp_import_data = jptrm.elements['JPM00010'].to_a.map do |nodes_by_facility|
+        facility_node_to_tmp_power_usage_data(nodes_by_facility, file.voltage_mode, date, time_index)
+      end
+      TmpPowerUsage.import(tmp_import_data, on_duplicate_key_update: [:value])
+    end
+
+    def past_xml_importer(file)
+      jptrm = file.xml_document.elements['SBD-MSG/JPMGRP/JPTRM']
+      date =  Time.strptime(jptrm.elements['JP06116'].text, '%Y%m%d')
+      jptrm.elements['JPM00010'].to_a.reduce([]) do |result, nodes_by_times|
+        time_index = nodes_by_times.elements['JP06219'].text
+        tmp_import_data = nodes_by_times.elements['JPM00011'].to_a.map do |nodes_by_facility|
+          facility_node_to_tmp_power_usage_data(nodes_by_facility, file.voltage_mode, date, time_index)
+        end
+        TmpPowerUsage.import(tmp_import_data, on_duplicate_key_update: [:value])
+      end
+  end
 
     #
     # TempPowerUsageに登録されたデータを速報値データとして取り込む
