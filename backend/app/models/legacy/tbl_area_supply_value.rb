@@ -30,7 +30,7 @@ class Legacy::TblAreaSupplyValue < Legacy
           next result if supply_datum.supplier_id_jepx_spot? and supply_datum.value.to_i.zero? and supply_datum.interchange_value.to_i.zero?
           next result if supply_datum.value.to_i.zero? and supply_datum.interchange_value.to_i.zero?
           resources = resources_map[supply_datum.supplier_id]
-          raise "Cannot find resouce for balancing_group_id: #{bg.id} supplier_id: #{supply_datum.supplier_id}" if resources.to_i.zero?
+          raise "Cannot find resouce for balancing_group_id: #{bg.id} supplier_id: #{supply_datum.supplier_id}" if resources.blank?
           if resources.length > 1
             time = supply_datum.time
             time_index_id = TimeIndex.from_time_to_time_index_id(time)
@@ -42,25 +42,25 @@ class Legacy::TblAreaSupplyValue < Legacy
                 value = supply_datum.value - value_sum
                 interchange_value = supply_datum.interchange_value - interchange_value_sum
               else
-                value = supply_datum.value * allocation_base_total / resource.supply_value
-                interchange_value = supply_datum.interchange_value * allocation_base_total / resource.supply_value
+                value = supply_datum.value * eval(resource.supply_value) / allocation_base_total
+                interchange_value = supply_datum.interchange_value * eval(resource.supply_value) / allocation_base_total
                 value_sum += value
                 interchange_value_sum += value
               end
               unless value.to_i.zero?
                 result << new_resource_row(value, resource, supply_datum.time, bg_member)
               end
-              unless nterchange_value.to_i.zero?
-                result << new_resource_row(interchange_value, resources_map['supplier_id_self'], supply_datum.time, bg_member)
-              end
+              # unless interchange_value.to_i.zero?
+              #   result << new_resource_row(interchange_value, resources_map['supplier_id_self'].first, supply_datum.time, bg_member)
+              # end
             end
           else
-            resource = resources
+            resource = resources.first
             unless supply_datum.value.to_i.zero?
               result << new_resource_row(supply_datum.value, resource, supply_datum.time, bg_member)
             end
             unless supply_datum.interchange_value.to_i.zero?
-              result << new_resource_row(supply_datum.interchange_value, resources_map['supplier_id_self'], supply_datum.time, bg_member)
+              result << new_resource_row(supply_datum.interchange_value, resources_map['supplier_id_self'].first, supply_datum.time, bg_member)
             end
           end
           result
@@ -96,7 +96,7 @@ class Legacy::TblAreaSupplyValue < Legacy
 
     private
     def new_resource_row(value, resource, time, bg_member)
-      result << {
+      {
         type: value > 0 ? 'supply' : 'sales',
         time_index_id: TimeIndex.from_time_to_time_index_id(time),
         bg_member_id: bg_member.id,

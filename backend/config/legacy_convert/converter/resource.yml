@@ -4,14 +4,14 @@
 :sources:
 - :fields:
     id: "'スキップ用ダミー'"
-    balancing_group_id: 
-    type: 
-    code: 
-    name: 
-    created_by: 
-    updated_by: 
-    created_at: 
-    updated_at: 
+    balancing_group_id:
+    type:
+    code:
+    name:
+    created_by:
+    updated_by:
+    created_at:
+    updated_at:
   :from: tbl_account
   :where: 1 = 0
 :extra:
@@ -281,6 +281,7 @@
     type: ResourceMatching
     code: G0013
     name: 東京ガス社相対電源
+    supply_value: 1250
 - :cond:
     id: 39
   :fields:
@@ -288,6 +289,7 @@
     type: ResourceMatching
     code: G0143
     name: ダイヤモンドパワー社相対電源
+    supply_value: 'if time_index_id >= 17 and time_index_id <= 44 then 5000 else 3000 end'
 - :cond:
     id: 40
   :fields:
@@ -295,6 +297,7 @@
     type: ResourceMatching
     code: LB703
     name: FNJ東京
+    supply_value: 'case when (time_index_id >= 17 and time_index_id <= 36); 500 when time_index_id >= 37; 2500 else 0 end'
 - :cond:
     id: 41
   :fields:

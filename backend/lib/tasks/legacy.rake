@@ -397,7 +397,8 @@ namespace :legacy do
                 "balancing_group_id"=> row["tbl_bg_id"].to_i,
                 "type"=> class_type,
                 "code"=> supplier_code,
-                "name"=> resource_name_map[supplier_code]
+                "name"=> resource_name_map[supplier_code],
+                "supply_value" => limit
               }
             end
           end
