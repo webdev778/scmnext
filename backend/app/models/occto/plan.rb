@@ -88,16 +88,31 @@ class Occto::Plan < ApplicationRecord
     end
 
     #
+    # BGIDと日付で計画を検索し、ポジション表に変換する
+    #
+    # @param [Hash] condition 検索条件を含むハッシュ(bg_member_id及びdate)
+    #
+    def balancing_group_matrix_by_time_index_and_resouce_type(condition)
+      condition.assert_valid_keys(:balancing_group_id, :date)
+      plan =
+        includes(plan_by_bg_members: { plan_detail_values: :resource })
+        .find_by(balancing_group_id: condition[:balancing_group_id], date: condition[:date])
+      return nil unless plan
+
+      plan.matrix_by_time_index_and_resouce_type
+    end
+
+    #
     # BGメンバーIDと日付で計画を検索し、ポジション表に変換する
     #
     # @param [Hash] condition 検索条件を含むハッシュ(bg_member_id及びdate)
     #
-    def matrix_by_time_index_and_resouce_type(condition)
+    def bg_memeber_matrix_by_time_index_and_resouce_type(condition)
       condition.assert_valid_keys(:bg_member_id, :date)
-      bg_member = BgMember.find(condition[:bg_member_id])
       plan =
         includes(plan_by_bg_members: { plan_detail_values: :resource })
-        .find_by(balancing_group_id: bg_member.balancing_group_id, date: condition[:date])
+        .find_by("occto_plan_by_bg_members.bg_member_id"=>condition[:bg_member_id], "date"=>condition[:date])
+
       return nil unless plan
 
       plan.matrix_by_time_index_and_resouce_type

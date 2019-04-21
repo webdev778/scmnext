@@ -1,10 +1,10 @@
 <template lang="pug">
   rest-index(
-    title="不整合供給地点一覧"
+    title="翌日需要調達計画一覧"
     name="occto/plans"
     v-bind:fields="fields"
     v-bind:query="query"
-    v-bind:list-only="true"
+    v-bind:list-only="false"
     v-bind:canEdit="false"
   )
     template(slot="search")

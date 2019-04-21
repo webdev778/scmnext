@@ -1,7 +1,7 @@
 class BalancingsController < ApplicationController
   def show
     bg_member = BgMember.joins(:balancing_group).find(params[:bg_member_id])
-    plan_matrix = Occto::Plan.matrix_by_time_index_and_resouce_type(bg_member_id: params[:bg_member_id], date: params[:date])
+    plan_matrix = Occto::Plan.bg_memeber_matrix_by_time_index_and_resouce_type(bg_member_id: params[:bg_member_id], date: params[:date])
     plan_matrix ||= {}
     power_usage_class = "power_usage_#{params[:type]}".camelize.constantize
     power_usage_matrix = power_usage_class
