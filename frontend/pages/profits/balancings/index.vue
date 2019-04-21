@@ -72,6 +72,12 @@ export default {
           stack: 'plan'
         },
         {
+          key: 'self',
+          label: 'その他',
+          color: '#ff9234',
+          stack: 'plan'
+        },
+        {
           key: 'jbu',
           label: 'JBU',
           color: '#ffcd3c',
