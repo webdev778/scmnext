@@ -308,7 +308,7 @@ namespace :legacy do
     logger.info "#{count}件 登録しました。"
   end
 
-  def set_bg_memeber_id
+  def set_bg_member_id
     logger.info "エリア、会社からbg_member_idをセット"
     count_per_class = {}
     # PPS IDとエリアIDの配列をkey、bg_memeber_idを値とするHashを生成
@@ -420,8 +420,8 @@ namespace :legacy do
   end
 
   desc 'BGメンバーIDのセット'
-  task set_bg_memeber_id: :environment do |_task, _args|
-    set_bg_memeber_id
+  task set_bg_member_id: :environment do |_task, _args|
+    set_bg_member_id
   end
 
   #
@@ -446,7 +446,7 @@ namespace :legacy do
     else
       convert_all
       fix_facility_group
-      set_bg_memeber_id
+      set_bg_member_id
     end
   end
 

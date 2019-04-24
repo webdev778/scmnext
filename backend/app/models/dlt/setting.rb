@@ -69,7 +69,7 @@ class Dlt::Setting < ApplicationRecord
     return @con unless @con.nil?
 
     if bg_member.company.company_account_occto.nil?
-      logger.error("#{company.name}の広域アカウント情報がありません。")
+      logger.error("#{bg_member.company.name}の広域アカウント情報がありません。")
       return nil
     end
     if bg_member.company.company_account_occto.pkcs12_object.nil?
