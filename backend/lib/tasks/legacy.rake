@@ -183,7 +183,6 @@ namespace :legacy do
             model_instance[field_name] = value
           else
             # カラム定義がなければ添付ファイル扱い
-            binding.pry
             path = Rails.root.join('config/legacy_convert', value)
             if File.exist?(path)
               model_instance.send(field_name).purge
