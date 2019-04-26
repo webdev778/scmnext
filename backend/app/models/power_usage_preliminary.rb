@@ -38,7 +38,7 @@ class PowerUsagePreliminary < ApplicationRecord
       target_name = "#{setting.bg_member.company.name} #{setting.bg_member.balancing_group.district.name}"
       logger.info("[#{target_name}]の速報値過去データ取込処理を開始 (記録日:#{date})")
       [:high, :low].each do |voltage_mode|
-        target_files = setting.files.filter_force(force).where(data_type: :past, voltage_mode: voltage_mode, record_date: date)
+        target_files = setting.files.filter_force(force).where(data_type: :past, voltage_mode: voltage_mode, record_date: date).order(revision: :asc, section_number: :asc)
         process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting) do |file|
           past_xml_importer(file)
         end
@@ -48,10 +48,6 @@ class PowerUsagePreliminary < ApplicationRecord
     private
     def process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting)
       init_tmp_power_usage
-      # 最新の更新番号を取る
-      # (一意なデータ種別となっている前提で処理する)
-      max_revision = target_files.maximum(:revision)
-      logger.debug("最新更新番号:#{max_revision}")
       # ActiveRecordRelation Objectで検索条件に含まれているステータスの変更をブロック内で行っているため
       # 思わぬ動作をしてしまうので、最初に配列にしておく
       file_ids = target_files.pluck(:id)
@@ -59,12 +55,8 @@ class PowerUsagePreliminary < ApplicationRecord
       begin
         Dlt::File.where(id: file_ids).update_all(state: :state_in_progress)
         file_list.each do |file|
-          if file.revision == max_revision
-            logger.info("#{file.content.filename.to_s}:読込")
-            yield file
-          else
-            logger.info("#{file.content.filename.to_s}:スキップ(過去データ)")
-          end
+          logger.info("#{file.content.filename.to_s}:読込")
+          yield file
         end
         if import_from_tmp_to_power_usage(setting)
           Dlt::File.where(id: file_ids).update_all(state: :state_complated)
