@@ -34,7 +34,6 @@ class Jepx::SpotTradeAreaDatum < ApplicationRecord
   # @param data_type [Symbol or String] 速報値ベースの場合はpreliminary,確定値ベースの場合はfixedを指定する
   # @return [Decimal] インバランス単価
   def imbalance_unit_price(data_type)
-
     @imbalance_unit_price ||= {}
     unless @imbalance_unit_price[data_type]
       raise "date_typeパラメータにはpreliminaryかfixedを指定してください" unless [:fixed, :preliminary].include?(data_type)
@@ -58,7 +57,7 @@ class Jepx::SpotTradeAreaDatum < ApplicationRecord
       when :preliminary
         alpha_price = spot_trade.send("alpha_#{data_type}_times_spot_avg_per_price")
         unless alpha_price
-          logger.warn "α値が見つからないため、システムプライスを使用"
+          logger.warn "[#{district.name} #{spot_trade.date}(#{spot_trade.time_index_id})]α値が見つからないため、システムプライスを使用"
           alpha_price = spot_trade.system_price
         end
       end

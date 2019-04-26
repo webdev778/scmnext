@@ -64,15 +64,21 @@ class Pl::BaseDatum < ApplicationRecord
         return
       end
 
-      # 電圧区分ごとの燃料調整費・託送料データを取得する
-      fuel_cost_adjustments_map_by_voltage_class = bg_member.balancing_group.district.fuel_cost_adjustments_at(date)
-      wheeler_charges_map_by_voltage_class = bg_member.balancing_group.district.wheeler_charges_at(date)
-
       # JBU契約を取得
       jbu_contract = JbuContract
                      .where(bg_member_id: bg_member.id)
                      .where("start_date <= :date and (end_date IS NULL OR end_date <= :date)", date: date)
                      .first
+
+      # JBU契約未登録の場合スキップ
+      if jbu_contract.nil?
+        logger.info "JBU契約未登録のためスキップしました。"
+        return
+      end
+
+      # 電圧区分ごとの燃料調整費・託送料データを取得する
+      fuel_cost_adjustments_map_by_voltage_class = bg_member.balancing_group.district.fuel_cost_adjustments_at(date)
+      wheeler_charges_map_by_voltage_class = bg_member.balancing_group.district.wheeler_charges_at(date)
 
       # 月当たりのコマ数を算出
       time_index_count = TimeIndex.time_index_count_of_month(date)
