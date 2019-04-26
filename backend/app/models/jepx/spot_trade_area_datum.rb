@@ -43,7 +43,7 @@ class Jepx::SpotTradeAreaDatum < ApplicationRecord
       case data_type
       when :fixed
         beta_price_rec = district.jepx_imbalance_betas.find_by(year: spot_trade.date.year, month: spot_trade.date.month)
-      when :prefiminary
+      when :preliminary
         beta_price_rec = district.jepx_imbalance_betas.order(year: :desc, month: :desc).first
       end
       unless beta_price_rec
@@ -55,7 +55,7 @@ class Jepx::SpotTradeAreaDatum < ApplicationRecord
       case data_type
       when :fixed
         alpha_price = spot_trade.send("alpha_#{data_type}_times_spot_avg_per_price")
-      when :prefiminary
+      when :preliminary
         alpha_price = spot_trade.send("alpha_#{data_type}_times_spot_avg_per_price")
         unless alpha_price
           logger.warn "α値が見つからないため、システムプライスを使用"
