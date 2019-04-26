@@ -15,9 +15,11 @@ class Legacy::TblAreaSupplyValue < Legacy
     #
     def generate_position_data(balancing_group_id, date)
       bg = BalancingGroup.find(balancing_group_id)
+      logger.info("#{bg.name}のポジションデータを取り込みます")
       resources_map = resources_for_the_balancing_group_map(bg.id)
       old_plan = Occto::Plan.find_by(balancing_group_id: bg.id, date: date)
       if old_plan
+        logger.info("取込済のデータがあるため削除")
         old_plan.destroy
       end
       plan = Occto::Plan.new(balancing_group_id: bg.id, date: date)
@@ -91,6 +93,9 @@ class Legacy::TblAreaSupplyValue < Legacy
             end
           end
         plan.save!
+        logger.info("取込完了")
+      else
+        logger.info("取込完了(データなし)")
       end
     end
 

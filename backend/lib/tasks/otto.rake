@@ -9,7 +9,8 @@ namespace :occto do
 
       desc '翌日需要・調達計画取込(旧システムより)'
       task import_from_legacy: :environment do |_task, _args|
-        target_date = determine_target_date(Date.yesterday)
+        target_date = determine_target_date(Date.tomorrow)
+        logger.info("処理日:#{target_date}")
         BalancingGroup.find_each do |bg|
           Legacy::TblAreaSupplyValue.generate_position_data(bg.id, target_date)
         end
