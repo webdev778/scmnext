@@ -14,8 +14,7 @@ RUN apk add --update --no-cache tzdata && \
 
 RUN apk update && \
     apk add git && \
-    apk add --no-cache curl && \
-    curl -o- -L https://yarnpkg.com/install.sh | sh
+    apk add yarn
 
 ENV PATH $HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH
 
