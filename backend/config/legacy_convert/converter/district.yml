@@ -23,31 +23,59 @@
   :fields:
     dlt_host: https://nsc.hepco.co.jp
     dlt_path: "/LNXWPWSS01OH"
+    daytime_start_time_index_id: 17
+    daytime_end_time_index_id: 45
+    peaktime_start_time_index_id: 27
+    peaktime_end_time_index_id: 33
+    summer_season_start_month: 7
+    summer_season_end_month: 9
 - :cond:
     id: 5
   :fields:
     dlt_host: https://takuso-web.takuso.tohoku-epco.co.jp
     dlt_path: "/G83PPS_Auto"
+    daytime_start_time_index_id: 17
+    daytime_end_time_index_id: 45
+    summer_season_start_month: 7
+    summer_season_end_month: 9
 - :cond:
     id: 6
   :fields:
     dlt_host: https://dummy.hokuriku
     dlt_path: "/"
+    daytime_start_time_index_id: 17
+    daytime_end_time_index_id: 45
+    peaktime_start_time_index_id: 27
+    peaktime_end_time_index_id: 33
+    summer_season_start_month: 7
+    summer_season_end_month: 9
 - :cond:
     id: 7
   :fields:
     dlt_host: https://plins-www.energia.co.jp
     dlt_path: "/PPS2"
+    daytime_start_time_index_id: 17
+    daytime_end_time_index_id: 45
+    summer_season_start_month: 7
+    summer_season_end_month: 9
 - :cond:
     id: 8
   :fields:
     dlt_host: https://wsc3.yonden.co.jp
     dlt_path: "/PPS/30min"
+    daytime_start_time_index_id: 17
+    daytime_end_time_index_id: 45
+    summer_season_start_month: 7
+    summer_season_end_month: 9
 - :cond:
     id: 9
   :fields:
     dlt_host: https://nsc-www.network.kyuden.co.jp
     dlt_path: "/LNXWPWSS01I/App"
+    daytime_start_time_index_id: 17
+    daytime_end_time_index_id: 45
+    summer_season_start_month: 7
+    summer_season_end_month: 9
 - :fields:
     id: 10
     name: 沖縄電力
@@ -59,12 +87,12 @@
     dlt_host: https://dummy.okinawa/
     dlt_path: "/LNXWPWSS01I/App"
     is_partial_included: 'TRUE'
-    daytime_start_time_index_id:
-    daytime_end_time_index_id:
-    peaktime_start_time_index_id:
-    peaktime_end_time_index_id:
-    summer_season_start_month:
-    summer_season_end_month:
+    daytime_start_time_index_id: 17
+    daytime_end_time_index_id: 45
+    peaktime_start_time_index_id: 27
+    peaktime_end_time_index_id: 33
+    summer_season_start_month: 7
+    summer_season_end_month: 9
 :sources:
 - :fields:
     id: id
