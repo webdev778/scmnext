@@ -126,7 +126,7 @@ class PowerUsagePreliminary < ApplicationRecord
       tmp_import_data = jptrm.elements['JPM00010'].to_a.map do |nodes_by_facility|
         facility_node_to_tmp_power_usage_data(nodes_by_facility, file.voltage_mode, date, time_index)
       end
-      TmpPowerUsage.import(tmp_import_data, on_duplicate_key_update: [:value])
+      TmpPowerUsage.import(tmp_import_data, validate: false, on_duplicate_key_update: [:value])
     end
 
     def past_xml_importer(file)
@@ -137,7 +137,7 @@ class PowerUsagePreliminary < ApplicationRecord
         tmp_import_data = nodes_by_times.elements['JPM00011'].to_a.map do |nodes_by_facility|
           facility_node_to_tmp_power_usage_data(nodes_by_facility, file.voltage_mode, date, time_index)
         end
-        TmpPowerUsage.import(tmp_import_data, on_duplicate_key_update: [:value])
+        TmpPowerUsage.import(tmp_import_data, validate: false, on_duplicate_key_update: [:value])
       end
   end
 
@@ -163,7 +163,7 @@ class PowerUsagePreliminary < ApplicationRecord
             comment: "供給地点番号未登録"
           }
         end
-      Dlt::InvalidSupplyPoint.import(invalid_data, on_duplicate_key_update: [:name, :comment])
+      Dlt::InvalidSupplyPoint.import(invalid_data, validate: false, on_duplicate_key_update: [:name, :comment])
 
       import_data = []
       TmpPowerUsage.joins(:supply_point).distinct.group("supply_points.facility_group_id", "supply_points.supply_method_type", "supply_points.base_power", "date", "time_index_id").sum("value").each do |keys, value|
@@ -174,7 +174,7 @@ class PowerUsagePreliminary < ApplicationRecord
         end
         import_data << {date: date, time_index_id: time_index_id, facility_group_id: facility_group_id, value: value}
       end
-      self.import(import_data, on_duplicate_key_update: [:value])
+      self.import(import_data, validate: false, on_duplicate_key_update: [:value])
     end
   end
 end
