@@ -13,7 +13,10 @@ class BalancingsController < ApplicationController
                          .total_by_time_index
                          .map { |k, v| [k, { usage: v }] }
                          .to_h
-    result = plan_matrix.deep_merge(power_usage_matrix).map { |k, v| { time_index_id: k }.merge(v) }
+    result = plan_matrix
+             .deep_merge(power_usage_matrix)
+             .map { |k, v| { time_index_id: k }.merge(v) }
+             .sort{|a, b| a[:time_index_id]<=>b[:time_index_id]}
     render json: result
   end
 end
