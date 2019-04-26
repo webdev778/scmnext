@@ -57,7 +57,7 @@ class Pl::BaseDatum < ApplicationRecord
       end
 
       # ポジションデータを取得
-      plan_matrix_by_time_index_and_resouce_type = Occto::Plan.matrix_by_time_index_and_resouce_type(bg_member_id: bg_member.id, date: date)
+      plan_matrix_by_time_index_and_resouce_type = Occto::Plan.bg_memeber_matrix_by_time_index_and_resouce_type(bg_member_id: bg_member.id, date: date)
       # ポジション未登録の場合もスキップ
       if plan_matrix_by_time_index_and_resouce_type.nil?
         logger.info "ポジションデータ未登録のためスキップしました。"
