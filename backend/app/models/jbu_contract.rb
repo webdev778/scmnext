@@ -68,24 +68,25 @@ class JbuContract < ApplicationRecord
   # @return [Decimal] 指定日時の従量料金単価
   def meter_rate_charge(date, time_index_id)
     if Holiday.get_list(bg_member.balancing_group.district_id).include?(date)
-      meter_rate_charge_night
+      result = meter_rate_charge_night
     elsif in_summer_season(date)
       case
       when in_peaktime(time_index_id)
-        meter_rate_charge_peak_time
+        result = meter_rate_charge_peak_time
       when in_daytime(time_index_id)
-        meter_rate_charge_summer_season_daytime
+        result = meter_rate_charge_summer_season_daytime
       else
-        meter_rate_charge_night
+        result = meter_rate_charge_night
       end
     else
       case
       when in_daytime(time_index_id)
-        meter_rate_charge_other_season_daytime
+        result = meter_rate_charge_other_season_daytime
       else
-        meter_rate_charge_night
+        result = meter_rate_charge_night
       end
     end
+    result ||= 0
   end
 
   private
