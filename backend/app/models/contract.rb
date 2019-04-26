@@ -38,9 +38,12 @@ class Contract < ApplicationRecord
   # 指定された日付の基本料金を求める
   #
   def basic_charge_at(date)
-    contract_basic_charge = contract_basic_charges
-                            .find do |contract_basic_charge|
+    contract_basic_charge = contract_basic_charges.find do |contract_basic_charge|
       contract_basic_charge.start_date <= date
+    end
+    unless contract_basic_charge
+      logger.warn("契約 #{name}(#{name_for_invoice})の基本料金情報が見つかりません")
+      return 0
     end
     contract_basic_charge.amount
   end
@@ -49,23 +52,26 @@ class Contract < ApplicationRecord
   # 指定された日付の従量料金を求める
   #
   def meter_rate_at(date)
-    return 0 if contract_item.nil?
-
+    if contract_item.nil?
+      logger.warn("契約 #{name}(#{name_for_invoice})の契約アイテムが見つかりません")
+      return 0
+    end
     contract_meter_rate = contract_meter_rates.find do |contract_meter_rate|
-      (
-        (contract_meter_rate.contract_item_id == contract_item.id) &&
-        (contract_meter_rate.start_date <= date) &&
-        (contract_meter_rate.end_date.nil? || (contract_meter_rate.end_date >= date))
-      )
+      (contract_meter_rate.contract_item_id == contract_item.id) &&
+      (contract_meter_rate.start_date <= date) &&
+      (contract_meter_rate.end_date.nil? || (contract_meter_rate.end_date >= date))
+    end
+
+    unless contract_meter_rate
+      logger.warn("契約 #{name}(#{name_for_invoice})において適切な契約アイテム別従量料金が見つかりません")
+      return 0
     end
     contract_meter_rate ? contract_meter_rate.rate : 0
   end
 
   def contract_item
     return nil if contract_item_group.nil?
-
-    @contract_item ||= contract_item_group.contract_item_orders
-                                          .find do |_contract_item_orders|
+    @contract_item ||= contract_item_group.contract_item_orders.find do |_contract_item_orders|
       true
     end.contract_item
   end
