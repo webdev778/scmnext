@@ -28,7 +28,7 @@ module PowerUsage
       # データの区分を返す
       # @return [Symbol] preliminary or fixed
       def data_type
-        class_name.to_s.underscore.sub(/power_usage_/, '').to_sym
+        name.to_s.underscore.sub(/power_usage_/, '').to_sym
       end
     end
   end
