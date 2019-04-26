@@ -153,10 +153,12 @@ export default {
       this.$axios.$get(this.pathFor('json'), {params: params} )
       .then( (result)=>{
         if (result == null) {
+          this.items = []
           alert('エラー')
           return
         }
         if (result.length == 0){
+          this.items = []
           alert('データがありません。')
           return
         }
