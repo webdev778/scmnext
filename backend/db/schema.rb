@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_19_224101) do
+ActiveRecord::Schema.define(version: 2019_04_27_055921) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -302,15 +302,18 @@ ActiveRecord::Schema.define(version: 2019_04_19_224101) do
   end
 
   create_table "dlt_usage_fixed_headers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "確定使用量ヘッダ", force: :cascade do |t|
-    t.bigint "file_id", comment: "ファイルID"
+    t.string "information_type_code", limit: 4, null: false, comment: "情報区分コード"
     t.integer "year", null: false, comment: "年"
     t.integer "month", limit: 2, null: false, comment: "月"
+    t.date "record_date", null: false, comment: "検針日"
+    t.string "sender_code", limit: 5, null: false, comment: "送信者コード"
+    t.string "receiver_code", limit: 5, null: false, comment: "受信者コード"
     t.string "supply_point_number", limit: 22, null: false, comment: "供給地点特定番号"
     t.string "consumer_code", limit: 21, comment: "需要家識別番号"
     t.string "consumer_name", limit: 80, comment: "需要家名称"
     t.string "supply_point_name", limit: 70, comment: "供給場所"
     t.string "voltage_class_name", limit: 4, comment: "電圧区分名"
-    t.integer "journal_code", limit: 1, comment: "仕訳コード: 1:全量,2:部分"
+    t.string "journal_code", limit: 1, comment: "仕訳コード: 1:全量,2:部分"
     t.boolean "can_provide", comment: "提供可否"
     t.decimal "usage_all", precision: 10, scale: 4, comment: "月間電力量全量"
     t.decimal "usage", precision: 10, scale: 4, comment: "月間電力量仕訳後"
@@ -321,7 +324,7 @@ ActiveRecord::Schema.define(version: 2019_04_19_224101) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["file_id"], name: "index_dlt_usage_fixed_headers_on_file_id"
+    t.index ["information_type_code", "year", "month", "sender_code", "receiver_code", "supply_point_number", "journal_code"], name: "unique_index_on_business", unique: true
     t.index ["month"], name: "index_dlt_usage_fixed_headers_on_month"
     t.index ["supply_point_number"], name: "index_dlt_usage_fixed_headers_on_supply_point_number"
     t.index ["year"], name: "index_dlt_usage_fixed_headers_on_year"
