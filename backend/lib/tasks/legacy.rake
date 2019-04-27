@@ -322,7 +322,10 @@ namespace :legacy do
           a.supply_points.count <=> b.supply_points.count
         end
         if facility_group.nil?
+          logger.error [company_id, district_id, contract_id, voltage_type_id, contract_capacity]
           raise "割り当て先の施設グループが見つかりません。"
+        else
+          logger.debug facility_group
         end
         SupplyPoint.where(id: facilities.map { |facility| facility.supply_point.id }).update(facility_group_id: facility_group.id)
       end

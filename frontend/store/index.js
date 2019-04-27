@@ -4,6 +4,7 @@ const Cookie = process.client ? require('js-cookie') : undefined
 
 export const state = () => ({
   auth: null,
+  uid: null,
   loginErrors: []
 })
 
@@ -21,6 +22,12 @@ export const mutations = {
 
 export const getters = {
   isLoggedIn: state => {
+    console.log('ログインチェック')
+    if (state.auth != null){
+      console.log('ログイン中')
+    } else {
+      console.log('未ログイン')
+    }
     return state.auth != null
   }
 }
@@ -30,6 +37,7 @@ export const actions = {
     let auth = null
     if (req.headers.cookie) {
       const parsed = cookieparser.parse(req.headers.cookie)
+      console.log(parsed)
       try {
         auth = JSON.parse(parsed.auth)
         commit('setAuth', auth)
@@ -43,13 +51,17 @@ export const actions = {
     this.$axios.post('/auth/sign_in', { email: email, password: password})
     .then(result=>{
       if (result && result.data) {
-        console.log("hoge")
+        // 成功時
+        Cookie.set('uid', email)
         this.$router.push('/')
       } else if (result.response) {
-        console.log("hoge")
+        // 認証不成功時
+        console.log('認証エラー')
         console.log(result.response.data)
         commit('setLoginErrors', result.response.data.errors)
       } else {
+        // サーバー接続不成功時
+        console.log('接続エラー')
         console.log(result)
         commit('setLoginErrors', ["接続エラー"])
       }

@@ -22,6 +22,8 @@ export default function ({ store, $axios, redirect }) {
     return response
   })
   $axios.onError( error => {
+    console.log("エラー")
+    console.log(error)
     return error
   })
 }

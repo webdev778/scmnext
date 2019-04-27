@@ -26,7 +26,9 @@
                     b-col(cols="6")
                       b-button.px-4(type="submit" variant="primary") ログイン
                     b-col.text-right(cols="6")
-                      b-button.px-0(variant="link") パスワードを忘れた場合
+                      b-form-checkbox(v-model="saveUid" name="save-uid" value="save" unchecked-value="not_save")
+                        | ユーザーIDを記憶する
+                      // b-button.px-0(variant="link") パスワードを忘れた場合
 </template>
 
 <script>
@@ -36,7 +38,8 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      saveUid: "not_save"
     }
   },
   computed: {
@@ -46,6 +49,7 @@ export default {
   },
   methods: {
     login() {
+      console.log(this)
       this.$store.dispatch('login', {email: this.email, password: this.password} )
     }
   }

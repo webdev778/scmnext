@@ -1,0 +1,1 @@
+ aws ecs run-task --task-definition scmnext-jepx-dlt-daily --cluster scmnext --launch-type FARGATE --network-configuration 'awsvpcConfiguration={subnets=[subnet-0d95547a],securityGroups=[sg-00438f69aa8b69f43],assignPublicIp=ENABLED}' --overrides 'containerOverrides={name=scmnext-backend,command=[rails,common,dlt:import:past,dlt:import:fixed,DATE=2019-04-12]}'
