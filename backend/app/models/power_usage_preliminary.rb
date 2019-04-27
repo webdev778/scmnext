@@ -166,7 +166,12 @@ class PowerUsagePreliminary < ApplicationRecord
       Dlt::InvalidSupplyPoint.import(invalid_data, validate: false, on_duplicate_key_update: [:name, :comment])
 
       import_data = []
-      TmpPowerUsage.joins(:supply_point).distinct.group("supply_points.facility_group_id", "supply_points.supply_method_type", "supply_points.base_power", "date", "time_index_id").sum("value").each do |keys, value|
+      TmpPowerUsage
+        .joins(:supply_point)
+        .distinct
+        .group("supply_points.facility_group_id", "supply_points.supply_method_type", "supply_points.base_power", "date", "time_index_id")
+        .where.not("supply_points.facility_group_id"=>nil)
+        .sum("value").each do |keys, value|
         facility_group_id, supply_method_type, base_power, date, time_index_id = keys
         if setting.bg_member.balancing_group.district.is_partial_included &&  SupplyPoint.supply_method_types.invert[supply_method_type] == "supply_method_type_partial"
           value -= (base_power / 2)
