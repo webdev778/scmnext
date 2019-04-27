@@ -313,7 +313,7 @@ namespace :legacy do
           contract_id: contract_id
         )
         # どうしても適切なものが見つからなければ登録数の一番多いものに
-        facility_group = FacilityGroup.where
+        facility_group = FacilityGroup.where(
           company_id: company_id,
           district_id: district_id
         ).where.not(
