@@ -163,6 +163,22 @@ class PowerUsagePreliminary < ApplicationRecord
             comment: "供給地点番号未登録"
           }
         end
+      TmpPowerUsage
+        .joins(:supply_point)
+        .where("supply_points.facility_group_id"=>nil)
+        .select(:supply_point_number, :name)
+        .distinct
+        .all
+        .each do |tmp_power_usage|
+          invalid_data << {
+            company_id: setting.bg_member.company_id,
+            district_id: setting.bg_member.balancing_group.district_id,
+            bg_member_id: setting.bg_member_id,
+            number: tmp_power_usage.supply_point_number,
+            name: tmp_power_usage.name,
+            comment: "低圧グループ未登録"
+          }
+        end
       Dlt::InvalidSupplyPoint.import(invalid_data, validate: false, on_duplicate_key_update: [:name, :comment])
 
       import_data = []
