@@ -293,15 +293,37 @@ namespace :legacy do
       end
       .each do |keys, facilities|
         company_id, district_id, contract_id, voltage_type_id, contract_capacity = keys
-        facility_group = FacilityGroup.create(
-          name: facilities.first.name_for_facility_group,
+        # 出来るだけ適切な施設グループに割り当てる
+        facility_group = FacilityGroup.find_by(
           company_id: company_id,
           district_id: district_id,
           contract_id: contract_id,
           voltage_type_id: voltage_type_id,
           contract_capacity: contract_capacity
         )
-        count += 1
+        facility_group ||= FacilityGroup.find_by(
+          company_id: company_id,
+          district_id: district_id,
+          contract_id: contract_id,
+          voltage_type_id: voltage_type_id
+        )
+        facility_group ||= FacilityGroup.find_by(
+          company_id: company_id,
+          district_id: district_id,
+          contract_id: contract_id
+        )
+        # どうしても適切なものが見つからなければ登録数の一番多いものに
+        facility_group = FacilityGroup.where
+          company_id: company_id,
+          district_id: district_id
+        ).where.not(
+          voltage_type_id: [1, 2]
+        ).max do |a, b|
+          a.supply_points.count <=> b.supply_points.count
+        end
+        if facility_group.nil?
+          raise "割り当て先の施設グループが見つかりません。"
+        end
         SupplyPoint.where(id: facilities.map { |facility| facility.supply_point.id }).update(facility_group_id: facility_group.id)
       end
     logger.info "#{count}件 登録しました。"
