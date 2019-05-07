@@ -1,0 +1,65 @@
+=== 契約詳細画面
+
+==== 概要
+
+[.lead]
+契約の詳細情報を表示する。
+
+[plantuml]
+--
+rectangle {
+  database "契約" as input
+  database "電圧種別" as voltage_types
+  database "契約アイテムグループ" as contract_item_groups
+
+  ("契約詳細画面") as (prog)
+}
+
+input --> prog : input
+voltage_types --> prog : input
+contract_item_groups --> prog : input
+--
+
+===== I/O
+
+|======================================
+| 名称 | 物理名 | 種類 | I/O種別 | 備考
+| 契約 | contracts | DB | I |
+| 電圧種別 | voltage_types | DB | I | IDをvoltage_type_idと外部結合
+| 契約アイテムグループ | contract_item_groups | DB | I | IDをcontract_item_group_idと外部結合
+|======================================
+
+<<<
+
+==== 画面項目定義
+
+==== 詳細情報
+|======================================
+| 項目名 | 物理項目名 | 取得元 | I/O | 備考
+| id | id | contracts | O | 
+| 名称 | name | contracts | O | 
+| 請求用名称 | name_for_invoice | contracts | O | 
+| 電圧種別ID | voltage_type_id | contracts | O | 関連テーブルの全データを取得しドロップダウンにセットする
+| 契約アイテムグループID | contract_item_group_id | contracts | O | 関連テーブルの全データを取得しドロップダウンにセットする
+| 開始日 | start_date | contracts | O | 
+| 終了日 | end_date | contracts | O | 
+| 作成者 | created_by | contracts | O | 
+| 更新者 | updated_by | contracts | O | 
+| 作成日時 | created_at | contracts | O | 
+| 更新日時 | updated_at | contracts | O | 
+|======================================
+
+<<<
+
+==== 機能詳細
+
+===== 初期表示
+
+契約の一覧API(show)を呼び出して結果を画面にマップする。
+
+===== 戻るボタン押下時
+
+一覧画面に戻る。
+
+<<<
+

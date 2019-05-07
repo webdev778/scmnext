@@ -1,0 +1,119 @@
+=== 施設一覧画面
+
+==== 概要
+
+[.lead]
+施設の一覧を表示する。
+
+===== 画面イメージ
+[plantuml]
+--
+salt
+{
+  検索条件
+  {
+      id | "XXXXX" | 名前 | "XXXXX"
+      供給エリア名 | "XXXXX" | 需要家名 | "XXXXX"
+      電圧種別名 | "XXXXX"
+    [検索]
+  }
+  一覧
+  {
+    {#
+      前へ | 1 | 2 | 3 | 4 | 次へ
+    } | ^10件^
+  }
+  {#
+    . |id|名前|供給エリア名|需要家名|電圧種別名
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX|XXXXX|XXXXX
+      }
+}
+
+--
+[plantuml]
+--
+rectangle {
+  database "施設" as input
+  database "供給エリア" as districts
+  database "需要家" as consumers
+  database "電圧種別" as voltage_types
+
+  ("施設一覧画面") as (prog)
+}
+
+input --> prog : input
+districts --> prog : input
+consumers --> prog : input
+voltage_types --> prog : input
+--
+
+===== I/O
+
+|======================================
+| 名称 | 物理名 | 種類 | I/O種別 | 備考
+| 施設 | facilities | DB | I |
+| 供給エリア | districts | DB | I | IDをdistrict_idと外部結合
+| 需要家 | consumers | DB | I | IDをconsumer_idと外部結合
+| 電圧種別 | voltage_types | DB | I | IDをvoltage_type_idと外部結合
+|======================================
+
+<<<
+
+==== 画面項目定義
+
+===== 検索条件
+|======================================
+| 項目名 | 物理項目名 | 取得元 | I/O | 備考
+| id | id | facilities | I |
+| 名前 | name | facilities | I |
+| 供給エリア名 | district.name | facilities | I |
+| 需要家名 | consumer.name | facilities | I |
+| 電圧種別名 | voltage_type.name | facilities | I |
+|======================================
+
+===== 一覧
+|======================================
+| 項目名 | 物理項目名 | 取得元 | I/O | 備考
+| id | id | facilities | O |
+| 名前 | name | facilities | O |
+| 供給エリア名 | district.name | facilities | O |
+| 需要家名 | consumer.name | facilities | O |
+| 電圧種別名 | voltage_type.name | facilities | O |
+|======================================
+
+<<<
+
+==== 機能詳細
+
+===== 初期表示
+
+施設の一覧API(index)を呼び出して結果を画面にマップする。
+
+===== 表示ボタン押下時
+
+施設詳細閲覧画面に遷移する。
+
+===== 検索ボタン押下時
+
+指定された検索条件をパラメータにセットし、一覧API(index)を呼び出して結果を画面にマップする。
+
+===== 一覧のヘッダ項目押下時
+
+押下された項目でソートを行う。押下された時点において該当の項目が既に昇順ないし降順でソートされた状態ならば昇順・降順を入れ替えてソートする。
+ソートされていない状態の場合は、昇順でのソートを行う。
+
+===== ページネーター押下時
+
+指定されたページの内容を表示する。
+
+<<<
+

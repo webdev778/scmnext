@@ -1,0 +1,108 @@
+=== リソース一覧画面
+
+==== 概要
+
+[.lead]
+リソースの一覧を表示する。
+
+===== 画面イメージ
+[plantuml]
+--
+salt
+{
+  検索条件
+  {
+      id | "XXXXX" | 名称 | "XXXXX"
+      バランシンググループ名 | "XXXXX"
+    [検索]
+  }
+  一覧
+  {
+    {#
+      前へ | 1 | 2 | 3 | 4 | 次へ
+    } | ^10件^
+  }
+  {#
+    . |id|名称|バランシンググループ名
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+        [表示] | XXXXX|XXXXX|XXXXX
+      }
+}
+
+--
+[plantuml]
+--
+rectangle {
+  database "リソース" as input
+  database "バランシンググループ" as balancing_groups
+
+  ("リソース一覧画面") as (prog)
+}
+
+input --> prog : input
+balancing_groups --> prog : input
+--
+
+===== I/O
+
+|======================================
+| 名称 | 物理名 | 種類 | I/O種別 | 備考
+| リソース | resources | DB | I |
+| バランシンググループ | balancing_groups | DB | I | IDをbalancing_group_idと外部結合
+|======================================
+
+<<<
+
+==== 画面項目定義
+
+===== 検索条件
+|======================================
+| 項目名 | 物理項目名 | 取得元 | I/O | 備考
+| id | id | resources | I |
+| 名称 | name | resources | I |
+| バランシンググループ名 | balancing_group.name | resources | I |
+|======================================
+
+===== 一覧
+|======================================
+| 項目名 | 物理項目名 | 取得元 | I/O | 備考
+| id | id | resources | O |
+| 名称 | name | resources | O |
+| バランシンググループ名 | balancing_group.name | resources | O |
+|======================================
+
+<<<
+
+==== 機能詳細
+
+===== 初期表示
+
+リソースの一覧API(index)を呼び出して結果を画面にマップする。
+
+===== 表示ボタン押下時
+
+リソース詳細閲覧画面に遷移する。
+
+===== 検索ボタン押下時
+
+指定された検索条件をパラメータにセットし、一覧API(index)を呼び出して結果を画面にマップする。
+
+===== 一覧のヘッダ項目押下時
+
+押下された項目でソートを行う。押下された時点において該当の項目が既に昇順ないし降順でソートされた状態ならば昇順・降順を入れ替えてソートする。
+ソートされていない状態の場合は、昇順でのソートを行う。
+
+===== ページネーター押下時
+
+指定されたページの内容を表示する。
+
+<<<
+

@@ -19,6 +19,9 @@
 
 :sectnums:
 
-include::batch/index.adoc[]
-include::pages/index.adoc[]
+include::batch_1/index.adoc[]
+include::batch_2/index.adoc[]
+include::pages_1/index.adoc[]
+include::pages_2/index.adoc[]
+
 
