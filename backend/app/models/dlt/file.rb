@@ -59,7 +59,7 @@ class Dlt::File < ApplicationRecord
   #
   scope :filter_force, lambda { |force|
     unless force
-      where.not(state: [:state_complated, :state_in_progress])
+      where(state: [:state_untreated])
     end
   }
 
