@@ -27,6 +27,8 @@ class Dlt::File < ApplicationRecord
 
   validates :content,
     presence: true
+  validates :data_type,
+    uniqueness: {scope: [:setting_id, :voltage_mode, :record_date, :record_time_index_id, :section_number, :revision]}
 
   ransackable_enum voltage_mode: {
     high: 1,
