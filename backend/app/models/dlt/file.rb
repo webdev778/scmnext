@@ -149,6 +149,7 @@ class Dlt::File < ApplicationRecord
           # @todo ファイルサイズをここでチェックする
           dlt_file = downloaded_file_maps[list_item[:filename]]
           dlt_file ||= Dlt::File.new(setting_id: setting.id)
+          dlt_file.state = :state_untreated
           dlt_file.content.attach(io: StringIO.new(result.body), filename: list_item[:filename])
           dlt_file.save
         end
