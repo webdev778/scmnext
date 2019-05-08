@@ -69,7 +69,7 @@ namespace :dlt do
       end_date = ENV['TO'].present? ? ENV['TO'].in_time_zone : start_date.end_of_month
       setting_id = ENV['SETTING_ID'].present? ? ENV['SETTING_ID'].to_i : nil
       Dlt::Setting.filter_state_active.filter_id_unless_nil(setting_id).find_each do |setting|
-        PowerUsageFixed.import_data(setting, start_date, end_of_date)
+        PowerUsageFixed.import_data(setting, start_date, end_date)
       end
     end
   end
