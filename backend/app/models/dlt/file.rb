@@ -138,6 +138,7 @@ class Dlt::File < ApplicationRecord
                                         ).map do |file|
                                           [file.content.filename.to_s, file]
                                         end.to_h
+        logger.debug(filenames)
         file_list.each do |_no, list_item|
           next if block_given? && !yield(list_item[:filename])
           # 既にダウンロード済みかつ破損してない場合はスキップする
@@ -153,7 +154,9 @@ class Dlt::File < ApplicationRecord
           dlt_file ||= Dlt::File.new(setting_id: setting.id)
           dlt_file.state = :state_untreated
           dlt_file.content.attach(io: StringIO.new(result.body), filename: list_item[:filename])
-          dlt_file.save
+          unless dlt_file.save
+            logger.warn("保存エラー", dlt_file.errors.full_messages.join(" "))
+          end
         end
         logger.info("[#{target_name}]のダウンロードを完了しました。")
       end
