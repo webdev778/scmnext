@@ -46,7 +46,8 @@ class Dlt::File < ApplicationRecord
     state_complated: 1,
     state_in_progress: 2,
     state_complated_with_error: 3,
-    state_exception: 4
+    state_exception: 4,
+    state_corrupted: 5
   }
 
   #
@@ -112,7 +113,8 @@ class Dlt::File < ApplicationRecord
   class << self
     #
     # サーバーから取得可能なファイルの一覧を取得して、ダウンロードを行う
-    # ブロックが与えられた場合は、取得可能な各ファイルを引数とし、偽を返した場合は
+    # ダウンロードの対象は既にダウンロード済みで破損していないもの
+    # また、ブロックが与えられた場合は、取得可能な各ファイルを引数とし、偽を返した場合は
     # 当該ファイルのダウンロードをスキップする
     #
     # @yield [filename] 偽を返した場合はダウンロードをスキップする
@@ -127,21 +129,28 @@ class Dlt::File < ApplicationRecord
         logger.info("[#{target_name}]の託送データをダウンロードします。")
         file_list = get_file_list(setting)
         filenames = file_list.map { |_no, list_item| list_item[:filename] }
-        downloaded_filenames = Dlt::File.includes(%i[setting content_blob])
+        downloaded_file_maps = Dlt::File.includes(%i[setting content_blob])
                                         .where(
                                           'setting_id' => setting.id,
                                           'active_storage_blobs.filename' => filenames
-                                        ).pluck('active_storage_blobs.filename')
+                                        ).map do |file|
+                                          [file.content.filename.to_s, file]
+                                        end.to_h
         file_list.each do |_no, list_item|
-          next if downloaded_filenames.include?(list_item[:filename])
           next if block_given? && !yield(list_item[:filename])
+          # 既にダウンロード済みかつ破損してない場合はスキップする
+          next if downloaded_file_maps[list_item[:filename]] && !downloaded_file_maps[list_item[:filename]].state_corrupted?
 
           logger.info("download:#{list_item[:filename]}")
           result = get_file(list_item[:filename], setting)
-          # @todo ファイルサイズをここでチェックする
-          Dlt::File.create(setting_id: setting.id) do |file|
-            file.content.attach(io: StringIO.new(result.body), filename: list_item[:filename])
+          if result.body.size != list_item[:size]
+            logger.warn("ファイルサイズが一致しないためスキップしました")
           end
+          # @todo ファイルサイズをここでチェックする
+          dlt_file = downloaded_file_maps[list_item[:filename]]
+          dlt_file ||= Dlt::File.new(setting_id: setting.id)
+          dlt_file.content.attach(io: StringIO.new(result.body), filename: list_item[:filename])
+          dlt_file.save
         end
         logger.info("[#{target_name}]のダウンロードを完了しました。")
       end
