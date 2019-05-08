@@ -55,7 +55,7 @@ class Dlt::File < ApplicationRecord
   #
   # 全てのデータを取込の対象とするか
   #
-  # @param force [Boolean] falseを指定すると処理中及び完了分のみ。trueだとすべてを対象にする
+  # @param force [Boolean] falseを指定すると未処理のみ。trueだとすべてを対象にする
   #
   scope :filter_force, lambda { |force|
     unless force

@@ -28,7 +28,7 @@ namespace :dlt do
           PowerUsagePreliminary.import_today_data(setting, target_date, time_index_id, force)
         end
       else
-        Dlt::Setting.filter_state_active.find_each do |setting|
+        Dlt::Setting.filter_state_active.filter_id_unless_nil(setting_id).find_each do |setting|
           (1..48).each do |i|
             PowerUsagePreliminary.import_today_data(setting, target_date, i, force)
           end
