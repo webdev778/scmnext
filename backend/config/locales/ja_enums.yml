@@ -21,3 +21,4 @@ ja:
           state_in_progress: 処理中
           state_complated_with_error: 完了(エラーあり)
           state_exception: 例外
+          state_corrupted: 破損データ
