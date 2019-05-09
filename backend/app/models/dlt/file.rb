@@ -148,6 +148,7 @@ class Dlt::File < ApplicationRecord
           result = get_file(list_item[:filename], setting)
           if result.body.size != list_item[:size]
             logger.warn("ファイルサイズが一致しないためスキップしました")
+            next
           end
           # @todo ファイルサイズをここでチェックする
           dlt_file = downloaded_file_maps[list_item[:filename]]
