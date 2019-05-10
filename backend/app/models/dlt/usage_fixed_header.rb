@@ -61,7 +61,7 @@ class Dlt::UsageFixedHeader < ApplicationRecord
     when supply_points.count == 1
       update(facility_group_id: supply_points[0].facility_group_id)
     else
-      active_supply_points = supply_points.select{|supply_point| supply_poinst.is_active_at?(record_date)}
+      active_supply_points = supply_points.select{|supply_point| supply_point.is_active_at?(record_date)}
       if active_supply_points.count >= 1
         logger.warn "#{supply_point_number}に対応する供給地点が複数存在" if active_supply_points.count > 1
         update(facility_group_id: active_supply_points[0].facility_group_id)
