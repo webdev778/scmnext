@@ -23,7 +23,9 @@ class PowerUsageFixed < ApplicationRecord
     def import_data(setting, start_date, end_date)
       target_name = "#{setting.bg_member.company.name} #{setting.bg_member.balancing_group.district.name}"
       logger.info("[#{target_name}]の確定値集計処理を開始 (期間 #{start_date}～#{end_date}")
-      self.connection.execute(generate_select_insert_sql(start_date, end_date))
+      sql = generate_select_insert_sql(start_date, end_date)
+      logger.debug sql
+      self.connection.execute(sql)
     end
 
     private
