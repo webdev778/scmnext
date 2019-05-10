@@ -65,9 +65,12 @@ namespace :dlt do
   namespace :summary do
     desc '確定使用量テーブルのデータを確定値テーブルへ取込む'
     task fixed: :environment do |_task, _args|
-      start_date = ENV['FROM'].present? ?  ENV['FROM'].in_time_zone : 1.month.before(Date.today).begining_of_month
-      end_date = ENV['TO'].present? ? ENV['TO'].in_time_zone : start_date.end_of_month
-      PowerUsageFixed.import_data(start_date, end_date)
+      start_date = ENV['FROM'].present? ?  ENV['FROM'].to_date : 1.month.before(Date.today).beginning_of_month
+      end_date = ENV['TO'].present? ? ENV['TO'].to_date : start_date.end_of_month
+      (start_date..end_date).each do |date|
+        PowerUsageFixed.import_data(date)
+      end
+
     end
   end
 end

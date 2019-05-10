@@ -20,17 +20,17 @@ class PowerUsageFixed < ApplicationRecord
     #
     # 確定使用量データから施設グループ単位の確定値を取得しテーブルにインポートする
     #
-    def import_data(start_date, end_date)
-      logger.info("確定値集計処理を開始 (期間 #{start_date}～#{end_date}")
-      sql = generate_select_insert_sql(start_date, end_date)
+    def import_data(date)
+      logger.info("確定値集計処理を開始 (日付 #{date})")
+      sql = generate_select_insert_sql(date)
       logger.debug sql
       self.connection.execute(sql)
     end
 
     private
-    def generate_select_insert_sql(start_date, end_date)
+    def generate_select_insert_sql(date)
       insert_manager = Arel::InsertManager.new
-      insert_manager.select(Arel.sql(generate_select_sql(start_date, end_date)))
+      insert_manager.select(Arel.sql(generate_select_sql(date)))
       insert_manager.into(self.arel_table)
       insert_manager.columns << self.arel_table[:facility_group_id]
       insert_manager.columns << self.arel_table[:date]
@@ -43,11 +43,11 @@ class PowerUsageFixed < ApplicationRecord
       insert_manager.to_sql + " ON DUPLICATE KEY UPDATE value=value, updated_at=updated_at, updated_by=updated_by"
     end
 
-    def generate_select_sql(start_date, end_date)
+    def generate_select_sql(date)
       now = Time.now
       Dlt::UsageFixedDetail
         .joins(:usage_fixed_header)
-        .where(['date >= ? and date <= ?', start_date, end_date])
+        .where(date: date)
         .where.not("dlt_usage_fixed_headers.facility_group_id"=> nil)
         .distinct
         .select([
