@@ -48,7 +48,7 @@ class PowerUsageFixed < ApplicationRecord
       Dlt::UsageFixedDetail
         .joins(:usage_fixed_header)
         .where(['date >= ? and date <= ?', start_date, end_date])
-        .where.not(facility_group_id: nil)
+        .where.not("usage_fixed_headers.facility_group_id"=> nil)
         .distinct
         .select([
                   :facility_group_id,
