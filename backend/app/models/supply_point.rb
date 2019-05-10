@@ -54,7 +54,13 @@ class SupplyPoint < ApplicationRecord
     end
   end
 
+  # パラメータで指定された日においてインスタンスの供給地点番号が有効かをチェックする
+  # (開始日未指定の場合は常にfalse)
+  #
+  # @param date [Date] チェックする日付
+  # @return [Boolean] 有効な場合はtrueを返す
   def is_active_at?(date)
+    return false if supply_start_date.nil?
     (supply_start_date <= date) && (supply_end_date.nil? || (supply_end_date >= date))
   end
 
