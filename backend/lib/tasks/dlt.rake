@@ -67,10 +67,7 @@ namespace :dlt do
     task fixed: :environment do |_task, _args|
       start_date = ENV['FROM'].present? ?  ENV['FROM'].in_time_zone : 1.month.before(Date.today).begining_of_month
       end_date = ENV['TO'].present? ? ENV['TO'].in_time_zone : start_date.end_of_month
-      setting_id = ENV['SETTING_ID'].present? ? ENV['SETTING_ID'].to_i : nil
-      Dlt::Setting.filter_state_active.filter_id_unless_nil(setting_id).find_each do |setting|
-        PowerUsageFixed.import_data(setting, start_date, end_date)
-      end
+      PowerUsageFixed.import_data(start_date, end_date)
     end
   end
 end

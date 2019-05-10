@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_27_055921) do
+ActiveRecord::Schema.define(version: 2019_05_10_025158) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -302,6 +302,7 @@ ActiveRecord::Schema.define(version: 2019_04_27_055921) do
   end
 
   create_table "dlt_usage_fixed_headers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "確定使用量ヘッダ", force: :cascade do |t|
+    t.bigint "facility_group_id", comment: "施設グループID"
     t.string "information_type_code", limit: 4, null: false, comment: "情報区分コード"
     t.integer "year", null: false, comment: "年"
     t.integer "month", limit: 2, null: false, comment: "月"
@@ -324,6 +325,7 @@ ActiveRecord::Schema.define(version: 2019_04_27_055921) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["facility_group_id"], name: "index_dlt_usage_fixed_headers_on_facility_group_id"
     t.index ["information_type_code", "year", "month", "sender_code", "receiver_code", "supply_point_number", "journal_code"], name: "unique_index_on_business", unique: true
     t.index ["month"], name: "index_dlt_usage_fixed_headers_on_month"
     t.index ["supply_point_number"], name: "index_dlt_usage_fixed_headers_on_supply_point_number"

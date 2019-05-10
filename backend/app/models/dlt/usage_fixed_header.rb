@@ -30,6 +30,8 @@ class Dlt::UsageFixedHeader < ApplicationRecord
 
   accepts_nested_attributes_for :usage_fixed_details
 
+  class_attribute :supply_points_map
+
   scope :includes_for_index, lambda {
     includes([{ file: [:content_attachment, :content_blob] }])
   }
@@ -48,7 +50,32 @@ class Dlt::UsageFixedHeader < ApplicationRecord
     super options
   end
 
+  #
+  # 供給地点特定番号に対応する施設グループIDをセットする
+  #
+  def set_facility_group_id!
+    supply_points = self.class.get_supply_points_map[supply_point_number]
+    case
+    when supply_points.nil?
+      logger.warn "#{supply_point_number}は未登録"
+    when supply_points.count == 1
+      update(facility_group_id: supply_points[0].facility_group_id)
+    else
+      active_supply_points = supply_points.select{|supply_point| supply_poinst.is_active_at?(record_date)}
+      if active_supply_points.count >= 1
+        logger.warn "#{supply_point_number}に対応する供給地点が複数存在" if active_supply_points.count > 1
+        update(facility_group_id: active_supply_points[0].facility_group_id)
+      else
+        logger.warn "#{supply_point_number}の供給日指定に不整合あり"
+        update(facility_group_id: supply_points[0].facility_group_id)
+      end
+    end
+  end
+
   class << self
+    #
+    # インポート処理を行う
+    #
     def import_data(setting, date, force)
       target_name = "#{setting.bg_member.company.name} #{setting.bg_member.balancing_group.district.name}"
       logger.info("[#{target_name}]の確定使用量データの取り込み処理を開始")
@@ -73,6 +100,13 @@ class Dlt::UsageFixedHeader < ApplicationRecord
           raise $!
         end
       end
+    end
+
+    #
+    # 供給地点特定番号をkey、それに対応するSupplyPointのインスタンスをvalueとするハッシュを返す
+    #
+    def get_supply_points_map
+      self.supply_points_map ||= SupplyPoint.all.group_by{|supply_point| supply_point.number}
     end
 
     private
@@ -106,6 +140,7 @@ class Dlt::UsageFixedHeader < ApplicationRecord
         }
         header = set_values_from_xml(header, nodes_by_facility, header_mapping)
         header.record_date = record_date
+        header.set_facility_group_id!
         header.save!
         details = nodes_by_facility.elements['JPM00013'].to_a.map do |nodes_by_day|
           date = Time.strptime(nodes_by_day.elements['JP06423'].text, '%Y%m%d')

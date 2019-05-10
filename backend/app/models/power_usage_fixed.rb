@@ -20,9 +20,8 @@ class PowerUsageFixed < ApplicationRecord
     #
     # 確定使用量データから施設グループ単位の確定値を取得しテーブルにインポートする
     #
-    def import_data(setting, start_date, end_date)
-      target_name = "#{setting.bg_member.company.name} #{setting.bg_member.balancing_group.district.name}"
-      logger.info("[#{target_name}]の確定値集計処理を開始 (期間 #{start_date}～#{end_date}")
+    def import_data(start_date, end_date)
+      logger.info("確定値集計処理を開始 (期間 #{start_date}～#{end_date}")
       sql = generate_select_insert_sql(start_date, end_date)
       logger.debug sql
       self.connection.execute(sql)
@@ -45,19 +44,19 @@ class PowerUsageFixed < ApplicationRecord
     end
 
     def generate_select_sql(start_date, end_date)
+      now = Time.now
       Dlt::UsageFixedDetail
         .joins(usage_fixed_header: :supply_point)
         .where(['date >= ? and date <= ?', start_date, end_date])
-        .where.not("supply_points.facility_group_id"=>nil)
         .distinct
         .select([
                   :facility_group_id,
                   :date,
                   :time_index_id,
                   Arel.sql("SUM(CASE journal_code WHEN '2' THEN `dlt_usage_fixed_details`.`usage` ELSE `dlt_usage_fixed_details`.`usage_all` END) AS value"),
-                  Arel.sql("NOW() as created_at"),
+                  Arel.sql("'#{now.to_s(:db)}' as created_at"),
                   Arel.sql("1 as created_by"),
-                  Arel.sql("NOW() as updated_at"),
+                  Arel.sql("'#{now.to_s(:db)}' as updated_at"),
                   Arel.sql("1 as updated_by")
                 ])
         .group(:facility_group_id, :date, :time_index_id).to_sql
