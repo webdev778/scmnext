@@ -46,7 +46,7 @@ class PowerUsageFixed < ApplicationRecord
     def generate_select_sql(start_date, end_date)
       now = Time.now
       Dlt::UsageFixedDetail
-        .joins(usage_fixed_header: :supply_point)
+        .joins(:usage_fixed_header)
         .where(['date >= ? and date <= ?', start_date, end_date])
         .where.not(facility_group_id: nil)
         .distinct
