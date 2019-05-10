@@ -33,7 +33,7 @@
                   | &nbsp;
                   b-form-radio-group(
                     id="data_type"
-                    v-bind:options="dataTypes"
+                    v-bind:options="$store.state.profit.dataTypes"
                     v-model="dataType"
                     name="data-type"
                   )
@@ -46,10 +46,12 @@
                   b-link.btn.btn-secondary(
                     v-bind:href="urlFor('xlsx')"
                   ) EXCELエクスポート
-            b-table(small v-bind:items="items" v-bind:fields="fields" style="width: 2000px;")
-              template(slot="links" slot-scope="data")
-                b-link(v-bind:to="{ path: `/profits/facility_groups/${data.item.facility_group_id}` }")
-                  | 日付詳細
+            b-table(small v-bind:items="items" v-bind:fields="$store.getters['profit/fields']('facility_group')" style="width: 2000px;")
+              template(v-for="slotName in $store.getters['profit/headerSlotNames']('facility_group')" v-slot:[slotName]="data")
+                span(v-html="data.label")
+              template(v-slot:links="data")
+                b-link(v-bind:to="{ path: `/profits/${dataType}/facility_groups/${data.item.facility_group_id}?target_year_month=${targetYearMonth}` }")
+                  | 詳細
 </template>
 
 <script>
@@ -57,51 +59,14 @@ export default {
   data() {
     return {
       items: [],
-      fields: [
-        { key: "links", label: "日付別詳細" },
-        { key: "facility_group_id", label: "ID" },
-        { key: "facility_group_name", label: "名称" },
-        { key: "amount_actual", label: "需要<br>電力使用量", variant: 'align-right', formatter: "formatNumber" },
-        { key: "amount_planned", label: "需要<br>計画値", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "amount_loss", label: "需要<br>損失量", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "amount_imbalance", label: "需要<br>インバランス", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "sales_basic_charge", label: "売上<br>基本料金", variant: 'align-right', formatter: "formatNumber" },
-        { key: "sales_mater_rate_charge", label: "売上<br>従量料金", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "sales_fuel_cost_adjustment", label: "売上<br>燃料調整費", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "sales_total", label: "売上<br>合計", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "sales_kw_unit_price", label: "売上<br>kw単価", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "usage_jbu", label: "供給<br>JBU", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "usage_jepx_spot", label: "供給<br>JEPXスポット", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "usage_jepx_1hour", label: "供給<br>一時間前", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "usage_fit", label: "供給<br>FIT", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "usage_matching", label: "供給<br>相対", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "supply_jbu_basic_charge", label: "仕入<br>JBU基本料金", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "supply_jbu_meter_rate_charge", label: "仕入<br>JBU従量料金", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "supply_jbu_fuel_cost_adjustment", label: "仕入<br>JBU燃料調整費", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "supply_jepx_spot", label: "仕入<br>JEPXスポット", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "supply_jepx_1hour", label: "仕入<br>JEPX一時間前", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "supply_fit", label: "仕入<br>FIT", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "supply_matching", label: "仕入<br>相対", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "supply_imbalance", label: "仕入<br>インバランス", variant: 'align-right', formatter: "formatNumber"  },
-        { key: "supply_wheeler_fundamental_charge", label: "仕入<br>託送基本料金", variant: 'align-right', formatter: "formatNumber" },
-        { key: "supply_wheeler_mater_rate_charge", label: "仕入<br>託送従量料金", variant: 'align-right', formatter: "formatNumber" },
-        { key: "supply_total", label: "仕入<br>合計", variant: 'align-right', formatter: "formatNumber" },
-        { key: "supply_kw_unit_price", label: "仕入<br>kw単価", variant: 'align-right', formatter: "formatNumber" },
-        { key: "profit", label: "売上総利益", variant: 'align-right', formatter: "formatNumber" },
-        { key: "profit_rate", label: "利益率", variant: 'align-right', formatter: "formatNumber" },
-        { key: "load_factor", label: "負荷率", variant: 'align-right', formatter: "formatNumber" }
-      ],
       balancingGroups: [],
       balancingGroupId: null,
       bgMembers: [],
       bgMemberId: null,
       targetYear: null,
       targetMonth: null,
-      dataType: 'preliminary',
-      dataTypes: [
-        {value: 'preliminary', text: '速報値'},
-        {value: 'fixed', text: '確定値'}
-      ],
+      slotName: "HEAD_usage_jbu",
+      dataType: this.$store.state.profit.dataTypes[0].value,
       csvUrl: null
     }
   },
@@ -144,13 +109,10 @@ export default {
       return this.$axios.defaults.baseURL + this.pathFor(format)
     },
     pathFor(format){
-      return `/v1/profits/${this.dataType}/${this.bgMemberId}.${format}?target_year_month=${this.targetYearMonth}`
+      return `/v1/profits/${this.dataType}/bg_members/${this.bgMemberId}.${format}?target_year_month=${this.targetYearMonth}`
     },
     fetchData(){
-      let params = {
-        target_year_month: this.targetYearMonth
-      }
-      this.$axios.$get(this.pathFor('json'), {params: params} )
+      this.$axios.$get(this.pathFor('json'))
       .then( (result)=>{
         if (result == null) {
           this.items = []
