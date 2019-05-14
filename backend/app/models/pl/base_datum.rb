@@ -125,7 +125,7 @@ class Pl::BaseDatum < ApplicationRecord
           amount_loss: amount_loss,
           amount_imbalance: amount_imbalance,
           power_factor_rate: 1,
-          sales_basic_charge: power_usage.facility_group.contract.basic_charge_at(date),
+          sales_basic_charge: power_usage.facility_group.contract.basic_charge_at(date) / time_index_count,
           sales_meter_rate_charge: power_usage.facility_group.contract.meter_rate_at(date) * power_usage.value,
           sales_fuel_cost_adjustment: fuel_cost_unit_price * power_usage.value,
           sales_cost_adjustment: power_usage.facility_group.sales_cost_adjustment,

@@ -56,6 +56,15 @@ class Jepx::SpotTrade < ApplicationRecord
   COL_ALPHA_FIXED_TIMES_SPOT_AVG_PER_PRICE = 20
 
   class << self
+    # 指定年度の全てのデータの取得が完了しているか確認する
+    #
+    # @return [Boolean] 完了時にtrue/そうでない場合はfalse
+    def is_all_fiscal_year_data_downloaded?(year)
+      last_day_data = where(date: Date.new(year + 1, 3, 1).end_of_month)
+      # 最終日のデータが存在しかつα確報値×スポット・時間前平均価格がセットされていればOK
+      last_day_data and last_day_data.alpha_fixed_times_spot_avg_per_price
+    end
+
     def get_row_data(line, area)
       row = {
         date: line[COL_DATE],

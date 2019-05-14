@@ -21,7 +21,7 @@ namespace :jepx do
         when (1..3).include?(today.month)
           years << today.year - 1
         when (4..5).include?(today.month)
-          if [4, 5].include?(today.month) and not Jepx::SpotTrade.where(date: Date.new(today.year, 3, 1).end_of_month).exists?
+          if [4, 5].include?(today.month) and not Jepx::SpotTrade.is_all_fiscal_year_data_downloaded?
             years << today.year - 1
           end
           years << today.year
