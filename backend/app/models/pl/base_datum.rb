@@ -138,7 +138,7 @@ class Pl::BaseDatum < ApplicationRecord
           supply_jbu_basic_charge: jbu_contract.basic_amount / time_index_count * power_usage_rate,
           supply_jbu_meter_rate_charge: usage['jbu'] * jbu_contract.meter_rate_charge(date, power_usage.time_index_id),
           supply_jbu_fuel_cost_adjustment: usage['jbu'] * jbu_contract.fuel_cost_adjustment_charge,
-          supply_jepx_spot: usage['jepx_spot'] * spot_trade_area_data_map_by_time_index[power_usage.time_index_id].area_price_with_fuel_cost_adjustment_and_tax,
+          supply_jepx_spot: usage['jepx_spot'] * spot_trade_area_data_map_by_time_index[power_usage.time_index_id].area_price_with_fuel_cost_adjustment_and_tax(power_usage.facility_group.voltage_type.to_voltage_class),
           supply_jepx_1hour: 0,
           supply_fit: 0,
           supply_matching: 0,
