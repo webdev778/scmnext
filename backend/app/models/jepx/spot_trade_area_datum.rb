@@ -23,7 +23,7 @@ class Jepx::SpotTradeAreaDatum < ApplicationRecord
   def area_price_with_fuel_cost_adjustment_and_tax(voltage_class)
     @fuel_cost_adjustments ||= district.fuel_cost_adjustments_at(spot_trade.date)
     fuel_cost_adjustment_unit_price = @fuel_cost_adjustments[voltage_class].nil? ? 0 : @fuel_cost_adjustments[voltage_class].unit_price
-    (area_price + @fuel_cost_adjustments[voltage_class]) * (1 + ConsumptionTax.rate_at(spot_trade.date))
+    (area_price + fuel_cost_adjustment_unit_price) * (1 + ConsumptionTax.rate_at(spot_trade.date))
   end
 
   # インバランス単価を取得する
