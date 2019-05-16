@@ -1,0 +1,26 @@
+=== システム概要図
+
+[plantuml]
+--
+package "SCM" as scm{
+  [需要予測] as m_demand <<新規>>
+  [需給計画] as m_plan <<新規>>
+  package "託送データ" as dlt{
+    [速報値] as m_usage_preliminary
+    [確定値] as m_usage_fixed
+  }
+  [請求管理(高圧)] as m_invoice_high <<新規>>
+  [支払管理] as m_payment <<新規>>
+  [損益管理] as m_profit
+  [マスタ管理] as m_master <<改修>>
+}
+
+package "CIS" as cis{
+  [請求管理(低圧)] as m_invoice_low
+}
+
+skinparam component {
+  backgroundColor<<新規>> pink
+  backgroundColor<<改修>> lightgreen
+}
+--

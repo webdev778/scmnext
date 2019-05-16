@@ -1,10 +1,17 @@
 == バッチ詳細仕様(第2フェーズ)
 
+include::天気予報データ取得.adoc[]
+include::需要予測データ取込.adoc[]
+include::速報値データ同期処理.adoc[]
 include::託送常時バックアップ計画メール提出.adoc[]
 include::JEPXスポット調達.adoc[]
+include::OcctoFIT計画取込.adoc[]
+include::OcctoFIT計画提出.adoc[]
+include::OcctoFIT計画ステータス確認.adoc[]
 include::Occto翌日需要調達計画提出.adoc[]
-include::高圧請求書作成.adoc[]
-include::低圧請求データ作成.adoc[]
+include::Occto翌日需要調達計画ステータス確認.adoc[]
+include::請求データ作成.adoc[]
+include::EMS連携.adoc[]
 include::自動引落データ作成.adoc[]
 
 <<<
