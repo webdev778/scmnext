@@ -94,13 +94,12 @@ class Pl::BaseDatum < ApplicationRecord
         end
         .to_h
       if spot_trade_area_data_map_by_time_index.count != 48
-        binding.pry
         raise "エリアプライスデータが未登録です"
       end
 
       # 需要家・コマごとの処理
       import_data = power_usage_relation.all.map do |power_usage|
-        binding.pry if power_usage.facility_group.voltage_type.nil?
+        logger.debug "#{power_usage.facility_group.name} #{power_usage.date} #{power_usage.time_index_id}処理中"
         # BGメンバー全体のその時間枠の使用量に対する需要家の使用量の割合を求める
         power_usage_rate = power_usage.value / total_by_time_index[power_usage.time_index_id]
 
