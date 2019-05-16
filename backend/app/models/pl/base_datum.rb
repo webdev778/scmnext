@@ -447,4 +447,25 @@ class Pl::BaseDatum < ApplicationRecord
   def load_factor
     0
   end
+
+  def as_json(options = {})
+    puts "check if option present"
+    p options.present?
+    p options
+    unless options.present?
+      options = {
+        methods: [
+          :facility_group_name,
+          :sales_total,
+          :sales_kw_unit_price,
+          :supply_total,
+          :supply_kw_unit_price,
+          :profit_value,
+          :profit_rate,
+          :load_factor
+        ]
+      }
+    end
+    super options
+  end
 end
