@@ -123,6 +123,7 @@ class Pl::BaseDatum < ApplicationRecord
             logger.warn("[#{power_usage.facility_group.id}] #{power_usage.facility_group.name}の契約電力を特定できません。")
             electricity_value_contracted = 0
           end
+          logger.debug("#{power_usage.facility_group.name} #{electricity_value_contracted} #{power_usage.facility_group.contract.basic_charge_at(date)} #{time_index_count}")
           sales_basic_charge = electricity_value_contracted * power_usage.facility_group.contract.basic_charge_at(date) * ((185 - 100) / 100) / time_index_count
         else
           sales_basic_charge = 0
