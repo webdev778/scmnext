@@ -1,4 +1,5 @@
-export default function ({ app, $axios }, inject) {
+export default function ( ctx, inject) {
+  let $axios = ctx.$axios
   let formatResult = (result, options) => {
     if (options && options['format'] && options['format'] == 'options'){
       result = Object.keys(result).map(key=>{
@@ -14,7 +15,7 @@ export default function ({ app, $axios }, inject) {
     }
     return result
   }
-  inject('restApi', {
+  const restApi = {
     //
     // APIを使用し対象のモデルから指定されたIDのデータを取得する
     //
@@ -126,5 +127,7 @@ export default function ({ app, $axios }, inject) {
         return formatResult(response.data, options)
       })
     }
-  })
+  }
+  ctx.$restApi = restApi
+  inject('restApi', restApi)
 }

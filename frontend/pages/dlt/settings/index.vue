@@ -77,25 +77,15 @@ export default {
         bg_member_balancing_group_id_eq: null,
         bg_member_company_id_eq: null,
         state_eq: null
-      },
-      balancing_groups: [],
-      companies: [],
-      states: []
+      }
     }
   },
-  created() {
-    this.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
-    .then(result=>{
-      this.balancing_groups = result
-    })
-    this.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
-    .then(result=>{
-      this.companies = result
-    })
-    this.$restApi.enums('dlt/settings', 'states', {format: 'options', emptyValue: '全て'})
-    .then(result=>{
-      this.states = result
-    })
+  async asyncData(ctx) {
+    let data = {}
+    data['balancing_groups'] = await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
+    data['companies'] = await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
+    data['states'] = await ctx.$restApi.enums('dlt/settings', 'states', {format: 'options', emptyValue: '全て'})
+    return data
   }
 }
 </script>

@@ -54,8 +54,6 @@ export default {
   components: {BarChart},
   data() {
     return {
-      balancingGroupId: null,
-      balancingGroups: [],
       bgMemberId: null,
       bgMembers: [],
       targetDate: null,
@@ -143,8 +141,20 @@ export default {
       }
     }
   },
-  created() {
-    this.init()
+  async asyncData(ctx) {
+    let balancingGroups = await ctx.$restApi.list('balancing_groups', null, {format: 'options'})
+    let balancingGroupId = null
+    if (balancingGroups.length > 0){
+
+      balancingGroupId = balancingGroups[0].value
+    }
+    console.log(balancingGroupId)
+    let targetDate = ctx.$moment().format('YYYY-MM-DD')
+    return {
+      balancingGroups: balancingGroups,
+      balancingGroupId: balancingGroupId,
+      targetDate: targetDate
+    }
   },
   watch: {
     balancingGroupId(val){
@@ -158,16 +168,6 @@ export default {
     }
   },
   methods: {
-    init(){
-      this.$restApi.list('balancing_groups', null, {format: 'options'})
-      .then( (result)=>{
-        this.balancingGroups = result
-        if (result.length > 0){
-          this.balancingGroupId = result[0].value
-        }
-      })
-      this.targetDate = this.$moment().format('YYYY-MM-DD')
-    },
     fetchData(){
       this.$axios.$get('/v1/balancings', {params: {date: this.targetDate, type: this.dataType, bg_member_id: this.bgMemberId}})
       .then( (result)=>{
