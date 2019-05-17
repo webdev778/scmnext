@@ -12,7 +12,7 @@ class ProfitsController < ActionController::Base
     month = params[:target_year_month][4, 2].to_i
     start_date = Date.new(year, month, 1)
     end_date = start_date.end_of_month
-    render_result([:facility_id, :date], [:facility_group_name]) do |relation_obj|
+    render_result([:facility_group_id, :date], [:facility_group_name]) do |relation_obj|
       relation_obj = relation_obj
       .where("facility_group_id"=>params[:facility_group_id])
       .where(["date >= ?", start_date])
