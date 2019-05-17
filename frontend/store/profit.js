@@ -11,6 +11,7 @@ export const state = () => ({
     { key: "sales_basic_charge", label: "売上<br>基本料金", variant: 'align-right', formatter: "formatNumber" },
     { key: "sales_meter_rate_charge", label: "売上<br>従量料金", variant: 'align-right', formatter: "formatNumber"  },
     { key: "sales_fuel_cost_adjustment", label: "売上<br>燃料調整費", variant: 'align-right', formatter: "formatNumber"  },
+    { key: "sales_cost_adjustment", label: "売上<br>その他調整費", variant: 'align-right', formatter: "formatNumber"  },
     { key: "sales_total", label: "売上<br>合計", variant: 'align-right', formatter: "formatNumber"  },
     { key: "sales_kw_unit_price", label: "売上<br>kw単価", variant: 'align-right', formatter: "formatNumber"  },
     { key: "usage_jbu", label: "供給<br>JBU", variant: 'align-right', formatter: "formatNumber"  },
@@ -30,7 +31,7 @@ export const state = () => ({
     { key: "supply_wheeler_mater_rate_charge", label: "仕入<br>託送従量料金", variant: 'align-right', formatter: "formatNumber" },
     { key: "supply_total", label: "仕入<br>合計", variant: 'align-right', formatter: "formatNumber" },
     { key: "supply_kw_unit_price", label: "仕入<br>kw単価", variant: 'align-right', formatter: "formatNumber" },
-    { key: "profit", label: "売上総利益", variant: 'align-right', formatter: "formatNumber" },
+    { key: "profit_value", label: "売上総利益", variant: 'align-right', formatter: "formatNumber" },
     { key: "profit_rate", label: "利益率", variant: 'align-right', formatter: "formatNumber" },
     { key: "load_factor", label: "負荷率", variant: 'align-right', formatter: "formatNumber" }
   ],

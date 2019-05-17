@@ -409,39 +409,43 @@ class Pl::BaseDatum < ApplicationRecord
   end
 
   def sales_total
-    sales_basic_charge
-    + sales_meter_rate_charge
-    + sales_fuel_cost_adjustment
-    + sales_cost_adjustment
-    + sales_special_discount
+    [
+      sales_basic_charge,
+      sales_meter_rate_charge,
+      sales_fuel_cost_adjustment,
+      sales_cost_adjustment,
+      sales_special_discount
+    ].sum
   end
 
   def sales_kw_unit_price
-    sales_total / amount_actual
+    (sales_total / amount_actual)
   end
 
   def supply_total
-    supply_jbu_basic_charge
-    + supply_jbu_fuel_cost_adjustment
-    + supply_jepx_spot
-    + supply_jepx_1hour
-    + supply_fit
-    + supply_matching
-    + supply_imbalance
-    + supply_wheeler_fundamental_charge
-    + supply_wheeler_meter_rate_charge
+    [
+      supply_jbu_basic_charge,
+      supply_jbu_fuel_cost_adjustment,
+      supply_jepx_spot,
+      supply_jepx_1hour,
+      supply_fit,
+      supply_matching,
+      supply_imbalance,
+      supply_wheeler_fundamental_charge,
+      supply_wheeler_meter_rate_charge
+    ].sum
   end
 
   def supply_kw_unit_price
-    supply_total / amount_actual
+    (supply_total / amount_actual)
   end
 
   def profit_value
-    sales_total - supply_total
+    (sales_total - supply_total)
   end
 
   def profit_rate
-    profit_value / sales_total
+    (profit_value / sales_total)
   end
 
   def load_factor
@@ -449,7 +453,7 @@ class Pl::BaseDatum < ApplicationRecord
   end
 
   def as_json(options = {})
-    options.merge({
+    options = options.merge({
       methods: [
         :sales_total,
         :sales_kw_unit_price,
