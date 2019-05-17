@@ -3,15 +3,19 @@
 # Table name: dlt_usage_fixed_headers
 #
 #  id                      :bigint(8)        not null, primary key
-#  file_id                 :bigint(8)
+#  facility_group_id       :bigint(8)
+#  information_type_code   :string(4)        not null
 #  year                    :integer          not null
 #  month                   :integer          not null
+#  record_date             :date             not null
+#  sender_code             :string(5)        not null
+#  receiver_code           :string(5)        not null
 #  supply_point_number     :string(22)       not null
 #  consumer_code           :string(21)
 #  consumer_name           :string(80)
 #  supply_point_name       :string(70)
 #  voltage_class_name      :string(4)
-#  journal_code            :integer
+#  journal_code            :string(1)
 #  can_provide             :boolean
 #  usage_all               :decimal(10, 4)
 #  usage                   :decimal(10, 4)
@@ -32,21 +36,7 @@ class Dlt::UsageFixedHeader < ApplicationRecord
 
   class_attribute :supply_points_map
 
-  scope :includes_for_index, lambda {
-    includes([{ file: [:content_attachment, :content_blob] }])
-  }
-
   def as_json(options = {})
-    if options.blank?
-      options = {
-        include: [{
-          file: {
-            include:
-              [:content_attachment, :content_blob]
-          }
-        }]
-      }
-    end
     super options
   end
 

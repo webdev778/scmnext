@@ -158,7 +158,7 @@ class Pl::BaseDatum < ApplicationRecord
       select_items = group_fields + summary_columns.map do |col_name|
         "SUM(#{col_name}) AS #{col_name}"
       end
-      relation_obj.joins(:facility_group).preload(:facility_group).select(select_items).group(group_fields).distinct
+      relation_obj.joins(:facility_group).select(select_items).group(group_fields).distinct
     end
 
     #
@@ -449,23 +449,17 @@ class Pl::BaseDatum < ApplicationRecord
   end
 
   def as_json(options = {})
-    puts "check if option present"
-    p options.present?
-    p options
-    unless options.present?
-      options = {
-        methods: [
-          :facility_group_name,
-          :sales_total,
-          :sales_kw_unit_price,
-          :supply_total,
-          :supply_kw_unit_price,
-          :profit_value,
-          :profit_rate,
-          :load_factor
-        ]
-      }
-    end
+    options.merge({
+      methods: [
+        :sales_total,
+        :sales_kw_unit_price,
+        :supply_total,
+        :supply_kw_unit_price,
+        :profit_value,
+        :profit_rate,
+        :load_factor
+      ]
+    })
     super options
   end
 end

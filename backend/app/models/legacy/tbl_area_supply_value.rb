@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: tbl_area_supply_value
+#
+#  id                 :integer          unsigned, not null, primary key
+#  pps_id             :integer          not null
+#  district_id        :integer          not null
+#  supplier_id        :integer          not null
+#  time               :datetime         not null
+#  value              :integer          not null
+#  interchange_value  :integer
+#  interchange_pps_id :integer
+#  priority           :string(1)        default("1"), not null
+#  reg_date           :datetime
+#
+
 class Legacy::TblAreaSupplyValue < Legacy
   self.table_name = "tbl_area_supply_value"
 

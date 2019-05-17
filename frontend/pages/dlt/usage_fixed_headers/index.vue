@@ -10,16 +10,6 @@
       b-row
         b-col
           b-form-group(
-            label="ファイル"
-            label-for="file_id"
-            )
-            b-form-select(
-              id="file_id"
-              v-model="query.file_id_eq"
-              v-bind:options="files"
-            )
-        b-col
-          b-form-group(
             label="供給地点特定番号"
             label-for="supply_point_number"
             )
@@ -42,8 +32,16 @@ export default {
           label: "ID"
         },
         {
-          key: "file.content_blob.filename",
-          label: "ファイル名"
+          key: "year",
+          label: "年"
+        },
+        {
+          key: "month",
+          label: "月"
+        },
+        {
+          key: "record_date",
+          label: "検針日"
         },
         {
           key: "supply_point_number",
@@ -57,26 +55,8 @@ export default {
           key: "updated_at",
           label: "更新日時"
         }
-      ],
-      query: {
-        file_id_eq: null,
-        supply_point_number_cont: null
-      },
-      files: []
+      ]
     }
-  },
-  created() {
-    this.$axios.$get(`/v1/dlt/files`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.content_blob.filename
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.files = options
-    })
   }
 }
 </script>
