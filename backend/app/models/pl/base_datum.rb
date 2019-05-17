@@ -125,6 +125,7 @@ class Pl::BaseDatum < ApplicationRecord
           end
           logger.debug("#{power_usage.facility_group.name} #{electricity_value_contracted} #{power_usage.facility_group.contract.basic_charge_at(date)} #{time_index_count}")
           sales_basic_charge = electricity_value_contracted * power_usage.facility_group.contract.basic_charge_at(date) * ((185 - 100) / 100) / time_index_count
+          logger.debug("#{sales_basic_charge}")
         else
           sales_basic_charge = 0
         end
