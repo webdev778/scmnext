@@ -1,18 +1,19 @@
 ---
 :skip: true
 :truncate: true
-:model_class: ResourceFit
+:model_class: Dlt::InvalidSupplyPoint
 :sources:
 - :fields:
     id: 
-    balancing_group_id: 
-    type: 
-    code: 
+    company_id: 
+    district_id: 
+    bg_member_id: 
+    number: 
     name: 
-    supply_value: 
+    comment: 
     created_by: 
     updated_by: 
     created_at: 
     updated_at: 
-  :from: base_table_name
-  :where: 0 = 0
+  :from: 
+  :where: 

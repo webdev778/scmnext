@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_10_025158) do
+ActiveRecord::Schema.define(version: 2019_05_17_083734) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -387,6 +387,19 @@ ActiveRecord::Schema.define(version: 2019_05_10_025158) do
     t.index ["contract_id"], name: "index_facility_groups_on_contract_id"
     t.index ["district_id"], name: "index_facility_groups_on_district_id"
     t.index ["voltage_type_id"], name: "index_facility_groups_on_voltage_type_id"
+  end
+
+  create_table "facility_max_demand_powers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "facility_id", comment: "施設ID"
+    t.integer "year", null: false, comment: "年"
+    t.integer "month", limit: 2, null: false, comment: "月"
+    t.decimal "value", precision: 5, comment: "値(最大需要電力kw)"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["facility_id", "year", "month"], name: "unique_index_for_business", unique: true
+    t.index ["facility_id"], name: "index_facility_max_demand_powers_on_facility_id"
   end
 
   create_table "fuel_cost_adjustments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "燃料調整費", force: :cascade do |t|

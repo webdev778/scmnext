@@ -55,6 +55,7 @@ class Pl::BaseDatum < ApplicationRecord
         logger.info "使用量データ未登録のためスキップしました。"
         return
       end
+      max_demand_power_map = Facility.get_facility_group_id_max_demand_power_map_at(date)
 
       # ポジションデータを取得
       plan_matrix_by_time_index_and_resouce_type = Occto::Plan.bg_memeber_matrix_by_time_index_and_resouce_type(bg_member_id: bg_member.id, date: date)
@@ -115,6 +116,17 @@ class Pl::BaseDatum < ApplicationRecord
         loss_rate = 0.042
         amount_loss = power_usage.value * loss_rate
         amount_imbalance = usage['demand'] - (power_usage.value + amount_loss)
+
+        if power_usage.facility_group.voltage_type.to_voltage_mode == :high
+          electricity_value_contracted = max_demand_power_map[power_usage.facility_group.id]
+          if electricity_value_contracted.nil?
+            logger.warn("[#{power_usage.facility_group.id}] #{power_usage.facility_group.name}の契約電力を特定できません。")
+            electricity_value_contracted = 0
+          end
+          sales_basic_charge = electricity_value_contracted * power_usage.facility_group.contract.basic_charge_at(date) * ((185 - 100) / 100) / time_index_count
+        else
+          sales_basic_charge = 0
+        end
         {
           facility_group_id: power_usage.facility_group_id,
           date: date,
@@ -124,7 +136,7 @@ class Pl::BaseDatum < ApplicationRecord
           amount_loss: amount_loss,
           amount_imbalance: amount_imbalance,
           power_factor_rate: 1,
-          sales_basic_charge: power_usage.facility_group.contract.basic_charge_at(date) / time_index_count,
+          sales_basic_charge: sales_basic_charge
           sales_meter_rate_charge: power_usage.facility_group.contract.meter_rate_at(date) * power_usage.value,
           sales_fuel_cost_adjustment: fuel_cost_unit_price * power_usage.value,
           sales_cost_adjustment: power_usage.facility_group.sales_cost_adjustment,

@@ -30,6 +30,8 @@ class Facility < ApplicationRecord
   has_many :facility_contracts, -> { order(start_date: :desc) }
   has_many :contracts, through: :facility_contracts
   has_many :discounts_for_facilities, -> { order(start_date: :desc) }
+  has_many :facility_max_demand_powers
+
   belongs_to :district
   belongs_to :consumer
   belongs_to :voltage_type
@@ -68,6 +70,30 @@ class Facility < ApplicationRecord
                :voltage_type
              ])
   }
+
+  scope :voltage_mode_high_only, lambda {
+    where("facilities.voltage_type_id < 3")
+  }
+
+  class << self
+    #
+    # 指定日の契約電力について、facility_group_idをkey,最大需要電力を値としたhashmapを作成する
+    # (契約電力=直近12ヶ月の最大需要電力の最大値)
+    # なお、対象は高圧のみとする
+    def get_facility_group_id_max_demand_power_map_at(date)
+      from_date = 1.year.before(date)
+      from = sprintf('%04d%02d', from_date.year, from_date.month)
+      to_date = date
+      to = sprintf('%04d%02d', to_date.year, to_date.month)
+
+      voltage_mode_high_only
+        .joins([{supply_point: :facility_group}, :facility_max_demand_powers])
+        .where(["concat( lpad( year, 4, 0), lpad(month, 2, 0) ) > ?", from])
+        .where(["concat( lpad( year, 4, 0), lpad(month, 2, 0) ) <= ?", to])
+        .group('facility_groups.id')
+        .maximum(:value)
+    end
+  end
 
   def as_json(options = {})
     if options.blank?

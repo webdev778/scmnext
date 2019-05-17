@@ -7,6 +7,7 @@
     name: tbl_facility.facility_name
     company_id: tbl_facility.pps_id
     district_id: tbl_facility.tbl_district_id
+    bg_member_id: 
     contract_id: tbl_facility.tbl_contract_id
     voltage_type_id: tbl_facility.tbl_voltage_id
     contract_capacity: tbl_facility.consultation_power
@@ -15,5 +16,5 @@
     created_at: tbl_facility.created
     updated_at: tbl_facility.modified
   :from: tbl_facility
-  :where: tbl_voltage_id IN (1, 2, 99) AND tbl_facility.pps_id NOT IN(2, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15)
-
+  :where: tbl_voltage_id IN (1, 2, 99) AND tbl_facility.pps_id NOT IN(2, 4, 5, 6,
+    7, 9, 10, 11, 12, 13, 14, 15)

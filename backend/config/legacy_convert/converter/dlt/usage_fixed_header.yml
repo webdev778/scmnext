@@ -5,9 +5,13 @@
 :sources:
 - :fields:
     id: 
-    file_id: 
+    facility_group_id: 
+    information_type_code: 
     year: 
     month: 
+    record_date: 
+    sender_code: 
+    receiver_code: 
     supply_point_number: 
     consumer_code: 
     consumer_name: 

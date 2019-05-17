@@ -3,19 +3,20 @@
 :truncate: true
 :sources:
 - :fields:
-    id:
+    id: 
     company_id: tbl_account.id
-    type:
+    type: 
     login_code: tbl_company.jepx_userid
     password: tbl_company.jepx_password
-    passphrase:
-    comment:
-    created_by:
-    updated_by:
-    created_at:
-    updated_at:
+    passphrase: 
+    comment: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
   :from: tbl_company
-  :where: tbl_company.jepx_userid IS NOT NULL AND tbl_company.jepx_userid <> '' AND tbl_account.id NOT IN(2, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15)
+  :where: tbl_company.jepx_userid IS NOT NULL AND tbl_company.jepx_userid <> '' AND
+    tbl_account.id NOT IN(2, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15)
   :joins:
   - :table: tbl_account
     :type: inner

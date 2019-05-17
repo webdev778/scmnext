@@ -6,6 +6,12 @@
 - :fields:
     id: 
     setting_id: 
+    voltage_mode: 
+    data_type: 
+    record_date: 
+    record_time_index_id: 
+    section_number: 
+    revision: 
     state: 
     created_by: 
     updated_by: 

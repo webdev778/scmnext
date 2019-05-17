@@ -1,0 +1,16 @@
+---
+:truncate: true
+:model_class: FacilityMaxDemandPower
+:sources:
+- :fields:
+    id: id
+    facility_id: tbl_customer_id
+    year: SUBSTRING(month, 1, 4)
+    month: SUBSTRING(month, 6, 2)
+    value: power
+    created_by: created_user_id
+    updated_by: modified_user_id
+    created_at: created
+    updated_at: modified
+  :from: tbl_max_demand_power
+  :where: SUBSTRING(month, 1, 4) IS NOT NULL AND SUBSTRING(month, 6, 2) IS NOT NULL
