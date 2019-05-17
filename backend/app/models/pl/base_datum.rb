@@ -453,7 +453,8 @@ class Pl::BaseDatum < ApplicationRecord
   end
 
   def as_json(options = {})
-    options = options.merge({
+    logger.debug(options)
+    options = options.deep_merge({
       methods: [
         :sales_total,
         :sales_kw_unit_price,
@@ -463,7 +464,14 @@ class Pl::BaseDatum < ApplicationRecord
         :profit_rate,
         :load_factor
       ]
-    })
+    }) do |key, this_val, other_val|
+      if this_val.is_a?(Array) and other_val.is_a?(Array)
+        this_val + other_val
+      else
+        other_val
+      end
+    end
+    logger.debug(options)
     super options
   end
 end

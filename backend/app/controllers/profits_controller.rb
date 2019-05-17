@@ -36,7 +36,7 @@ class ProfitsController < ActionController::Base
 
 
   private
-  def render_result(group_keys, extra = {})
+  def render_result(group_keys, extra = [])
     model_class = "Pl::BaseDatum#{params[:type].camelize}".constantize
     relation_obj = model_class
     relation_obj = yield relation_obj
