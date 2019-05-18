@@ -17,15 +17,6 @@ class Jepx::SpotTradeAreaDatum < ApplicationRecord
   belongs_to :district
   belongs_to :spot_trade
 
-  #
-  # 燃料調整費と消費税込のエリアプライスを返す
-  # @return [Decimal] 燃料調整費と消費税込のエリアプライス
-  def area_price_with_fuel_cost_adjustment_and_tax(voltage_class)
-    @fuel_cost_adjustments ||= district.fuel_cost_adjustments_at(spot_trade.date)
-    fuel_cost_adjustment_unit_price = @fuel_cost_adjustments[voltage_class].nil? ? 0 : @fuel_cost_adjustments[voltage_class].unit_price
-    (area_price + fuel_cost_adjustment_unit_price) * (1 + ConsumptionTax.rate_at(spot_trade.date))
-  end
-
   # インバランス単価を取得する
   # (インバランス計算については下記参照のこと)
   # http://www.meti.go.jp/press/2017/09/20170926004/20170926004.html
