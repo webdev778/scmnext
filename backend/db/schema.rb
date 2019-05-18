@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_17_083734) do
+ActiveRecord::Schema.define(version: 2019_05_18_040512) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -403,7 +403,9 @@ ActiveRecord::Schema.define(version: 2019_05_17_083734) do
   end
 
   create_table "fuel_cost_adjustments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "燃料調整費", force: :cascade do |t|
+    t.bigint "company_id", comment: "PPS ID"
     t.bigint "district_id", comment: "エリアID"
+    t.bigint "bg_member_id", comment: "BGメンバーID"
     t.integer "year", null: false, comment: "年"
     t.integer "month", limit: 2, null: false, comment: "月"
     t.integer "voltage_class", limit: 1, null: false, comment: "電圧区分"
@@ -412,6 +414,8 @@ ActiveRecord::Schema.define(version: 2019_05_17_083734) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["bg_member_id"], name: "index_fuel_cost_adjustments_on_bg_member_id"
+    t.index ["company_id"], name: "index_fuel_cost_adjustments_on_company_id"
     t.index ["district_id", "year", "month"], name: "unique_index_for_import", unique: true
     t.index ["district_id"], name: "index_fuel_cost_adjustments_on_district_id"
     t.index ["month"], name: "index_fuel_cost_adjustments_on_month"

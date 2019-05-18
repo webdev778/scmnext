@@ -343,7 +343,7 @@ namespace :legacy do
         [[bg_member.company_id, bg_member.balancing_group.district_id], bg_member.id]
       end
       .to_h
-    [Dlt::Setting, Dlt::InvalidSupplyPoint, FacilityGroup, JbuContract].each do |target_model_class|
+    [Dlt::Setting, Dlt::InvalidSupplyPoint, FacilityGroup, JbuContract, FuelCostAdjustment].each do |target_model_class|
       select_count = 0
       update_count = 0
       target_model_class.find_each do |target_model_instance|
@@ -479,7 +479,7 @@ namespace :legacy do
     task converter: :environment do |_task, _args|
       Rails.application.eager_load!
       model_classes = ActiveRecord::Base.descendants.delete_if do |model_class|
-        %w[ApplicationRecord Legacy].include?(model_class.to_s)
+        model_class.connection != ActiveRecord::Base.connection or %w[ApplicationRecord Legacy].include?(model_class.to_s)
       end
       model_classes.each do |model_class|
         logger.info "#{model_class.to_s}の雛形を作成/更新します。"

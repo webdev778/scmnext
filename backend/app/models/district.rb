@@ -28,7 +28,6 @@ class District < ApplicationRecord
   has_many :jepx_imbalance_betas, class_name: Jepx::ImbalanceBeta.to_s
   has_many :spot_trade_area_data, class_name: Jepx::SpotTradeAreaDatum.to_s
   has_many :holidays
-  has_many :fuel_cost_adjustments
   has_many :wheeler_charges
   has_many :district_loss_rates
   has_many :facilities
@@ -69,20 +68,6 @@ class District < ApplicationRecord
         result[wheeler_charge.voltage_class] = wheeler_charge
         result
       end
-      .with_indifferent_access
-  end
-
-  #
-  # 指定日における電圧クラスごとの燃料調整費データを取得する
-  # @param date [Date] 取得する日付
-  # @return [Hash] voltage_classをkey,FuelCostAdjustmentのインスタンスを値とするハッシュ
-  def fuel_cost_adjustments_at(date)
-    fuel_cost_adjustments
-      .where(year: date.year, month: date.month)
-      .map do |fuel_cost_adjustment|
-        [fuel_cost_adjustment.voltage_class, fuel_cost_adjustment]
-      end
-      .to_h
       .with_indifferent_access
   end
 
