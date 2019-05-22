@@ -19,6 +19,11 @@ namespace :utility do
     sh 'erd --filename=doc/ER図'
   end
 
+  desc 'asciidoctorによるpdf作成'
+  task asciidoc: :environment do |_task, _args|
+    sh 'cd ../deploy && asciidoctor-pdf -r asciidoctor-diagram ./documents/asciidoc/src/index.adoc'
+  end
+
   desc '全て実行'
   task all: %i[fix_layout lint doc erd] do |_task, _args|
   end

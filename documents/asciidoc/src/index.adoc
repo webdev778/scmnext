@@ -1,6 +1,6 @@
 :encoding: utf-8
 :lang: ja
-:doctitle: EnepaSCM next: 詳細設計書
+:doctitle: EnepaSCM next: 第二フェーズ設計書
 :author: 株式会社オプティマイザー
 :doctype: book
 :toc: left
@@ -19,9 +19,9 @@
 
 :sectnums:
 
-include::batch_1/index.adoc[]
+//include::batch_1/index.adoc[]
 include::batch_2/index.adoc[]
-include::pages_1/index.adoc[]
+//include::pages_1/index.adoc[]
 include::pages_2/index.adoc[]
 
 

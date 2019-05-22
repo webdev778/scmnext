@@ -1,3 +1,4 @@
 .vagrant
+.asciidoctor
 documents/asciidoc/out
 documents/asciidoc/fonts

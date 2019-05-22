@@ -11,6 +11,9 @@ class ProfitsController < ActionController::Base
     if params[:date_to]
       relation_obj = relation_obj.where('date <= ?', params[:date_to])
     end
+    if params[:date]
+      relation_obj = relation_obj.where(date: params[:date])
+    end
     if params[:time_index_id]
       relation_obj = relation_obj.where(time_index_id: params[:time_index_id])
     end
