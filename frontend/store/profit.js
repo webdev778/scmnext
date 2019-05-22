@@ -82,6 +82,7 @@ export const getters = {
         detailQuery['group_by_unit'] = 'time_index_id'
         break
       case "selectDateGroupByTimeIndexId":
+          detailQuery['date'] = query.date
           detailQuery['time_index_id'] = data.item.time_index_id
           detailQuery['group_by_unit'] = 'facility_group_id'
         break
