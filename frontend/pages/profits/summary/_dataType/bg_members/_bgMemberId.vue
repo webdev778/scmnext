@@ -6,7 +6,6 @@
           b-card(
             header-tag="header"
             footer-tag="footer"
-            style="overflow-x: scroll; height: 700px; overflow-y: scroll;"
             )
             b-row
               b-col
@@ -19,7 +18,7 @@
                 b-link.btn.btn-secondary(
                   v-on:click="$router.go(-1)"
                 ) 戻る
-            b-table(small v-bind:items="items" v-bind:fields="$store.getters['profit/fields'](query.group_by_unit)" fixed)
+            b-table(small v-bind:items="items" v-bind:fields="$store.getters['profit/fields'](query.group_by_unit)" fixed responsive)
               template(v-for="slotName in $store.getters['profit/headerSlotNames'](query.group_by_unit)" v-slot:[slotName]="data")
                 span(v-html="data.label")
               template(v-slot:links="data")

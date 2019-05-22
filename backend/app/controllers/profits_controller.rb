@@ -12,7 +12,7 @@ class ProfitsController < ActionController::Base
       relation_obj = relation_obj.where('date <= ?', params[:date_to])
     end
     if params[:time_index]
-      relation_obj = relation_obj.where(time_index: params[:time_index])
+      relation_obj = relation_obj.where(time_index_id: params[:time_index_id])
     end
     if params[:facility_group_id]
       relation_obj = relation_obj.where(facility_group_id: params[:facility_group_id])
