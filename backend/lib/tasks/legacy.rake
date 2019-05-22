@@ -168,7 +168,7 @@ namespace :legacy do
           binding.pry
         else
           result.failed_instances.each do |failed_instance|
-            logger.error("#{failed_instance.class_name}[#{failed_instance.id}] #{failed_instance.errors.full_messages.join("/")}")
+            logger.error("#{failed_instance.class.name}[#{failed_instance.id}] #{failed_instance.errors.full_messages.join("/")}")
           end
           raise "保存時にエラーが発生しました。"
         end
