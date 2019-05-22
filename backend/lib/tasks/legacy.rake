@@ -167,7 +167,9 @@ namespace :legacy do
         if ENV['RAILS_ENV'] == 'development'
           binding.pry
         else
-          logger.error(result.failed_instances)
+          result.failed_instances.each do |failed_instance|
+            logger.error("#{failed_instance.class_name}[#{failed_instance.id}] #{failed_instance.errors.full_messages.join("/")}")
+          end
           raise "保存時にエラーが発生しました。"
         end
       end
@@ -196,7 +198,7 @@ namespace :legacy do
           if Rails.env == 'development'
             binding.pry
           else
-            logger.error(model_instance.erros.full_messages)
+            logger.error(model_instance.errors.full_messages)
             raise "保存時にエラーが発生しました。"
           end
         end
