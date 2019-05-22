@@ -85,7 +85,7 @@ class Pl::BaseDatum < ApplicationRecord
       time_index_count = TimeIndex.time_index_count_of_month(date)
 
       # 当該BGメンバー全体の時間枠ごとの使用量をhash mapで取得
-      total_by_time_index = power_usage_relation.where("date"=>date, "facility_groups.bg_member_id"=>bg_member.id).total_by_time_index
+      total_by_time_index = power_usage_relation.total_by_time_index
 
       # 当日のエリアプライスデータを時間枠ごとのhash_mapに
       spot_trade_area_data_map_by_time_index = Jepx::SpotTradeAreaDatum.includes(:spot_trade)
