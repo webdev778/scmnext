@@ -269,7 +269,12 @@ namespace :legacy do
         end
       else
         # その他は契約から区分を取得
-        facility_group.voltage_type_id = facility_group.contract.voltage_type_id
+        unless facility_group.contract.nil?
+          facility_group.voltage_type_id = facility_group.contract.voltage_type_id
+        else
+          logger.warn("施設グループ #{facility_group.name}[#{facility_group.id}]の契約を取得できません。")
+          logger.warn(facility_group)
+        end
       end
       if facility_group.save(validate: false) # 京葉が契約が無いために保存できないのでvalidationしない
         count += 1
