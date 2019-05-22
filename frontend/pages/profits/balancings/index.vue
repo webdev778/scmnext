@@ -54,9 +54,6 @@ export default {
   components: {BarChart},
   data() {
     return {
-      bgMemberId: null,
-      bgMembers: [],
-      targetDate: null,
       dataType: 'preliminary',
       dataTypes: [
         {value: 'preliminary', text: '速報値'},
@@ -142,29 +139,33 @@ export default {
     }
   },
   async asyncData(ctx) {
-    let balancingGroups = await ctx.$restApi.list('balancing_groups', null, {format: 'options'})
+    let balancingGroups = []
     let balancingGroupId = null
+    let bgMembers = []
+    let bgMemberId = null
+    balancingGroups = await ctx.$restApi.list('balancing_groups', null, {format: 'options'})
     if (balancingGroups.length > 0){
-
       balancingGroupId = balancingGroups[0].value
+      bgMembers = await ctx.$restApi.list('bg_members', {"q[balancing_group_id_eq]": balancingGroupId}, {format: 'options'})
+      if (bgMembers.length > 0){
+        bgMemberId = bgMembers[0].value
+      }
     }
-    console.log(balancingGroupId)
     let targetDate = ctx.$moment().format('YYYY-MM-DD')
     return {
       balancingGroups: balancingGroups,
       balancingGroupId: balancingGroupId,
+      bgMembers: bgMembers,
+      bgMemberId: bgMemberId,
       targetDate: targetDate
     }
   },
   watch: {
-    balancingGroupId(val){
-      this.$restApi.list('bg_members', {"q[balancing_group_id_eq]": val}, {format: 'options'})
-      .then( (result)=>{
-        this.bgMembers = result
-        if (result.length > 0){
-          this.bgMemberId = result[0].value
-        }
-      })
+    async balancingGroupId(val){
+      this.bgMembers = await this.$restApi.list('bg_members', {"q[balancing_group_id_eq]": val}, {format: 'options'})
+      if (this.bgMembers.length > 0){
+        this.bgMemberId = this.bgMembers[0].value
+      }
     }
   },
   methods: {

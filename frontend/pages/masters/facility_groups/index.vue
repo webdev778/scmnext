@@ -113,19 +113,15 @@ export default {
       voltage_types: []
     }
   },
-  created() {
-    this.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
-    .then(result=>{
-      this.balancing_groups = result
-    })
-    this.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
-    .then(result=>{
-      this.companies = result
-    })
-    this.$restApi.list('voltage_types', null, {format: 'options', emptyValue: '全て'})
-    .then(result=>{
-      this.voltage_types = result
-    })
+  async asyncData() {
+    let balancing_groups = await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
+    let companies = await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
+    let voltage_types =~ await ctx.$restApi.list('voltage_types', null, {format: 'options', emptyValue: '全て'})
+    return {
+      balancing_groups: balancing_groups,
+      companies: companies,
+      voltage_types: voltage_types
+    }
   }
 }
 </script>

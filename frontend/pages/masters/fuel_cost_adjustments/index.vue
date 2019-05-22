@@ -10,13 +10,41 @@
       b-row
         b-col
           b-form-group(
-            label="エリア"
-            label-for="district_id"
+            label="バランシンググループ名"
+            label-for="bg_member_balancing_group_id_eq"
             )
             b-form-select(
-              id="district_id"
-              v-model="query.district_id_eq"
-              v-bind:options="districts"
+              id="bg_member_balancing_group_id_eq"
+              v-model="query.bg_member_balancing_group_id_eq"
+              v-bind:options="balancing_groups"
+            )
+        b-col
+          b-form-group(
+            label="PPS名"
+            label-for="bg_member_company_id_eq"
+            )
+            b-form-select(
+              id="bg_member_company_id_eq"
+              v-model="query.bg_member_company_id_eq"
+              v-bind:options="companies"
+            )
+        b-col
+          b-form-group(
+            label="年"
+            label-for="year_eq"
+            )
+            b-form-input(
+              id="year_eq"
+              v-model="query.year_eq"
+            )
+        b-col
+          b-form-group(
+            label="月"
+            label-for="month_eq"
+            )
+            b-form-input(
+              id="month_eq"
+              v-model="query.month_eq"
             )
 </template>
 
@@ -33,8 +61,24 @@ export default {
           label: "ID"
         },
         {
-          key: "district.name",
-          label: "エリア"
+          key: "bg_member.balancing_group.name",
+          label: "バランシンググループ名"
+        },
+        {
+          key: "bg_member.company.name",
+          label: "PPS名"
+        },
+        {
+          key: "year",
+          label: "年"
+        },
+        {
+          key: "month",
+          label: "月"
+        },
+        {
+          key: "unit_price",
+          label: "単価"
         },
         {
           key: "created_at",
@@ -48,23 +92,22 @@ export default {
         }
       ],
       query: {
-        district_id_eq: null
+        bg_member_balancing_group_id_eq: null,
+        bg_member_company_id_eq: null,
+        year_eq: null,
+        month_eq: null
       },
-      districts: []
+      balancing_groups: [],
+      companies: []
     }
   },
-  created() {
-    this.$axios.$get(`/v1/districts`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.districts = options
-    })
+  async asyncData(ctx) {
+    let balancing_groups = await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
+    let companies = await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
+    return {
+      balancing_groups: balancing_groups,
+      companies: companies
+    }
   }
 }
 </script>

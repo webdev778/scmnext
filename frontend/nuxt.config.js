@@ -70,6 +70,7 @@ module.exports = {
   */
   plugins: [
     '~/plugins/axios.js',
+    '~/plugins/formatter.js',
     '~/plugins/rest-api.js',
   ],
 

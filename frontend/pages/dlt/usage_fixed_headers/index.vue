@@ -10,8 +10,46 @@
       b-row
         b-col
           b-form-group(
+            label="年"
+            label-for="year_eq"
+            )
+            b-form-input(
+              id="year_eq"
+              v-model="query.year_eq"
+            )
+        b-col
+          b-form-group(
+            label="月"
+            label-for="month_eq"
+            )
+            b-form-input(
+              id="year_eq"
+              v-model="query.month_eq"
+            )
+        b-col
+          b-form-group(
+            label="検針日From"
+            label-for="record_date_gte"
+            )
+            b-form-input(
+              id="record_date_gte"
+              type="date"
+              v-model="query.record_date_gte"
+            )
+        b-col
+          b-form-group(
+            label="検針日To"
+            label-for="record_date_lte"
+            )
+            b-form-input(
+              id="record_date_lte"
+              type="date"
+              v-model="query.record_date_lte"
+            )
+        b-col
+          b-form-group(
             label="供給地点特定番号"
-            label-for="supply_point_number"
+            label-for="supply_point_number_cont"
             )
             b-form-input(
               id="supply_point_number"
@@ -26,6 +64,13 @@ export default {
   components: { RestIndex },
   data() {
     return {
+      query: {
+        year_eq: null,
+        month_eq: null,
+        record_date_gte: null,
+        record_date_lte: null,
+        supply_point_number_cont: null
+      },
       fields: [
         {
           key: "id",
