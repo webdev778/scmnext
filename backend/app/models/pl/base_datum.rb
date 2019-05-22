@@ -58,7 +58,7 @@ class Pl::BaseDatum < ApplicationRecord
       max_demand_power_map = Facility.get_facility_group_id_max_demand_power_map_at(date)
 
       # ポジションデータを取得
-      plan_matrix_by_time_index_and_resouce_type = Occto::Plan.balanging_group_matrix_by_time_index_and_resouce_type(bg_id: bg_member.balancing_group_id, date: date)
+      plan_matrix_by_time_index_and_resouce_type = Occto::Plan.balancing_group_matrix_by_time_index_and_resouce_type(bg_id: bg_member.balancing_group_id, date: date)
       # ポジション未登録の場合もスキップ
       if plan_matrix_by_time_index_and_resouce_type.nil?
         logger.info "ポジションデータ未登録のためスキップしました。"
