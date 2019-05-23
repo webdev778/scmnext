@@ -1,0 +1,10 @@
+## アカウント管理
+
+include::ログイン、パスワード変更.adoc[]
+include::ダッシュボード(全国使用電力量グラフ).adoc[]
+include::お知らせ通知.adoc[]
+include::権限設定.adoc[]
+include::ユーザー一覧.adoc[]
+include::自社情報.adoc[]
+
+<<<

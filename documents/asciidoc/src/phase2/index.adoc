@@ -1,0 +1,30 @@
+:encoding: utf-8
+:lang: ja
+:doctitle: EnepaSCM next: 詳細設計書(第2フェーズ)
+:author: 株式会社オプティマイザー
+:doctype: book
+:toc: left
+:imagesdir: ../../out
+:pdf-style: ./documents/asciidoc/themes/optimizer-theme.yml
+:pdf-fontsdir: ./documents/asciidoc/fonts
+:title-logo-image: ../../images/optimizer-logo.png
+:toclevels: 2
+:chapter-label:
+:figure-caption: 図
+:example-caption: 例
+:table-caption: 表
+:appendix-caption: 付録
+:toc-title: 目次
+:listing-caption: リスト
+
+:sectnums:
+
+include::アカウント管理/index.adoc[]
+include::マスタ管理/index.adoc[]
+include::顧客管理/index.adoc[]
+include::請求管理/index.adoc[]
+include::需給管理/index.adoc[]
+include::PLS管理/index.adoc[]
+include::バッチ処理（既存）/index.adoc[]
+include::バッチ処理（新規）/index.adoc[]
+include::新規機能/index.adoc[]

@@ -1,0 +1,7 @@
+## <%= @chapter_name %>
+
+<% @sections.each do |section| -%>
+include::<%= "#{section}.adoc" %>[]
+<% end -%>
+
+<<<

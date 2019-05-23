@@ -21,7 +21,8 @@ namespace :utility do
 
   desc 'asciidoctorによるpdf作成'
   task asciidoc: :environment do |_task, _args|
-    sh 'cd ../deploy && asciidoctor-pdf -r asciidoctor-diagram ./documents/asciidoc/src/index.adoc'
+    #sh 'cd ../deploy && asciidoctor-pdf -r asciidoctor-diagram ./documents/asciidoc/src/phase1/index.adoc'
+    sh 'cd ../deploy && asciidoctor-pdf -r asciidoctor-diagram ./documents/asciidoc/src/phase2/index.adoc'
   end
 
   desc '全て実行'

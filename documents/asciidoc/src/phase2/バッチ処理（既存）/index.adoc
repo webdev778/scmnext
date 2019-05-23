@@ -1,0 +1,16 @@
+## バッチ処理（既存）
+
+include::請求データ作成.adoc[]
+include::速報値ダウンロード.adoc[]
+include::天気予報データ取得.adoc[]
+include::スポット入札.adoc[]
+include::スポット約定情報取得.adoc[]
+include::エリアプライス取得.adoc[]
+include::一時間前市場管理バッチ.adoc[]
+include::高圧と低圧の速報値をDynamoDBに登録.adoc[]
+include::SCM電力消費量実績(速報値)情報の取得.adoc[]
+include::SCM需要家情報の取得.adoc[]
+include::SCM電力消費量予測(ベースライン)情報の取得.adoc[]
+include::決済代行レポート作成.adoc[]
+
+<<<
