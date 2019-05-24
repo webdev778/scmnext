@@ -1,12 +1,11 @@
 ## 需給管理
 
-include::需要予測設定.adoc[]
-include::需要予測データ一覧、詳細画面(需要予測、市場価格).adoc[]
-include::需要予測結果確認.adoc[]
-include::需要予測・ポジション登録状況一覧、詳細画面.adoc[]
-include::同時同量監視予測値.adoc[]
-include::同時同量監視計画値.adoc[]
-include::計画値アップロード.adoc[]
+include::翌日需要調達計画状況一覧.adoc[]
+include::翌日発電計画詳細.adoc[]
+include::需要予測詳細(PPS単位).adoc[]
+include::需要予測詳細(施設単位).adoc[]
+include::翌日調達計画詳細.adoc[]
+include::同時同量監視.adoc[]
 include::時間前入札.adoc[]
 include::時間前入札結果.adoc[]
 
