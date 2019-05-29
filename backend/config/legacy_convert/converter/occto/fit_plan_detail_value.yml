@@ -4,13 +4,13 @@
 :sources:
 - :fields:
     id: "'スキップ用ダミー'"
-    occto_fit_plan_id:
-    power_generator_id:
-    time_index_id:
-    value:
-    created_by:
-    updated_by:
-    created_at:
-    updated_at:
+    occto_fit_plan_id: 
+    power_generator_id: 
+    time_index_id: 
+    value: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
   :from: tbl_account
   :where: 1 = 0

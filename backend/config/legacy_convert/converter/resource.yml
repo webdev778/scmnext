@@ -4,15 +4,15 @@
 :sources:
 - :fields:
     id: "'スキップ用ダミー'"
-    bg_member_id:
-    type:
-    code:
-    name:
-    supply_value:
-    created_by:
-    updated_by:
-    created_at:
-    updated_at:
+    bg_member_id: 
+    type: 
+    code: 
+    name: 
+    supply_value: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
   :from: tbl_account
   :where: 1 = 0
 :extra:

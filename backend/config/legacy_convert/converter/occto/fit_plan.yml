@@ -4,18 +4,18 @@
 :sources:
 - :fields:
     id: "'スキップ用ダミー'"
-    power_generator_group_id:
-    date:
-    initialized_at:
-    received_at:
-    send_at:
-    fit_id_text:
-    stat:
-    fit_recept_stat:
-    last_update_datetime_text:
-    created_by:
-    updated_by:
-    created_at:
-    updated_at:
+    power_generator_group_id: 
+    date: 
+    initialized_at: 
+    received_at: 
+    send_at: 
+    fit_id_text: 
+    stat: 
+    fit_recept_stat: 
+    last_update_datetime_text: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
   :from: tbl_account
   :where: 1 = 0
