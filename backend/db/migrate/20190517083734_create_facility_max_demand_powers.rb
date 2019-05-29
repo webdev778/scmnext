@@ -1,6 +1,6 @@
 class CreateFacilityMaxDemandPowers < ActiveRecord::Migration[5.2]
   def change
-    create_table :facility_max_demand_powers do |t|
+    create_table :facility_max_demand_powers, comment: "施設月別最大需要電力" do |t|
       t.references :facility, comment: "施設ID"
       t.integer :year, limit: 4, null: false, comment: "年"
       t.integer :month, limit: 2, null: false, comment: "月"

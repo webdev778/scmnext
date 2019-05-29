@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_18_040512) do
+ActiveRecord::Schema.define(version: 2019_05_29_071443) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -44,6 +44,19 @@ ActiveRecord::Schema.define(version: 2019_05_18_040512) do
     t.datetime "updated_at", null: false
     t.index ["district_id"], name: "index_balancing_groups_on_district_id"
     t.index ["leader_company_id"], name: "index_balancing_groups_on_leader_company_id"
+  end
+
+  create_table "bg_member_demand_forecasts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "BGメンバー需要予測データ", force: :cascade do |t|
+    t.bigint "bg_member_id", comment: "BGメンバーID"
+    t.bigint "time_index_id", comment: "時間枠ID"
+    t.date "date", comment: "日付"
+    t.decimal "demand_value", precision: 10, scale: 4, comment: "需要量"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bg_member_id"], name: "index_bg_member_demand_forecasts_on_bg_member_id"
+    t.index ["time_index_id"], name: "index_bg_member_demand_forecasts_on_time_index_id"
   end
 
   create_table "bg_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "BGメンバー", force: :cascade do |t|
@@ -389,7 +402,7 @@ ActiveRecord::Schema.define(version: 2019_05_18_040512) do
     t.index ["voltage_type_id"], name: "index_facility_groups_on_voltage_type_id"
   end
 
-  create_table "facility_max_demand_powers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "facility_max_demand_powers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "施設月別最大需要電力", force: :cascade do |t|
     t.bigint "facility_id", comment: "施設ID"
     t.integer "year", null: false, comment: "年"
     t.integer "month", limit: 2, null: false, comment: "月"
@@ -503,6 +516,38 @@ ActiveRecord::Schema.define(version: 2019_05_18_040512) do
     t.index ["time_index_id"], name: "index_jepx_spot_trades_on_time_index_id"
   end
 
+  create_table "occto_fit_plan_detail_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域発電販売計画(翌日)詳細値データ", force: :cascade do |t|
+    t.bigint "occto_fit_plan_id", comment: "広域発電販売計画(翌日)ID"
+    t.bigint "power_generator_id", comment: "発電者ID"
+    t.bigint "time_index_id", comment: "時間枠ID"
+    t.decimal "value", precision: 14, comment: "数量(kWh)"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["occto_fit_plan_id"], name: "index_occto_fit_plan_detail_values_on_occto_fit_plan_id"
+    t.index ["power_generator_id"], name: "index_occto_fit_plan_detail_values_on_power_generator_id"
+    t.index ["time_index_id"], name: "index_occto_fit_plan_detail_values_on_time_index_id"
+  end
+
+  create_table "occto_fit_plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域発電販売計画(翌日)", force: :cascade do |t|
+    t.bigint "power_generator_group_id", comment: "発電BG ID"
+    t.date "date", null: false, comment: "日付"
+    t.datetime "initialized_at", comment: "初期化日時"
+    t.datetime "received_at", comment: "取得日時"
+    t.datetime "send_at", comment: "送信日時"
+    t.string "fit_id_text", limit: 23, comment: "FIT ID(テキスト)"
+    t.string "stat", limit: 1, comment: "ステータス"
+    t.string "fit_recept_stat", limit: 2, comment: "受付ステータス"
+    t.string "last_update_datetime_text", limit: 17, comment: "最終更新日時(テキスト)"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_occto_fit_plans_on_date"
+    t.index ["power_generator_group_id"], name: "index_occto_fit_plans_on_power_generator_group_id"
+  end
+
   create_table "occto_plan_by_bg_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域需要調達計画(翌日)BGメンバー別データ", force: :cascade do |t|
     t.bigint "plan_id", comment: "広域需要調達計画(翌日)ID"
     t.bigint "bg_member_id", comment: "BGメンバーID"
@@ -583,6 +628,29 @@ ActiveRecord::Schema.define(version: 2019_05_18_040512) do
     t.index ["type"], name: "index_pl_base_data_on_type"
   end
 
+  create_table "power_generator_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "発電BG", force: :cascade do |t|
+    t.bigint "resource_id", comment: "リソースID"
+    t.string "contract_number", limit: 20, comment: "契約No."
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resource_id"], name: "index_power_generator_groups_on_resource_id"
+  end
+
+  create_table "power_generators", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "発電者", force: :cascade do |t|
+    t.bigint "power_generator_group_id", comment: "発電BG ID"
+    t.string "code", limit: 5, null: false, comment: "コード"
+    t.string "name", null: false, comment: "名前"
+    t.string "contract_number", limit: 20, comment: "契約No."
+    t.integer "supply_max", comment: "最大量"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["power_generator_group_id"], name: "index_power_generators_on_power_generator_group_id"
+  end
+
   create_table "power_usage_fixeds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "電力使用量(確定値)", force: :cascade do |t|
     t.bigint "facility_group_id", null: false, comment: "施設グループID"
     t.date "date", null: false, comment: "日付"
@@ -614,7 +682,7 @@ ActiveRecord::Schema.define(version: 2019_05_18_040512) do
   end
 
   create_table "resources", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "リソース", force: :cascade do |t|
-    t.bigint "balancing_group_id", comment: "バランシンググループID"
+    t.bigint "bg_member_id", comment: "BGメンバーID"
     t.string "type", null: false, comment: "種別"
     t.string "code", null: false, comment: "コード"
     t.string "name", null: false, comment: "名称"
@@ -623,7 +691,7 @@ ActiveRecord::Schema.define(version: 2019_05_18_040512) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["balancing_group_id"], name: "index_resources_on_balancing_group_id"
+    t.index ["bg_member_id"], name: "index_resources_on_bg_member_id"
   end
 
   create_table "supply_points", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "供給地点", force: :cascade do |t|
