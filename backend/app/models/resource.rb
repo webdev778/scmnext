@@ -2,20 +2,20 @@
 #
 # Table name: resources
 #
-#  id                 :bigint(8)        not null, primary key
-#  balancing_group_id :bigint(8)
-#  type               :string(255)      not null
-#  code               :string(255)      not null
-#  name               :string(255)      not null
-#  supply_value       :text(65535)
-#  created_by         :integer
-#  updated_by         :integer
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
+#  id           :bigint(8)        not null, primary key
+#  bg_member_id :bigint(8)
+#  type         :string(255)      not null
+#  code         :string(255)      not null
+#  name         :string(255)      not null
+#  supply_value :text(65535)
+#  created_by   :integer
+#  updated_by   :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 
 class Resource < ApplicationRecord
-  belongs_to :balancing_group
+  belongs_to :bg_member
   has_many :occto_plan_detail_values, class_name: Occto::PlanDetailValue.to_s
 
   scope :includes_for_index, lambda {
