@@ -3,7 +3,7 @@
 ==== 概要
 
 [.lead]
-(処理概要をここに記述)
+発電BGに対して広域機関の翌日発電・販売計画（FIT作成用）でリスト取得及びファイル取得APIを使用して、FIT計画の取得を行う。
 
 [plantuml]
 --
@@ -12,7 +12,7 @@ cloud JEPX {
 }
 
 rectangle SCM {
-  (JEPXインバランスβ値取込) as (main)
+  (JEPXインバランスβ値取込) as main
   database "JEPXインバランスβ値" as output
 }
 
@@ -38,10 +38,8 @@ main --> output : output
 
 ==== 処理詳細
 
-=====
-
-1.
-2.
+. a
+. b
 
 NOTE:
 

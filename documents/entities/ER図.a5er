@@ -11,6 +11,10 @@ MaxEntityRowShow=1000
 ReadOnlyRecommend=0
 Page=Main
 PageInfo="Main",2,"A3Landscape",$FFFFFF
+Page=PLS関連
+PageInfo="PLS関連",2,"A3Landscape",$FFFFFF
+Page=託送関連
+PageInfo="託送関連",2,"A3Landscape",$FFFFFF
 LogicalView=1
 DecodeDomain=0
 ViewModePageIndividually=1
@@ -38,11 +42,373 @@ ShowTag=1
 ShowCommonAttributes=0
 
 [Entity]
+PName=dlt_usage_fixed_details
+LName=確定使用量明細
+Comment=
+TableOption=
+Page=託送関連
+Left=1000
+Top=400
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="確定使用量ヘッダID","usage_fixed_header_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="日付","date","date",,,"","",$FFFFFFFF,""
+Field="時間枠ID","time_index_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="使用量全量","usage_all","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="使用量仕訳後","usage","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,usage_fixed_header_id
+Index==0,time_index_id
+Index==0,date
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="託送関連",1000,400
+
+[Entity]
+PName=dlt_usage_fixed_headers
+LName=確定使用量ヘッダ
+Comment=
+TableOption=
+Page=託送関連
+Left=1400
+Top=400
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="施設グループID","facility_group_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="情報区分コード","information_type_code","varchar(4)","NOT NULL",,"","",$FFFFFFFF,""
+Field="年","year","int(11)","NOT NULL",,"","",$FFFFFFFF,""
+Field="月","month","smallint(6)","NOT NULL",,"","",$FFFFFFFF,""
+Field="検針日","record_date","date","NOT NULL",,"","",$FFFFFFFF,""
+Field="送信者コード","sender_code","varchar(5)","NOT NULL",,"","",$FFFFFFFF,""
+Field="受信者コード","receiver_code","varchar(5)","NOT NULL",,"","",$FFFFFFFF,""
+Field="供給地点特定番号","supply_point_number","varchar(22)","NOT NULL",,"","",$FFFFFFFF,""
+Field="需要家識別番号","consumer_code","varchar(21)",,,"","",$FFFFFFFF,""
+Field="需要家名称","consumer_name","varchar(80)",,,"","",$FFFFFFFF,""
+Field="供給場所","supply_point_name","varchar(70)",,,"","",$FFFFFFFF,""
+Field="電圧区分名","voltage_class_name","varchar(4)",,,"","",$FFFFFFFF,""
+Field="仕訳コード","journal_code","varchar(1)",,,""," 1:全量,2:部分",$FFFFFFFF,""
+Field="提供可否","can_provide","tinyint(1)",,,"","",$FFFFFFFF,""
+Field="月間電力量全量","usage_all","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="月間電力量仕訳後","usage","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="力率","power_factor","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="最大需要電力","max_power","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="次回定例検針予定日","next_meter_reading_date","date",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,information_type_code,year,month,sender_code,receiver_code,supply_point_number,journal_code
+Index==0,year
+Index==0,month
+Index==0,supply_point_number
+Index==0,facility_group_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="託送関連",1400,400
+
+[Entity]
+PName=power_usage_fixeds
+LName=電力使用量(確定値)
+Comment=
+TableOption=
+Page=託送関連
+Left=600
+Top=400
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="施設グループID","facility_group_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="日付","date","date","NOT NULL",,"","",$FFFFFFFF,""
+Field="時間枠ID","time_index_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用量(kwh)","value","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,facility_group_id,date,time_index_id
+Index==0,facility_group_id
+Index==0,date
+Index==0,time_index_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="託送関連",600,400
+
+[Entity]
+PName=power_usage_preliminaries
+LName=電力使用量(速報値)
+Comment=
+TableOption=
+Page=託送関連
+Left=600
+Top=750
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="施設グループID","facility_group_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="日付","date","date","NOT NULL",,"","",$FFFFFFFF,""
+Field="時間枠ID","time_index_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用量(kwh)","value","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,facility_group_id,date,time_index_id
+Index==0,facility_group_id
+Index==0,date
+Index==0,time_index_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="託送関連",600,750
+
+[Entity]
+PName=dlt_settings
+LName=ダウンロード設定
+Comment=
+TableOption=
+Page=託送関連
+Left=200
+Top=400
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="会社ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="BGメンバーID","bg_member_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="状態","state","int(11)","NOT NULL",,"0","(0:正常, 1:休止中)",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,company_id
+Index==0,district_id
+Index==0,bg_member_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="託送関連",200,400
+
+[Entity]
+PName=dlt_files
+LName=ダウンロードファイル
+Comment=
+TableOption=
+Page=託送関連
+Left=200
+Top=700
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="ダウンロード設定ID","setting_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="電圧モード","voltage_mode","tinyint(4)",,,"","",$FFFFFFFF,""
+Field="データ種別","data_type","tinyint(4)",,,"","",$FFFFFFFF,""
+Field="記録日","record_date","date",,,"","速報値の場合は、取得開始年月日、確定値の場合は検針日",$FFFFFFFF,""
+Field="記録時間枠ID","record_time_index_id","smallint(6)",,,"","当日データのみ",$FFFFFFFF,""
+Field="分割番号","section_number","int(11)",,,"","",$FFFFFFFF,""
+Field="更新番号","revision","smallint(6)",,,"","",$FFFFFFFF,""
+Field="状態","state","int(11)","NOT NULL",,"0","(0:未取込,1:取込完了,2:処理中,3:一部取込(エラーあり))",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,setting_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="託送関連",200,700
+
+[Entity]
+PName=power_generator_groups
+LName=発電BG
+Comment=
+TableOption=
+Page=PLS関連
+Left=800
+Top=1200
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="リソースID","resource_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="契約No.","contract_number","varchar(20)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,resource_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="PLS関連",800,1200
+
+[Entity]
+PName=power_generators
+LName=発電者
+Comment=
+TableOption=
+Page=PLS関連
+Left=150
+Top=1150
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="発電BG ID","power_generator_group_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="コード","code","varchar(5)","NOT NULL",,"","",$FFFFFFFF,""
+Field="名前","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="契約No.","contract_number","varchar(20)",,,"","",$FFFFFFFF,""
+Field="最大量","supply_max","int(11)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,power_generator_group_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="PLS関連",150,1150
+
+[Entity]
+PName=occto_fit_plan_detail_values
+LName=広域発電販売計画(翌日)詳細値データ
+Comment=
+TableOption=
+Page=PLS関連
+Left=800
+Top=600
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="広域発電販売計画(翌日)ID","occto_fit_plan_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="発電者ID","power_generator_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="時間枠ID","time_index_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="数量(kWh)","value","decimal(14,0)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,occto_fit_plan_id
+Index==0,power_generator_id
+Index==0,time_index_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="PLS関連",800,600
+
+[Entity]
+PName=occto_fit_plans
+LName=広域発電販売計画(翌日)
+Comment=
+TableOption=
+Page=PLS関連
+Left=800
+Top=200
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="発電BG ID","power_generator_group_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="日付","date","date","NOT NULL",,"","",$FFFFFFFF,""
+Field="初期化日時","initialized_at","datetime",,,"","",$FFFFFFFF,""
+Field="取得日時","received_at","datetime",,,"","",$FFFFFFFF,""
+Field="送信日時","send_at","datetime",,,"","",$FFFFFFFF,""
+Field="確認日時","confirmed_at","datetime",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,power_generator_group_id
+Index==0,date
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="PLS関連",800,200
+
+[Entity]
+PName=occto_plan_detail_values
+LName=広域需要調達計画(翌日)詳細値データ
+Comment=
+TableOption=
+Page=PLS関連
+Left=100
+Top=800
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="データ種別","type","varchar(30)",,,"","",$FFFFFFFF,""
+Field="広域需要調達計画(翌日)BGメンバー別データID","plan_by_bg_member_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="リソースID","resource_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="時間枠ID","time_index_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="数量(kWh)","value","decimal(14,0)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,type,plan_by_bg_member_id,resource_id,time_index_id
+Index==0,plan_by_bg_member_id
+Index==0,resource_id
+Index==0,time_index_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="PLS関連",100,800
+
+[Entity]
+PName=occto_plan_by_bg_members
+LName=広域需要調達計画(翌日)BGメンバー別データ
+Comment=
+TableOption=
+Page=PLS関連
+Left=100
+Top=500
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="広域需要調達計画(翌日)ID","plan_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="BGメンバーID","bg_member_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,plan_id,bg_member_id
+Index==0,plan_id
+Index==0,bg_member_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="PLS関連",100,500
+
+[Entity]
+PName=occto_plans
+LName=広域需要調達計画(翌日)
+Comment=
+TableOption=
+Page=PLS関連
+Left=100
+Top=200
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="BG ID","balancing_group_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="年月日","date","date","NOT NULL",,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,balancing_group_id,date
+Index==0,balancing_group_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="PLS関連",100,200
+
+[Entity]
+PName=bg_member_demand_forecasts
+LName=BGメンバー需要予測データ
+Comment=
+TableOption=
+Page=Main
+Left=500
+Top=500
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="BGメンバーID","bg_member_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="時間枠ID","time_index_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="日付","date","date",,,"","",$FFFFFFFF,""
+Field="需要量","demand_value","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,bg_member_id
+Index==0,time_index_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",500,500,397,229
+
+[Entity]
 PName=facility_max_demand_powers
 LName=施設月別最大需要電力
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=2900
 Top=650
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
@@ -60,14 +426,14 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20190528171235
-Position="Main",2900,650
+Position="MAIN",2900,650
 
 [Entity]
 PName=dlt_invalid_supply_points
 LName=不整合供給地点
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=3650
 Top=100
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
@@ -88,14 +454,14 @@ Index==0,bg_member_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="Main",3650,100
+Position="MAIN",3650,100
 
 [Entity]
 PName=discounts_for_facilities
 LName=施設別割引
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=3650
 Top=450
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
@@ -111,7 +477,7 @@ Index==0,facility_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="Main",3650,450
+Position="MAIN",3650,450
 
 [Entity]
 PName=holidays
@@ -167,74 +533,6 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 Position="MAIN",2900,1200
-
-[Entity]
-PName=dlt_usage_fixed_headers
-LName=確定使用量ヘッダ
-Comment=
-TableOption=
-Page=MAIN
-Left=3700
-Top=1200
-Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="施設グループID","facility_group_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="情報区分コード","information_type_code","varchar(4)","NOT NULL",,"","",$FFFFFFFF,""
-Field="年","year","int(11)","NOT NULL",,"","",$FFFFFFFF,""
-Field="月","month","smallint(6)","NOT NULL",,"","",$FFFFFFFF,""
-Field="検針日","record_date","date","NOT NULL",,"","",$FFFFFFFF,""
-Field="送信者コード","sender_code","varchar(5)","NOT NULL",,"","",$FFFFFFFF,""
-Field="受信者コード","receiver_code","varchar(5)","NOT NULL",,"","",$FFFFFFFF,""
-Field="供給地点特定番号","supply_point_number","varchar(22)","NOT NULL",,"","",$FFFFFFFF,""
-Field="需要家識別番号","consumer_code","varchar(21)",,,"","",$FFFFFFFF,""
-Field="需要家名称","consumer_name","varchar(80)",,,"","",$FFFFFFFF,""
-Field="供給場所","supply_point_name","varchar(70)",,,"","",$FFFFFFFF,""
-Field="電圧区分名","voltage_class_name","varchar(4)",,,"","",$FFFFFFFF,""
-Field="仕訳コード","journal_code","varchar(1)",,,""," 1:全量,2:部分",$FFFFFFFF,""
-Field="提供可否","can_provide","tinyint(1)",,,"","",$FFFFFFFF,""
-Field="月間電力量全量","usage_all","decimal(10,4)",,,"","",$FFFFFFFF,""
-Field="月間電力量仕訳後","usage","decimal(10,4)",,,"","",$FFFFFFFF,""
-Field="力率","power_factor","decimal(10,4)",,,"","",$FFFFFFFF,""
-Field="最大需要電力","max_power","decimal(10,4)",,,"","",$FFFFFFFF,""
-Field="次回定例検針予定日","next_meter_reading_date","date",,,"","",$FFFFFFFF,""
-Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
-Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
-Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==2,information_type_code,year,month,sender_code,receiver_code,supply_point_number,journal_code
-Index==0,year
-Index==0,month
-Index==0,supply_point_number
-Index==0,facility_group_id
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-Position="MAIN",3700,1200
-
-[Entity]
-PName=dlt_usage_fixed_details
-LName=確定使用量明細
-Comment=
-TableOption=
-Page=MAIN
-Left=3300
-Top=1200
-Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="確定使用量ヘッダID","usage_fixed_header_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="日付","date","date","NOT NULL",,"","",$FFFFFFFF,""
-Field="時間枠ID","time_index_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
-Field="使用量全量","usage_all","decimal(10,4)",,,"","",$FFFFFFFF,""
-Field="使用量仕訳後","usage","decimal(10,4)",,,"","",$FFFFFFFF,""
-Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
-Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
-Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==0,usage_fixed_header_id
-Index==0,date
-Index==0,time_index_id
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-Position="MAIN",3300,1200
 
 [Entity]
 PName=contract_meter_rates
@@ -413,29 +711,6 @@ BkColor=$FFFFFF
 Position="MAIN",3300,100,306,892
 
 [Entity]
-PName=occto_plan_by_bg_members
-LName=広域需要調達計画(翌日)BGメンバー別データ
-Comment=
-TableOption=
-Page=MAIN
-Left=500
-Top=800
-Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="広域需要調達計画(翌日)ID","plan_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="BGメンバーID","bg_member_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
-Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
-Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==2,plan_id,bg_member_id
-Index==0,plan_id
-Index==0,bg_member_id
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-Position="MAIN",500,800,397,178
-
-[Entity]
 PName=fuel_cost_adjustments
 LName=燃料調整費
 Comment=
@@ -464,7 +739,7 @@ Index==0,company_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",1600,2500,275,254
+Position="MAIN",1600,2500,275,304
 
 [Entity]
 PName=contract_basic_charges
@@ -670,27 +945,6 @@ LineMode=0
 Bar1=362
 Bar2=638
 Bar3=479
-TermPos1=R
-TermPos2=R
-
-[Relation]
-Entity1=dlt_settings
-Entity2=dlt_files
-RelationType1=1
-RelationType2=3
-Fields1=id
-Fields2=setting_id
-Cardinarity1=
-Cardinarity2=
-Position="MAIN",5,806,500,2211,R,R
-Dependence=0
-Caption=
-PName=
-ModifiedDateTime=20190208163426
-LineMode=5
-Bar1=81
-Bar2=50
-Bar3=221
 TermPos1=R
 TermPos2=R
 
@@ -919,8 +1173,8 @@ LName=供給エリア
 Comment=
 TableOption=
 Page=MAIN
-Left=1000
-Top=100
+Left=500
+Top=900
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="名前","name","varchar(255)",,,"","",$FFFFFFFF,""
 Field="コード","code","varchar(255)",,,"","",$FFFFFFFF,""
@@ -948,7 +1202,7 @@ Index==0,peaktime_end_time_index_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",1000,100,302,545
+Position="MAIN",500,900,302,545
 
 [Entity]
 PName=district_loss_rates
@@ -973,57 +1227,7 @@ Index==0,voltage_type_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",2000,2500,298,254
-
-[Entity]
-PName=dlt_files
-LName=ダウンロードファイル
-Comment=
-TableOption=
-Page=MAIN
-Left=900
-Top=2300
-Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="ダウンロード設定ID","setting_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="電圧モード","voltage_mode","tinyint(4)",,,"","",$FFFFFFFF,""
-Field="データ種別","data_type","tinyint(4)",,,"","",$FFFFFFFF,""
-Field="記録日","record_date","date",,,"","速報値の場合は、取得開始年月日、確定値の場合は検針日",$FFFFFFFF,""
-Field="記録時間枠ID","record_time_index_id","smallint(6)",,,"","当日データのみ",$FFFFFFFF,""
-Field="分割番号","section_number","int(11)",,,"","",$FFFFFFFF,""
-Field="更新番号","revision","smallint(6)",,,"","",$FFFFFFFF,""
-Field="状態","state","int(11)","NOT NULL",,"0","(0:未取込,1:取込完了,2:処理中,3:一部取込(エラーあり))",$FFFFFFFF,""
-Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
-Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
-Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==0,setting_id
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-Position="MAIN",900,2300,298,178
-
-[Entity]
-PName=dlt_settings
-LName=ダウンロード設定
-Comment=
-TableOption=
-Page=MAIN
-Left=900
-Top=2100
-Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="会社ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="BGメンバーID","bg_member_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="状態","state","int(11)","NOT NULL",,"0","(0:正常, 1:休止中)",$FFFFFFFF,""
-Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==0,company_id
-Index==0,district_id
-Index==0,bg_member_id
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-Position="MAIN",900,2100,298,152
+Position="MAIN",2000,2500,298,296
 
 [Entity]
 PName=facilities
@@ -1197,107 +1401,6 @@ BkColor=$FFFFFF
 Position="MAIN",200,2100,503,229
 
 [Entity]
-PName=occto_plans
-LName=広域需要調達計画(翌日)
-Comment=
-TableOption=
-Page=MAIN
-Left=500
-Top=500
-Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="BG ID","balancing_group_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="年月日","date","date","NOT NULL",,"","",$FFFFFFFF,""
-Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
-Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
-Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==2,balancing_group_id,date
-Index==0,balancing_group_id
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-Position="MAIN",500,500,399,178
-
-[Entity]
-PName=occto_plan_detail_values
-LName=広域需要調達計画(翌日)詳細値データ
-Comment=
-TableOption=
-Page=MAIN
-Left=500
-Top=1100
-Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="データ種別","type","varchar(30)",,,"","",$FFFFFFFF,""
-Field="広域需要調達計画(翌日)BGメンバー別データID","plan_by_bg_member_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="リソースID","resource_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="時間枠ID","time_index_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="数量(kWh)","value","decimal(14,0)",,,"","",$FFFFFFFF,""
-Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
-Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
-Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==2,type,plan_by_bg_member_id,resource_id,time_index_id
-Index==0,plan_by_bg_member_id
-Index==0,resource_id
-Index==0,time_index_id
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-Position="MAIN",500,1100,399,254
-
-[Entity]
-PName=power_usage_fixeds
-LName=電力使用量(確定値)
-Comment=
-TableOption=
-Page=MAIN
-Left=1900
-Top=1900
-Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="施設グループID","facility_group_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
-Field="日付","date","date","NOT NULL",,"","",$FFFFFFFF,""
-Field="時間枠ID","time_index_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
-Field="使用量(kwh)","value","decimal(10,4)",,,"","",$FFFFFFFF,""
-Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
-Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
-Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==2,facility_group_id,date,time_index_id
-Index==0,facility_group_id
-Index==0,date
-Index==0,time_index_id
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-Position="MAIN",1900,1900,401,229
-
-[Entity]
-PName=power_usage_preliminaries
-LName=電力使用量(速報値)
-Comment=
-TableOption=
-Page=MAIN
-Left=1900
-Top=2200
-Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="施設グループID","facility_group_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
-Field="日付","date","date","NOT NULL",,"","",$FFFFFFFF,""
-Field="時間枠ID","time_index_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
-Field="使用量(kwh)","value","decimal(10,4)",,,"","",$FFFFFFFF,""
-Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
-Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
-Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==2,facility_group_id,date,time_index_id
-Index==0,facility_group_id
-Index==0,date
-Index==0,time_index_id
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-Position="MAIN",1900,2200,401,229
-
-[Entity]
 PName=resources
 LName=リソース
 Comment=
@@ -1306,7 +1409,7 @@ Page=MAIN
 Left=2700
 Top=2500
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="バランシンググループID","balancing_group_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="BGメンバーID","bg_member_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="種別","type","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
 Field="コード","code","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
 Field="名称","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
@@ -1315,7 +1418,7 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==0,balancing_group_id
+Index==0,bg_member_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF

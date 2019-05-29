@@ -1,0 +1,74 @@
+=== OcctoFIT計画初期化
+
+==== 概要
+
+[.lead]
+発電BGに対して広域機関の翌日発電・販売計画（FIT 作成用）登録APIを使用して、FIT計画の初期化を行う。
+
+[plantuml]
+--
+
+rectangle SCM {
+  database バランシンググループ as input_1
+  database BGメンバー as input_2
+  database リソース as input_3
+  database 発電BG as input_4
+  database 発電者 as input_5
+  (OcctoFIT計画初期化) as main
+  database "広域発電販売計画(翌日)" as output_1
+}
+
+cloud 広域機関 {
+  file "広域機関の翌日発電・販売計画（FIT 作成用）登録API" as output_2
+}
+
+input_1 --> main : input
+input_2 --> main : input
+input_3 --> main : input
+input_4 --> main : input
+input_5 --> main : input
+main --> output_1 : output
+main --> output_2 : output
+--
+
+===== I/O
+
+|======================================
+| 名称                    | 物理名               | 種類 | I/O種別 | 備考
+| バランシンググループ                     | balancing_groups          | DB   | I       |
+| BGメンバー                               | bg_members                | DB   | I       |
+| リソース                                 | resources                 | DB   | I       |
+| 発電BG                                   | power_generator_groups    | DB   | I       |
+| 発電者                                   | power_generators          | DB   | I       |
+| 広域発電販売計画(翌日)                   | occto_fit_plans           | DB   | O       |
+| 翌日発電・販売計画（FIT 作成用）登録API  | https://occtonet.occto.or.jp/service/RP12/OCCTO/api/upload/putW6BP0152File | API  | I/O     |
+|======================================
+
+===== パラメータ
+
+|======================================
+| 名称 | 物理名 | 必須 | 備考
+| バランシンググループID     |        |      |
+| 日付                       |        |      |
+|======================================
+
+<<<
+
+==== 処理詳細
+
+. パラメータで指定されたバランシンググループIDからBGメンバーを取得する
+.. BGメンバーごとに以下の処理を実行する
+... 取得したBGメンバーにFITリソースデータが存在するかを確認する
+.... 存在しない場合は次のBGメンバーの処理を行う
+.... 存在する場合はFIT計画の初期化を行うため以下の処理を行う
+..... 発電BG ID及び日付の広域発電販売計画(翌日)を作成する(既に存在する場合はそれを使用する)
+..... FIT IDを広域発電販売計画(翌日)にセットする
+..... XMLデータの作成
+..... 作成したXMLデータをzip圧縮
+..... 広域機関の翌日発電・販売計画（FIT 作成用）登録APIを使用して作成したXMLデータの送信
+...... 送信が正常終了した場合は発電BG ID及び日付の広域発電販売計画(翌日)に初期化日時をセットして保存する
+...... 送信が正常終了しなかった場合は、そのまま保存する
+
+NOTE:
+
+<<<

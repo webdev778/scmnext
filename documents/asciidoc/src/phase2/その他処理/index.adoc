@@ -7,6 +7,6 @@ include::翌日需要調達計画作成.adoc[]
 include::JEPXスポット調達.adoc[]
 include::託送常時バックアップ計画メール提出.adoc[]
 include::Occto翌日需要調達計画提出.adoc[]
-include::Occto翌日需要調達計画ステータス確認.adoc[]
+//include::Occto翌日需要調達計画ステータス確認.adoc[]
 
 <<<

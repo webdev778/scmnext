@@ -7,17 +7,24 @@
 
 [plantuml]
 --
-cloud JEPX {
-  file "インプットファイル" as input
-}
-
 rectangle SCM {
-  (翌日需要調達計画作成) as (main)
-  database "JEPXインバランスβ値" as output
+  database バランシンググループ as input_a
+  database BGメンバー as input_b
+  database BGメンバー需要予測データ as input_c
+  database リソース as input_d
+  "翌日需要調達計画作成" as (main)
+  database "広域需要調達計画(翌日)" as output_a
+  database "広域需要調達計画(翌日)BGメンバー別データ" as output_b
+  database "広域需要調達計画(翌日)詳細値データ" as output_c
 }
 
-input --> main : input
-main --> output : output
+input_a --> main : input
+input_b --> main : input
+input_c --> main : input
+input_d --> main : input
+main --> output_a : output
+main --> output_b : output
+main --> output_c : output
 --
 
 ===== I/O
@@ -26,7 +33,7 @@ main --> output : output
 | 名称                    | 物理名               | 種類 | I/O種別 | 備考
 | バランシンググループ                     | balancing_groups          | DB   | I       |
 | BGメンバー                               | bg_members                | DB   | I       |
-| 需要予測データ(PPS別)                    | occto_plans               | DB   | I       |
+| BGメンバー需要予測データ                 | bg_member_demand_forecast | DB   | I       |
 | リソース                                 | resources                 | DB   | I       |
 | 広域需要調達計画(翌日)                   | occto_plans               | DB   | O       |
 | 広域需要調達計画(翌日)BGメンバー別データ | occto_plan_by_bg_members  | DB   | O       |
@@ -45,13 +52,11 @@ main --> output : output
 
 ==== 処理詳細
 
-=====
-
-1.パラメータより指定されたバランシンググループIDより、BGメンバーの情報を取得する
-2.各BGメンバーについてパラメータで指定された日付の各コマの需要予測を取得する
-3.リソースデータより価格予測、調達量の最大値・最小値、調達単位等の制約条件を取得し、線形計画法の制約式を生成する
-4.線形計画ライブラリを用いて最適解を計算する
-5.求められた最適解を元に広域需要調達計画へデータを出力する
+. パラメータより指定されたバランシンググループIDより、BGメンバーの情報を取得する
+. 各BGメンバーについてパラメータで指定された日付の各コマの需要予測を取得する
+. リソースデータより価格予測、調達量の最大値・最小値、調達単位等の制約条件を取得し、線形計画法の制約式を生成する
+. 線形計画ライブラリを用いて最適解を計算する
+. 求められた最適解を元に広域需要調達計画へデータを出力する
 
 NOTE:
 

@@ -3,20 +3,31 @@
 ==== 概要
 
 [.lead]
-(処理概要をここに記述)
+APIを使用して広域機関に翌日需要調達計画を提出する
 
 [plantuml]
 --
-cloud JEPX {
-  file "インプットファイル" as input
-}
-
 rectangle SCM {
-  (JEPXインバランスβ値取込) as (main)
-  database "JEPXインバランスβ値" as output
+  database バランシンググループ as input_a
+  database "会社(PPS)"  as input_b
+  database 会社別アカウント as input_c
+  database "広域需要調達計画(翌日)"  as input_d
+  database "広域需要調達計画(翌日)BGメンバー別データ" as input_e
+  database "広域需要調達計画(翌日)詳細値データ"  as input_f
+  "Occto翌日需要調達計画提出" as (main)
 }
 
-input --> main : input
+cloud 広域機関 {
+  file "翌日需要・調達計画登録API" as output
+}
+
+
+input_a --> main : input
+input_b --> main : input
+input_c --> main : input
+input_d <-> main : input/output
+input_e --> main : input
+input_f --> main : input
 main --> output : output
 --
 
@@ -30,6 +41,7 @@ main --> output : output
 | 広域需要調達計画(翌日)                   | occto_plans               | DB   | O       |
 | 広域需要調達計画(翌日)BGメンバー別データ | occto_plan_by_bg_members  | DB   | O       |
 | 広域需要調達計画(翌日)詳細値データ       | occto_plan_detail_values  | DB   | O       |
+| 翌日需要調達計画API                      | https://occtonet.occto.or.jp/members/dfw/RP12/OCCTO/api/upload/putW6BP0250File | API  | I/O     |
 |======================================
 
 ===== パラメータ
@@ -44,8 +56,6 @@ main --> output : output
 
 ==== 処理詳細
 
-=====
-
 . 指定されたバランシンググループIDよりバランシンググループを取得する
 . 指定されたバランシンググループIDと日付に合致する広域需要調達計画(翌日)を取得する
 . 取得したデータより、翌日需要調達計画(xml形式)を作成する
@@ -53,7 +63,5 @@ main --> output : output
 . 広域のAPIを使用してデータを送信する
 .. ステータスが正常の場合は広域需要調達計画(翌日)へステータス値と広域データ送信日時をセットして処理を終了する
 .. ステータスが正常でない場合は広域需要調達計画(翌日)へステータス値のみをセットして処理を終了する
-
-NOTE:
 
 <<<

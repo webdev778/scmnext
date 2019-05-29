@@ -38,10 +38,8 @@ main --> output : output
 
 ==== 処理詳細
 
-=====
-
-1.
-2.
+. a
+. b
 
 NOTE:
 

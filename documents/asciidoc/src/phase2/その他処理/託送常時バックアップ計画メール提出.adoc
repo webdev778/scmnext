@@ -7,17 +7,30 @@
 
 [plantuml]
 --
-cloud JEPX {
-  file "インプットファイル" as input
-}
-
 rectangle SCM {
-  (JEPXインバランスβ値取込) as (main)
-  database "JEPXインバランスβ値" as output
+  database バランシンググループ as input_a
+  database "会社(PPS)"  as input_b
+  database 会社別アカウント as input_c
+  database "広域需要調達計画(翌日)"  as input_d
+  database "広域需要調達計画(翌日)BGメンバー別データ" as input_e
+  database "広域需要調達計画(翌日)詳細値データ"  as input_f
+  "Occto翌日需要調達計画提出" as (main)
 }
 
-input --> main : input
+file "常時バックアップ通知メール" as output
+
+cloud {
+  rectangle 託送 as w_1
+}
+
+input_a --> main : input
+input_b --> main : input
+input_c --> main : input
+input_d <-> main : input/output
+input_e --> main : input
+input_f --> main : input
 main --> output : output
+output --> w_1
 --
 
 ===== I/O
@@ -46,14 +59,12 @@ main --> output : output
 
 ==== 処理詳細
 
-=====
-
 . 指定されたバランシンググループIDよりバランシンググループを取得する
 . 指定されたバランシンググループIDと日付に合致する広域需要調達計画(翌日)を取得する
 .. データが取得できない場合は、処理を中止する
 . 各BGメンバー別データより、リソース区分がJBUの詳細値があるものを抽出する
 . 抽出したデータについて、エリア別に指定された様式で添付ファイルのデータを作成する
-. 作成した添付ファイルを送信する
-NOTE:
+. 作成した添付ファイルをメール送信する
+
 
 <<<
