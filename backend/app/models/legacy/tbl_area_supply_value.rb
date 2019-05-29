@@ -127,7 +127,7 @@ class Legacy::TblAreaSupplyValue < Legacy
     end
 
     def resources_for_the_balancing_group_map(balancing_group_id)
-      Resource.where(balancing_group_id: balancing_group_id).map do |resource|
+      Resource.includes(:bg_member).where("bg_members.balancing_group_id"=>balancing_group_id).map do |resource|
         supplier_id = case
         when resource.is_a?(ResourceJbu)
           "supplier_id_jbu"
