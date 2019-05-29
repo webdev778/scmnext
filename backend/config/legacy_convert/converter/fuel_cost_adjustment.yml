@@ -6,7 +6,7 @@
     id: id
     company_id: tbl_fuel_cost_adjustment_new.tbl_account_id
     district_id: tbl_fuel_cost_adjustment_new.tbl_district_id
-    bg_member_id:
+    bg_member_id: 
     year: SUBSTRING(tbl_fuel_cost_adjustment_new.application_start_ym, 1, 4)
     month: SUBSTRING(tbl_fuel_cost_adjustment_new.application_start_ym, 6, 2)
     voltage_class: CASE tbl_fuel_cost_adjustment_new.tbl_voltage_id WHEN '1' THEN

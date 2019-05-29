@@ -5,7 +5,7 @@
 :sources:
 - :fields:
     id: 
-    balancing_group_id: 
+    bg_member_id: 
     type: 
     code: 
     name: 

@@ -1,0 +1,17 @@
+---
+:truncate: true
+:model_class: PowerGenerator
+:sources:
+- :fields:
+    id: "'スキップ用ダミー'"
+    power_generator_group_id:
+    code:
+    name:
+    contract_number:
+    supply_max:
+    created_by:
+    updated_by:
+    created_at:
+    updated_at:
+  :from: tbl_account
+  :where: 1 = 0
