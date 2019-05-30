@@ -42,6 +42,60 @@ class Pl::BaseDatum < ApplicationRecord
   belongs_to :facility_group
 
   class << self
+    # ユビニティ使用分を除くための暫定処理用
+    def ubnity_resource_map
+      {
+        1=>{1=>192,3=>300,2=>50,9=>50},
+        2=>{1=>183,3=>300,2=>50,9=>50},
+        3=>{1=>176,3=>300,2=>50,9=>50},
+        4=>{1=>168,3=>300,2=>50,9=>50},
+        5=>{1=>160,3=>300,2=>50,9=>50},
+        6=>{1=>157,3=>300,2=>50,9=>50},
+        7=>{1=>159,3=>300,2=>50,9=>50},
+        8=>{1=>163,3=>300,2=>50,9=>50},
+        9=>{1=>161,3=>300,2=>50,9=>50},
+        10=>{1=>158,3=>300,2=>50,9=>50},
+        11=>{1=>165,3=>300,2=>50,9=>50},
+        12=>{1=>164,3=>300,2=>50,9=>50},
+        13=>{1=>179,3=>300,2=>50,9=>50},
+        14=>{1=>192,3=>300,2=>50,9=>50},
+        15=>{1=>207,3=>300,2=>50,9=>50},
+        16=>{1=>223,3=>300,2=>50,9=>50},
+        17=>{1=>244,3=>500,2=>50,9=>50},
+        18=>{1=>273,3=>500,2=>50,9=>50},
+        19=>{1=>324,3=>500,2=>50,9=>50},
+        20=>{1=>363,3=>500,2=>50,9=>50},
+        21=>{1=>383,3=>500,2=>50,9=>50},
+        22=>{1=>414,3=>500,2=>50,9=>50},
+        23=>{1=>414,3=>500,2=>50,9=>50},
+        24=>{1=>431,3=>500,2=>50,9=>50},
+        25=>{1=>431,3=>500,2=>50,9=>50},
+        26=>{1=>432,3=>500,2=>50,9=>50},
+        27=>{1=>436,3=>500,2=>50,9=>50},
+        28=>{1=>439,3=>500,2=>50,9=>50},
+        29=>{1=>436,3=>500,2=>50,9=>50},
+        30=>{1=>437,3=>500,2=>50,9=>50},
+        31=>{1=>416,3=>500,2=>50,9=>50},
+        32=>{1=>411,3=>500,2=>50,9=>50},
+        33=>{1=>404,3=>500,2=>50,9=>50},
+        34=>{1=>405,3=>500,2=>50,9=>50},
+        35=>{1=>387,3=>500,2=>50,9=>50},
+        36=>{1=>381,3=>500,2=>50,9=>50},
+        37=>{1=>380,3=>300,2=>50,9=>50},
+        38=>{1=>373,3=>300,2=>50,9=>50},
+        39=>{1=>368,3=>300,2=>50,9=>50},
+        40=>{1=>352,3=>300,2=>50,9=>50},
+        41=>{1=>337,3=>300,2=>50,9=>50},
+        42=>{1=>315,3=>300,2=>50,9=>50},
+        43=>{1=>293,3=>300,2=>50,9=>50},
+        44=>{1=>277,3=>300,2=>50,9=>50},
+        45=>{1=>270,3=>300,2=>50,9=>50},
+        46=>{1=>246,3=>300,2=>50,9=>50},
+        47=>{1=>235,3=>300,2=>50,9=>50},
+        48=>{1=>216,3=>300,2=>50,9=>50}
+      }
+    end
+
     #
     # 任意の日付、BGメンバーについて指定された使用量(速報値or確定値)を元に損益計算の元データを作成する
     #
@@ -102,20 +156,36 @@ class Pl::BaseDatum < ApplicationRecord
       import_data = power_usage_relation.all.map do |power_usage|
         logger.debug "#{power_usage.facility_group.name} #{power_usage.date} #{power_usage.time_index_id}処理中"
         # BGメンバー全体のその時間枠の使用量に対する需要家の使用量の割合を求める
-        power_usage_rate = power_usage.value / total_by_time_index[power_usage.time_index_id]
+          usage_total = total_by_time_index[power_usage.time_index_id] + ubnity_resource_map[power_usage.time_index_id][bg_member.balancing_group.district_id]
+        else
+          usage_total =
+        end
+        facility_power_usage_rate = power_usage.value / total_by_time_index[power_usage.time_index_id]
+
+        # 当該コマのPPS全体の計画値(需要予測値を求める)
+        total_demand = plan_matrix_by_time_index_and_resouce_type[power_usage.time_index_id]['demand']
+        total_demand ||= 0
+        bg_total_demand = total_demand
+        if bg_member.company_id == 1 and ubnity_resource_map[power_usage.time_index_id][bg_member.balancing_group.district_id]
+          # @todo このif文データを修正すれば不要となるので、uninity_resoure_mapと共に削除のこと
+          total_demand = total_demand - ubnity_resource_map[power_usage.time_index_id][bg_member.balancing_group.district_id]
+        end
+        # 当該コマ・施設の計画値相当分を求める
+        amount_planned = total_demand * facility_power_usage_rate
 
         # 供給リソースごとの使用量の割合を求める
-        usage = %w[demand jepx_spot jepx_1hour jbu fit matching self].each_with_object({}) do |resource_type_name, usage|
-          usage_value = plan_matrix_by_time_index_and_resouce_type[power_usage.time_index_id][resource_type_name]
-          usage_value ||= 0
-          usage[resource_type_name] = usage_value * power_usage_rate
+        usage = %w[jepx_spot jepx_1hour jbu fit matching self].each_with_object({}) do |resource_type_name, usage|
+          pps_usage_value = plan_matrix_by_time_index_and_resouce_type[power_usage.time_index_id][resource_type_name]
+          pps_usage_value ||= 0
+          pps_usage_value = pps_usage_value * total_demand / bg_total_demand
+          usage[resource_type_name] = pps_usage_value * facility_power_usage_rate
         end
 
         fuel_cost_adjustment = fuel_cost_adjustments_map_by_voltage_class[power_usage.facility_group.voltage_type.to_voltage_class]
         fuel_cost_unit_price = fuel_cost_adjustment ? fuel_cost_adjustment.unit_price : 0
         loss_rate = 0.042
         amount_loss = power_usage.value * loss_rate
-        amount_imbalance = usage['demand'] - (power_usage.value + amount_loss)
+        amount_imbalance = amount_planned - (power_usage.value + amount_loss)
 
         if power_usage.facility_group.voltage_type.to_voltage_mode == :high
           electricity_value_contracted = max_demand_power_map[power_usage.facility_group.id]
@@ -132,7 +202,7 @@ class Pl::BaseDatum < ApplicationRecord
           date: date,
           time_index_id: power_usage.time_index_id,
           amount_actual: power_usage.value,
-          amount_planned: usage['demand'],
+          amount_planned: amount_planned,
           amount_loss: amount_loss,
           amount_imbalance: amount_imbalance,
           power_factor_rate: 1,
@@ -146,7 +216,7 @@ class Pl::BaseDatum < ApplicationRecord
           usage_jepx_1hour: usage['jepx_1hour'],
           usage_fit: usage['jepx_fit'],
           usage_matching: usage['matching'],
-          supply_jbu_basic_charge: jbu_contract.basic_amount / time_index_count * power_usage_rate,
+          supply_jbu_basic_charge: jbu_contract.basic_amount / time_index_count * facility_power_usage_rate,
           supply_jbu_meter_rate_charge: usage['jbu'] * jbu_contract.meter_rate_charge(date, power_usage.time_index_id),
           supply_jbu_fuel_cost_adjustment: usage['jbu'] * jbu_contract.fuel_cost_adjustment_charge,
           supply_jepx_spot: usage['jepx_spot'] * spot_trade_area_data_map_by_time_index[power_usage.time_index_id].area_price,
