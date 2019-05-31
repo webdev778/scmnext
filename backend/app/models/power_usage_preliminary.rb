@@ -196,7 +196,7 @@ class PowerUsagePreliminary < ApplicationRecord
           end
           if facility_group_id == 7657
             logger.debug "7657のデータあり"
-            logger.debug date: date, time_index_id: time_index_id, facility_group_id: facility_group_id, value: value
+            logger.debug date: date, time_index_id: time_index_id, facility_group_id: facility_group_id, value: value.to_f
           end
           import_data << {date: date, time_index_id: time_index_id, facility_group_id: facility_group_id, value: value}
         end
