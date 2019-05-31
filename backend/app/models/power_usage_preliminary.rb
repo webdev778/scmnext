@@ -182,15 +182,15 @@ class PowerUsagePreliminary < ApplicationRecord
       Dlt::InvalidSupplyPoint.import(invalid_data, validate: false, on_duplicate_key_update: [:name, :comment])
 
       import_data = []
-      logger.debug "7657のデータダンプ"
-      TmpPowerUsage
-        .joins(:supply_point)
-        .distinct
-        .where("supply_points.facility_group_id"=>7657).find_each do |row|
-          logger.debug row.to_json
-        end
+      # logger.debug "7657のデータダンプ"
+      # TmpPowerUsage
+      #   .joins(:supply_point)
+      #   .distinct
+      #   .where("supply_points.facility_group_id"=>7657).find_each do |row|
+      #     logger.debug row.to_json
+      #   end
 
-        TmpPowerUsage
+      TmpPowerUsage
         .joins(:supply_point)
         .distinct
         .group("supply_points.facility_group_id", "supply_points.supply_method_type", "supply_points.base_power", "date", "time_index_id")
@@ -198,14 +198,14 @@ class PowerUsagePreliminary < ApplicationRecord
         .sum("value")
         .each do |keys, value|
           facility_group_id, supply_method_type, base_power, date, time_index_id = keys
-          if setting.bg_member.balancing_group.district.is_partial_included &&  SupplyPoint.supply_method_types.invert[supply_method_type] == "supply_method_type_partial"
-            value -= (base_power / 2)
-            value = value >= 0 ? value : 0
-          end
-          if facility_group_id == 7657
-            logger.debug "7657のデータあり"
-            logger.debug date: date, time_index_id: time_index_id, facility_group_id: facility_group_id, value: value.to_f
-          end
+          # if setting.bg_member.balancing_group.district.is_partial_included &&  SupplyPoint.supply_method_types.invert[supply_method_type] == "supply_method_type_partial"
+          #   value -= (base_power / 2)
+          #   value = value >= 0 ? value : 0
+          # end
+          # if facility_group_id == 7657
+          #   logger.debug "7657のデータあり"
+          #   logger.debug date: date, time_index_id: time_index_id, facility_group_id: facility_group_id, value: value.to_f
+          # end
           import_data << {date: date, time_index_id: time_index_id, facility_group_id: facility_group_id, value: value}
         end
       self.import(import_data, validate: false, on_duplicate_key_update: [:value])
