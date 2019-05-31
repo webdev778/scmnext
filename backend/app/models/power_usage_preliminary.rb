@@ -186,9 +186,8 @@ class PowerUsagePreliminary < ApplicationRecord
       TmpPowerUsage
         .joins(:supply_point)
         .distinct
-        .group("supply_points.facility_group_id", "supply_points.supply_method_type", "supply_points.base_power", "date", "time_index_id")
         .where("supply_points.facility_group_id"=>7657).find_each do |row|
-          logger.debug row
+          logger.debug row.to_json
         end
 
         TmpPowerUsage
