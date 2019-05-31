@@ -182,7 +182,16 @@ class PowerUsagePreliminary < ApplicationRecord
       Dlt::InvalidSupplyPoint.import(invalid_data, validate: false, on_duplicate_key_update: [:name, :comment])
 
       import_data = []
+      logger.debug "7657のデータダンプ"
       TmpPowerUsage
+        .joins(:supply_point)
+        .distinct
+        .group("supply_points.facility_group_id", "supply_points.supply_method_type", "supply_points.base_power", "date", "time_index_id")
+        .where("supply_points.facility_group_id"=>7657).find_each do |row|
+          logger.debug row
+        end
+
+        TmpPowerUsage
         .joins(:supply_point)
         .distinct
         .group("supply_points.facility_group_id", "supply_points.supply_method_type", "supply_points.base_power", "date", "time_index_id")
