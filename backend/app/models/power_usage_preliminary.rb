@@ -187,13 +187,18 @@ class PowerUsagePreliminary < ApplicationRecord
         .distinct
         .group("supply_points.facility_group_id", "supply_points.supply_method_type", "supply_points.base_power", "date", "time_index_id")
         .where.not("supply_points.facility_group_id"=>nil)
-        .sum("value").each do |keys, value|
-        facility_group_id, supply_method_type, base_power, date, time_index_id = keys
-        if setting.bg_member.balancing_group.district.is_partial_included &&  SupplyPoint.supply_method_types.invert[supply_method_type] == "supply_method_type_partial"
-          value -= (base_power / 2)
-          value = value >= 0 ? value : 0
-        end
-        import_data << {date: date, time_index_id: time_index_id, facility_group_id: facility_group_id, value: value}
+        .sum("value")
+        .each do |keys, value|
+          facility_group_id, supply_method_type, base_power, date, time_index_id = keys
+          if setting.bg_member.balancing_group.district.is_partial_included &&  SupplyPoint.supply_method_types.invert[supply_method_type] == "supply_method_type_partial"
+            value -= (base_power / 2)
+            value = value >= 0 ? value : 0
+          end
+          if facility_group_id == 7657
+            logger.debug "7657のデータあり"
+            logger.debug {date: date, time_index_id: time_index_id, facility_group_id: facility_group_id, value: value}
+          end
+          import_data << {date: date, time_index_id: time_index_id, facility_group_id: facility_group_id, value: value}
       end
       self.import(import_data, validate: false, on_duplicate_key_update: [:value])
     end
