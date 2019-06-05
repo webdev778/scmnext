@@ -18,4 +18,5 @@
 #
 
 class ResourceJbu < Resource
+  has_many :jbu_contracts, foreign_key: :resource_id
 end

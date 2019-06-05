@@ -350,7 +350,7 @@ namespace :legacy do
         [[bg_member.company_id, bg_member.balancing_group.district_id], bg_member.id]
       end
       .to_h
-    [Dlt::Setting, Dlt::InvalidSupplyPoint, FacilityGroup, JbuContract, FuelCostAdjustment].each do |target_model_class|
+    [Dlt::Setting, Dlt::InvalidSupplyPoint, FacilityGroup, FuelCostAdjustment].each do |target_model_class|
       select_count = 0
       update_count = 0
       target_model_class.find_each do |target_model_instance|
@@ -370,6 +370,26 @@ namespace :legacy do
     count_per_class.each do |model_name, count|
       logger.info sprintf('%-25s|%6d|%6d', model_name, count[:select], count[:update] )
     end
+  end
+
+  def set_jbu_contracts_resource_id
+    logger.info "JbuContractについてエリア、会社からresource_idをセット"
+    count = {all: 0, update: 0, fail: 0}
+    map = ResourceJbu.all.map{|rj| [{company_id: rj.bg_member.company_id, district_id: rj.bg_member.balancing_group.district_id}, rj.id ]}.to_h
+    JbuContract.find_each do |jbu_contract|
+      resource_id = map[{company_id: jbu_contract.company_id, district_id: jbu_contract.district_id}]
+      if resource_id
+        count[:all] += 1
+        count[:update] += 1
+        jbu_contract.update(resource_id: resource_id)
+      else
+        count[:all] += 1
+        count[:fail] += 1
+        logger.warn "対応するresource_jbuが見つかりません"
+        logger.warn jbu_contract
+      end
+    end
+    logger.info "#{count[:all]}件 更新 #{count[:update]}件 失敗 #{count[:fail]}"
   end
 
   def make_resource_yml
@@ -455,6 +475,11 @@ namespace :legacy do
     set_bg_member_id
   end
 
+  desc 'JbuContractについてエリア、会社からresource_idをセット'
+  task set_jbu_contracts_resource_id: :environment do |_task, _args|
+    set_jbu_contracts_resource_id
+  end
+
   #
   # カラム内でjsonで分ける等、コンバータで対応しきれないので別途取り扱う
   #
@@ -478,6 +503,7 @@ namespace :legacy do
       convert_all
       fix_facility_group
       set_bg_member_id
+      set_jbu_contracts_resource_id
     end
   end
 

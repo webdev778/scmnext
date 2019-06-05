@@ -4,8 +4,8 @@
 :sources:
 - :fields:
     id: id
+    resource_id: 
     district_id: tbl_district_id
-    bg_member_id: 
     company_id: tbl_account_id
     start_date: application_start_ymd
     end_date: application_end_ymd

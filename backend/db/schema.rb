@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_05_065631) do
+ActiveRecord::Schema.define(version: 2019_06_05_092121) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -447,8 +447,8 @@ ActiveRecord::Schema.define(version: 2019_06_05_065631) do
   end
 
   create_table "jbu_contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "常時バックアップ電源契約", force: :cascade do |t|
+    t.bigint "resource_id", comment: "リソースID"
     t.bigint "district_id", comment: "エリアID"
-    t.bigint "bg_member_id", comment: "BGメンバーID"
     t.bigint "company_id", comment: "PPS ID"
     t.date "start_date", comment: "開始日"
     t.date "end_date", comment: "終了日"
@@ -463,9 +463,9 @@ ActiveRecord::Schema.define(version: 2019_06_05_065631) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["bg_member_id"], name: "index_jbu_contracts_on_bg_member_id"
     t.index ["company_id"], name: "index_jbu_contracts_on_company_id"
     t.index ["district_id"], name: "index_jbu_contracts_on_district_id"
+    t.index ["resource_id"], name: "index_jbu_contracts_on_resource_id"
   end
 
   create_table "jepx_imbalance_betas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "JEPXインバランスβ値", force: :cascade do |t|

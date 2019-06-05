@@ -120,10 +120,7 @@ class Pl::BaseDatum < ApplicationRecord
       end
 
       # JBU契約を取得
-      jbu_contract = JbuContract
-                     .where(bg_member_id: bg_member.id)
-                     .where("start_date <= :date and (end_date IS NULL OR end_date <= :date)", date: date)
-                     .first
+      jbu_contract = bg_member.resource_jbu.jbu_contracts.where("start_date <= :date and (end_date IS NULL OR end_date <= :date)", date: Date.today).first
 
       # JBU契約未登録の場合スキップ
       if jbu_contract.nil?

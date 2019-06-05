@@ -3,8 +3,8 @@
 # Table name: jbu_contracts
 #
 #  id                                      :bigint(8)        not null, primary key
+#  resource_id                             :bigint(8)
 #  district_id                             :bigint(8)
-#  bg_member_id                            :bigint(8)
 #  company_id                              :bigint(8)
 #  start_date                              :date
 #  end_date                                :date

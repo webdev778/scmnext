@@ -3,8 +3,8 @@
 # Table name: jbu_contracts
 #
 #  id                                      :bigint(8)        not null, primary key
+#  resource_id                             :bigint(8)
 #  district_id                             :bigint(8)
-#  bg_member_id                            :bigint(8)
 #  company_id                              :bigint(8)
 #  start_date                              :date
 #  end_date                                :date
@@ -25,7 +25,7 @@ class JbuContract < ApplicationRecord
   # don't use this relation.
   # belongs_to :company
   # belongs_to :district
-  belongs_to :bg_member, required: false
+  belongs_to :resource_jbu, foreign_key: :resource_id, required: false
 
   scope :includes_for_index, lambda {
     includes(bg_member: [:company, {balancing_group: :district}])
