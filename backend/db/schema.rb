@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_29_071443) do
+ActiveRecord::Schema.define(version: 2019_06_05_065631) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -516,6 +516,67 @@ ActiveRecord::Schema.define(version: 2019_05_29_071443) do
     t.index ["time_index_id"], name: "index_jepx_spot_trades_on_time_index_id"
   end
 
+  create_table "matching_trade_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "相対取引設定", force: :cascade do |t|
+    t.bigint "resource_id", comment: "リソースID"
+    t.string "year_pattern", default: "*", null: false, comment: "年パターン"
+    t.string "month_pattern", default: "*", null: false, comment: "月パターン"
+    t.string "day_pattern", default: "*", null: false, comment: "日パターン"
+    t.string "day_of_week_pattern", default: "*", null: false, comment: "曜日パターン"
+    t.integer "time_index_1", default: 0, null: false, comment: "時間枠1値"
+    t.integer "time_index_2", default: 0, null: false, comment: "時間枠2値"
+    t.integer "time_index_3", default: 0, null: false, comment: "時間枠3値"
+    t.integer "time_index_4", default: 0, null: false, comment: "時間枠4値"
+    t.integer "time_index_5", default: 0, null: false, comment: "時間枠5値"
+    t.integer "time_index_6", default: 0, null: false, comment: "時間枠6値"
+    t.integer "time_index_7", default: 0, null: false, comment: "時間枠7値"
+    t.integer "time_index_8", default: 0, null: false, comment: "時間枠8値"
+    t.integer "time_index_9", default: 0, null: false, comment: "時間枠9値"
+    t.integer "time_index_10", default: 0, null: false, comment: "時間枠10値"
+    t.integer "time_index_11", default: 0, null: false, comment: "時間枠11値"
+    t.integer "time_index_12", default: 0, null: false, comment: "時間枠12値"
+    t.integer "time_index_13", default: 0, null: false, comment: "時間枠13値"
+    t.integer "time_index_14", default: 0, null: false, comment: "時間枠14値"
+    t.integer "time_index_15", default: 0, null: false, comment: "時間枠15値"
+    t.integer "time_index_16", default: 0, null: false, comment: "時間枠16値"
+    t.integer "time_index_17", default: 0, null: false, comment: "時間枠17値"
+    t.integer "time_index_18", default: 0, null: false, comment: "時間枠18値"
+    t.integer "time_index_19", default: 0, null: false, comment: "時間枠19値"
+    t.integer "time_index_20", default: 0, null: false, comment: "時間枠20値"
+    t.integer "time_index_21", default: 0, null: false, comment: "時間枠21値"
+    t.integer "time_index_22", default: 0, null: false, comment: "時間枠22値"
+    t.integer "time_index_23", default: 0, null: false, comment: "時間枠23値"
+    t.integer "time_index_24", default: 0, null: false, comment: "時間枠24値"
+    t.integer "time_index_25", default: 0, null: false, comment: "時間枠25値"
+    t.integer "time_index_26", default: 0, null: false, comment: "時間枠26値"
+    t.integer "time_index_27", default: 0, null: false, comment: "時間枠27値"
+    t.integer "time_index_28", default: 0, null: false, comment: "時間枠28値"
+    t.integer "time_index_29", default: 0, null: false, comment: "時間枠29値"
+    t.integer "time_index_30", default: 0, null: false, comment: "時間枠30値"
+    t.integer "time_index_31", default: 0, null: false, comment: "時間枠31値"
+    t.integer "time_index_32", default: 0, null: false, comment: "時間枠32値"
+    t.integer "time_index_33", default: 0, null: false, comment: "時間枠33値"
+    t.integer "time_index_34", default: 0, null: false, comment: "時間枠34値"
+    t.integer "time_index_35", default: 0, null: false, comment: "時間枠35値"
+    t.integer "time_index_36", default: 0, null: false, comment: "時間枠36値"
+    t.integer "time_index_37", default: 0, null: false, comment: "時間枠37値"
+    t.integer "time_index_38", default: 0, null: false, comment: "時間枠38値"
+    t.integer "time_index_39", default: 0, null: false, comment: "時間枠39値"
+    t.integer "time_index_40", default: 0, null: false, comment: "時間枠40値"
+    t.integer "time_index_41", default: 0, null: false, comment: "時間枠41値"
+    t.integer "time_index_42", default: 0, null: false, comment: "時間枠42値"
+    t.integer "time_index_43", default: 0, null: false, comment: "時間枠43値"
+    t.integer "time_index_44", default: 0, null: false, comment: "時間枠44値"
+    t.integer "time_index_45", default: 0, null: false, comment: "時間枠45値"
+    t.integer "time_index_46", default: 0, null: false, comment: "時間枠46値"
+    t.integer "time_index_47", default: 0, null: false, comment: "時間枠47値"
+    t.integer "time_index_48", default: 0, null: false, comment: "時間枠48値"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resource_id"], name: "index_matching_trade_settings_on_resource_id"
+  end
+
   create_table "occto_fit_plan_detail_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域発電販売計画(翌日)詳細値データ", force: :cascade do |t|
     t.bigint "occto_fit_plan_id", comment: "広域発電販売計画(翌日)ID"
     t.bigint "power_generator_id", comment: "発電者ID"
@@ -628,18 +689,8 @@ ActiveRecord::Schema.define(version: 2019_05_29_071443) do
     t.index ["type"], name: "index_pl_base_data_on_type"
   end
 
-  create_table "power_generator_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "発電BG", force: :cascade do |t|
-    t.bigint "resource_id", comment: "リソースID"
-    t.string "contract_number", limit: 20, comment: "契約No."
-    t.integer "created_by"
-    t.integer "updated_by"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["resource_id"], name: "index_power_generator_groups_on_resource_id"
-  end
-
   create_table "power_generators", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "発電者", force: :cascade do |t|
-    t.bigint "power_generator_group_id", comment: "発電BG ID"
+    t.bigint "resources_id", comment: "リソースID"
     t.string "code", limit: 5, null: false, comment: "コード"
     t.string "name", null: false, comment: "名前"
     t.string "contract_number", limit: 20, comment: "契約No."
@@ -648,7 +699,7 @@ ActiveRecord::Schema.define(version: 2019_05_29_071443) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["power_generator_group_id"], name: "index_power_generators_on_power_generator_group_id"
+    t.index ["resources_id"], name: "index_power_generators_on_resources_id"
   end
 
   create_table "power_usage_fixeds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "電力使用量(確定値)", force: :cascade do |t|
@@ -686,7 +737,10 @@ ActiveRecord::Schema.define(version: 2019_05_29_071443) do
     t.string "type", null: false, comment: "種別"
     t.string "code", null: false, comment: "コード"
     t.string "name", null: false, comment: "名称"
-    t.text "supply_value", comment: "供給量"
+    t.string "contract_number", limit: 20, comment: "契約No."
+    t.decimal "max_value", precision: 14, default: "0", null: false, comment: "最大量"
+    t.decimal "min_value", precision: 14, default: "0", null: false, comment: "最小量"
+    t.decimal "unit", precision: 14, default: "1", null: false, comment: "単位量"
     t.integer "created_by"
     t.integer "updated_by"
     t.datetime "created_at", null: false

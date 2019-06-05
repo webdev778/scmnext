@@ -24,7 +24,7 @@
 // include::顧客管理/index.adoc[]
 // include::請求管理/index.adoc[]
 include::需給管理/index.adoc[]
-// include::PLS管理/index.adoc[]
+include::PLS管理/index.adoc[]
 // include::バッチ処理（既存）/index.adoc[]
 include::バッチ処理（新規）/index.adoc[]
 include::その他処理/index.adoc[]
