@@ -203,6 +203,8 @@ rectangle {
 
   database "リソース" as io_1
   database "常時バックアップ電源契約" as io_2
+  database "発電者" as io_3
+  database "相対取引設定" as io_4
 }
 
 input_1 --> prog : input
@@ -210,6 +212,8 @@ input_2 --> prog : input
 input_3 --> prog : input
 prog <--> io_1 : output
 prog <--> io_2 : output
+prog <--> io_3 : output
+prog <--> io_4 : output
 --
 
 ===== I/O
