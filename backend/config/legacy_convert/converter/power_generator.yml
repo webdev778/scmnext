@@ -4,7 +4,7 @@
 :sources:
 - :fields:
     id: "'スキップ用ダミー'"
-    power_generator_group_id: 
+    resources_id: 
     code: 
     name: 
     contract_number: 
