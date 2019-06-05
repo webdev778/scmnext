@@ -216,11 +216,13 @@ prog <--> io_2 : output
 
 |======================================
 | 名称 | 物理名 | 種類 | I/O種別 | 備考
-| バランシンググループ     | balancing_groups | DB | I    |
-| BGメンバー               | bg_members       | DB | I    |
-| 会社                     | companies        | DB | I    |
-| リソース                 | resources        | DB | I/O  |
-| 常時バックアップ電源契約 | jbu_contracts    | DB | I/O  |
+| バランシンググループ     | balancing_groups        | DB | I    |
+| BGメンバー               | bg_members              | DB | I    |
+| 会社                     | companies               | DB | I    |
+| リソース                 | resources               | DB | I/O  |
+| 常時バックアップ電源契約 | jbu_contracts           | DB | I/O  |
+| 発電者                   | power_generators        | DB | I/O  |
+| 相対取引設定             | matching_trade_settings | DB | I/O  |
 |======================================
 
 <<<

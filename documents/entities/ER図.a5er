@@ -42,6 +42,39 @@ ShowTag=1
 ShowCommonAttributes=0
 
 [Entity]
+PName=jbu_contracts
+LName=常時バックアップ電源契約
+Comment=
+TableOption=
+Page=PLS関連
+Left=1500
+Top=2200
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="BGメンバーID","bg_member_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="PPS ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="開始日","start_date","date",,,"","",$FFFFFFFF,""
+Field="終了日","end_date","date",,,"","",$FFFFFFFF,""
+Field="契約容量","contract_power","int(11)",,,"","",$FFFFFFFF,""
+Field="基本料金(kW)","basic_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="従量料金(夏季昼間)","meter_rate_charge_summer_season_daytime","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="従量料金(他季昼間)","meter_rate_charge_other_season_daytime","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="従量料金(夜間)","meter_rate_charge_night","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="従量料金(ピークタイム)","meter_rate_charge_peak_time","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="燃料費調整単価","fuel_cost_adjustment_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,district_id
+Index==0,company_id
+Index==0,bg_member_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="PLS関連",1500,2200,497,432
+
+[Entity]
 PName=resources
 LName=リソース
 Comment=
@@ -581,39 +614,6 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 Position="MAIN",3300,1200,301,203
-
-[Entity]
-PName=jbu_contracts
-LName=常時バックアップ電源契約
-Comment=
-TableOption=
-Page=MAIN
-Left=2900
-Top=1200
-Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="BGメンバーID","bg_member_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="PPS ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="開始日","start_date","date",,,"","",$FFFFFFFF,""
-Field="終了日","end_date","date",,,"","",$FFFFFFFF,""
-Field="契約容量","contract_power","int(11)",,,"","",$FFFFFFFF,""
-Field="基本料金(kW)","basic_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
-Field="従量料金(夏季昼間)","meter_rate_charge_summer_season_daytime","decimal(10,4)",,,"","",$FFFFFFFF,""
-Field="従量料金(他季昼間)","meter_rate_charge_other_season_daytime","decimal(10,4)",,,"","",$FFFFFFFF,""
-Field="従量料金(夜間)","meter_rate_charge_night","decimal(10,4)",,,"","",$FFFFFFFF,""
-Field="従量料金(ピークタイム)","meter_rate_charge_peak_time","decimal(10,4)",,,"","",$FFFFFFFF,""
-Field="燃料費調整単価","fuel_cost_adjustment_charge","decimal(10,4)",,,"","",$FFFFFFFF,""
-Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
-Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
-Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==0,district_id
-Index==0,company_id
-Index==0,bg_member_id
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-Position="MAIN",2900,1200
 
 [Entity]
 PName=contract_meter_rates
