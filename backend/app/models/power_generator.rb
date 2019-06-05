@@ -15,5 +15,5 @@
 #
 
 class PowerGenerator < ApplicationRecord
-  belongs_to :power_generator_group
+  belongs_to :resource
 end

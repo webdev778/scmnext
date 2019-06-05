@@ -1,11 +1,6 @@
 ## PLS管理
 
 include::PLSパラメータ一覧画面.adoc[]
-include::PLSパラメータ詳細画面(サマリー).adoc[]
-include::PLSパラメータ詳細画面(JBU).adoc[]
-include::PLSパラメータ詳細画面(JEPXスポット).adoc[]
-include::PLSパラメータ詳細画面(相対).adoc[]
-include::PLSパラメータ詳細画面(FIT).adoc[]
-include::PLSパラメータ詳細画面(インバランス).adoc[]
+include::PLSパラメータ詳細画面.adoc[]
 
 <<<

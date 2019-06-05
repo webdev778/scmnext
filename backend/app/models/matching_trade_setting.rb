@@ -1,0 +1,2 @@
+class MatchingTradeSetting < ApplicationRecord
+end

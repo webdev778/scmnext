@@ -15,8 +15,9 @@
 #
 
 class ResourceFit < Resource
-  protected
+  has_many :power_generators
 
+  protected
   #
   # FITのレートを取得する
   # @params date [Date] 日付
