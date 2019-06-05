@@ -210,10 +210,10 @@ rectangle {
 input_1 --> prog : input
 input_2 --> prog : input
 input_3 --> prog : input
-prog <--> io_1 : output
-prog <--> io_2 : output
-prog <--> io_3 : output
-prog <--> io_4 : output
+prog <--> io_1 : input / output
+prog <--> io_2 : input / output
+prog <--> io_3 : input / output
+prog <--> io_4 : input / output
 --
 
 ===== I/O
