@@ -42,6 +42,105 @@ ShowTag=1
 ShowCommonAttributes=0
 
 [Entity]
+PName=resources
+LName=リソース
+Comment=
+TableOption=
+Page=PLS関連
+Left=800
+Top=200
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="BGメンバーID","bg_member_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="種別","type","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="コード","code","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="名称","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="契約No.","contract_number","varchar(20)",,,"","",$FFFFFFFF,""
+Field="最大量","max_value","decimal(14,0)","NOT NULL",,"\q0\q","",$FFFFFFFF,""
+Field="最小量","min_value","decimal(14,0)","NOT NULL",,"\q0\q","",$FFFFFFFF,""
+Field="単位量","unit","decimal(14,0)","NOT NULL",,"\q1\q","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,bg_member_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="PLS関連",800,200,505,330
+
+[Entity]
+PName=matching_trade_settings
+LName=相対取引設定
+Comment=
+TableOption=
+Page=PLS関連
+Left=1500
+Top=200
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="リソースID","resource_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="年パターン","year_pattern","varchar(255)","NOT NULL",,"\q*\q","",$FFFFFFFF,""
+Field="月パターン","month_pattern","varchar(255)","NOT NULL",,"\q*\q","",$FFFFFFFF,""
+Field="日パターン","day_pattern","varchar(255)","NOT NULL",,"\q*\q","",$FFFFFFFF,""
+Field="曜日パターン","day_of_week_pattern","varchar(255)","NOT NULL",,"\q*\q","",$FFFFFFFF,""
+Field="時間枠1値","time_index_1","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠2値","time_index_2","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠3値","time_index_3","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠4値","time_index_4","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠5値","time_index_5","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠6値","time_index_6","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠7値","time_index_7","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠8値","time_index_8","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠9値","time_index_9","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠10値","time_index_10","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠11値","time_index_11","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠12値","time_index_12","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠13値","time_index_13","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠14値","time_index_14","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠15値","time_index_15","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠16値","time_index_16","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠17値","time_index_17","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠18値","time_index_18","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠19値","time_index_19","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠20値","time_index_20","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠21値","time_index_21","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠22値","time_index_22","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠23値","time_index_23","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠24値","time_index_24","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠25値","time_index_25","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠26値","time_index_26","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠27値","time_index_27","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠28値","time_index_28","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠29値","time_index_29","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠30値","time_index_30","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠31値","time_index_31","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠32値","time_index_32","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠33値","time_index_33","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠34値","time_index_34","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠35値","time_index_35","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠36値","time_index_36","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠37値","time_index_37","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠38値","time_index_38","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠39値","time_index_39","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠40値","time_index_40","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠41値","time_index_41","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠42値","time_index_42","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠43値","time_index_43","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠44値","time_index_44","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠45値","time_index_45","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠46値","time_index_46","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠47値","time_index_47","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="時間枠48値","time_index_48","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,resource_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="PLS関連",1500,200,493,1473
+
+[Entity]
 PName=dlt_usage_fixed_details
 LName=確定使用量明細
 Comment=
@@ -212,36 +311,15 @@ BkColor=$FFFFFF
 Position="託送関連",200,700
 
 [Entity]
-PName=power_generator_groups
-LName=発電BG
-Comment=
-TableOption=
-Page=PLS関連
-Left=800
-Top=1200
-Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="リソースID","resource_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="契約No.","contract_number","varchar(20)",,,"","",$FFFFFFFF,""
-Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
-Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
-Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==0,resource_id
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-Position="PLS関連",800,1200
-
-[Entity]
 PName=power_generators
 LName=発電者
 Comment=
 TableOption=
 Page=PLS関連
-Left=150
-Top=1150
+Left=1500
+Top=1800
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="発電BG ID","power_generator_group_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="リソースID","resources_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="コード","code","varchar(5)","NOT NULL",,"","",$FFFFFFFF,""
 Field="名前","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
 Field="契約No.","contract_number","varchar(20)",,,"","",$FFFFFFFF,""
@@ -250,11 +328,11 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==0,power_generator_group_id
+Index==0,resources_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="PLS関連",150,1150
+Position="PLS関連",1500,1800,499,254
 
 [Entity]
 PName=occto_fit_plan_detail_values
@@ -262,8 +340,8 @@ LName=広域発電販売計画(翌日)詳細値データ
 Comment=
 TableOption=
 Page=PLS関連
-Left=800
-Top=600
+Left=100
+Top=1700
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="広域発電販売計画(翌日)ID","occto_fit_plan_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="発電者ID","power_generator_id","bigint(20)",,,"","",$FFFFFFFF,""
@@ -279,7 +357,7 @@ Index==0,time_index_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="PLS関連",800,600
+Position="PLS関連",100,1700,497,229
 
 [Entity]
 PName=occto_fit_plans
@@ -287,15 +365,18 @@ LName=広域発電販売計画(翌日)
 Comment=
 TableOption=
 Page=PLS関連
-Left=800
-Top=200
+Left=100
+Top=1200
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="発電BG ID","power_generator_group_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="日付","date","date","NOT NULL",,"","",$FFFFFFFF,""
 Field="初期化日時","initialized_at","datetime",,,"","",$FFFFFFFF,""
 Field="取得日時","received_at","datetime",,,"","",$FFFFFFFF,""
 Field="送信日時","send_at","datetime",,,"","",$FFFFFFFF,""
-Field="確認日時","confirmed_at","datetime",,,"","",$FFFFFFFF,""
+Field="FIT ID(テキスト)","fit_id_text","varchar(23)",,,"","",$FFFFFFFF,""
+Field="ステータス","stat","varchar(1)",,,"","",$FFFFFFFF,""
+Field="受付ステータス","fit_recept_stat","varchar(2)",,,"","",$FFFFFFFF,""
+Field="最終更新日時(テキスト)","last_update_datetime_text","varchar(17)",,,"","",$FFFFFFFF,""
 Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
@@ -305,7 +386,7 @@ Index==0,date
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="PLS関連",800,200
+Position="PLS関連",100,1200,499,356
 
 [Entity]
 PName=occto_plan_detail_values
@@ -332,7 +413,7 @@ Index==0,time_index_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="PLS関連",100,800
+Position="PLS関連",100,800,497,254
 
 [Entity]
 PName=occto_plan_by_bg_members
@@ -355,7 +436,7 @@ Index==0,bg_member_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="PLS関連",100,500
+Position="PLS関連",100,500,499,178
 
 [Entity]
 PName=occto_plans
@@ -377,14 +458,14 @@ Index==0,balancing_group_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="PLS関連",100,200
+Position="PLS関連",100,200,499,178
 
 [Entity]
 PName=bg_member_demand_forecasts
 LName=BGメンバー需要予測データ
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=500
 Top=500
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
@@ -401,7 +482,7 @@ Index==0,time_index_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="Main",500,500,397,229
+Position="MAIN",500,500,397,229
 
 [Entity]
 PName=facility_max_demand_powers
@@ -454,7 +535,7 @@ Index==0,bg_member_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",3650,100
+Position="MAIN",3650,100,346,279
 
 [Entity]
 PName=discounts_for_facilities
@@ -477,7 +558,7 @@ Index==0,facility_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",3650,450
+Position="MAIN",3650,450,351,203
 
 [Entity]
 PName=holidays
@@ -485,8 +566,8 @@ LName=休日
 Comment=
 TableOption=
 Page=MAIN
-Left=3200
-Top=1700
+Left=3300
+Top=1200
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="日付","date","date",,,"","",$FFFFFFFF,""
@@ -499,7 +580,7 @@ Index==0,district_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",3200,1700
+Position="MAIN",3300,1200,301,203
 
 [Entity]
 PName=jbu_contracts
@@ -716,7 +797,7 @@ LName=燃料調整費
 Comment=
 TableOption=
 Page=MAIN
-Left=1600
+Left=1400
 Top=2500
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="PPS ID","company_id","bigint(20)",,,"","",$FFFFFFFF,""
@@ -739,7 +820,7 @@ Index==0,company_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",1600,2500,275,304
+Position="MAIN",1400,2500,275,304
 
 [Entity]
 PName=contract_basic_charges
@@ -1210,8 +1291,8 @@ LName=エリア別損失率
 Comment=
 TableOption=
 Page=MAIN
-Left=2000
-Top=2500
+Left=1900
+Top=1800
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="電圧種別ID","voltage_type_id","bigint(20)",,,"","",$FFFFFFFF,""
@@ -1227,7 +1308,7 @@ Index==0,voltage_type_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",2000,2500,298,296
+Position="MAIN",1900,1800,298,296
 
 [Entity]
 PName=facilities
@@ -1399,30 +1480,6 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 Position="MAIN",200,2100,503,229
-
-[Entity]
-PName=resources
-LName=リソース
-Comment=
-TableOption=
-Page=MAIN
-Left=2700
-Top=2500
-Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="BGメンバーID","bg_member_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="種別","type","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
-Field="コード","code","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
-Field="名称","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
-Field="供給量","supply_value","text",,,"","",$FFFFFFFF,""
-Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
-Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
-Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==0,bg_member_id
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-Position="MAIN",2700,2500,298,278
 
 [Entity]
 PName=schema_migrations
