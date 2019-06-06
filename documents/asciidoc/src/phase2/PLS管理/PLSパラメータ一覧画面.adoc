@@ -59,6 +59,13 @@ input_4 --> prog : input
 | リソース             | resources        | DB | I    |
 |======================================
 
+==== 使用するAPI
+
+|=========================================
+| 処理名                         | エンドポイント
+| 指定したBG一覧を取得 | /v1/balancing_groups/list
+| 指定したBGのリソース一覧を取得 | /v1/resources?q[bg_member_balancing_group_id_eq]=BG_ID
+
 <<<
 
 ==== 画面項目定義
