@@ -22,14 +22,14 @@ class Resource < ApplicationRecord
   has_many :occto_plan_detail_values, class_name: Occto::PlanDetailValue.to_s
 
   scope :includes_for_index, lambda {
-    includes([:balancing_group])
+    includes([:bg_member])
   }
 
   def as_json(options = {})
     if options.blank?
       options = {
         methods: [:type],
-        include: :balancing_group
+        include: :bg_member
       }
     end
     super options
