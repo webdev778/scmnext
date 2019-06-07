@@ -3,7 +3,7 @@
 # Table name: occto_fit_plans
 #
 #  id                        :bigint(8)        not null, primary key
-#  power_generator_group_id  :bigint(8)
+#  bg_member_id              :bigint(8)
 #  date                      :date             not null
 #  initialized_at            :datetime
 #  received_at               :datetime
@@ -19,4 +19,6 @@
 #
 
 class Occto::FitPlan < ApplicationRecord
+  has_many :fit_plan_by_resources, dependent: :destroy
+  belongs_to :bg_member_id
 end

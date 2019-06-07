@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_05_092121) do
+ActiveRecord::Schema.define(version: 2019_06_07_042002) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -44,19 +44,6 @@ ActiveRecord::Schema.define(version: 2019_06_05_092121) do
     t.datetime "updated_at", null: false
     t.index ["district_id"], name: "index_balancing_groups_on_district_id"
     t.index ["leader_company_id"], name: "index_balancing_groups_on_leader_company_id"
-  end
-
-  create_table "bg_member_demand_forecasts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "BGメンバー需要予測データ", force: :cascade do |t|
-    t.bigint "bg_member_id", comment: "BGメンバーID"
-    t.bigint "time_index_id", comment: "時間枠ID"
-    t.date "date", comment: "日付"
-    t.decimal "demand_value", precision: 10, scale: 4, comment: "需要量"
-    t.integer "created_by"
-    t.integer "updated_by"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["bg_member_id"], name: "index_bg_member_demand_forecasts_on_bg_member_id"
-    t.index ["time_index_id"], name: "index_bg_member_demand_forecasts_on_time_index_id"
   end
 
   create_table "bg_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "BGメンバー", force: :cascade do |t|
@@ -577,8 +564,20 @@ ActiveRecord::Schema.define(version: 2019_06_05_092121) do
     t.index ["resource_id"], name: "index_matching_trade_settings_on_resource_id"
   end
 
+  create_table "occto_fit_plan_by_resoures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域発電販売(翌日)リソース別(発電BG別)データ", force: :cascade do |t|
+    t.bigint "fit_plan_id", comment: "広域発電販売(翌日)ID"
+    t.bigint "resource_id", comment: "リソースID"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fit_plan_id", "resource_id"], name: "unique_index_on_business", unique: true
+    t.index ["fit_plan_id"], name: "index_occto_fit_plan_by_resoures_on_fit_plan_id"
+    t.index ["resource_id"], name: "index_occto_fit_plan_by_resoures_on_resource_id"
+  end
+
   create_table "occto_fit_plan_detail_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域発電販売計画(翌日)詳細値データ", force: :cascade do |t|
-    t.bigint "occto_fit_plan_id", comment: "広域発電販売計画(翌日)ID"
+    t.bigint "fit_plan_by_resource_id", comment: "広域発電販売(翌日)リソース別(発電BG別)データID"
     t.bigint "power_generator_id", comment: "発電者ID"
     t.bigint "time_index_id", comment: "時間枠ID"
     t.decimal "value", precision: 14, comment: "数量(kWh)"
@@ -586,13 +585,14 @@ ActiveRecord::Schema.define(version: 2019_06_05_092121) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["occto_fit_plan_id"], name: "index_occto_fit_plan_detail_values_on_occto_fit_plan_id"
+    t.index ["fit_plan_by_resource_id", "power_generator_id", "time_index_id"], name: "unique_index_on_business", unique: true
+    t.index ["fit_plan_by_resource_id"], name: "index_occto_fit_plan_detail_values_on_fit_plan_by_resource_id"
     t.index ["power_generator_id"], name: "index_occto_fit_plan_detail_values_on_power_generator_id"
     t.index ["time_index_id"], name: "index_occto_fit_plan_detail_values_on_time_index_id"
   end
 
   create_table "occto_fit_plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域発電販売計画(翌日)", force: :cascade do |t|
-    t.bigint "power_generator_group_id", comment: "発電BG ID"
+    t.bigint "bg_member_id", comment: "BGメンバーID"
     t.date "date", null: false, comment: "日付"
     t.datetime "initialized_at", comment: "初期化日時"
     t.datetime "received_at", comment: "取得日時"
@@ -605,8 +605,9 @@ ActiveRecord::Schema.define(version: 2019_06_05_092121) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["bg_member_id", "date"], name: "unique_index_on_business", unique: true
+    t.index ["bg_member_id"], name: "index_occto_fit_plans_on_bg_member_id"
     t.index ["date"], name: "index_occto_fit_plans_on_date"
-    t.index ["power_generator_group_id"], name: "index_occto_fit_plans_on_power_generator_group_id"
   end
 
   create_table "occto_plan_by_bg_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域需要調達計画(翌日)BGメンバー別データ", force: :cascade do |t|
