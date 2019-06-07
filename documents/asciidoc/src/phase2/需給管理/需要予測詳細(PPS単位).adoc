@@ -11,8 +11,12 @@
 --
 salt
 {
-  { パワオプ東京BG | パワーオプティマイザー | 2019/02/01 }
-  { ステータス: | 作成済 }
+  {
+   BG名   | パワオプ東京BG
+   会社名 | パワーオプティマイザー
+   日付   | 2019/02/01
+   ステータス | 作成済み
+  }
   { [予測登録] | ^今回予測を各予測から複製^ }
   {
     各コマ別の予測及び速報値の棒グラフを表示する |
@@ -33,26 +37,47 @@ salt
 [plantuml]
 --
 rectangle {
-  database "機械予測データ" as input_1
+  database "BGメンバー" as input_1
   database "施設グループ" as input_2
-  database "需要予測データ(PPS単位)" as io_1
+  database "機械予測データ(PPS単位)" as input_3
+  database "電力使用量(速報値) " as input_4
+  database "広域需要調達計画(翌日)" as input_5
+  database "広域需要調達計画(翌日)BGメンバー別データ" as input_6
+  database "広域需要調達計画(翌日)詳細値データ" as io_1
 
   (需要予測詳細（PPS単位）) as (prog)
 }
 
 input_1 --> prog : input
 input_2 --> prog : input
+input_3 --> prog : input
+input_4 --> prog : input
+input_5 --> prog : input
+input_6 --> prog : input
 prog --> io_1 : input/output
 --
 
 ===== I/O
 
 |======================================
-| 名称                    | 物理名 | 種類   | I/O種別 | 備考
-| 機械予測データ          |        | DB     | I       |
-| 施設グループ            |        | DB     | I       |
-| 需要予測データ(PPS単位) |        | DB     | I/O     |
+| 名称                                     | 物理名                    | 種類   | I/O種別 | 備考
+| BGメンバー                               | bg_members                | DB     | I       |
+| 施設グループ                             | facility_groups           | DB     | I       |
+| 機械予測データ                           | predicted_data            | DB     | I       |
+| 広域需要調達計画(翌日)                   | occto_plans               | DB     | I       |
+| 広域需要調達計画(翌日)BGメンバー別データ | occto_plan_by_bg_members  | DB     | I       |
+| 広域需要調達計画(翌日)詳細値データ       | occto_plan_detail_values  | DB     | I/O     |
+| 電力使用量(速報値)                       | power_usage_preliminaries | DB     | I       |
 |======================================
+
+==== 使用するAPI
+
+|=========================================
+| 処理名                | メソッド | エンドポイント
+| 機械予測データの取得  | GET      | /v1/demand_forecasts/bg_members/[bg_member_id]?date=[yyyy-mm-dd]
+| 需要予測データの取得  | GET      | /v1/occto/plans/bg_members/[bg_member_id]/demand?date=[yyyy-mm-dd]
+| 需要予測データの登録  | POST     | /v1/occto/plans/bg_members/[bg_member_id]/demand?date=[yyyy-mm-dd]
+| 速報値の取得          | GET      | /v1/power_usages/preliminary/bg_members/[bg_member_id]?date=[yyyy-mm-dd]
 
 <<<
 
@@ -60,7 +85,17 @@ prog --> io_1 : input/output
 
 ==== 詳細情報
 |======================================
-| 項目名 | 物理項目名 | 取得元 | I/O | 備考
+| 項目名       | 項目種別 | 物理項目名      | 取得元                       | I/O | 備考
+| BG名         | ラベル   | name            | balancing_groups             | O   |
+| BGメンバー名 | ラベル   | name            | companies                    | O   |
+| 日付         | ラベル   | date            | occto_plans                  | O   |
+| ステータス   | ラベル   | operation_state | occto_plans                  | O   |
+| コマ         | ラベル   | time_index_id   | occto_plan_detail_values     | O   |
+| 今回予測値   | テキスト | value           | occto_plan_detail_values     | I/O |
+| 機械予測値   | ラベル   | value           | predicted_data               | O   | 種別ごとに複数存在
+| 速報値       | ラベル   | value           | occto_fit_plan_detail_values | O   | 当該コマに任意の発電者の計画値
+| 今回予測値IMB| ラベル   |                 |                              | O   | 今回予測値 - 速報値
+| 機械予測値IMB| ラベル   |                 |                              | O   | 各機械予測値 - 速報値(種別ごとに複数存在)
 |======================================
 
 <<<
@@ -81,7 +116,7 @@ prog --> io_1 : input/output
 
 ===== 予測登録ボタン押下時
 
-* 予測登録ボタンを押下した場合、入力された今回予測欄の内容を需要予測データ(PPS単位)に保存する
+* 予測登録ボタンを押下した場合、入力された今回予測欄の内容を広域需要調達計画(翌日)詳細値データに需要として保存する
 
 ===== 今回予測を各予測から複製ドロップダウンボタン押下時
 
