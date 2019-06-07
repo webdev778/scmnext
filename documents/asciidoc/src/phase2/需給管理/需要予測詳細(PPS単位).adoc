@@ -78,6 +78,7 @@ prog --> io_1 : input/output
 | 需要予測データの取得  | GET      | /v1/occto/plans/bg_members/[bg_member_id]/demand?date=[yyyy-mm-dd]
 | 需要予測データの登録  | POST     | /v1/occto/plans/bg_members/[bg_member_id]/demand?date=[yyyy-mm-dd]
 | 速報値の取得          | GET      | /v1/power_usages/preliminary/bg_members/[bg_member_id]?date=[yyyy-mm-dd]
+|=========================================
 
 <<<
 

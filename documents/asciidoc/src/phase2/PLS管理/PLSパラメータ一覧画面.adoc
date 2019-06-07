@@ -52,19 +52,20 @@ input_4 --> prog : input
 ===== I/O
 
 |======================================
-| 名称 | 物理名 | 種類 | I/O種別 | 備考
-| バランシンググループ | balancing_groups | DB | I    |
-| BGメンバー           | bg_members       | DB | I    |
-| 会社                 | companies        | DB | I    |
-| リソース             | resources        | DB | I    |
+| 名称                 | 物理名           | 種類 | I/O種別 | 備考
+| バランシンググループ | balancing_groups | DB   | I       |
+| BGメンバー           | bg_members       | DB   | I       |
+| 会社                 | companies        | DB   | I       |
+| リソース             | resources        | DB   | I       |
 |======================================
 
 ==== 使用するAPI
 
-|=========================================
+|======================================
 | 処理名                         | エンドポイント
-| 指定したBG一覧を取得 | /v1/balancing_groups/list
+| 指定したBG一覧を取得           | /v1/balancing_groups/list
 | 指定したBGのリソース一覧を取得 | /v1/resources?q[bg_member_balancing_group_id_eq]=BG_ID
+|======================================
 
 <<<
 
