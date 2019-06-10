@@ -178,12 +178,14 @@ namespace :legacy do
     if config[:extra]
       column_names = model_class.column_names
       config[:extra].each do |extra_item|
+        logger.debug extra_item
         model_instance = extra_item[:cond].nil? ? model_class.new : model_class.find_or_initialize_by(extra_item[:cond])
         extra_item[:fields].each do |field_name, value|
           if column_names.include?(field_name)
             # カラム定義があれば値としてセット
             model_instance[field_name] = value
           else
+            logger.debug field_name
             # カラム定義がなければ添付ファイル扱い
             path = Rails.root.join('config/legacy_convert', value)
             if File.exist?(path)

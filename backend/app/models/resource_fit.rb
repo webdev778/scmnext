@@ -18,7 +18,7 @@
 #
 
 class ResourceFit < Resource
-  has_many :power_generators
+  has_many :power_generator_groups
 
   protected
   #

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_07_042002) do
+ActiveRecord::Schema.define(version: 2019_06_10_121224) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -564,20 +564,20 @@ ActiveRecord::Schema.define(version: 2019_06_07_042002) do
     t.index ["resource_id"], name: "index_matching_trade_settings_on_resource_id"
   end
 
-  create_table "occto_fit_plan_by_resoures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域発電販売(翌日)リソース別(発電BG別)データ", force: :cascade do |t|
+  create_table "occto_fit_plan_by_power_generator_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域発電販売(翌日)発電BG別データ", force: :cascade do |t|
     t.bigint "fit_plan_id", comment: "広域発電販売(翌日)ID"
-    t.bigint "resource_id", comment: "リソースID"
+    t.bigint "power_generator_group_id", comment: "発電BG ID"
     t.integer "created_by"
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["fit_plan_id", "resource_id"], name: "unique_index_on_business", unique: true
-    t.index ["fit_plan_id"], name: "index_occto_fit_plan_by_resoures_on_fit_plan_id"
-    t.index ["resource_id"], name: "index_occto_fit_plan_by_resoures_on_resource_id"
+    t.index ["fit_plan_id", "power_generator_group_id"], name: "unique_index_on_business", unique: true
+    t.index ["fit_plan_id"], name: "index_occto_fit_plan_by_power_generator_groups_on_fit_plan_id"
+    t.index ["power_generator_group_id"], name: "idx_power_generator_group"
   end
 
   create_table "occto_fit_plan_detail_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域発電販売計画(翌日)詳細値データ", force: :cascade do |t|
-    t.bigint "fit_plan_by_resource_id", comment: "広域発電販売(翌日)リソース別(発電BG別)データID"
+    t.bigint "fit_plan_by_power_generator_group_id", comment: "広域発電販売(翌日)発電BG別データID"
     t.bigint "power_generator_id", comment: "発電者ID"
     t.bigint "time_index_id", comment: "時間枠ID"
     t.decimal "value", precision: 14, comment: "数量(kWh)"
@@ -585,8 +585,8 @@ ActiveRecord::Schema.define(version: 2019_06_07_042002) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["fit_plan_by_resource_id", "power_generator_id", "time_index_id"], name: "unique_index_on_business", unique: true
-    t.index ["fit_plan_by_resource_id"], name: "index_occto_fit_plan_detail_values_on_fit_plan_by_resource_id"
+    t.index ["fit_plan_by_power_generator_group_id", "power_generator_id", "time_index_id"], name: "unique_index_on_business", unique: true
+    t.index ["fit_plan_by_power_generator_group_id"], name: "idx_fit_plan_by_power_generator_group"
     t.index ["power_generator_id"], name: "index_occto_fit_plan_detail_values_on_power_generator_id"
     t.index ["time_index_id"], name: "index_occto_fit_plan_detail_values_on_time_index_id"
   end
@@ -599,8 +599,10 @@ ActiveRecord::Schema.define(version: 2019_06_07_042002) do
     t.datetime "send_at", comment: "送信日時"
     t.string "fit_id_text", limit: 23, comment: "FIT ID(テキスト)"
     t.string "stat", limit: 1, comment: "ステータス"
-    t.string "fit_recept_stat", limit: 2, comment: "受付ステータス"
-    t.string "last_update_datetime_text", limit: 17, comment: "最終更新日時(テキスト)"
+    t.string "fit_receipt_stat", limit: 2, comment: "受付ステータス"
+    t.datetime "occto_last_update_datetime", comment: "広域最終更新日時:ミリ秒単位"
+    t.datetime "occto_submit_datetime", comment: "広域送信日時:秒単位"
+    t.datetime "ottot_create_datetime", comment: "広域作成日時:秒単位"
     t.integer "created_by"
     t.integer "updated_by"
     t.datetime "created_at", null: false
@@ -608,6 +610,7 @@ ActiveRecord::Schema.define(version: 2019_06_07_042002) do
     t.index ["bg_member_id", "date"], name: "unique_index_on_business", unique: true
     t.index ["bg_member_id"], name: "index_occto_fit_plans_on_bg_member_id"
     t.index ["date"], name: "index_occto_fit_plans_on_date"
+    t.index ["fit_id_text"], name: "fit_id_text", unique: true
   end
 
   create_table "occto_plan_by_bg_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域需要調達計画(翌日)BGメンバー別データ", force: :cascade do |t|
@@ -690,8 +693,20 @@ ActiveRecord::Schema.define(version: 2019_06_07_042002) do
     t.index ["type"], name: "index_pl_base_data_on_type"
   end
 
+  create_table "power_generator_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "発電BG", force: :cascade do |t|
+    t.bigint "resource_id", comment: "リソースID"
+    t.string "name", comment: "名前"
+    t.string "code", limit: 5, comment: "コード"
+    t.string "contract_number", limit: 20, comment: "契約No."
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resource_id"], name: "index_power_generator_groups_on_resource_id"
+  end
+
   create_table "power_generators", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "発電者", force: :cascade do |t|
-    t.bigint "resources_id", comment: "リソースID"
+    t.bigint "power_generator_group_id", comment: "発電BG ID"
     t.string "code", limit: 5, null: false, comment: "コード"
     t.string "name", null: false, comment: "名前"
     t.string "contract_number", limit: 20, comment: "契約No."
@@ -700,7 +715,7 @@ ActiveRecord::Schema.define(version: 2019_06_07_042002) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["resources_id"], name: "index_power_generators_on_resources_id"
+    t.index ["power_generator_group_id"], name: "index_power_generators_on_power_generator_group_id"
   end
 
   create_table "power_usage_fixeds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "電力使用量(確定値)", force: :cascade do |t|
