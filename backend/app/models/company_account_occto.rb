@@ -16,4 +16,22 @@
 #
 
 class CompanyAccountOccto < CompanyAccount
+  def execute_occto_api(path, params)
+    if pkcs12_object.nil?
+      logger.error("#{bg_member.company.name}の広域アカウント情報の証明書を読み込むことができません。")
+      return nil
+    end
+    con = Faraday::Connection.new(
+      url: "https://occtonet.occto.or.jp/",
+      ssl: {
+        client_key: pkcs12_object.key,
+        client_cert: pkcs12_object.certificate
+      }
+    )
+    #con.headers['Host'] = 'occtonet.occto.or.jp'
+    #con.headers['Content-type'] = 'application/x-www-form-urlencoded'
+    auth_params = {'userid'=>login_code, 'password'=>password}
+    params = auth_params.merge(params)
+    result = con.post(path, params)
+end
 end
