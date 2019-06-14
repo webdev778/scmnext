@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     resources :facilities, concerns: [:listable]
     resources :facility_groups, concerns: [:listable]
     resources :fuel_cost_adjustments, concerns: [:listable]
+    resources :imbalance_kls
     resources :jbu_contracts, concerns: [:listable]
     resources :resources, concerns: [:listable]
     resources :time_indices, concerns: [:listable]

@@ -141,6 +141,10 @@ export default {
           url: '/masters/resources',
         },
         {
+          name: 'インバランスK値・L値',
+          url: '/masters/imbalance_kls',
+        },
+        {
           name: '時間枠',
           url: '/masters/time_indices',
         },
