@@ -63,4 +63,41 @@
 #
 
 class MatchingTradeSetting < ApplicationRecord
+
+  def supply_value(time_index)
+    if !time_index.is_a?(Integer) or time_index < 1 or time_index > 48
+      raise "時間枠は1～48までの数字を指定してください。"
+    end
+    send("time_index_#{time_index}")
+  end
+
+  def is_match_date?(date)
+    is_match_year?(date.year) and is_match_month?(date.month) and is_match_day?(date.day) and is_match_day_of_week?(date.wday)
+  end
+
+  private
+  def is_match_year?(year)
+    is_match_pattern?(year, year_pattern)
+  end
+
+  def is_match_month?(month)
+    is_match_pattern?(month, month_pattern)
+  end
+
+  def is_match_day?(day)
+    is_match_pattern?(day, day_pattern)
+  end
+
+  def is_match_day_of_week?(day_of_week)
+    is_match_pattern?(day_of_week, day_of_week_pattern)
+  end
+
+  def is_match_pattern?(target, pattern)
+    # @todo カンマ区切りや範囲にも対応のこと
+    if pattern == '*'
+      return true
+    else
+      pattern.to_i == target.to_i
+    end
+  end
 end

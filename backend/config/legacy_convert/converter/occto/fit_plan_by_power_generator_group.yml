@@ -4,12 +4,12 @@
 :model_class: Occto::FitPlanByPowerGeneratorGroup
 :sources:
 - :fields:
-    id:
-    fit_plan_id:
-    power_generator_group_id:
-    created_by:
-    updated_by:
-    created_at:
-    updated_at:
-  :from:
-  :where:
+    id: 
+    fit_plan_id: 
+    power_generator_group_id: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
+  :from: 
+  :where: 

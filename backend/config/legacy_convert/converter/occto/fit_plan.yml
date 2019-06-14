@@ -5,20 +5,20 @@
 :sources:
 - :fields:
     id: "'スキップ用ダミー'"
-    bg_member_id:
-    date:
-    initialized_at:
-    received_at:
-    send_at:
-    fit_id_text:
-    stat:
-    fit_receipt_stat:
-    occto_last_update_datetime:
-    occto_submit_datetime:
-    ottot_create_datetime:
-    created_by:
-    updated_by:
-    created_at:
-    updated_at:
+    bg_member_id: 
+    date: 
+    initialized_at: 
+    received_at: 
+    send_at: 
+    fit_id_text: 
+    stat: 
+    fit_receipt_stat: 
+    occto_last_update_datetime: 
+    occto_submit_datetime: 
+    ottot_create_datetime: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
   :from: tbl_account
   :where: 1 = 0
