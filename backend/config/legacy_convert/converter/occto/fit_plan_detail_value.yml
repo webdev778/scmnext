@@ -5,13 +5,13 @@
 :sources:
 - :fields:
     id: "'スキップ用ダミー'"
-    fit_plan_by_power_generator_group_id:
-    power_generator_id:
-    time_index_id:
-    value:
-    created_by:
-    updated_by:
-    created_at:
-    updated_at:
+    fit_plan_by_power_generator_group_id: 
+    power_generator_id: 
+    time_index_id: 
+    value: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
   :from: tbl_account
   :where: 1 = 0

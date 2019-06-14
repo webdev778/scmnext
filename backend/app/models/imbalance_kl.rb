@@ -1,0 +1,2 @@
+class ImbalanceKl < ApplicationRecord
+end

@@ -6,7 +6,7 @@ include::需要予測詳細(PPS単位).adoc[]
 include::需要予測詳細(施設単位).adoc[]
 include::翌日調達計画詳細.adoc[]
 include::同時同量監視.adoc[]
-include::時間前入札.adoc[]
-include::時間前入札結果.adoc[]
+include::時間前市場調達詳細.adoc[]
+include::時間前市場取引詳細.adoc[]
 
 <<<

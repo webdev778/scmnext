@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_10_121224) do
+ActiveRecord::Schema.define(version: 2019_06_14_014504) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -433,6 +433,18 @@ ActiveRecord::Schema.define(version: 2019_06_10_121224) do
     t.index ["district_id"], name: "index_holidays_on_district_id"
   end
 
+  create_table "imbalance_kls", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "インバランスK値・L値", force: :cascade do |t|
+    t.bigint "district_id", comment: "エリアID"
+    t.date "start_date", comment: "開始日"
+    t.decimal "k_value", precision: 10, scale: 4, comment: "K値"
+    t.decimal "l_value", precision: 10, scale: 4, comment: "L値"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["district_id"], name: "index_imbalance_kls_on_district_id"
+  end
+
   create_table "jbu_contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "常時バックアップ電源契約", force: :cascade do |t|
     t.bigint "resource_id", comment: "リソースID"
     t.bigint "district_id", comment: "エリアID"
@@ -453,6 +465,31 @@ ActiveRecord::Schema.define(version: 2019_06_10_121224) do
     t.index ["company_id"], name: "index_jbu_contracts_on_company_id"
     t.index ["district_id"], name: "index_jbu_contracts_on_district_id"
     t.index ["resource_id"], name: "index_jbu_contracts_on_resource_id"
+  end
+
+  create_table "jepx_hour_before_trade_results", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "時間前市場取引結果", force: :cascade do |t|
+    t.bigint "hour_before_trade_id", comment: "時間前市場取引ID"
+    t.boolean "is_applied_to_plan", default: false, null: false, comment: "計画反映済"
+    t.integer "unit_price", default: 0, null: false, comment: "単価"
+    t.integer "qty", default: 0, null: false, comment: "数量"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hour_before_trade_id"], name: "index_jepx_hour_before_trade_results_on_hour_before_trade_id"
+  end
+
+  create_table "jepx_hour_before_trades", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "時間前市場取引", force: :cascade do |t|
+    t.bigint "resource_id", comment: "リソースID"
+    t.date "date", comment: "日付"
+    t.bigint "time_index_id", comment: "時間枠ID"
+    t.integer "trade_type", limit: 1, null: false, comment: "取引種別:1:売注文,2:買注文"
+    t.integer "unit_price", default: 0, null: false, comment: "単価"
+    t.integer "qty", default: 0, null: false, comment: "数量"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resource_id"], name: "index_jepx_hour_before_trades_on_resource_id"
+    t.index ["time_index_id"], name: "index_jepx_hour_before_trades_on_time_index_id"
   end
 
   create_table "jepx_imbalance_betas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "JEPXインバランスβ値", force: :cascade do |t|
