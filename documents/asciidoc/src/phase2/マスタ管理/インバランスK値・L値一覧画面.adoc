@@ -23,16 +23,16 @@ salt
   }
   {#
     . |id|エリア名|適用開始年月日| K値 | L値
-        [表示] | XXXXX|XXXXX|XXXXX||
-        [表示] | XXXXX|XXXXX|XXXXX||
-        [表示] | XXXXX|XXXXX|XXXXX||
-        [表示] | XXXXX|XXXXX|XXXXX||
-        [表示] | XXXXX|XXXXX|XXXXX||
-        [表示] | XXXXX|XXXXX|XXXXX||
-        [表示] | XXXXX|XXXXX|XXXXX||
-        [表示] | XXXXX|XXXXX|XXXXX||
-        [表示] | XXXXX|XXXXX|XXXXX||
-        [表示] | XXXXX|XXXXX|XXXXX||
+        [表示] | XXXXX|XXXXX|XXXXX| . | .
+        [表示] | XXXXX|XXXXX|XXXXX| . | .
+        [表示] | XXXXX|XXXXX|XXXXX| . | .
+        [表示] | XXXXX|XXXXX|XXXXX| . | .
+        [表示] | XXXXX|XXXXX|XXXXX| . | .
+        [表示] | XXXXX|XXXXX|XXXXX| . | .
+        [表示] | XXXXX|XXXXX|XXXXX| . | .
+        [表示] | XXXXX|XXXXX|XXXXX| . | .
+        [表示] | XXXXX|XXXXX|XXXXX| . | .
+        [表示] | XXXXX|XXXXX|XXXXX| . | .
       }
 }
 
