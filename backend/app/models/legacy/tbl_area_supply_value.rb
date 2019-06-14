@@ -52,7 +52,7 @@ class Legacy::TblAreaSupplyValue < Legacy
           if resources.length > 1
             time = supply_datum.time
             time_index_id = TimeIndex.from_time_to_time_index_id(time)
-            allocation_base_total = resources.sum {|resource| resouce.get_pre_defined_supply_value(date, time_index)}
+            allocation_base_total = resources.sum {|resource| resource.get_pre_defined_supply_value(date, time_index_id)}
             value_sum = 0
             interchange_value_sum = 0
             resources.each.with_index do |resource, index|
@@ -60,8 +60,9 @@ class Legacy::TblAreaSupplyValue < Legacy
                 value = supply_datum.value - value_sum
                 interchange_value = supply_datum.interchange_value - interchange_value_sum
               else
-                value = supply_datum.value * eval(resource.supply_value) / allocation_base_total
-                interchange_value = supply_datum.interchange_value * eval(resource.supply_value) / allocation_base_total
+                supply_value = resource.get_pre_defined_supply_value(date, time_index_id)
+                value = supply_datum.value * supply_value / allocation_base_total
+                interchange_value = supply_datum.interchange_value * supply_value / allocation_base_total
                 value_sum += value
                 interchange_value_sum += value
               end
