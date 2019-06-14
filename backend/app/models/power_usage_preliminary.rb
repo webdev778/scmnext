@@ -25,7 +25,7 @@ class PowerUsagePreliminary < ApplicationRecord
       logger.info("[#{target_name}]の速報値当日データ取込処理を開始 (記録日:#{date} コマ:#{time_index})")
       [:high, :low].each do |voltage_mode|
         target_files = setting.files.filter_force(force).where(data_type: :today, voltage_mode: voltage_mode, record_date: date, record_time_index_id: time_index)
-        process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting) do |file|
+        process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting, date) do |file|
           today_xml_importer(file)
         end
       end
@@ -39,14 +39,14 @@ class PowerUsagePreliminary < ApplicationRecord
       logger.info("[#{target_name}]の速報値過去データ取込処理を開始 (記録日:#{date})")
       [:high, :low].each do |voltage_mode|
         target_files = setting.files.filter_force(force).where(data_type: :past, voltage_mode: voltage_mode, record_date: date).order(revision: :asc, section_number: :asc)
-        process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting) do |file|
+        process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting, date) do |file|
           past_xml_importer(file)
         end
       end
     end
 
     private
-    def process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting)
+    def process_each_files_to_tmp_and_import_from_tmp_to_power_usage(target_files, setting, date)
       init_tmp_power_usage
       # ActiveRecordRelation Objectで検索条件に含まれているステータスの変更をブロック内で行っているため
       # 思わぬ動作をしてしまうので、最初に配列にしておく
@@ -60,6 +60,7 @@ class PowerUsagePreliminary < ApplicationRecord
         end
         if import_from_tmp_to_power_usage(setting)
           Dlt::File.where(id: file_ids).update_all(state: :state_complated)
+          Dlt::File.where(data_type: :today, record_date: date).update_all(state: "state_complated")
         else
           Dlt::File.where(id: file_ids).update_all(state: :state_complated_with_error)
         end
