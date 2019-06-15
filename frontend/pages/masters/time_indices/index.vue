@@ -12,10 +12,10 @@
         b-col
           b-form-group(
             label="時間"
-            label-for="time"
+            label-for="time_text_cont"
             )
             b-form-input(
-              id="time"
+              id="time_text_cont"
               v-model="query.time_text_cont"
             )
 </template>
@@ -33,7 +33,7 @@ export default {
           label: "ID"
         },
         {
-          key: "time",
+          key: "time_text",
           label: "時間"
         },
         {

@@ -13,28 +13,29 @@
             label="エリア"
             label-for="district_id_eq"
             )
-            b-form-input(
+            b-form-select(
               id="district_id_eq"
               v-model="query.district_id_eq"
+              v-bind:options="districts"
             )
         b-col
           b-form-group(
             label="開始日From"
-            label-for="start_date_gte"
+            label-for="start_date_gteq"
             )
             b-form-input(
-              id="district_id"
-              v-model="query.start_date_gte"
+              id="start_date_gteq"
+              v-model="query.start_date_gteq"
               type="date"
             )
         b-col
           b-form-group(
             label="開始日To"
-            label-for="start_date_lte"
+            label-for="start_date_lteq"
             )
             b-form-input(
-              id="start_date_lte"
-              v-model="query.start_date_lte"
+              id="start_date_lteq"
+              v-model="query.start_date_lteq"
               type="date"
             )
 </template>
@@ -82,14 +83,12 @@ export default {
         district_id_eq: null,
         start_date_gte: null,
         start_date_lte: null
-      },
-      districts: []
+      }
     }
   },
   async asyncData(ctx) {
-    const districts = await ctx.$restApi.list('districts', null, {format: 'options', emptyValue: '全て'})
     return {
-      districts: districts
+      districts: await ctx.$restApi.list('districts', null, {format: 'options', emptyValue: '全て'})
     }
   }
 }

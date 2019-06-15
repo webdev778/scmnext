@@ -74,15 +74,16 @@ export default {
         }
       ],
       options: {
-        bg_member_id: {}
+        resource_id: {}
       }
     }
   },
-  created() {
-    this.$restApi.list('bg_members', null, {format: 'options', emptyValue: '未設定'})
-    .then(result=>{
-      this.options.bg_member_id = result
-    })
+  async asyncData(ctx) {
+    return {
+      options: {
+        resource_id: await ctx.$restApi.list('resources', {"type": "ResourceJbu"}, {format: 'options', emptyValue: '未設定'})
+      }
+    }
   }
 }
 </script>

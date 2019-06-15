@@ -42,17 +42,13 @@ export default {
           type: "text",
           label: "L値"
         }
-      ],
-      options: {
-        district_id: {}
-      }
+      ]
     }
   },
   async asyncData(ctx) {
-    const districts = await ctx.$restApi.list('districts', null, {format: 'options', emptyValue: '未設定'})
     return {
       options: {
-        district_id: districts
+        district_id: await ctx.$restApi.list('districts', null, {format: 'options', emptyValue: '未設定'})
       }
     }
   }

@@ -47,27 +47,17 @@ export default {
           type: "text",
           label: "契約容量"
         }
-      ],
-      options: {
-        bg_member_id: {},
-        contract_id: {},
-        voltage_type_id: {}
-      }
+      ]
     }
   },
-  created() {
-    this.$restApi.list('bg_members', null, {format: 'options', emptyValue: '未設定'})
-    .then(result=>{
-      this.options.bg_member_id = result
-    })
-    this.$restApi.list('contracts', null, {format: 'options', emptyValue: '未設定'})
-    .then(result=>{
-      this.options.contract_id = result
-    })
-    this.$restApi.list('voltage_types', null, {format: 'options', emptyValue: '未設定'})
-    .then(result=>{
-      this.options.voltage_type_id = result
-    })
+  async asyncData(ctx) {
+    return {
+      options: {
+        bg_member_id: await ctx.$restApi.list('bg_members', null, {format: 'options', emptyValue: '未設定'}),
+        contract_id: await ctx.$restApi.list('contracts', null, {format: 'options', emptyValue: '未設定'}),
+        voltage_type_id: await ctx.$restApi.list('voltage_types', null, {format: 'options', emptyValue: '未設定'})
+      }
+    }
   }
 }
 </script>

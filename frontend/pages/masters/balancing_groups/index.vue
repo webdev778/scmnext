@@ -78,20 +78,14 @@ export default {
         name_cont: null,
         district_id_eq: null,
         leader_company_id_eq: null
-      },
-      districts: [],
-      leader_companies: []
+      }
     }
   },
-  created() {
-    this.$restApi.list('districts', null, {format: 'options', emptyValue: '全て'})
-    .then(result=>{
-      this.districts = result
-    })
-    this.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
-    .then(result=>{
-      this.leader_companies = result
-    })
+  async asyncData(ctx) {
+    return {
+      districts: await ctx.$restApi.list('districts', null, {format: 'options', emptyValue: '全て'}),
+      leader_companies: await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
+    }
   }
 }
 </script>

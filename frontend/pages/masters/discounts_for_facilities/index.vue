@@ -10,13 +10,12 @@
       b-row
         b-col
           b-form-group(
-            label="施設"
-            label-for="facility_id"
+            label="施設名"
+            label-for="facility_name_cont"
             )
-            b-form-select(
+            b-form-input(
               id="facility_id"
-              v-model="query.facility_id_eq"
-              v-bind:options="facilities"
+              v-model="query.facility_name_cont"
             )
 </template>
 
@@ -48,23 +47,9 @@ export default {
         }
       ],
       query: {
-        facility_id: null
-      },
-      facilities: []
+        facility_name_cont: null
+      }
     }
-  },
-  created() {
-    this.$axios.$get(`/v1/facilities`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.facilities = options
-    })
   }
 }
 </script>

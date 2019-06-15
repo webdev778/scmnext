@@ -12,10 +12,10 @@
         b-col
           b-form-group(
             label="名前"
-            label-for="name"
+            label-for="name_cont"
             )
             b-form-input(
-              id="name"
+              id="name_cont"
               v-model="query.name_cont"
             )
 </template>

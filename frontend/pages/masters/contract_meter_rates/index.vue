@@ -64,34 +64,14 @@ export default {
       query: {
         contract_id_eq: null,
         contract_item_id_eq: null
-      },
-      contracts: [],
-      contract_items: []
+      }
     }
   },
-  created() {
-    this.$axios.$get(`/v1/contracts`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.contracts = options
-    })
-    this.$axios.$get(`/v1/contract_items`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.contract_items = options
-    })
+  async asyncData(ctx) {
+    return {
+      contracts: await ctx.$restApi.list('contracts', null, {format: 'options', emptyValue: '全て'}),
+      contract_items: await ctx.$restApi.list('contract_items', null, {format: 'options', emptyValue: '全て'})
+    }
   }
 }
 </script>

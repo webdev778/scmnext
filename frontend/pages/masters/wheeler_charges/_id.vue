@@ -78,18 +78,12 @@ export default {
       }
     }
   },
-  created() {
-    this.$axios.$get('/v1/districts')
-    .then(result=>{
-      let districts = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      districts.unshift({value: null, text: ""})
-      this.options['district_id'] = districts
-    })
+  async asyncData(ctx) {
+    return {
+      options: {
+        district_id: await ctx.$restApi.list('districts', null, {format: 'options', emptyValue: '未設定'})
+      }
+    }
   }
 }
 </script>

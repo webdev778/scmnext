@@ -52,36 +52,16 @@ export default {
           type: "text",
           label: "終了日"
         }
-      ],
-      options: {
-        voltage_type_id: {},
-        contract_item_group_id: {}
-      }
+      ]
     }
   },
-  created() {
-    this.$axios.$get(`/v1/voltage_types`)
-    .then(result=>{
-      let voltage_types = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      voltage_types.unshift({value: null, text: ""})
-      this.options['voltage_type_id'] = voltage_types
-    })
-    this.$axios.$get(`/v1/contract_item_groups`)
-    .then(result=>{
-      let contract_item_groups = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      contract_item_groups.unshift({value: null, text: ""})
-      this.options['contract_item_group_id'] = contract_item_groups
-    })
+  async asyncData(ctx) {
+    return {
+      options: {
+        voltage_type_id: await ctx.$restApi.list('voltage_types', null, {format: 'options', emptyValue: '未設定'}),
+        contract_item_group_id: await ctx.$restApi.list('contract_item_groups', null, {format: 'options', emptyValue: '未設定'})
+      }
+    }
   }
 }
 </script>

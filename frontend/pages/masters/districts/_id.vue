@@ -97,30 +97,19 @@ export default {
           type: "text",
           label: "夏季終了月"
         }
-      ],
-      options: {
-        daytime_start_time_index_id: {},
-        daytime_end_time_index_id: {},
-        peaktime_start_time_index_id: {},
-        peaktime_end_time_index_id: {}
-      }
+      ]
     }
   },
-  created() {
-    this.$axios.$get(`/v1/time_indices`)
-    .then(result=>{
-      let time_indices = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.time
-        }
-      })
-      time_indices.unshift({value: null, text: ""})
-      this.options['daytime_start_time_index_id'] = time_indices
-      this.options['daytime_end_time_index_id'] = time_indices
-      this.options['peaktime_start_time_index_id'] = time_indices
-      this.options['peaktime_end_time_index_id'] = time_indices
-    })
+  async asyncData(ctx) {
+    const time_indices = await ctx.$restApi.list('time_indices', null, {format: 'options', emptyValue: '未設定'})
+    return {
+      options: {
+        daytime_start_time_index_id: time_indices,
+        daytime_end_time_index_id: time_indices,
+        peaktime_start_time_index_id: time_indices,
+        peaktime_end_time_index_id: time_indices
+      }
+    }
   }
 }
 </script>

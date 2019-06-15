@@ -42,22 +42,16 @@ export default {
           type: "select",
           label: "リーダーPPS"
         }
-      ],
-      options: {
-        district_id: {},
-        leader_company_id: {}
-      }
+      ]
     }
   },
-  created() {
-    this.$restApi.list('districts', null, {format: 'options', emptyValue: '未設定'})
-    .then(result=>{
-      this.options['district_id'] = result
-    })
-    this.$restApi.list('companies', null, {format: 'options', emptyValue: '未設定'})
-    .then(result=>{
-      this.options['leader_company_id'] = result
-    })
+  async asyncData(ctx) {
+    return {
+      options: {
+        district_id: await ctx.$restApi.list('districts', null, {format: 'options', emptyValue: '未設定'}),
+        leader_company_id: await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '未設定'})
+      }
+    }
   }
 }
 </script>

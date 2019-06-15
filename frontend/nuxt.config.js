@@ -91,7 +91,9 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/moment-module
     ['@nuxtjs/moment', ['ja']],
     // Doc: https://github.com/bootstrap-vue/bootstrap-vue
-    'bootstrap-vue/nuxt'
+    'bootstrap-vue/nuxt',
+    // Doc: https://github.com/nuxt-community/style-resources-module
+    '@nuxtjs/style-resources'
   ],
   /*
   ** Axios module configuration
@@ -110,13 +112,13 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    styleResources: {
-      scss: './assets/scss/style.scss',
-      // options: {
-      //   // See https://github.com/yenshih/style-resources-loader#options
-      //   // Except `patterns` property
-      // }
-    },
+    // styleResources: {
+    //   scss: './assets/scss/style.scss',
+    //   // options: {
+    //   //   // See https://github.com/yenshih/style-resources-loader#options
+    //   //   // Except `patterns` property
+    //   // }
+    // },
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
