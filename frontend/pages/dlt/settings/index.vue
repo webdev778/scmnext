@@ -66,11 +66,13 @@ export default {
         },
         {
           key: "created_at",
-          label: "作成日時"
+          label: "作成日時",
+          formatter: 'formatDatetime'
         },
         {
           key: "updated_at",
-          label: "更新日時"
+          label: "更新日時",
+          formatter: 'formatDatetime'
         }
       ],
       query: {
@@ -81,11 +83,11 @@ export default {
     }
   },
   async asyncData(ctx) {
-    let data = {}
-    data['balancing_groups'] = await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
-    data['companies'] = await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
-    data['states'] = await ctx.$restApi.enums('dlt/settings', 'states', {format: 'options', emptyValue: '全て'})
-    return data
+    return {
+      balancing_groups: await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'}),
+      companies: await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'}),
+      states: await ctx.$restApi.enums('dlt/files', 'states', {format: 'options'})
+    }
   }
 }
 </script>

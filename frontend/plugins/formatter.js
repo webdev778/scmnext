@@ -7,6 +7,21 @@ export default function ( ctx, inject) {
     }
   }
   const formatter = {
+    date: (value) => {
+      return formatUnlessNull(value, (value)=>{
+        return ctx.$moment(value).format('l')
+      })
+    },
+    datetime: (value) => {
+      return formatUnlessNull(value, (value)=>{
+        return ctx.$moment(value).format('l LT')
+      })
+    },
+    time: (value) => {
+      return formatUnlessNull(value, (value)=>{
+        return ctx.$moment(value).format('LT')
+      })
+    },
     currency: (value) => {
       return formatUnlessNull(value, (value)=>{
         let formatter = new Intl.NumberFormat('ja-JP')

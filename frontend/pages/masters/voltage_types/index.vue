@@ -38,11 +38,13 @@ export default {
         },
         {
           key: "created_at",
-          label: "作成日時"
+          label: "作成日時",
+          formatter: 'formatTime'
         },
         {
           key: "updated_at",
-          label: "更新日時"
+          label: "更新日時",
+          formatter: 'formatTime'
         }
       ],
       query: {

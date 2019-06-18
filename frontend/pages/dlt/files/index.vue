@@ -95,6 +95,7 @@ export default {
         {
           key: "record_date",
           label: "記録日",
+          formatter: 'formatDate',
           width: 100
         },
         {
@@ -125,12 +126,12 @@ export default {
         {
           key: "created_at",
           label: "作成日時",
-          width: 180,
+          formatter: 'formatDatetime'
         },
         {
           key: "updated_at",
           label: "更新日時",
-          width: 180,
+          formatter: 'formatDatetime'
         }
       ],
       query: {
@@ -143,36 +144,17 @@ export default {
         voltage_mode_in: null,
         data_type_in: null,
         state_in: null
-      },
-      balancing_groups: [],
-      companies: [],
-      voltage_modes: [],
-      data_types: [],
-      states: []
+      }
     }
   },
-  created (){
-    this.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
-    .then(result=>{
-      this.balancing_groups = result
-    })
-    this.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
-    .then(result=>{
-      this.companies = result
-    })
-    this.$restApi.enums('dlt/files', 'voltage_modes', {format: 'options'})
-    .then(result=>{
-      this.voltage_modes = result
-    })
-    this.$restApi.enums('dlt/files', 'data_types', {format: 'options'})
-    .then(result=>{
-      this.data_types = result
-    })
-    this.$restApi.enums('dlt/files', 'states', {format: 'options'})
-    .then(result=>{
-      this.states = result
-    })
-
+  async asyncData(ctx) {
+    return {
+      balancing_groups: await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'}),
+      companies: await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'}),
+      voltage_modes: await ctx.$restApi.enums('dlt/files', 'voltage_modes', {format: 'options'}),
+      data_types: await ctx.$restApi.enums('dlt/files', 'data_types', {format: 'options'}),
+      states: await ctx.$restApi.enums('dlt/files', 'states', {format: 'options'})
+    }
   }
 }
 </script>

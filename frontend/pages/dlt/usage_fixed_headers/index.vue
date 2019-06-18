@@ -78,15 +78,18 @@ export default {
         },
         {
           key: "year",
-          label: "年"
+          label: "年",
+          width: 100
         },
         {
           key: "month",
-          label: "月"
+          label: "月",
+          width: 50
         },
         {
           key: "record_date",
-          label: "検針日"
+          label: "検針日",
+          formatter: "formatDate"
         },
         {
           key: "supply_point_number",
@@ -94,11 +97,13 @@ export default {
         },
         {
           key: "created_at",
-          label: "作成日時"
+          label: "作成日時",
+          formatter: "formatDatetime"
         },
         {
           key: "updated_at",
-          label: "更新日時"
+          label: "更新日時",
+          formatter: "formatDatetime"
         }
       ]
     }

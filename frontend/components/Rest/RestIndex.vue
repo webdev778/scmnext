@@ -207,6 +207,27 @@ export default {
         params["q[s]"] = `${this.sort.name.replace('.', '_')} ${this.sort.dir}`
       }
       this.data = await this.$axios.$get(`/v1/${this.name}`, {params: params})
+    },
+    formatDate(value){
+      return this.$formatter.date(value);
+    },
+    formatDatetime(value){
+      return this.$formatter.datetime(value);
+    },
+    formatTime(value){
+      return this.$formatter.time(value);
+    },
+    formatCurrency(value){
+      return this.$formatter.currency(value);
+    },
+    formatDecimal(value){
+      return this.$formatter.decimal(value);
+    },
+    formatInteger(value){
+      return this.$formatter.integer(value);
+    },
+    formatPercent(value){
+      return this.$formatter.percent(value);
     }
   }
 }

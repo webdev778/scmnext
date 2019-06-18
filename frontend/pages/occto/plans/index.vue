@@ -44,6 +44,7 @@ export default {
         {
           key: "date",
           label: "日付",
+          formatter: "formatDate"
         },
         {
           key: "balancing_group.name",
@@ -51,25 +52,25 @@ export default {
         },
         {
           key: "created_at",
-          label: "作成日時"
+          label: "作成日時",
+          formatter: "formatDatetime"
         },
         {
           key: "updated_at",
-          label: "更新日時"
+          label: "更新日時",
+          formatter: "formatDatetime"
         }
       ],
       query: {
         balancing_group_id_eq: null,
         date_gteq: null,
         date_lteq: null
-      },
-      balancing_groups: [],
+      }
     }
   },
   async asyncData (ctx){
-    const balancing_groups = await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
     return {
-      balancing_groups: balancing_groups
+      balancing_groups: await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
     }
   }
 }

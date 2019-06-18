@@ -33,8 +33,9 @@ export default {
           label: "ID"
         },
         {
-          key: "time_text",
-          label: "時間"
+          key: "time",
+          label: "時間",
+          formatter: 'formatTime'
         },
         {
           key: "created_at",

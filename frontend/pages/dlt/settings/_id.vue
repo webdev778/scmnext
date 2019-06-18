@@ -32,22 +32,16 @@ export default {
           type: "radio",
           label: "状態"
         }
-      ],
-      options: {
-        bg_member_id: {},
-        state: {}
-      }
+      ]
     }
   },
-  created() {
-    this.$restApi.list('bg_members', null, {format: 'options', emptyValue: '未設定'})
-    .then(result=>{
-      this.options['bg_member_id'] = result
-    })
-    this.$restApi.enums('dlt/settings', 'state', {format: 'options'})
-    .then(result=>{
-      this.options['state'] = result
-    })
+  async asyncData(ctx) {
+    return {
+      options: {
+        bg_member_id: await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '未設定'}),
+        states: await ctx.$restApi.enums('dlt/files', 'states', {format: 'options', emptyValue: '未設定'})
+      }
+    }
   }
 }
 </script>
