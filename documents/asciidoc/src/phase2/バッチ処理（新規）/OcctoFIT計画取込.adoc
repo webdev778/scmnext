@@ -3,44 +3,66 @@
 ==== 概要
 
 [.lead]
-発電BGに対して広域機関の翌日発電・販売計画（FIT作成用）でリスト取得及びファイル取得APIを使用して、FIT計画の取得を行う。
+広域のAPIを使用して発電販売計画のステータス確認を行い、発電計画値（太陽光・風力）登録済のデータがある場合はその取込を行う
 
 [plantuml]
 --
-cloud JEPX {
-  file "インプットファイル" as input
-}
 
 rectangle SCM {
-  (JEPXインバランスβ値取込) as main
-  database "JEPXインバランスβ値" as output
+  database バランシンググループ as input_1
+  database BGメンバー as input_2
+  database リソース as input_3
+  database 発電BG as input_4
+  database 発電者 as input_5
+  (OcctoFIT計画初期化) as main
+  database "広域発電販売計画(翌日)" as output_1
 }
 
-input --> main : input
-main --> output : output
+cloud 広域機関 {
+  file "広域機関の翌日発電・販売計画（FIT 作成用）登録API" as output_2
+}
+
+input_1 --> main : input
+input_2 --> main : input
+input_3 --> main : input
+input_4 --> main : input
+input_5 --> main : input
+main --> output_1 : output
+main --> output_2 : output
 --
 
 ===== I/O
 
 |======================================
 | 名称                    | 物理名               | 種類 | I/O種別 | 備考
-|                         |                      | DB   | O       |
+| バランシンググループ                     | balancing_groups                                                                     | DB   | I       |
+| BGメンバー                               | bg_members                                                                           | DB   | I       |
+| リソース                                 | resources                                                                            | DB   | I       |
+| 発電BG                                   | power_generator_groups                                                               | DB   | I       |
+| 発電者                                   | power_generators                                                                     | DB   | I       |
+| 広域発電販売計画(翌日)                   | occto_fit_plans                                                                      | DB   | I/O     |
+| 広域発電販売(翌日)発電BG別データ         | occto_fit_plan_by_power_generator_groups                                             | DB   | I/O     |
+| 広域発電販売計画(翌日)詳細値データ       | occto_fit_plan_detail_values                                                         | DB   | I/O     |
+| 翌日発電・販売計画（FIT 作成用）一覧取得 | https://occtonet.occto.or.jp/service/RP12/OCCTO/api/listDownload/getW6BP0152FileList | API  | I       |
+| 翌日発電・販売計画（FIT 作成用）取得     | https://occtonet.occto.or.jp/service/RP12/OCCTO/api/fileDownload/getW6BP0152File     | API  | I       |
 |======================================
 
 ===== パラメータ
 
 |======================================
-| 名称 | 物理名 | 必須 | 備考
-|      |        |      |
+| 名称                       | 物理名 | 必須 | 備考
+| バランシンググループID     | BG_ID  | X    |
+| 日付                       | DATE   | X    |
 |======================================
 
 <<<
 
 ==== 処理詳細
 
-. a
-. b
-
-NOTE:
+. パラメータで指定されたバランシンググループIDからBGメンバーを取得する
+.. BGメンバーごとに以下の処理を実行する
+... 取得したBGメンバーにFITリソースデータが存在するかを確認する
+.... 存在する場合は広域のAPIを使用してファイルリストの取得を行う
+.... 取得したファイルリストのうち、発電計画値（太陽光・風力）登録済のものについては、ファイルのダウンロードを行い、広域発電販売計画(翌日)の取り込みを実施する
 
 <<<

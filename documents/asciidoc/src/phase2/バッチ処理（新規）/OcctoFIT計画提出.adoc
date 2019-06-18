@@ -3,7 +3,7 @@
 ==== 概要
 
 [.lead]
-(処理概要をここに記述)
+発電計画値（太陽光・風力）登録済のデータを抽出して按分処理を行い広域のAPIを使用して発電販売計画の提出を行う。
 
 [plantuml]
 --
@@ -12,35 +12,68 @@ cloud JEPX {
 }
 
 rectangle SCM {
-  (JEPXインバランスβ値取込) as (main)
-  database "JEPXインバランスβ値" as output
+  database "バランシンググループ" as input_1
+  database "BGメンバー" as input_2
+  database "リソース" as input_3
+  database "発電BG" as input_4
+  database "発電者" as input_5
+  (OcctoFIT計画提出) as (main)
+  database "広域発電販売計画(翌日)" as io_1
+  database "広域発電販売(翌日)発電BG別データ" as io_2
+  database "広域発電販売計画(翌日)詳細値データ" as io_3
 }
 
-input --> main : input
-main --> output : output
+input_1 --> main : input
+input_2 --> main : input
+input_3 --> main : input
+input_4 --> main : input
+input_5 --> main : input
+main <--> io_1 : input/output
+main <--> io_2 : input/output
+main <--> io_3 : input/output
 --
 
 ===== I/O
 
 |======================================
-| 名称                    | 物理名               | 種類 | I/O種別 | 備考
-|                         |                      | DB   | O       |
+| 名称                                 | 物理名                                                                     | 種類 | I/O種別 | 備考
+| 広域発電販売計画(翌日)               | occto_fit_plans                                                            | DB   | I/O     |
+| 広域発電販売(翌日)発電BG別データ     | occto_fit_plan_by_power_generator_groups                                   | DB   | I/O     |
+| 広域発電販売計画(翌日)詳細値データ   | occto_fit_plan_detail_values                                               | DB   | I/O     |
+| バランシンググループ                 | balancing_groups                                                           | DB   | O       |
+| BGメンバー                           | bg_members                                                                 | DB   | O       |
+| リソース                             | resources                                                                  | DB   | O       |
+| 発電BG                               | power_generator_groups                                                     | DB   | O       |
+| 発電者                               | power_generators                                                           | DB   | O       |
+| 翌日発電・販売計画（FIT 作成用）登録 | https://occtonet.occto.or.jp/service/RP12/OCCTO/api/upload/putW6BP0152File | API  | O       |
 |======================================
+
+
 
 ===== パラメータ
 
 |======================================
-| 名称 | 物理名 | 必須 | 備考
-|      |        |      |
+| 名称                    | 物理名 | 必須 | 備考
+| バランシンググループID  | BG_ID  | ×    |
+| 処理日                  | DATE   | ×    |
 |======================================
 
 <<<
 
 ==== 処理詳細
 
-. a
-. b
+===== 初期処理
 
-NOTE:
+. 指定されたバランシンググループID及び処理日から対象となるバランシンググループと処理日を決める。
+.. 指定がない場合は全てのバランシンググループを対象とし、処理日はプログラム実行日の翌日とする。
+
+===== バランシンググループ別処理
+
+. 指定されたバランシンググループに紐づくBGメンバーを検索しパラメータで指定された処理日の広域発電販売計画(翌日)データを抽出する。
+. 抽出された広域発電販売計画(翌日)データのステータスが2(発電計画値（太陽光・風力）登録済)のものについて以下の処理を行う。
+.. 各コマごとに広域発電販売計画(翌日)データの発電BG毎の発電量合計を求める。
+.. 発電BG毎の発電量合計を発電BGに紐づく発電者の最大量を基準に各発電者に按分する。(この際、按分誤差をなくすために、最大量が最も大きい発電者の按分値は発電量合計とそれ以外の発電者の按分量の差を用いて求めること。)
+.. 按分された結果を広域発電販売計画(翌日)詳細値データに保存する
+.. 広域のAPIを使用して按分を行った広域発電販売計画(翌日)データを送信する。
 
 <<<
