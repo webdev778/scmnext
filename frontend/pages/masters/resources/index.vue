@@ -67,18 +67,11 @@ export default {
       balancing_groups: []
     }
   },
-  created() {
-    this.$axios.$get(`/v1/balancing_groups`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.balancing_groups = options
-    })
+  async asyncData(ctx) {
+    return {
+      balancing_groups: await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'}),
+      companies: await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
+    }
   }
 }
 </script>

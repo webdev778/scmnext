@@ -12,10 +12,10 @@
         b-col
           b-form-group(
             label="名前"
-            label-for="name"
+            label-for="name_cont"
             )
             b-form-input(
-              id="name"
+              id="name_cont"
               v-model="query.name_cont"
             )
 </template>
@@ -38,11 +38,13 @@ export default {
         },
         {
           key: "created_at",
-          label: "作成日時"
+          label: "作成日時",
+          formatter: 'formatTime'
         },
         {
           key: "updated_at",
-          label: "更新日時"
+          label: "更新日時",
+          formatter: 'formatTime'
         }
       ],
       query: {

@@ -37,24 +37,15 @@ export default {
           type: "text",
           label: "割引率"
         }
-      ],
-      options: {
-        facility_id: {}
-      }
+      ]
     }
   },
-  created() {
-    this.$axios.$get(`/v1/facilities`)
-    .then(result=>{
-      let facilities = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      facilities.unshift({value: null, text: ""})
-      this.options['facility_id'] = facilities
-    })
+  async asyncData(ctx) {
+    return {
+      options: {
+        facility_id: await ctx.$restApi.list('facilities', null, {format: 'options', emptyValue: '未設定'})
+      }
+    }
   }
 }
 </script>

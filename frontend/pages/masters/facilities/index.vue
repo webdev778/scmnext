@@ -39,10 +39,10 @@
         b-col
           b-form-group(
             label="PPS"
-            label-for="consumer_company_id"
+            label-for="consumer_company_id_eq"
             )
             b-form-select(
-              id="district_id"
+              id="consumer_company_id_eq"
               v-model="query.consumer_company_id_eq"
               v-bind:options="companies"
             )
@@ -124,46 +124,15 @@ export default {
         consumer_company_id_eq: null,
         district_id_eq: null,
         voltage_type_id_eq: null
-      },
-      companies: [],
-      districts: [],
-      voltage_types: []
+      }
     }
   },
-  created() {
-    this.$axios.$get(`/v1/companies`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.companies = options
-    })
-    this.$axios.$get(`/v1/districts`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.districts = options
-    })
-    this.$axios.$get(`/v1/voltage_types`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.voltage_types = options
-    })
+  async asyncData(ctx) {
+    return {
+      companies: await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'}),
+      districts: await ctx.$restApi.list('districts', null, {format: 'options', emptyValue: '全て'}),
+      voltage_types: await ctx.$restApi.list('voltage_types', null, {format: 'options', emptyValue: '全て'})
+    }
   }
 }
 </script>

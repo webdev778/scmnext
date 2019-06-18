@@ -39,8 +39,10 @@ export const actions = {
       const parsed = cookieparser.parse(req.headers.cookie)
       console.log(parsed)
       try {
-        auth = JSON.parse(parsed.auth)
-        commit('setAuth', auth)
+        if (parsed.auth){
+          auth = JSON.parse(parsed.auth)
+          commit('setAuth', auth)
+        }
       } catch (err) {
         console.log(err)
         // No valid cookie found

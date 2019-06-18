@@ -96,17 +96,13 @@ export default {
         bg_member_company_id_eq: null,
         year_eq: null,
         month_eq: null
-      },
-      balancing_groups: [],
-      companies: []
+      }
     }
   },
   async asyncData(ctx) {
-    let balancing_groups = await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
-    let companies = await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
     return {
-      balancing_groups: balancing_groups,
-      companies: companies
+      balancing_groups: await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'}),
+      companies: await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
     }
   }
 }

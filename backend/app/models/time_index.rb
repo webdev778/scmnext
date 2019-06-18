@@ -51,6 +51,10 @@ class TimeIndex < ApplicationRecord
     end
   end
 
+  def name
+    time.strftime("%H:%M")
+  end
+
   private
 
   ransacker :time_text do

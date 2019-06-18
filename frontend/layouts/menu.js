@@ -16,7 +16,7 @@ export default {
       children: [
         {
           name: '同時同量監視',
-          url: '/profits/balancings',
+          url: '/profits/balancings'
         },
         {
           name: '施設グループ別損益',

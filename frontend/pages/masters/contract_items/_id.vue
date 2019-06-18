@@ -42,24 +42,15 @@ export default {
           type: "text",
           label: "有効フラグ"
         }
-      ],
-      options: {
-        voltage_type_id: {}
-      }
+      ]
     }
   },
-  created() {
-    this.$axios.$get(`/v1/voltage_types`)
-    .then(result=>{
-      let voltage_types = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      voltage_types.unshift({value: null, text: ""})
-      this.options['voltage_type_id'] = voltage_types
-    })
+  async asyncData(ctx) {
+    return {
+      options: {
+        voltage_type_id: await ctx.$restApi.list('voltage_types', null, {format: 'options', emptyValue: '未設定'})
+      }
+    }
   }
 }
 </script>

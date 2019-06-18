@@ -64,34 +64,14 @@ export default {
       query: {
         balancing_group_id_eq: null,
         company_id_eq: null
-      },
-      balancing_groups: [],
-      companies: []
+      }
     }
   },
-  created() {
-    this.$axios.$get(`/v1/balancing_groups`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.balancing_groups = options
-    })
-    this.$axios.$get(`/v1/companies`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.companies = options
-    })
+  async asyncData(ctx) {
+    return {
+      balancing_groups: await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'}),
+      companies: await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
+    }
   }
 }
 </script>
