@@ -54,29 +54,13 @@ export default {
       }
     }
   },
-  created() {
-    this.$axios.$get(`/v1/districts`)
-    .then(result=>{
-      let districts = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      districts.unshift({value: null, text: ""})
-      this.options['district_id'] = districts
-    })
-    this.$axios.$get(`/v1/voltage_types`)
-    .then(result=>{
-      let voltage_types = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      voltage_types.unshift({value: null, text: ""})
-      this.options['voltage_type_id'] = voltage_types
-    })
+  async asyncData(ctx) {
+    return {
+      options: {
+        district_id: await ctx.$restApi.list('districts', null, {format: 'options', emptyValue: '未設定'}),
+        voltage_type_id: await ctx.$restApi.list('voltage_types', null, {format: 'options', emptyValue: '未設定'})
+      }
+    }
   }
 }
 </script>

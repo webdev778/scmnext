@@ -1,14 +1,19 @@
+#
+# 現状京葉瓦斯のみを想定
+#
 ---
 :truncate: true
 :model_class: PowerGeneratorGroup
 :sources:
 - :fields:
-    id: "'スキップ用ダミー'"
-    resource_id: 
-    contract_number: 
-    created_by: 
-    updated_by: 
-    created_at: 
-    updated_at: 
-  :from: tbl_account
-  :where: 1 = 0
+    id: id
+    resource_id: '37'
+    name: name
+    code: code
+    contract_number: contract_no
+    created_by: created_user_id
+    updated_by: modified_user_id
+    created_at: created
+    updated_at: modified
+  :from: tbl_power_plant_bg
+  :where: pps_id = 21

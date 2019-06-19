@@ -25,26 +25,29 @@ class JbuContract < ApplicationRecord
   # don't use this relation.
   # belongs_to :company
   # belongs_to :district
-  belongs_to :resource_jbu, foreign_key: :resource_id, required: false
+  belongs_to :resource, required: false
 
   scope :includes_for_index, lambda {
-    includes(bg_member: [:company, {balancing_group: :district}])
+    includes(resource: {bg_member: [:company, {balancing_group: :district}]})
   }
 
   def as_json(options = {})
     if options.blank?
       options = {
         include: {
-          bg_member: {
-            include:
-              [
-                :company,
-                {
-                  balancing_group: {
-                    include: :district
+          resource: {
+            include: {
+              bg_member: {
+                include: [
+                  :company,
+                  {
+                    balancing_group: {
+                      include: :district
+                    }
                   }
-                }
-              ]
+                ]
+              }
+            }
           }
         }
       }

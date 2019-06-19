@@ -9,7 +9,9 @@ module SimpleRestApi
     before_action :authenticate_user!
 
     class_attribute :model_name
+    class_attribute :list_label_name
     self.model_name = to_s.gsub(/Controller$/, '').singularize
+    self.list_label_name = 'name'
 
     def model_class
       model_name.constantize
@@ -54,7 +56,7 @@ module SimpleRestApi
 
   def list
     label = params[:text]
-    label ||= 'name'
+    label ||= list_label_name
     ransack = model_class_with_includes(:list).ransack(params[:q])
     if model_class.column_names.include?(label)
       result = ransack.result.pluck(:id, label).to_h

@@ -78,34 +78,14 @@ export default {
         name_cont: null,
         voltage_type_id_eq: null,
         contract_item_group_id_eq: null
-      },
-      voltage_types: [],
-      contract_item_groups: []
+      }
     }
   },
-  created() {
-    this.$axios.$get(`/v1/voltage_types`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.voltage_types = options
-    })
-    this.$axios.$get(`/v1/contract_item_groups`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.contract_item_groups = options
-    })
+  async asyncData(ctx) {
+    return {
+      voltage_types: await ctx.$restApi.list('voltage_types', null, {format: 'options', emptyValue: '全て'}),
+      contract_item_groups: await ctx.$restApi.list('contract_item_groups', null, {format: 'options', emptyValue: '全て'})
+    }
   }
 }
 </script>

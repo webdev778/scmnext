@@ -63,22 +63,13 @@ export default {
       query: {
         name_cont: null,
         voltage_type_id_eq: null
-      },
-      voltage_types: []
+      }
     }
   },
-  created() {
-    this.$axios.$get(`/v1/voltage_types`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.voltage_types = options
-    })
+  async asyncData(ctx) {
+    return {
+      voltage_types: await ctx.$restApi.list('voltage_types', null, {format: 'options', emptyValue: '全て'})
+    }
   }
 }
 </script>

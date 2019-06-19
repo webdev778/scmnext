@@ -22,11 +22,10 @@ export default {
           key: "id",
           type: "hidden"
         },
-        
         {
-          key: "balancing_group_id",
+          key: "bg_member_id",
           type: "select",
-          label: "バランシンググループ"
+          label: "BGメンバー"
         },
         {
           key: "type",
@@ -43,24 +42,15 @@ export default {
           type: "text",
           label: "名称"
         }
-      ],
-      options: {
-        balancing_group_id: {}
-      }
+      ]
     }
   },
-  created() {
-    this.$axios.$get(`/v1/balancing_groups`)
-    .then(result=>{
-      let balancing_groups = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      balancing_groups.unshift({value: null, text: ""})
-      this.options['balancing_group_id'] = balancing_groups
-    })
+  async asyncData(ctx) {
+    return {
+      options: {
+        bg_member_id: await ctx.$restApi.list('bg_members', null, {format: 'options', emptyValue: '未設定'})
+      }
+    }
   }
 }
 </script>

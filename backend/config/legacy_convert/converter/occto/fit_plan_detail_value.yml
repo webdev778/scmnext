@@ -1,10 +1,11 @@
 ---
+:skip: true
 :truncate: true
 :model_class: Occto::FitPlanDetailValue
 :sources:
 - :fields:
     id: "'スキップ用ダミー'"
-    occto_fit_plan_id: 
+    fit_plan_by_power_generator_group_id: 
     power_generator_id: 
     time_index_id: 
     value: 

@@ -1,0 +1,87 @@
+---
+:truncate: true
+:model_class: ImbalanceKl
+:sources:
+- :fields:
+    id: "'スキップ用ダミー'"
+    district_id:
+    start_date:
+    k_value:
+    l_value:
+    created_by:
+    updated_by:
+    created_at:
+    updated_at:
+  :from: tbl_account
+  :where: 1 = 0
+:extra:
+- :cond:
+    id: 1
+  :fields:
+    district_id: 1
+    start_date: 2019-04-01
+    k_value: 0.64
+    l_value: -0.17
+- :cond:
+    id: 2
+  :fields:
+    district_id: 2
+    start_date: 2019-04-01
+    k_value: 0.28
+    l_value: -0.69
+- :cond:
+    id: 3
+  :fields:
+    district_id: 3
+    start_date: 2019-04-01
+    k_value: 0.27
+    l_value: -0.68
+- :cond:
+    id: 4
+  :fields:
+    district_id: 4
+    start_date: 2019-04-01
+    k_value: 2.98
+    l_value: -1.49
+- :cond:
+    id: 5
+  :fields:
+    district_id: 5
+    start_date: 2019-04-01
+    k_value: 0.59
+    l_value: -0.20
+- :cond:
+    id: 6
+  :fields:
+    district_id: 6
+    start_date: 2019-04-01
+    k_value: 0.28
+    l_value: -0.68
+- :cond:
+    id: 7
+  :fields:
+    district_id: 7
+    start_date: 2019-04-01
+    k_value: 0.28
+    l_value: -0.68
+- :cond:
+    id: 8
+  :fields:
+    district_id: 8
+    start_date: 2019-04-01
+    k_value: 0.28
+    l_value: -0.68
+- :cond:
+    id: 9
+  :fields:
+    district_id: 9
+    start_date: 2019-04-01
+    k_value: 0.43
+    l_value: -0.83
+- :cond:
+    id: 10
+  :fields:
+    district_id: 10
+    start_date: 2019-04-01
+    k_value: 0
+    l_value: 0

@@ -63,22 +63,13 @@ export default {
       query: {
         name_cont: null,
         company_id_eq: null
-      },
-      companies: []
+      }
     }
   },
-  created() {
-    this.$axios.$get(`/v1/companies`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.companies = options
-    })
+  async asyncData(ctx) {
+    return {
+      companies: await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
+    }
   }
 }
 </script>

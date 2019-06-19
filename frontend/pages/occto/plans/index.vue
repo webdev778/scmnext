@@ -20,13 +20,13 @@
             label="年月日From"
             label-for="date_gteq"
             )
-            b-form-input(id="date_gteq" type="text" v-model="query.date_gteq")
+            b-form-input(id="date_gteq" type="date" v-model="query.date_gteq")
         b-col
           b-form-group(
             label="年月日To"
             label-for="date_lteq"
             )
-            b-form-input(id="date_lteq" type="text" v-model="query.date_lteq")
+            b-form-input(id="date_lteq" type="date" v-model="query.date_lteq")
 </template>
 
 <script>
@@ -42,35 +42,36 @@ export default {
           label: "ID"
         },
         {
+          key: "date",
+          label: "日付",
+          formatter: "formatDate"
+        },
+        {
           key: "balancing_group.name",
           label: "バランシンググループ名",
         },
         {
-          key: "date",
-          label: "日付",
-        },
-        {
           key: "created_at",
-          label: "作成日時"
+          label: "作成日時",
+          formatter: "formatDatetime"
         },
         {
           key: "updated_at",
-          label: "更新日時"
+          label: "更新日時",
+          formatter: "formatDatetime"
         }
       ],
       query: {
         balancing_group_id_eq: null,
         date_gteq: null,
         date_lteq: null
-      },
-      balancing_groups: [],
+      }
     }
   },
-  created (){
-    this.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
-    .then(result=>{
-      this.balancing_groups = result
-    })
+  async asyncData (ctx){
+    return {
+      balancing_groups: await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
+    }
   }
 }
 </script>

@@ -18,6 +18,22 @@
 #
 
 class ResourceMatching < Resource
+  has_many :matching_trade_settings, foreign_key: :resource_id
+
+  def get_pre_defined_supply_value(date, time_index)
+    setting = get_setting(date)
+    unless setting
+      raise "対応する相対電源の設定情報が見つかりませんでした。"
+    end
+    setting.supply_value(time_index)
+  end
+
+  def get_setting(date)
+    matching_trade_settings.find do |setting|
+      setting.is_match_date?(date)
+    end
+  end
+
   protected
 
   #

@@ -1,0 +1,57 @@
+=== インバランスK値・L値詳細画面
+
+==== 概要
+
+[.lead]
+インバランスK値・L値の詳細情報を表示する。
+
+[plantuml]
+--
+rectangle {
+  database "インバランスK値・L値" as input_
+  database "エリア" as input_2
+  database "会社(PPS)" as companies
+
+  ("インバランスK値・L値") as (prog)
+}
+
+input_1 --> prog : input
+input_2 --> prog : input
+companies --> prog : input
+--
+
+===== I/O
+
+|======================================
+| 名称 | 物理名 | 種類 | I/O種別 | 備考
+| インバランスK値・L値 | imbalance_kls | DB | I |
+| エリア | districts | DB | I |
+|======================================
+
+<<<
+
+==== 画面項目定義
+
+==== 詳細情報
+|======================================
+| 項目名 | 物理項目名 | 取得元 | I/O | 備考
+| エリアID | district_id | imbalance_kls | I/O | .
+| 開始日   | district_id | imbalance_kls | I/O | .
+| K値   | k_valule | imbalance_kls | I/O | .
+| L値   | l_value | imbalance_kls | I/O | .
+|======================================
+
+<<<
+
+==== 機能詳細
+
+===== 初期表示
+
+BGメンバーの一覧API(show)を呼び出して結果を画面にマップする。
+
+===== 戻るボタン押下時
+
+一覧画面に戻る。
+
+<<<
+

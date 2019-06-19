@@ -11,21 +11,21 @@
         b-col
           b-form-group(
             label="バランシンググループ名"
-            label-for="bg_member_balancing_group_id_eq"
+            label-for="resource_bg_member_balancing_group_id_eq"
             )
             b-form-select(
-              id="bg_member_balancing_group_id_eq"
-              v-model="query.bg_member_balancing_group_id_eq"
+              id="resource_bg_member_balancing_group_id_eq"
+              v-model="query.resource_bg_member_balancing_group_id_eq"
               v-bind:options="balancing_groups"
             )
         b-col
           b-form-group(
             label="PPS名"
-            label-for="bg_member_company_id_eq"
+            label-for="resource_bg_member_company_id_eq"
             )
             b-form-select(
-              id="bg_member_company_id_eq"
-              v-model="query.bg_member_company_id_eq"
+              id="resource_bg_member_company_id_eq"
+              v-model="query.resource_bg_member_company_id_eq"
               v-bind:options="companies"
             )
 </template>
@@ -43,11 +43,11 @@ export default {
           label: "ID"
         },
         {
-          key: "bg_member.balancing_group.name",
+          key: "resource.bg_member.balancing_group.name",
           label: "バランシンググループ名"
         },
         {
-          key: "bg_member.company.name",
+          key: "resource.bg_member.company.name",
           label: "PPS名"
         },
         {
@@ -74,22 +74,16 @@ export default {
         }
       ],
       query: {
-        bg_member_balancing_group_id_eq: null,
-        bg_member_company_id_eq: null
-      },
-      balancing_groups: [],
-      companies: []
+        resource_bg_member_balancing_group_id_eq: null,
+        resource_bg_member_company_id_eq: null
+      }
     }
   },
-  created() {
-    this.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
-    .then(result=>{
-      this.balancing_groups = result
-    })
-    this.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
-    .then(result=>{
-      this.companies = result
-    })
+  async asyncData(ctx) {
+    return {
+      balancing_groups: await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'}),
+      companies: await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
+    }
   }
 }
 </script>

@@ -47,36 +47,16 @@ export default {
           type: "text",
           label: "レート"
         }
-      ],
-      options: {
-        contract_id: {},
-        contract_item_id: {}
-      }
+      ]
     }
   },
-  created() {
-    this.$axios.$get(`/v1/contracts`)
-    .then(result=>{
-      let contracts = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      contracts.unshift({value: null, text: ""})
-      this.options['contract_id'] = contracts
-    })
-    this.$axios.$get(`/v1/contract_items`)
-    .then(result=>{
-      let contract_items = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      contract_items.unshift({value: null, text: ""})
-      this.options['contract_item_id'] = contract_items
-    })
+  async asyncData(ctx) {
+    return {
+      options: {
+        contract_id: await ctx.$restApi.list('contracts', null, {format: 'options', emptyValue: '未設定'}),
+        contract_item_id: await ctx.$restApi.list('contract_items', null, {format: 'options', emptyValue: '未設定'})
+      }
+    }
   }
 }
 </script>

@@ -107,20 +107,14 @@ export default {
         bg_member_company_id_eq: null,
         contract_name_cont: null,
         voltage_type_id_eq: null
-      },
-      balancing_groups: [],
-      companies: [],
-      voltage_types: []
+      }
     }
   },
-  async asyncData() {
-    let balancing_groups = await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'})
-    let companies = await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'})
-    let voltage_types =~ await ctx.$restApi.list('voltage_types', null, {format: 'options', emptyValue: '全て'})
+  async asyncData(ctx) {
     return {
-      balancing_groups: balancing_groups,
-      companies: companies,
-      voltage_types: voltage_types
+      balancing_groups: await ctx.$restApi.list('balancing_groups', null, {format: 'options', emptyValue: '全て'}),
+      companies: await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '全て'}),
+      voltage_types: await ctx.$restApi.list('voltage_types', null, {format: 'options', emptyValue: '全て'})
     }
   }
 }

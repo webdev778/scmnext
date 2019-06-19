@@ -11,12 +11,30 @@
         b-col
           b-form-group(
             label="エリア"
-            label-for="district_id"
+            label-for="district_id_eq"
             )
             b-form-select(
-              id="district_id"
+              id="district_id_eq"
               v-model="query.district_id_eq"
               v-bind:options="districts"
+            )
+        b-col
+          b-form-group(
+            label="年"
+            label-for="year_eq"
+            )
+            b-form-input(
+              id="year_eq"
+              v-model="query.year_eq"
+            )
+        b-col
+          b-form-group(
+            label="月"
+            label-for="month_eq"
+            )
+            b-form-input(
+              id="month_eq"
+              v-model="query.month_eq"
             )
 </template>
 
@@ -37,6 +55,20 @@ export default {
           label: "エリア名"
         },
         {
+          key: "year",
+          label: "年",
+          width: 50
+        },
+        {
+          key: "month",
+          label: "月",
+          width: 100
+        },
+        {
+          key: "value",
+          label: "値"
+        },
+        {
           key: "created_at",
           label: "作成日時",
           formatter: 'formatDatetime'
@@ -48,23 +80,16 @@ export default {
         }
       ],
       query: {
-        district_id_eq: null
-      },
-      districts: []
+        district_id_eq: null,
+        year_eq: null,
+        month_eq: null
+      }
     }
   },
-  created() {
-    this.$axios.$get(`/v1/districts`)
-    .then(result=>{
-      let options = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      options.unshift({value: null, text: "全て"})
-      this.districts = options
-    })
+  async asyncData(ctx) {
+    return {
+      districts: await ctx.$restApi.list('districts', null, {format: 'options', emptyValue: '全て'})
+    }
   }
 }
 </script>

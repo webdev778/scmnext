@@ -20,7 +20,7 @@
 :sectnums:
 
 // include::アカウント管理/index.adoc[]
-// include::マスタ管理/index.adoc[]
+include::マスタ管理/index.adoc[]
 // include::顧客管理/index.adoc[]
 // include::請求管理/index.adoc[]
 include::需給管理/index.adoc[]

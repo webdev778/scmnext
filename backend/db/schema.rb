@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_05_092121) do
+ActiveRecord::Schema.define(version: 2019_06_14_014504) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -44,19 +44,6 @@ ActiveRecord::Schema.define(version: 2019_06_05_092121) do
     t.datetime "updated_at", null: false
     t.index ["district_id"], name: "index_balancing_groups_on_district_id"
     t.index ["leader_company_id"], name: "index_balancing_groups_on_leader_company_id"
-  end
-
-  create_table "bg_member_demand_forecasts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "BGメンバー需要予測データ", force: :cascade do |t|
-    t.bigint "bg_member_id", comment: "BGメンバーID"
-    t.bigint "time_index_id", comment: "時間枠ID"
-    t.date "date", comment: "日付"
-    t.decimal "demand_value", precision: 10, scale: 4, comment: "需要量"
-    t.integer "created_by"
-    t.integer "updated_by"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["bg_member_id"], name: "index_bg_member_demand_forecasts_on_bg_member_id"
-    t.index ["time_index_id"], name: "index_bg_member_demand_forecasts_on_time_index_id"
   end
 
   create_table "bg_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "BGメンバー", force: :cascade do |t|
@@ -446,6 +433,18 @@ ActiveRecord::Schema.define(version: 2019_06_05_092121) do
     t.index ["district_id"], name: "index_holidays_on_district_id"
   end
 
+  create_table "imbalance_kls", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "インバランスK値・L値", force: :cascade do |t|
+    t.bigint "district_id", comment: "エリアID"
+    t.date "start_date", comment: "開始日"
+    t.decimal "k_value", precision: 10, scale: 4, comment: "K値"
+    t.decimal "l_value", precision: 10, scale: 4, comment: "L値"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["district_id"], name: "index_imbalance_kls_on_district_id"
+  end
+
   create_table "jbu_contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "常時バックアップ電源契約", force: :cascade do |t|
     t.bigint "resource_id", comment: "リソースID"
     t.bigint "district_id", comment: "エリアID"
@@ -466,6 +465,31 @@ ActiveRecord::Schema.define(version: 2019_06_05_092121) do
     t.index ["company_id"], name: "index_jbu_contracts_on_company_id"
     t.index ["district_id"], name: "index_jbu_contracts_on_district_id"
     t.index ["resource_id"], name: "index_jbu_contracts_on_resource_id"
+  end
+
+  create_table "jepx_hour_before_trade_results", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "時間前市場取引結果", force: :cascade do |t|
+    t.bigint "hour_before_trade_id", comment: "時間前市場取引ID"
+    t.boolean "is_applied_to_plan", default: false, null: false, comment: "計画反映済"
+    t.integer "unit_price", default: 0, null: false, comment: "単価"
+    t.integer "qty", default: 0, null: false, comment: "数量"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hour_before_trade_id"], name: "index_jepx_hour_before_trade_results_on_hour_before_trade_id"
+  end
+
+  create_table "jepx_hour_before_trades", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "時間前市場取引", force: :cascade do |t|
+    t.bigint "resource_id", comment: "リソースID"
+    t.date "date", comment: "日付"
+    t.bigint "time_index_id", comment: "時間枠ID"
+    t.integer "trade_type", limit: 1, null: false, comment: "取引種別:1:売注文,2:買注文"
+    t.integer "unit_price", default: 0, null: false, comment: "単価"
+    t.integer "qty", default: 0, null: false, comment: "数量"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resource_id"], name: "index_jepx_hour_before_trades_on_resource_id"
+    t.index ["time_index_id"], name: "index_jepx_hour_before_trades_on_time_index_id"
   end
 
   create_table "jepx_imbalance_betas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "JEPXインバランスβ値", force: :cascade do |t|
@@ -577,8 +601,20 @@ ActiveRecord::Schema.define(version: 2019_06_05_092121) do
     t.index ["resource_id"], name: "index_matching_trade_settings_on_resource_id"
   end
 
+  create_table "occto_fit_plan_by_power_generator_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域発電販売(翌日)発電BG別データ", force: :cascade do |t|
+    t.bigint "fit_plan_id", comment: "広域発電販売(翌日)ID"
+    t.bigint "power_generator_group_id", comment: "発電BG ID"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fit_plan_id", "power_generator_group_id"], name: "unique_index_on_business", unique: true
+    t.index ["fit_plan_id"], name: "index_occto_fit_plan_by_power_generator_groups_on_fit_plan_id"
+    t.index ["power_generator_group_id"], name: "idx_power_generator_group"
+  end
+
   create_table "occto_fit_plan_detail_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域発電販売計画(翌日)詳細値データ", force: :cascade do |t|
-    t.bigint "occto_fit_plan_id", comment: "広域発電販売計画(翌日)ID"
+    t.bigint "fit_plan_by_power_generator_group_id", comment: "広域発電販売(翌日)発電BG別データID"
     t.bigint "power_generator_id", comment: "発電者ID"
     t.bigint "time_index_id", comment: "時間枠ID"
     t.decimal "value", precision: 14, comment: "数量(kWh)"
@@ -586,27 +622,32 @@ ActiveRecord::Schema.define(version: 2019_06_05_092121) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["occto_fit_plan_id"], name: "index_occto_fit_plan_detail_values_on_occto_fit_plan_id"
+    t.index ["fit_plan_by_power_generator_group_id", "power_generator_id", "time_index_id"], name: "unique_index_on_business", unique: true
+    t.index ["fit_plan_by_power_generator_group_id"], name: "idx_fit_plan_by_power_generator_group"
     t.index ["power_generator_id"], name: "index_occto_fit_plan_detail_values_on_power_generator_id"
     t.index ["time_index_id"], name: "index_occto_fit_plan_detail_values_on_time_index_id"
   end
 
   create_table "occto_fit_plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域発電販売計画(翌日)", force: :cascade do |t|
-    t.bigint "power_generator_group_id", comment: "発電BG ID"
+    t.bigint "bg_member_id", comment: "BGメンバーID"
     t.date "date", null: false, comment: "日付"
     t.datetime "initialized_at", comment: "初期化日時"
     t.datetime "received_at", comment: "取得日時"
     t.datetime "send_at", comment: "送信日時"
     t.string "fit_id_text", limit: 23, comment: "FIT ID(テキスト)"
     t.string "stat", limit: 1, comment: "ステータス"
-    t.string "fit_recept_stat", limit: 2, comment: "受付ステータス"
-    t.string "last_update_datetime_text", limit: 17, comment: "最終更新日時(テキスト)"
+    t.string "fit_receipt_stat", limit: 2, comment: "受付ステータス"
+    t.datetime "occto_last_update_datetime", comment: "広域最終更新日時:ミリ秒単位"
+    t.datetime "occto_submit_datetime", comment: "広域送信日時:秒単位"
+    t.datetime "ottot_create_datetime", comment: "広域作成日時:秒単位"
     t.integer "created_by"
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["bg_member_id", "date"], name: "unique_index_on_business", unique: true
+    t.index ["bg_member_id"], name: "index_occto_fit_plans_on_bg_member_id"
     t.index ["date"], name: "index_occto_fit_plans_on_date"
-    t.index ["power_generator_group_id"], name: "index_occto_fit_plans_on_power_generator_group_id"
+    t.index ["fit_id_text"], name: "fit_id_text", unique: true
   end
 
   create_table "occto_plan_by_bg_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "広域需要調達計画(翌日)BGメンバー別データ", force: :cascade do |t|
@@ -689,8 +730,20 @@ ActiveRecord::Schema.define(version: 2019_06_05_092121) do
     t.index ["type"], name: "index_pl_base_data_on_type"
   end
 
+  create_table "power_generator_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "発電BG", force: :cascade do |t|
+    t.bigint "resource_id", comment: "リソースID"
+    t.string "name", comment: "名前"
+    t.string "code", limit: 5, comment: "コード"
+    t.string "contract_number", limit: 20, comment: "契約No."
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resource_id"], name: "index_power_generator_groups_on_resource_id"
+  end
+
   create_table "power_generators", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "発電者", force: :cascade do |t|
-    t.bigint "resources_id", comment: "リソースID"
+    t.bigint "power_generator_group_id", comment: "発電BG ID"
     t.string "code", limit: 5, null: false, comment: "コード"
     t.string "name", null: false, comment: "名前"
     t.string "contract_number", limit: 20, comment: "契約No."
@@ -699,7 +752,7 @@ ActiveRecord::Schema.define(version: 2019_06_05_092121) do
     t.integer "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["resources_id"], name: "index_power_generators_on_resources_id"
+    t.index ["power_generator_group_id"], name: "index_power_generators_on_power_generator_group_id"
   end
 
   create_table "power_usage_fixeds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "電力使用量(確定値)", force: :cascade do |t|

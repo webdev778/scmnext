@@ -11,8 +11,12 @@
 --
 salt
 {
-  { パワオプ東京BG | パワーオプティマイザー | 2019/02/01 }
-  { ステータス | 提出済 }
+  {
+   BG名   | パワオプ東京BG
+   会社名 | パワーオプティマイザー
+   日付   | 2019/02/01
+   ステータス | 提出済
+  }
   { [ダウンロード] }
   {#
     コマ  | 合計 | XX発電BG計 | A | B | C  | YY発電BG計 |  D | E
@@ -30,30 +34,33 @@ salt
 [plantuml]
 --
 rectangle {
-  database "翌日発電計画データ" as input_a
-  database "翌日発電計画詳細データ" as input_b
-  database "発電BGマスタ" as input_c
-  database "発電施設マスタ" as input_d
+  database "広域発電販売計画(翌日)" as input_a
+  database "広域発電販売(翌日)リソース別(発電BG別)データ" as input_b
+  database "広域発電販売計画(翌日)詳細値データ" as input_c
 
-  (発電BG予測詳細) as (prog)
+  (翌日発電計画詳細) as (prog)
 }
 
 input_a --> prog : input
 input_b --> prog : input
 input_c --> prog : input
-input_d --> prog : input
-prog --> output : output
 --
 
 ===== I/O
 
 |======================================
 | 名称 | 物理名 | 種類 | I/O種別 | 備考
-|  翌日発電計画データ     |        |      |         |
-|  翌日発電計画詳細データ |        |      |         |
-|  発電BGマスタ           |        |      |         |
-|  発電施設マスタ         |        |      |         |
+| 広域発電販売計画(翌日)                       | occto_fit_plans              | DB | I
+| 広域発電販売(翌日)リソース別(発電BG別)データ | occto_fit_plan_by_resoures   | DB | I
+| 広域発電販売計画(翌日)詳細値データ           | occto_fit_plan_detail_values | DB | I
 |======================================
+
+==== 使用するAPI
+
+|=========================================
+| 処理名                         | エンドポイント
+| 翌日販売計画を取得             | /v1/occto/fit_plans?q[bg_member_id_eq]=BG_MEMBER_ID&q[date_eq]=DATE
+|=========================================
 
 <<<
 
@@ -61,7 +68,15 @@ prog --> output : output
 
 ==== 詳細情報
 |======================================
-| 項目名 | 物理項目名 | 取得元 | I/O | 備考
+| 項目名       | 項目種別 | 物理項目名      | 取得元                       | I/O | 備考
+| BG名         | ラベル   | name            | balancing_groups             | O   |
+| BGメンバー名 | ラベル   | name            | companies                    | O   |
+| 日付         | ラベル   | date            | occto_fit_plans              | O   |
+| ステータス   | ラベル   | operation_state | occto_fit_plans              | O   |
+| コマ         | ラベル   | time_index_id   | occto_fit_plan_detail_values | O   |
+| 合計         | ラベル   |                 |                              | O   | 当該コマの全ての発電BG計の合計
+| 発電BG計     | ラベル   |                 |                              | O   | 当該コマにおける任意の発電BGの発電者計画値計
+| 発電所値     | ラベル   | value           | occto_fit_plan_detail_values | O   | 当該コマに任意の発電者の計画値
 |======================================
 
 <<<
@@ -70,11 +85,12 @@ prog --> output : output
 
 ===== 初期表示
 
-指定されたBGメンバーの発電BGデータについて、指定日の翌日発電計画データ及び詳細を抽出し、画面定義に合わせて表示する
+パラメータとして、BGメンバーID及び日付を受け取る
+指定されたBGメンバーにおける指定日の翌日発電計画データ及び詳細を抽出し、画面定義に合わせて表示する。
 
 ===== ダウンロードボタン押下時
 
-指定日の広域提出用xmlデータをダウンロードする
+指定日の広域提出用xmlデータをダウンロードする(バッチと同じロジックを使用)
 
 <<<
 

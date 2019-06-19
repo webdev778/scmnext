@@ -1,23 +1,6 @@
 ## マスタ管理
 
-include::決済方法マスタ.adoc[]
-include::電圧管理.adoc[]
-include::区分管理.adoc[]
-include::契約種別.adoc[]
-include::契約アイテムグループ.adoc[]
-include::契約アイテム.adoc[]
-include::エリア管理.adoc[]
-include::JBU管理.adoc[]
-include::電源種別管理.adoc[]
-include::低圧マスター設定.adoc[]
-include::従量電灯マスター設定.adoc[]
-include::燃料調整費管理.adoc[]
-include::マンスリー.adoc[]
-include::曜日.adoc[]
-include::日付.adoc[]
-include::時間帯.adoc[]
-include::CIS電気料金マスタ.adoc[]
-include::初期セットアップ.adoc[]
-include::EMS連携セットアップ.adoc[]
+include::インバランスK値・L値一覧画面.adoc[]
+include::インバランスK値・L値詳細画面.adoc[]
 
 <<<

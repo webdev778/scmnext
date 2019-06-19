@@ -92,24 +92,15 @@ export default {
           type: "text",
           label: "パスワード"
         }
-      ],
-      options: {
-        company_id: {}
-      }
+      ]
     }
   },
-  created() {
-    this.$axios.$get(`/v1/companies`)
-    .then(result=>{
-      let companies = result.map(item=>{
-        return {
-          value: item.id,
-          text: item.name
-        }
-      })
-      companies.unshift({value: null, text: ""})
-      this.options['company_id'] = companies
-    })
+  async asyncData(ctx) {
+    return {
+      options: {
+        company_id: await ctx.$restApi.list('companies', null, {format: 'options', emptyValue: '未設定'})
+      }
+    }
   }
 }
 </script>

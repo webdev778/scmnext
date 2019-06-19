@@ -16,7 +16,7 @@ export default {
       children: [
         {
           name: '同時同量監視',
-          url: '/profits/balancings',
+          url: '/profits/balancings'
         },
         {
           name: '施設グループ別損益',
@@ -155,6 +155,10 @@ export default {
         {
           name: 'リソース',
           url: '/masters/resources',
+        },
+        {
+          name: 'インバランスK値・L値',
+          url: '/masters/imbalance_kls',
         },
         {
           name: '時間枠',
