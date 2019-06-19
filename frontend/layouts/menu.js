@@ -68,6 +68,22 @@ export default {
       }
     },
     {
+      name: 'PLS管理',
+      icon: 'icon-puzzle',
+      url: '/base',
+      children: [
+        {
+          name: 'PLSパラメータ一覧画面',
+          url: '/pls/master',
+        },
+        {
+          name: 'PLSパラメータ詳細画面',
+          url: '/pls/details',
+        }
+
+      ]
+    },
+    {
       name: 'マスタ',
       icon: 'icon-puzzle',
       url: '/base',
