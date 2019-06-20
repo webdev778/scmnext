@@ -19,7 +19,23 @@
 
 class ResourceMatching < Resource
   has_many :matching_trade_settings, foreign_key: :resource_id
+  accepts_nested_attributes_for :matching_trade_settings
 
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        methods: [:type],
+        include: [:matching_trade_settings]
+      }
+    end
+    super options
+  end
+
+  #
+  # パラメータで指定された日付及びコマの供給量を返す
+  # @param date [Date] 日付
+  # @param time_index [Integer] 時間枠ID
+  # @return [Decimal] 供給量
   def get_pre_defined_supply_value(date, time_index)
     setting = get_setting(date)
     unless setting
@@ -28,6 +44,11 @@ class ResourceMatching < Resource
     setting.supply_value(time_index)
   end
 
+  #
+  # パラメータで指定された日付の相対取引設定を取得する
+  # @param date [Date] 日付
+  # @param time_index [Integer] 時間枠ID
+  # @return [MathingTradeSetting] 相対取引設定のインスタンス
   def get_setting(date)
     matching_trade_settings.find do |setting|
       setting.is_match_date?(date)

@@ -25,7 +25,7 @@ class JbuContract < ApplicationRecord
   # don't use this relation.
   # belongs_to :company
   # belongs_to :district
-  belongs_to :resource, required: false
+  belongs_to :resource, inverse_of: :jbu_contracts, class_name: ResourceJbu.to_s
 
   scope :includes_for_index, lambda {
     includes(resource: {bg_member: [:company, {balancing_group: :district}]})

@@ -18,5 +18,25 @@
 #
 
 class ResourceJbu < Resource
-  has_many :jbu_contracts, foreign_key: :resource_id
+  has_many :jbu_contracts, foreign_key: :resource_id, inverse_of: :resource
+  accepts_nested_attributes_for :jbu_contracts
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        methods: [:type],
+        include: [:jbu_contracts]
+      }
+    end
+    super options
+  end
+
+  private
+  #
+  # 規定値をセットする
+  #
+  def set_values
+    self.name = "常時バックアップ(#{bg_member.balancing_group.district.name})"
+    self.unit = 1
+  end
 end

@@ -1,0 +1,56 @@
+FactoryBot.define do
+  factory :matching_trade_setting do
+    year_pattern {"*"}
+    month_pattern {"*"}
+    day_pattern {"*"}
+    day_of_week_pattern {"*"}
+    time_index_1 {2500}
+    time_index_2 {2500}
+    time_index_3 {2500}
+    time_index_4 {2500}
+    time_index_5 {2500}
+    time_index_6 {2500}
+    time_index_7 {2500}
+    time_index_8 {2500}
+    time_index_9 {2500}
+    time_index_10 {2500}
+    time_index_11 {2500}
+    time_index_12 {2500}
+    time_index_13 {2500}
+    time_index_14 {2500}
+    time_index_15 {2500}
+    time_index_16 {2500}
+    time_index_17 {2500}
+    time_index_18 {2500}
+    time_index_19 {2500}
+    time_index_20 {2500}
+    time_index_21 {2500}
+    time_index_22 {2500}
+    time_index_23 {2500}
+    time_index_24 {2500}
+    time_index_25 {2500}
+    time_index_26 {2500}
+    time_index_27 {2500}
+    time_index_28 {2500}
+    time_index_29 {2500}
+    time_index_30 {2500}
+    time_index_31 {2500}
+    time_index_32 {2500}
+    time_index_33 {2500}
+    time_index_34 {2500}
+    time_index_35 {2500}
+    time_index_36 {2500}
+    time_index_37 {2500}
+    time_index_38 {2500}
+    time_index_39 {2500}
+    time_index_40 {2500}
+    time_index_41 {2500}
+    time_index_42 {2500}
+    time_index_43 {2500}
+    time_index_44 {2500}
+    time_index_45 {2500}
+    time_index_46 {2500}
+    time_index_47 {2500}
+    time_index_48 {2500}
+  end
+end

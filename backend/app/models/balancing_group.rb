@@ -18,7 +18,7 @@ class BalancingGroup < ApplicationRecord
   has_many :companies, through: :bg_members
   has_many :occto_plans, class_name: Occto::Plan.to_s
   belongs_to :district
-  belongs_to :leader_company, class_name: Company.to_s
+  belongs_to :leader_company, class_name: Company.to_s, required: false
 
   scope :includes_for_index, lambda {
     includes([:district, :leader_company])

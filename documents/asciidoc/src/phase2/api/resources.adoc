@@ -1,0 +1,1196 @@
+## GET /v1/resources
+リソースの一覧を返す.
+
+### 使用例
+
+#### リクエスト
+```
+GET /v1/resources HTTP/1.1
+
+```
+
+#### レスポンス
+```
+HTTP/1.1 200
+Content-Type: application/json; charset=utf-8
+Vary: Origin
+
+[
+  {
+    "id": 1,
+    "bg_member_id": 1,
+    "code": "LA586",
+    "name": "エネオプBG関西需要",
+    "contract_number": null,
+    "max_value": 0,
+    "min_value": 0,
+    "unit": 1,
+    "created_by": null,
+    "updated_by": null,
+    "created_at": "2019-06-20T12:10:12.000+09:00",
+    "updated_at": "2019-06-20T12:10:12.000+09:00",
+    "type": "ResourceSelf",
+    "bg_member": {
+      "id": 1,
+      "balancing_group_id": 1,
+      "company_id": 1,
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-20T12:10:12.000+09:00",
+      "updated_at": "2019-06-20T12:10:12.000+09:00",
+      "name": "パワーオプティマイザー"
+    }
+  },
+  {
+    "id": 2,
+    "bg_member_id": 1,
+    "code": "LA586",
+    "name": "エネオプBG関西需要",
+    "contract_number": null,
+    "max_value": 10000,
+    "min_value": 0,
+    "unit": 1,
+    "created_by": null,
+    "updated_by": null,
+    "created_at": "2019-06-20T12:10:12.000+09:00",
+    "updated_at": "2019-06-20T12:10:12.000+09:00",
+    "type": "ResourceJepxSpot",
+    "bg_member": {
+      "id": 1,
+      "balancing_group_id": 1,
+      "company_id": 1,
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-20T12:10:12.000+09:00",
+      "updated_at": "2019-06-20T12:10:12.000+09:00",
+      "name": "パワーオプティマイザー"
+    }
+  },
+  {
+    "id": 3,
+    "bg_member_id": 1,
+    "code": "LA586",
+    "name": "エネオプBG関西需要",
+    "contract_number": null,
+    "max_value": 10000,
+    "min_value": 0,
+    "unit": 1,
+    "created_by": null,
+    "updated_by": null,
+    "created_at": "2019-06-20T12:10:12.000+09:00",
+    "updated_at": "2019-06-20T12:10:12.000+09:00",
+    "type": "ResourceJepxOneHour",
+    "bg_member": {
+      "id": 1,
+      "balancing_group_id": 1,
+      "company_id": 1,
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-20T12:10:12.000+09:00",
+      "updated_at": "2019-06-20T12:10:12.000+09:00",
+      "name": "パワーオプティマイザー"
+    }
+  },
+  {
+    "id": 4,
+    "bg_member_id": 1,
+    "code": "LA376",
+    "name": "常時バックアップ(東京電力)",
+    "contract_number": null,
+    "max_value": 0,
+    "min_value": 0,
+    "unit": 1,
+    "created_by": null,
+    "updated_by": null,
+    "created_at": "2019-06-20T12:10:13.000+09:00",
+    "updated_at": "2019-06-20T12:10:13.000+09:00",
+    "type": "ResourceJbu",
+    "jbu_contracts": [
+      {
+        "id": 1,
+        "resource_id": 4,
+        "district_id": null,
+        "company_id": null,
+        "start_date": "2018-06-01",
+        "end_date": null,
+        "contract_power": 400,
+        "basic_charge": "1800.0",
+        "meter_rate_charge_summer_season_daytime": "10.11",
+        "meter_rate_charge_other_season_daytime": "7.87",
+        "meter_rate_charge_night": "7.64",
+        "meter_rate_charge_peak_time": "10.11",
+        "fuel_cost_adjustment_charge": "0.23",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-20T12:10:13.000+09:00",
+        "updated_at": "2019-06-20T12:10:13.000+09:00"
+      },
+      {
+        "id": 2,
+        "resource_id": 4,
+        "district_id": null,
+        "company_id": null,
+        "start_date": "2017-04-24",
+        "end_date": null,
+        "contract_power": 400,
+        "basic_charge": "1800.0",
+        "meter_rate_charge_summer_season_daytime": "10.11",
+        "meter_rate_charge_other_season_daytime": "7.87",
+        "meter_rate_charge_night": "7.64",
+        "meter_rate_charge_peak_time": "10.11",
+        "fuel_cost_adjustment_charge": "0.23",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-20T12:10:13.000+09:00",
+        "updated_at": "2019-06-20T12:10:13.000+09:00"
+      },
+      {
+        "id": 3,
+        "resource_id": 4,
+        "district_id": null,
+        "company_id": null,
+        "start_date": "2018-07-24",
+        "end_date": null,
+        "contract_power": 400,
+        "basic_charge": "1800.0",
+        "meter_rate_charge_summer_season_daytime": "10.11",
+        "meter_rate_charge_other_season_daytime": "7.87",
+        "meter_rate_charge_night": "7.64",
+        "meter_rate_charge_peak_time": "10.11",
+        "fuel_cost_adjustment_charge": "0.23",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-20T12:10:13.000+09:00",
+        "updated_at": "2019-06-20T12:10:13.000+09:00"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "bg_member_id": 1,
+    "code": "G0633",
+    "name": "パワーオプティマイザー",
+    "contract_number": null,
+    "max_value": 0,
+    "min_value": 0,
+    "unit": 1,
+    "created_by": null,
+    "updated_by": null,
+    "created_at": "2019-06-20T12:10:13.000+09:00",
+    "updated_at": "2019-06-20T12:10:13.000+09:00",
+    "type": "ResourceFit",
+    "power_generator_groups": [
+      {
+        "id": 1,
+        "resource_id": 5,
+        "name": "京葉発電BG1",
+        "code": "GC033",
+        "contract_number": "065C001",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-20T12:10:13.000+09:00",
+        "updated_at": "2019-06-20T12:10:13.000+09:00",
+        "power_generators": [
+
+        ]
+      },
+      {
+        "id": 2,
+        "resource_id": 5,
+        "name": "京葉発電BG2",
+        "code": "GC033",
+        "contract_number": "065C001",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-20T12:10:13.000+09:00",
+        "updated_at": "2019-06-20T12:10:13.000+09:00",
+        "power_generators": [
+
+        ]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "bg_member_id": 1,
+    "code": "LA456",
+    "name": "シナネン_06_L",
+    "contract_number": null,
+    "max_value": 0,
+    "min_value": 0,
+    "unit": 1,
+    "created_by": null,
+    "updated_by": null,
+    "created_at": "2019-06-20T12:10:13.000+09:00",
+    "updated_at": "2019-06-20T12:10:13.000+09:00",
+    "type": "ResourceMatching",
+    "matching_trade_settings": [
+      {
+        "id": 1,
+        "resource_id": 6,
+        "year_pattern": "*",
+        "month_pattern": "7",
+        "day_pattern": "*",
+        "day_of_week_pattern": "*",
+        "time_index_1": 2500,
+        "time_index_2": 2500,
+        "time_index_3": 2500,
+        "time_index_4": 2500,
+        "time_index_5": 2500,
+        "time_index_6": 2500,
+        "time_index_7": 2500,
+        "time_index_8": 2500,
+        "time_index_9": 2500,
+        "time_index_10": 2500,
+        "time_index_11": 2500,
+        "time_index_12": 2500,
+        "time_index_13": 2500,
+        "time_index_14": 2500,
+        "time_index_15": 2500,
+        "time_index_16": 2500,
+        "time_index_17": 2500,
+        "time_index_18": 2500,
+        "time_index_19": 2500,
+        "time_index_20": 2500,
+        "time_index_21": 2500,
+        "time_index_22": 2500,
+        "time_index_23": 2500,
+        "time_index_24": 2500,
+        "time_index_25": 2500,
+        "time_index_26": 2500,
+        "time_index_27": 2500,
+        "time_index_28": 2500,
+        "time_index_29": 2500,
+        "time_index_30": 2500,
+        "time_index_31": 2500,
+        "time_index_32": 2500,
+        "time_index_33": 2500,
+        "time_index_34": 2500,
+        "time_index_35": 2500,
+        "time_index_36": 2500,
+        "time_index_37": 2500,
+        "time_index_38": 2500,
+        "time_index_39": 2500,
+        "time_index_40": 2500,
+        "time_index_41": 2500,
+        "time_index_42": 2500,
+        "time_index_43": 2500,
+        "time_index_44": 2500,
+        "time_index_45": 2500,
+        "time_index_46": 2500,
+        "time_index_47": 2500,
+        "time_index_48": 2500,
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-20T12:10:13.000+09:00",
+        "updated_at": "2019-06-20T12:10:13.000+09:00"
+      },
+      {
+        "id": 2,
+        "resource_id": 6,
+        "year_pattern": "*",
+        "month_pattern": "*",
+        "day_pattern": "*",
+        "day_of_week_pattern": "*",
+        "time_index_1": 2500,
+        "time_index_2": 2500,
+        "time_index_3": 2500,
+        "time_index_4": 2500,
+        "time_index_5": 2500,
+        "time_index_6": 2500,
+        "time_index_7": 2500,
+        "time_index_8": 2500,
+        "time_index_9": 2500,
+        "time_index_10": 2500,
+        "time_index_11": 2500,
+        "time_index_12": 2500,
+        "time_index_13": 2500,
+        "time_index_14": 2500,
+        "time_index_15": 2500,
+        "time_index_16": 2500,
+        "time_index_17": 2500,
+        "time_index_18": 2500,
+        "time_index_19": 2500,
+        "time_index_20": 2500,
+        "time_index_21": 2500,
+        "time_index_22": 2500,
+        "time_index_23": 2500,
+        "time_index_24": 2500,
+        "time_index_25": 2500,
+        "time_index_26": 2500,
+        "time_index_27": 2500,
+        "time_index_28": 2500,
+        "time_index_29": 2500,
+        "time_index_30": 2500,
+        "time_index_31": 2500,
+        "time_index_32": 2500,
+        "time_index_33": 2500,
+        "time_index_34": 2500,
+        "time_index_35": 2500,
+        "time_index_36": 2500,
+        "time_index_37": 2500,
+        "time_index_38": 2500,
+        "time_index_39": 2500,
+        "time_index_40": 2500,
+        "time_index_41": 2500,
+        "time_index_42": 2500,
+        "time_index_43": 2500,
+        "time_index_44": 2500,
+        "time_index_45": 2500,
+        "time_index_46": 2500,
+        "time_index_47": 2500,
+        "time_index_48": 2500,
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-20T12:10:13.000+09:00",
+        "updated_at": "2019-06-20T12:10:13.000+09:00"
+      }
+    ]
+  }
+]
+```
+
+## GET /v1/resources
+BGを指定した場合は、BGで絞り込んだリソースの一覧を返す.
+
+### 使用例
+
+#### リクエスト
+```
+GET /v1/resources?q[balancing_group_id]=1 HTTP/1.1
+
+```
+
+#### レスポンス
+```
+HTTP/1.1 200
+Content-Type: application/json; charset=utf-8
+Vary: Origin
+
+[
+  {
+    "id": 1,
+    "bg_member_id": 1,
+    "code": "LA586",
+    "name": "エネオプBG関西需要",
+    "contract_number": null,
+    "max_value": 0,
+    "min_value": 0,
+    "unit": 1,
+    "created_by": null,
+    "updated_by": null,
+    "created_at": "2019-06-20T12:10:15.000+09:00",
+    "updated_at": "2019-06-20T12:10:15.000+09:00",
+    "type": "ResourceSelf",
+    "bg_member": {
+      "id": 1,
+      "balancing_group_id": 1,
+      "company_id": 1,
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-20T12:10:15.000+09:00",
+      "updated_at": "2019-06-20T12:10:15.000+09:00",
+      "name": "パワーオプティマイザー"
+    }
+  },
+  {
+    "id": 2,
+    "bg_member_id": 1,
+    "code": "LA586",
+    "name": "エネオプBG関西需要",
+    "contract_number": null,
+    "max_value": 10000,
+    "min_value": 0,
+    "unit": 1,
+    "created_by": null,
+    "updated_by": null,
+    "created_at": "2019-06-20T12:10:15.000+09:00",
+    "updated_at": "2019-06-20T12:10:15.000+09:00",
+    "type": "ResourceJepxSpot",
+    "bg_member": {
+      "id": 1,
+      "balancing_group_id": 1,
+      "company_id": 1,
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-20T12:10:15.000+09:00",
+      "updated_at": "2019-06-20T12:10:15.000+09:00",
+      "name": "パワーオプティマイザー"
+    }
+  },
+  {
+    "id": 3,
+    "bg_member_id": 1,
+    "code": "LA586",
+    "name": "エネオプBG関西需要",
+    "contract_number": null,
+    "max_value": 10000,
+    "min_value": 0,
+    "unit": 1,
+    "created_by": null,
+    "updated_by": null,
+    "created_at": "2019-06-20T12:10:15.000+09:00",
+    "updated_at": "2019-06-20T12:10:15.000+09:00",
+    "type": "ResourceJepxOneHour",
+    "bg_member": {
+      "id": 1,
+      "balancing_group_id": 1,
+      "company_id": 1,
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-20T12:10:15.000+09:00",
+      "updated_at": "2019-06-20T12:10:15.000+09:00",
+      "name": "パワーオプティマイザー"
+    }
+  },
+  {
+    "id": 4,
+    "bg_member_id": 1,
+    "code": "LA376",
+    "name": "常時バックアップ(東京電力)",
+    "contract_number": null,
+    "max_value": 0,
+    "min_value": 0,
+    "unit": 1,
+    "created_by": null,
+    "updated_by": null,
+    "created_at": "2019-06-20T12:10:15.000+09:00",
+    "updated_at": "2019-06-20T12:10:15.000+09:00",
+    "type": "ResourceJbu",
+    "jbu_contracts": [
+      {
+        "id": 1,
+        "resource_id": 4,
+        "district_id": null,
+        "company_id": null,
+        "start_date": "2018-06-01",
+        "end_date": null,
+        "contract_power": 400,
+        "basic_charge": "1800.0",
+        "meter_rate_charge_summer_season_daytime": "10.11",
+        "meter_rate_charge_other_season_daytime": "7.87",
+        "meter_rate_charge_night": "7.64",
+        "meter_rate_charge_peak_time": "10.11",
+        "fuel_cost_adjustment_charge": "0.23",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-20T12:10:15.000+09:00",
+        "updated_at": "2019-06-20T12:10:15.000+09:00"
+      },
+      {
+        "id": 2,
+        "resource_id": 4,
+        "district_id": null,
+        "company_id": null,
+        "start_date": "2017-04-24",
+        "end_date": null,
+        "contract_power": 400,
+        "basic_charge": "1800.0",
+        "meter_rate_charge_summer_season_daytime": "10.11",
+        "meter_rate_charge_other_season_daytime": "7.87",
+        "meter_rate_charge_night": "7.64",
+        "meter_rate_charge_peak_time": "10.11",
+        "fuel_cost_adjustment_charge": "0.23",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-20T12:10:15.000+09:00",
+        "updated_at": "2019-06-20T12:10:15.000+09:00"
+      },
+      {
+        "id": 3,
+        "resource_id": 4,
+        "district_id": null,
+        "company_id": null,
+        "start_date": "2018-07-24",
+        "end_date": null,
+        "contract_power": 400,
+        "basic_charge": "1800.0",
+        "meter_rate_charge_summer_season_daytime": "10.11",
+        "meter_rate_charge_other_season_daytime": "7.87",
+        "meter_rate_charge_night": "7.64",
+        "meter_rate_charge_peak_time": "10.11",
+        "fuel_cost_adjustment_charge": "0.23",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-20T12:10:15.000+09:00",
+        "updated_at": "2019-06-20T12:10:15.000+09:00"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "bg_member_id": 1,
+    "code": "G0633",
+    "name": "パワーオプティマイザー",
+    "contract_number": null,
+    "max_value": 0,
+    "min_value": 0,
+    "unit": 1,
+    "created_by": null,
+    "updated_by": null,
+    "created_at": "2019-06-20T12:10:15.000+09:00",
+    "updated_at": "2019-06-20T12:10:15.000+09:00",
+    "type": "ResourceFit",
+    "power_generator_groups": [
+      {
+        "id": 1,
+        "resource_id": 5,
+        "name": "京葉発電BG1",
+        "code": "GC033",
+        "contract_number": "065C001",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-20T12:10:15.000+09:00",
+        "updated_at": "2019-06-20T12:10:15.000+09:00",
+        "power_generators": [
+
+        ]
+      },
+      {
+        "id": 2,
+        "resource_id": 5,
+        "name": "京葉発電BG2",
+        "code": "GC033",
+        "contract_number": "065C001",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-20T12:10:15.000+09:00",
+        "updated_at": "2019-06-20T12:10:15.000+09:00",
+        "power_generators": [
+
+        ]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "bg_member_id": 1,
+    "code": "LA456",
+    "name": "シナネン_06_L",
+    "contract_number": null,
+    "max_value": 0,
+    "min_value": 0,
+    "unit": 1,
+    "created_by": null,
+    "updated_by": null,
+    "created_at": "2019-06-20T12:10:15.000+09:00",
+    "updated_at": "2019-06-20T12:10:15.000+09:00",
+    "type": "ResourceMatching",
+    "matching_trade_settings": [
+      {
+        "id": 1,
+        "resource_id": 6,
+        "year_pattern": "*",
+        "month_pattern": "7",
+        "day_pattern": "*",
+        "day_of_week_pattern": "*",
+        "time_index_1": 2500,
+        "time_index_2": 2500,
+        "time_index_3": 2500,
+        "time_index_4": 2500,
+        "time_index_5": 2500,
+        "time_index_6": 2500,
+        "time_index_7": 2500,
+        "time_index_8": 2500,
+        "time_index_9": 2500,
+        "time_index_10": 2500,
+        "time_index_11": 2500,
+        "time_index_12": 2500,
+        "time_index_13": 2500,
+        "time_index_14": 2500,
+        "time_index_15": 2500,
+        "time_index_16": 2500,
+        "time_index_17": 2500,
+        "time_index_18": 2500,
+        "time_index_19": 2500,
+        "time_index_20": 2500,
+        "time_index_21": 2500,
+        "time_index_22": 2500,
+        "time_index_23": 2500,
+        "time_index_24": 2500,
+        "time_index_25": 2500,
+        "time_index_26": 2500,
+        "time_index_27": 2500,
+        "time_index_28": 2500,
+        "time_index_29": 2500,
+        "time_index_30": 2500,
+        "time_index_31": 2500,
+        "time_index_32": 2500,
+        "time_index_33": 2500,
+        "time_index_34": 2500,
+        "time_index_35": 2500,
+        "time_index_36": 2500,
+        "time_index_37": 2500,
+        "time_index_38": 2500,
+        "time_index_39": 2500,
+        "time_index_40": 2500,
+        "time_index_41": 2500,
+        "time_index_42": 2500,
+        "time_index_43": 2500,
+        "time_index_44": 2500,
+        "time_index_45": 2500,
+        "time_index_46": 2500,
+        "time_index_47": 2500,
+        "time_index_48": 2500,
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-20T12:10:15.000+09:00",
+        "updated_at": "2019-06-20T12:10:15.000+09:00"
+      },
+      {
+        "id": 2,
+        "resource_id": 6,
+        "year_pattern": "*",
+        "month_pattern": "*",
+        "day_pattern": "*",
+        "day_of_week_pattern": "*",
+        "time_index_1": 2500,
+        "time_index_2": 2500,
+        "time_index_3": 2500,
+        "time_index_4": 2500,
+        "time_index_5": 2500,
+        "time_index_6": 2500,
+        "time_index_7": 2500,
+        "time_index_8": 2500,
+        "time_index_9": 2500,
+        "time_index_10": 2500,
+        "time_index_11": 2500,
+        "time_index_12": 2500,
+        "time_index_13": 2500,
+        "time_index_14": 2500,
+        "time_index_15": 2500,
+        "time_index_16": 2500,
+        "time_index_17": 2500,
+        "time_index_18": 2500,
+        "time_index_19": 2500,
+        "time_index_20": 2500,
+        "time_index_21": 2500,
+        "time_index_22": 2500,
+        "time_index_23": 2500,
+        "time_index_24": 2500,
+        "time_index_25": 2500,
+        "time_index_26": 2500,
+        "time_index_27": 2500,
+        "time_index_28": 2500,
+        "time_index_29": 2500,
+        "time_index_30": 2500,
+        "time_index_31": 2500,
+        "time_index_32": 2500,
+        "time_index_33": 2500,
+        "time_index_34": 2500,
+        "time_index_35": 2500,
+        "time_index_36": 2500,
+        "time_index_37": 2500,
+        "time_index_38": 2500,
+        "time_index_39": 2500,
+        "time_index_40": 2500,
+        "time_index_41": 2500,
+        "time_index_42": 2500,
+        "time_index_43": 2500,
+        "time_index_44": 2500,
+        "time_index_45": 2500,
+        "time_index_46": 2500,
+        "time_index_47": 2500,
+        "time_index_48": 2500,
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-20T12:10:15.000+09:00",
+        "updated_at": "2019-06-20T12:10:15.000+09:00"
+      }
+    ]
+  }
+]
+```
+
+## GET /v1/resources/:id
+リソースを表示する(BGリソース).
+
+### 使用例
+
+#### リクエスト
+```
+GET /v1/resources/1 HTTP/1.1
+
+```
+
+#### レスポンス
+```
+HTTP/1.1 200
+Content-Type: application/json; charset=utf-8
+Vary: Origin
+
+{
+  "id": 1,
+  "bg_member_id": 1,
+  "code": "LA586",
+  "name": "エネオプBG関西需要",
+  "contract_number": null,
+  "max_value": 0,
+  "min_value": 0,
+  "unit": 1,
+  "created_by": null,
+  "updated_by": null,
+  "created_at": "2019-06-20T12:10:17.000+09:00",
+  "updated_at": "2019-06-20T12:10:17.000+09:00",
+  "type": "ResourceSelf",
+  "bg_member": {
+    "id": 1,
+    "balancing_group_id": 1,
+    "company_id": 1,
+    "created_by": null,
+    "updated_by": null,
+    "created_at": "2019-06-20T12:10:17.000+09:00",
+    "updated_at": "2019-06-20T12:10:17.000+09:00",
+    "name": "パワーオプティマイザー"
+  }
+}
+```
+
+## GET /v1/resources/:id
+リソースを表示する(JEPXスポットリソース).
+
+### 使用例
+
+#### リクエスト
+```
+GET /v1/resources/2 HTTP/1.1
+
+```
+
+#### レスポンス
+```
+HTTP/1.1 200
+Content-Type: application/json; charset=utf-8
+Vary: Origin
+
+{
+  "id": 2,
+  "bg_member_id": 1,
+  "code": "LA586",
+  "name": "エネオプBG関西需要",
+  "contract_number": null,
+  "max_value": 10000,
+  "min_value": 0,
+  "unit": 1,
+  "created_by": null,
+  "updated_by": null,
+  "created_at": "2019-06-20T12:10:19.000+09:00",
+  "updated_at": "2019-06-20T12:10:19.000+09:00",
+  "type": "ResourceJepxSpot",
+  "bg_member": {
+    "id": 1,
+    "balancing_group_id": 1,
+    "company_id": 1,
+    "created_by": null,
+    "updated_by": null,
+    "created_at": "2019-06-20T12:10:19.000+09:00",
+    "updated_at": "2019-06-20T12:10:19.000+09:00",
+    "name": "パワーオプティマイザー"
+  }
+}
+```
+
+## GET /v1/resources/:id
+リソースを表示する(JEPX1時間前リソース).
+
+### 使用例
+
+#### リクエスト
+```
+GET /v1/resources/3 HTTP/1.1
+
+```
+
+#### レスポンス
+```
+HTTP/1.1 200
+Content-Type: application/json; charset=utf-8
+Vary: Origin
+
+{
+  "id": 3,
+  "bg_member_id": 1,
+  "code": "LA586",
+  "name": "エネオプBG関西需要",
+  "contract_number": null,
+  "max_value": 10000,
+  "min_value": 0,
+  "unit": 1,
+  "created_by": null,
+  "updated_by": null,
+  "created_at": "2019-06-20T12:10:21.000+09:00",
+  "updated_at": "2019-06-20T12:10:21.000+09:00",
+  "type": "ResourceJepxOneHour",
+  "bg_member": {
+    "id": 1,
+    "balancing_group_id": 1,
+    "company_id": 1,
+    "created_by": null,
+    "updated_by": null,
+    "created_at": "2019-06-20T12:10:21.000+09:00",
+    "updated_at": "2019-06-20T12:10:21.000+09:00",
+    "name": "パワーオプティマイザー"
+  }
+}
+```
+
+## GET /v1/resources/:id
+リソースを表示する(常時バックアップリソース).
+
+### 使用例
+
+#### リクエスト
+```
+GET /v1/resources/4 HTTP/1.1
+
+```
+
+#### レスポンス
+```
+HTTP/1.1 200
+Content-Type: application/json; charset=utf-8
+Vary: Origin
+
+{
+  "id": 4,
+  "bg_member_id": 1,
+  "code": "LA376",
+  "name": "常時バックアップ(東京電力)",
+  "contract_number": null,
+  "max_value": 0,
+  "min_value": 0,
+  "unit": 1,
+  "created_by": null,
+  "updated_by": null,
+  "created_at": "2019-06-20T12:10:23.000+09:00",
+  "updated_at": "2019-06-20T12:10:23.000+09:00",
+  "type": "ResourceJbu",
+  "jbu_contracts": [
+    {
+      "id": 1,
+      "resource_id": 4,
+      "district_id": null,
+      "company_id": null,
+      "start_date": "2018-06-01",
+      "end_date": null,
+      "contract_power": 400,
+      "basic_charge": "1800.0",
+      "meter_rate_charge_summer_season_daytime": "10.11",
+      "meter_rate_charge_other_season_daytime": "7.87",
+      "meter_rate_charge_night": "7.64",
+      "meter_rate_charge_peak_time": "10.11",
+      "fuel_cost_adjustment_charge": "0.23",
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-20T12:10:23.000+09:00",
+      "updated_at": "2019-06-20T12:10:23.000+09:00"
+    },
+    {
+      "id": 2,
+      "resource_id": 4,
+      "district_id": null,
+      "company_id": null,
+      "start_date": "2017-04-24",
+      "end_date": null,
+      "contract_power": 400,
+      "basic_charge": "1800.0",
+      "meter_rate_charge_summer_season_daytime": "10.11",
+      "meter_rate_charge_other_season_daytime": "7.87",
+      "meter_rate_charge_night": "7.64",
+      "meter_rate_charge_peak_time": "10.11",
+      "fuel_cost_adjustment_charge": "0.23",
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-20T12:10:23.000+09:00",
+      "updated_at": "2019-06-20T12:10:23.000+09:00"
+    },
+    {
+      "id": 3,
+      "resource_id": 4,
+      "district_id": null,
+      "company_id": null,
+      "start_date": "2018-07-24",
+      "end_date": null,
+      "contract_power": 400,
+      "basic_charge": "1800.0",
+      "meter_rate_charge_summer_season_daytime": "10.11",
+      "meter_rate_charge_other_season_daytime": "7.87",
+      "meter_rate_charge_night": "7.64",
+      "meter_rate_charge_peak_time": "10.11",
+      "fuel_cost_adjustment_charge": "0.23",
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-20T12:10:23.000+09:00",
+      "updated_at": "2019-06-20T12:10:23.000+09:00"
+    }
+  ]
+}
+```
+
+## GET /v1/resources/:id
+リソースを表示する(FITリソース).
+
+### 使用例
+
+#### リクエスト
+```
+GET /v1/resources/5 HTTP/1.1
+
+```
+
+#### レスポンス
+```
+HTTP/1.1 200
+Content-Type: application/json; charset=utf-8
+Vary: Origin
+
+{
+  "id": 5,
+  "bg_member_id": 1,
+  "code": "G0633",
+  "name": "パワーオプティマイザー",
+  "contract_number": null,
+  "max_value": 0,
+  "min_value": 0,
+  "unit": 1,
+  "created_by": null,
+  "updated_by": null,
+  "created_at": "2019-06-20T12:10:25.000+09:00",
+  "updated_at": "2019-06-20T12:10:25.000+09:00",
+  "type": "ResourceFit",
+  "power_generator_groups": [
+    {
+      "id": 1,
+      "resource_id": 5,
+      "name": "京葉発電BG1",
+      "code": "GC033",
+      "contract_number": "065C001",
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-20T12:10:25.000+09:00",
+      "updated_at": "2019-06-20T12:10:25.000+09:00",
+      "power_generators": [
+
+      ]
+    },
+    {
+      "id": 2,
+      "resource_id": 5,
+      "name": "京葉発電BG2",
+      "code": "GC033",
+      "contract_number": "065C001",
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-20T12:10:25.000+09:00",
+      "updated_at": "2019-06-20T12:10:25.000+09:00",
+      "power_generators": [
+
+      ]
+    }
+  ]
+}
+```
+
+## GET /v1/resources/:id
+リソースを表示する(相対リソース).
+
+### 使用例
+
+#### リクエスト
+```
+GET /v1/resources/6 HTTP/1.1
+
+```
+
+#### レスポンス
+```
+HTTP/1.1 200
+Content-Type: application/json; charset=utf-8
+Vary: Origin
+
+{
+  "id": 6,
+  "bg_member_id": 1,
+  "code": "LA456",
+  "name": "シナネン_06_L",
+  "contract_number": null,
+  "max_value": 0,
+  "min_value": 0,
+  "unit": 1,
+  "created_by": null,
+  "updated_by": null,
+  "created_at": "2019-06-20T12:10:28.000+09:00",
+  "updated_at": "2019-06-20T12:10:28.000+09:00",
+  "type": "ResourceMatching",
+  "matching_trade_settings": [
+    {
+      "id": 1,
+      "resource_id": 6,
+      "year_pattern": "*",
+      "month_pattern": "7",
+      "day_pattern": "*",
+      "day_of_week_pattern": "*",
+      "time_index_1": 2500,
+      "time_index_2": 2500,
+      "time_index_3": 2500,
+      "time_index_4": 2500,
+      "time_index_5": 2500,
+      "time_index_6": 2500,
+      "time_index_7": 2500,
+      "time_index_8": 2500,
+      "time_index_9": 2500,
+      "time_index_10": 2500,
+      "time_index_11": 2500,
+      "time_index_12": 2500,
+      "time_index_13": 2500,
+      "time_index_14": 2500,
+      "time_index_15": 2500,
+      "time_index_16": 2500,
+      "time_index_17": 2500,
+      "time_index_18": 2500,
+      "time_index_19": 2500,
+      "time_index_20": 2500,
+      "time_index_21": 2500,
+      "time_index_22": 2500,
+      "time_index_23": 2500,
+      "time_index_24": 2500,
+      "time_index_25": 2500,
+      "time_index_26": 2500,
+      "time_index_27": 2500,
+      "time_index_28": 2500,
+      "time_index_29": 2500,
+      "time_index_30": 2500,
+      "time_index_31": 2500,
+      "time_index_32": 2500,
+      "time_index_33": 2500,
+      "time_index_34": 2500,
+      "time_index_35": 2500,
+      "time_index_36": 2500,
+      "time_index_37": 2500,
+      "time_index_38": 2500,
+      "time_index_39": 2500,
+      "time_index_40": 2500,
+      "time_index_41": 2500,
+      "time_index_42": 2500,
+      "time_index_43": 2500,
+      "time_index_44": 2500,
+      "time_index_45": 2500,
+      "time_index_46": 2500,
+      "time_index_47": 2500,
+      "time_index_48": 2500,
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-20T12:10:28.000+09:00",
+      "updated_at": "2019-06-20T12:10:28.000+09:00"
+    },
+    {
+      "id": 2,
+      "resource_id": 6,
+      "year_pattern": "*",
+      "month_pattern": "*",
+      "day_pattern": "*",
+      "day_of_week_pattern": "*",
+      "time_index_1": 2500,
+      "time_index_2": 2500,
+      "time_index_3": 2500,
+      "time_index_4": 2500,
+      "time_index_5": 2500,
+      "time_index_6": 2500,
+      "time_index_7": 2500,
+      "time_index_8": 2500,
+      "time_index_9": 2500,
+      "time_index_10": 2500,
+      "time_index_11": 2500,
+      "time_index_12": 2500,
+      "time_index_13": 2500,
+      "time_index_14": 2500,
+      "time_index_15": 2500,
+      "time_index_16": 2500,
+      "time_index_17": 2500,
+      "time_index_18": 2500,
+      "time_index_19": 2500,
+      "time_index_20": 2500,
+      "time_index_21": 2500,
+      "time_index_22": 2500,
+      "time_index_23": 2500,
+      "time_index_24": 2500,
+      "time_index_25": 2500,
+      "time_index_26": 2500,
+      "time_index_27": 2500,
+      "time_index_28": 2500,
+      "time_index_29": 2500,
+      "time_index_30": 2500,
+      "time_index_31": 2500,
+      "time_index_32": 2500,
+      "time_index_33": 2500,
+      "time_index_34": 2500,
+      "time_index_35": 2500,
+      "time_index_36": 2500,
+      "time_index_37": 2500,
+      "time_index_38": 2500,
+      "time_index_39": 2500,
+      "time_index_40": 2500,
+      "time_index_41": 2500,
+      "time_index_42": 2500,
+      "time_index_43": 2500,
+      "time_index_44": 2500,
+      "time_index_45": 2500,
+      "time_index_46": 2500,
+      "time_index_47": 2500,
+      "time_index_48": 2500,
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-20T12:10:28.000+09:00",
+      "updated_at": "2019-06-20T12:10:28.000+09:00"
+    }
+  ]
+}
+```
+
+## POST /v1/resources
+リソースを登録する(BGリソース).
+
+### 使用例
+
+#### リクエスト
+```
+POST /v1/resources HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+resource[bg_member_id]=1&resource[name]=%E3%82%A8%E3%83%8D%E3%82%AA%E3%83%97BG%E9%96%A2%E8%A5%BF%E9%9C%80%E8%A6%81&resource[type]=ResourceJbu&resource[code]=LA376
+```
+
+#### レスポンス
+```
+HTTP/1.1 200
+Content-Type: application/json; charset=utf-8
+Vary: Origin
+
+{
+  "success": true
+}
+```
+
+## POST /v1/resources
+リソースを登録する(FITリソース).
+
+### 使用例
+
+#### リクエスト
+```
+POST /v1/resources HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+resource[bg_member_id]=1&resource[name]=%E3%82%A8%E3%83%8D%E3%82%AA%E3%83%97BG%E9%96%A2%E8%A5%BF%E9%9C%80%E8%A6%81&resource[type]=ResourceFit&resource[code]=G0633
+```
+
+#### レスポンス
+```
+HTTP/1.1 200
+Content-Type: application/json; charset=utf-8
+Vary: Origin
+
+{
+  "success": true
+}
+```
