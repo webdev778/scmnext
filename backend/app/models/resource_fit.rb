@@ -18,7 +18,22 @@
 #
 
 class ResourceFit < Resource
-  has_many :power_generator_groups
+  has_many :power_generator_groups, foreign_key: :resource_id
+  accepts_nested_attributes_for :power_generator_groups
+
+  def as_json(options = {})
+    if options.blank?
+      options = {
+        methods: [:type],
+        include: {
+          power_generator_groups: {
+            include: :power_generators
+          }
+        }
+      }
+    end
+    super options
+  end
 
   protected
   #
@@ -29,4 +44,14 @@ class ResourceFit < Resource
   def get_rate_at(date, time_index)
     raise "method not impremented."
   end
+
+  private
+  #
+  # 規定値をセットする
+  #
+  def set_values
+    self.name = bg_member.company.name
+    self.unit = 1
+  end
+
 end

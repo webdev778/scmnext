@@ -4,7 +4,7 @@
 include::OcctoFIT計画初期化.adoc[]
 include::OcctoFIT計画取込.adoc[]
 include::OcctoFIT計画提出.adoc[]
-include::OcctoFIT計画ステータス確認.adoc[]
+//include::OcctoFIT計画ステータス確認.adoc[]
 // include::速報値データ同期処理.adoc[]
 // include::EMS連携.adoc[]
 // include::自動引落データ作成.adoc[]

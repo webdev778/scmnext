@@ -48,7 +48,7 @@ Comment=
 TableOption=
 Page=PLS関連
 Left=1500
-Top=2200
+Top=1100
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="リソースID","resource_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
@@ -72,7 +72,7 @@ Index==0,resource_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="PLS関連",1500,2200,497,432
+Position="PLS関連",1500,1100,497,432
 ZOrder=59
 
 [Entity]
@@ -109,7 +109,7 @@ LName=相対取引設定
 Comment=
 TableOption=
 Page=PLS関連
-Left=1500
+Left=2200
 Top=200
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="リソースID","resource_id","bigint(20)",,,"","",$FFFFFFFF,""
@@ -173,7 +173,7 @@ Index==0,resource_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="PLS関連",1500,200,493,1473
+Position="PLS関連",2200,200,493,1473
 ZOrder=57
 
 [Entity]
@@ -359,9 +359,9 @@ Comment=
 TableOption=
 Page=PLS関連
 Left=1500
-Top=1800
+Top=2000
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="リソースID","resources_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="発電BG ID","power_generator_group_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="コード","code","varchar(5)","NOT NULL",,"","",$FFFFFFFF,""
 Field="名前","name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
 Field="契約No.","contract_number","varchar(20)",,,"","",$FFFFFFFF,""
@@ -370,11 +370,11 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==0,resources_id
+Index==0,power_generator_group_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="PLS関連",1500,1800,499,254
+Position="PLS関連",1500,2000,499,254
 ZOrder=50
 
 [Entity]
@@ -384,9 +384,9 @@ Comment=
 TableOption=
 Page=PLS関連
 Left=100
-Top=2400
+Top=2450
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="広域発電販売(翌日)リソース別(発電BG別)データID","fit_plan_by_resource_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="広域発電販売(翌日)発電BG別データID","fit_plan_by_power_generator_group_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="発電者ID","power_generator_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="時間枠ID","time_index_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="数量(kWh)","value","decimal(14,0)",,,"","",$FFFFFFFF,""
@@ -394,14 +394,14 @@ Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==2,fit_plan_by_resource_id,power_generator_id,time_index_id
+Index==2,fit_plan_by_power_generator_group_id,power_generator_id,time_index_id
 Index==0,power_generator_id
 Index==0,time_index_id
-Index==0,fit_plan_by_resource_id
+Index==0,fit_plan_by_power_generator_group_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="PLS関連",100,2400,497,229
+Position="PLS関連",100,2450,497,229
 ZOrder=49
 
 [Entity]
@@ -420,19 +420,22 @@ Field="取得日時","received_at","datetime",,,"","",$FFFFFFFF,""
 Field="送信日時","send_at","datetime",,,"","",$FFFFFFFF,""
 Field="FIT ID(テキスト)","fit_id_text","varchar(23)",,,"","",$FFFFFFFF,""
 Field="ステータス","stat","varchar(1)",,,"","",$FFFFFFFF,""
-Field="受付ステータス","fit_recept_stat","varchar(2)",,,"","",$FFFFFFFF,""
-Field="最終更新日時(テキスト)","last_update_datetime_text","varchar(17)",,,"","",$FFFFFFFF,""
+Field="受付ステータス","fit_receipt_stat","varchar(2)",,,"","",$FFFFFFFF,""
+Field="広域最終更新日時","occto_last_update_datetime","datetime",,,"","ミリ秒単位",$FFFFFFFF,""
+Field="広域送信日時","occto_submit_datetime","datetime",,,"","秒単位",$FFFFFFFF,""
+Field="広域作成日時","ottot_create_datetime","datetime",,,"","秒単位",$FFFFFFFF,""
 Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Index==2,bg_member_id,date
+Index==2,fit_id_text
 Index==0,date
 Index==0,bg_member_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="PLS関連",100,1600,499,356
+Position="PLS関連",100,1600,499,410
 ZOrder=48
 
 [Entity]
@@ -1434,8 +1437,8 @@ LName=JEPXインバランスβ値
 Comment=
 TableOption=
 Page=MAIN
-Left=200
-Top=2500
+Left=100
+Top=2100
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="年","year","int(11)","NOT NULL",,"","",$FFFFFFFF,""
 Field="月","month","smallint(6)","NOT NULL",,"","",$FFFFFFFF,""
@@ -1450,7 +1453,7 @@ Index==0,district_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",200,2500,501,229
+Position="MAIN",100,2100,501,229
 ZOrder=9
 
 [Entity]
@@ -1459,8 +1462,8 @@ LName=JEPXスポット市場取引結果
 Comment=
 TableOption=
 Page=MAIN
-Left=200
-Top=1600
+Left=100
+Top=1200
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="年月日","date","date","NOT NULL",,"","",$FFFFFFFF,""
 Field="時間枠ID","time_index_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
@@ -1483,7 +1486,7 @@ Index==0,time_index_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",200,1600,503,432
+Position="MAIN",100,1200,503,432
 ZOrder=8
 
 [Entity]
@@ -1492,8 +1495,8 @@ LName=JEPXスポット市場取引結果エリア別情報
 Comment=
 TableOption=
 Page=MAIN
-Left=200
-Top=2100
+Left=100
+Top=1700
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="JEPXスポット市場取引結果ID","spot_trade_id","bigint(20)",,,"","",$FFFFFFFF,""
 Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
@@ -1509,7 +1512,7 @@ Index==0,district_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="MAIN",200,2100,503,229
+Position="MAIN",100,1700,503,229
 ZOrder=7
 
 [Entity]
@@ -1671,25 +1674,210 @@ FontColor=$000000
 ImageFileName=
 
 [Entity]
-PName=occto_fit_plan_by_resoures
-LName=広域発電販売(翌日)リソース別(発電BG別)データ
+PName=imbalance_kls
+LName=インバランスK値・L値
 Comment=
 TableOption=
-Page=PLS関連
+Page=Main
 Left=100
-Top=2100
+Top=2500
 Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="広域発電販売(翌日)ID","fit_plan_id","bigint(20)",,,"","",$FFFFFFFF,""
-Field="リソースID","resource_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="エリアID","district_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="開始日","start_date","date",,,"","",$FFFFFFFF,""
+Field="K値","k_value","decimal(10,4)",,,"","",$FFFFFFFF,""
+Field="L値","l_value","decimal(10,4)",,,"","",$FFFFFFFF,""
 Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
 Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
 Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
-Index==2,fit_plan_id,resource_id
+Index==0,district_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",100,2500,495,229
+ZOrder=60
+
+[Entity]
+PName=occto_fit_plan_by_power_generator_groups
+LName=広域発電販売(翌日)発電BG別データ
+Comment=
+TableOption=
+Page=PLS関連
+Left=100
+Top=2150
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="広域発電販売(翌日)ID","fit_plan_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="発電BG ID","power_generator_group_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,fit_plan_id,power_generator_group_id
 Index==0,fit_plan_id
+Index==0,power_generator_group_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="PLS関連",100,2150,497,178
+ZOrder=62
+
+[Entity]
+PName=power_generator_groups
+LName=発電BG
+Comment=
+TableOption=
+Page=PLS関連
+Left=1500
+Top=1700
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="リソースID","resource_id","bigint(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="名前","name","varchar(255)",,,"","",$FFFFFFFF,""
+Field="コード","code","varchar(5)",,,"","",$FFFFFFFF,""
+Field="契約No.","contract_number","varchar(20)",,,"","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
 Index==0,resource_id
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="PLS関連",100,2100,503,178
-ZOrder=60
+Position="PLS関連",1500,1700,492,229
+ZOrder=61
+
+[Entity]
+PName=jepx_hour_before_trades
+LName=時間前市場取引
+Comment=
+TableOption=
+Page=PLS関連
+Left=1500
+Top=400
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="リソースID","resource_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="日付","date","date",,,"","",$FFFFFFFF,""
+Field="時間枠ID","time_index_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="取引種別","trade_type","tinyint(4)","NOT NULL",,"","1:売注文,2:買注文",$FFFFFFFF,""
+Field="単価","unit_price","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="数量","qty","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="created_by","created_by","int(11)",,,"","",$FFFFFFFF,""
+Field="updated_by","updated_by","int(11)",,,"","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,resource_id
+Index==0,time_index_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="PLS関連",1500,400,497,279
+ZOrder=63
+
+[Entity]
+PName=jepx_hour_before_trade_results
+LName=時間前市場取引結果
+Comment=
+TableOption=
+Page=PLS関連
+Left=1500
+Top=800
+Field="id","id","bigint(20) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="時間前市場取引ID","hour_before_trade_id","bigint(20)",,,"","",$FFFFFFFF,""
+Field="計画反映済","is_applied_to_plan","tinyint(1)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="単価","unit_price","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="数量","qty","int(11)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="created_at","created_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Field="updated_at","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,hour_before_trade_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="PLS関連",1500,800,497,178
+ZOrder=64
+
+[Relation]
+Entity1=resources
+Entity2=jepx_hour_before_trades
+RelationType1=2
+RelationType2=3
+Fields1=id
+Fields2=resource_id
+Cardinarity1=
+Cardinarity2=
+Position="PLS関連",0,434,5803,1306,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20190618152706
+LineMode=0
+Bar1=43
+Bar2=580
+Bar3=131
+TermPos1=R
+TermPos2=R
+ZOrder=65
+
+[Relation]
+Entity1=resources
+Entity2=matching_trade_settings
+RelationType1=2
+RelationType2=3
+Fields1=id
+Fields2=resource_id
+Cardinarity1=
+Cardinarity2=
+Position="PLS関連",0,514,6470,217,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20190618152751
+LineMode=0
+Bar1=51
+Bar2=647
+Bar3=22
+TermPos1=R
+TermPos2=R
+ZOrder=66
+
+[Relation]
+Entity1=resources
+Entity2=power_generator_groups
+RelationType1=2
+RelationType2=3
+Fields1=id
+Fields2=resource_id
+Cardinarity1=
+Cardinarity2=
+Position="PLS関連",2,514,5704,1789,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20190618152859
+LineMode=2
+Bar1=51
+Bar2=570
+Bar3=179
+TermPos1=R
+TermPos2=R
+ZOrder=67
+
+[Relation]
+Entity1=resources
+Entity2=jbu_contracts
+RelationType1=2
+RelationType2=3
+Fields1=id
+Fields2=resource_id
+Cardinarity1=
+Cardinarity2=
+Position="PLS関連",2,514,5698,873,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20190618152934
+LineMode=2
+Bar1=51
+Bar2=570
+Bar3=87
+TermPos1=R
+TermPos2=R
+ZOrder=68

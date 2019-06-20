@@ -18,6 +18,8 @@
 #
 
 class Resource < ApplicationRecord
+  before_validation :set_values
+
   belongs_to :bg_member
   has_many :occto_plan_detail_values, class_name: Occto::PlanDetailValue.to_s
 
@@ -54,5 +56,9 @@ class Resource < ApplicationRecord
   # @return [Integer] レート
   def get_rate_at(date, time_index)
     raise "method not impremented."
+  end
+
+  private
+  def set_values
   end
 end

@@ -18,6 +18,8 @@
 #
 
 class ResourceJepxSpot < Resource
+  before_validation :set_values
+
   protected
 
   #
@@ -28,4 +30,15 @@ class ResourceJepxSpot < Resource
   def get_rate_at(date, time_index)
     raise "method not impremented."
   end
+
+  private
+  #
+  # 規定値をセットする
+  #
+  def set_values
+    self.code = "JSPT3"
+    self.name = "スポット"
+    self.unit ||= 50
+  end
+
 end

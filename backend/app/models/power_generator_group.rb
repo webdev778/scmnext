@@ -14,6 +14,8 @@
 #
 
 class PowerGeneratorGroup < ApplicationRecord
-  has_many :power_generators
-  belongs_to :resource
+  has_many :power_generators, inverse_of: :power_generator_group
+  belongs_to :resource, inverse_of: :power_generator_groups, class_name: ResourceFit.to_s, required: false
+
+  accepts_nested_attributes_for :power_generators
 end
