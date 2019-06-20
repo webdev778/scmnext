@@ -15,7 +15,7 @@
 #
 
 class DistrictLossRate < ApplicationRecord
-  belongs_to :district_id
+  belongs_to :district
   belongs_to :voltage_type
 
   scope :includes_for_index, lambda {

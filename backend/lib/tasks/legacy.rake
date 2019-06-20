@@ -218,9 +218,6 @@ namespace :legacy do
       .map do |yaml_path|
         YAML.load_file(yaml_path)
       end
-      .delete_if do |config|
-        config[:skip]
-      end
       .map do |config|
         model_class = config[:model_class].constantize
         [model_class, config]
@@ -238,10 +235,16 @@ namespace :legacy do
         [model_class, child]
       end
       .to_h
-    each_node = lambda {|&b| dep_tree.each_key(&b) }
-    each_child = lambda {|n, &b| dep_tree[n].each(&b) }
+    each_node = lambda do |&b|
+      dep_tree.each_key(&b)
+    end
+    each_child = lambda do |n, &b|
+      dep_tree[n].each(&b)
+    end
+    # TSortを実行し依存関係順に変換処理を実施する
     TSort.each_strongly_connected_component(each_node, each_child) do |models|
       models.each do |model_class|
+        next if config_list[model_class][:skip]
         convert config_list[model_class]
       end
     end

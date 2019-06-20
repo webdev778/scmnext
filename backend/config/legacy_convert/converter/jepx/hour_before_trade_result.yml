@@ -1,0 +1,15 @@
+---
+:skip: true
+:truncate: true
+:model_class: Jepx::HourBeforeTradeResult
+:sources:
+- :fields:
+    id: "'インポート用ダミー'"
+    hour_before_trade_id:
+    is_applied_to_plan:
+    unit_price:
+    qty:
+    created_at:
+    updated_at:
+  :from: tbl_account
+  :where: 1 = 0
