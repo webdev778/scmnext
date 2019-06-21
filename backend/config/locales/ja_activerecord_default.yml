@@ -1,0 +1,562 @@
+---
+ja:
+  activerecord:
+    attributes:
+      resource:
+        bg_member_id: BGメンバーID
+        type: 種別
+        code: コード
+        name: 名称
+        contract_number: 契約No.
+        max_value: 最大量
+        min_value: 最小量
+        unit: 単位量
+      occto::plandetailvalue:
+        type: データ種別
+        plan_by_bg_member_id: 広域需要調達計画(翌日)BGメンバー別データID
+        resource_id: リソースID
+        time_index_id: 時間枠ID
+        value: 数量(kWh)
+      user:
+        provider: プロバイダ
+        uid: UID
+        email: E-Mail
+        encrypted_password: パスワード(暗号化済)
+        reset_password_token: パスワードリセット時トークン
+        reset_password_sent_at: パスワードリセット要求日時
+        sign_in_count: サインイン回数
+        current_sign_in_at: 現在サインイン日時
+        last_sign_in_at: 最終サインイン日時
+        current_sign_in_ip: 現在サインインIPアドレス
+        last_sign_in_ip: 最終サインインIPアドレス
+        password_salt: パスワードソルト
+      balancinggroup:
+        code: コード
+        name: 名前
+        district_id: エリアID
+        leader_company_id: リーダーPPS ID
+      occto::plan:
+        balancing_group_id: BG ID
+        date: 年月日
+      company:
+        name: 名前
+        code: コード
+        name_kana: 名前(カナ)
+        postal_code: 郵便番号
+        pref_no: 都道府県番号
+        city: 市区町村
+        address: 住所
+        tel: TEL
+        fax: FAX
+        email: EMAIL
+      bgmember:
+        balancing_group_id: バランシンググループID
+        company_id: PPS ID
+      companyaccount:
+        company_id: 会社ID
+        type: 種別
+        login_code: ログインコード
+        password: パスワード
+        passphrase: パスフレーズ
+        comment: 備考
+      consumer:
+        name: 名前
+        code: コード
+        company_id: PPS ID
+        tel: TEL
+        fax: FAX
+        email: EMAIL
+        url: URL
+        pref_no: 都道府県番号
+        city: 市区町村
+        address: 住所
+        person_in_charge: 担当者
+        person_in_charge_kana: 担当者カナ
+        password: パスワード
+      contract:
+        name: 名称
+        name_for_invoice: 請求用名称
+        voltage_type_id: 電圧種別ID
+        contract_item_group_id: 契約アイテムグループID
+        start_date: 開始日
+        end_date: 終了日
+      contractbasiccharge:
+        contract_id: 契約ID
+        start_date: 適用開始日
+        amount: 金額
+      contractitem:
+        name: 名前
+        voltage_type_id: 電圧種別ID
+        enabled: 有効フラグ:未使用?要確認
+      contractitemgroup:
+        name: 名前
+        voltage_type_id: 電圧種別ID
+      contractitemorder:
+        contract_item_group_id: 契約アイテムグループID
+        contract_item_id: 契約アイテムID
+        sort_order: 並び順
+      contractmeterrate:
+        contract_id: 契約ID
+        contract_item_id: 契約アイテムID
+        start_date: 開始日
+        end_date: 終了日
+        rate: レート
+      discountsforfacility:
+        facility_id: 施設ID
+        start_date: 適用開始日
+        rate: 割引率
+      district:
+        name: 名前
+        code: コード
+        wheeler_code: 託送コード
+        loss_rate_special_high_voltage: 損失率(特別高圧)
+        loss_rate_high_voltage: 損失率(高圧)
+        loss_rate_low_voltage: 損失率(低圧)
+        dlt_host: 託送ダウンロード用ホスト名
+        dlt_path: 託送ダウンロードパス名
+        is_partial_included: 電力量データ部分供給内包有無
+        daytime_start_time_index_id: 昼間時間開始時間枠ID
+        daytime_end_time_index_id: 昼間時間終了時間枠ID
+        peaktime_start_time_index_id: ピークタイム開始時間枠ID
+        peaktime_end_time_index_id: ピークタイム終了時間枠ID
+        summer_season_start_month: 夏季開始月
+        summer_season_end_month: 夏季終了月
+      jepx::imbalancebeta:
+        year: 年
+        month: 月
+        district_id: エリアID
+        value: 値
+      jepx::spottradeareadatum:
+        spot_trade_id: JEPXスポット市場取引結果ID
+        district_id: エリアID
+        area_price: エリアプライス(円/kWh)
+        avoidable_price: 回避可能原価(円/kWh)
+      timeindex:
+        time: 時間
+      districtlossrate:
+        district_id: エリアID
+        voltage_type_id: 電圧種別ID
+        rate: 損失率
+        application_start_date: 適用開始日
+        application_end_date: 適用終了日
+      dlt::file:
+        setting_id: ダウンロード設定ID
+        voltage_mode: 電圧モード
+        data_type: データ種別
+        record_date: 記録日:速報値の場合は、取得開始年月日、確定値の場合は検針日
+        record_time_index_id: 記録時間枠ID:当日データのみ
+        section_number: 分割番号
+        revision: 更新番号
+        state: 状態:(0:未取込,1:取込完了,2:処理中,3:一部取込(エラーあり))
+      dlt::setting:
+        company_id: 会社ID
+        district_id: エリアID
+        bg_member_id: BGメンバーID
+        state: 状態:(0:正常, 1:休止中)
+      dlt::invalidsupplypoint:
+        company_id: PPS ID
+        district_id: エリアID
+        bg_member_id: BGメンバーID
+        number: 供給地点特定番号
+        name: 顧客名
+        comment: 内容
+      dlt::usagefixeddetail:
+        usage_fixed_header_id: 確定使用量ヘッダID
+        time_index_id: 時間枠ID
+        usage_all: 使用量全量
+        usage: 使用量仕訳後
+      dlt::usagefixedheader:
+        facility_group_id: 施設グループID
+        information_type_code: 情報区分コード
+        year: 年
+        month: 月
+        record_date: 検針日
+        sender_code: 送信者コード
+        receiver_code: 受信者コード
+        supply_point_number: 供給地点特定番号
+        consumer_code: 需要家識別番号
+        consumer_name: 需要家名称
+        supply_point_name: 供給場所
+        voltage_class_name: 電圧区分名
+        journal_code: '仕訳コード: 1:全量,2:部分'
+        can_provide: 提供可否
+        usage_all: 月間電力量全量
+        usage: 月間電力量仕訳後
+        power_factor: 力率
+        max_power: 最大需要電力
+        next_meter_reading_date: 次回定例検針予定日
+      facility:
+        name: 名前
+        code: コード
+        consumer_id: 需要家ID
+        district_id: 供給エリアID
+        voltage_type_id: 電圧種別ID
+        contract_capacity: 契約容量
+        tel: TEL
+        fax: FAX
+        email: EMAIL
+        url: URL
+        pref_no: 都道府県番号
+        city: 市区町村
+        address: 住所
+        person_in_charge: 担当者
+        person_in_charge_kana: 担当者カナ
+      facilitycontract:
+        facility_id: 施設ID
+        contract_id: 契約ID
+        start_date: 開始日
+      facilitygroup:
+        name: 名前
+        company_id: PPS ID
+        district_id: エリアID
+        bg_member_id: BGメンバーID
+        contract_id: 契約ID
+        voltage_type_id: 電圧種別ID
+        contract_capacity: 契約容量
+      facilitymaxdemandpower:
+        facility_id: 施設ID
+        year: 年
+        month: 月
+        value: 値(最大需要電力kw)
+      fuelcostadjustment:
+        company_id: PPS ID
+        district_id: エリアID
+        bg_member_id: BGメンバーID
+        year: 年
+        month: 月
+        voltage_class: 電圧区分
+        unit_price: 単価
+      voltagetype:
+        name: 名前
+      holiday:
+        district_id: エリアID
+        date: 日付
+        name: 名称
+      imbalancekl:
+        district_id: エリアID
+        start_date: 開始日
+        k_value: K値
+        l_value: L値
+      jbucontract:
+        resource_id: リソースID
+        district_id: エリアID
+        company_id: PPS ID
+        start_date: 開始日
+        end_date: 終了日
+        contract_power: 契約容量
+        basic_charge: 基本料金(kW)
+        meter_rate_charge_summer_season_daytime: 従量料金(夏季昼間)
+        meter_rate_charge_other_season_daytime: 従量料金(他季昼間)
+        meter_rate_charge_night: 従量料金(夜間)
+        meter_rate_charge_peak_time: 従量料金(ピークタイム)
+        fuel_cost_adjustment_charge: 燃料費調整単価
+      jepx::hourbeforetrade:
+        resource_id: リソースID
+        date: 日付
+        time_index_id: 時間枠ID
+        trade_type: 取引種別:1:売注文,2:買注文
+        unit_price: 単価
+        qty: 数量
+      jepx::hourbeforetraderesult:
+        hour_before_trade_id: 時間前市場取引ID
+        is_applied_to_plan: 計画反映済
+        unit_price: 単価
+        qty: 数量
+      jepx::spottrade:
+        date: 年月日
+        time_index_id: 時間枠ID
+        sell_bit_amount: 売り入札量(kWh)
+        buy_bit_amount: 買い入札量(kWh)
+        execution_amount: 約定総量(kWh)
+        system_price: システムプライス(円/kWh)
+        avoidable_cost: 回避可能原価全国値(円/kWh)
+        spot_avg_per_price: スポット・時間前平均価格(円/kWh)
+        alpha_max_times_spot_avg_per_price: α上限値×スポット・時間前平均価格(円/kWh)
+        alpha_min_times_spot_avg_per_price: α下限値×スポット・時間前平均価格(円/kWh)
+        alpha_preliminary_times_spot_avg_per_price: α速報値×スポット・時間前平均価格(円/kWh)
+        alpha_fixed_times_spot_avg_per_price: α確報値×スポット・時間前平均価格(円/kWh)
+      matchingtradesetting:
+        resource_id: リソースID
+        year_pattern: 年パターン
+        month_pattern: 月パターン
+        day_pattern: 日パターン
+        day_of_week_pattern: 曜日パターン
+        time_index_1: 時間枠1値
+        time_index_2: 時間枠2値
+        time_index_3: 時間枠3値
+        time_index_4: 時間枠4値
+        time_index_5: 時間枠5値
+        time_index_6: 時間枠6値
+        time_index_7: 時間枠7値
+        time_index_8: 時間枠8値
+        time_index_9: 時間枠9値
+        time_index_10: 時間枠10値
+        time_index_11: 時間枠11値
+        time_index_12: 時間枠12値
+        time_index_13: 時間枠13値
+        time_index_14: 時間枠14値
+        time_index_15: 時間枠15値
+        time_index_16: 時間枠16値
+        time_index_17: 時間枠17値
+        time_index_18: 時間枠18値
+        time_index_19: 時間枠19値
+        time_index_20: 時間枠20値
+        time_index_21: 時間枠21値
+        time_index_22: 時間枠22値
+        time_index_23: 時間枠23値
+        time_index_24: 時間枠24値
+        time_index_25: 時間枠25値
+        time_index_26: 時間枠26値
+        time_index_27: 時間枠27値
+        time_index_28: 時間枠28値
+        time_index_29: 時間枠29値
+        time_index_30: 時間枠30値
+        time_index_31: 時間枠31値
+        time_index_32: 時間枠32値
+        time_index_33: 時間枠33値
+        time_index_34: 時間枠34値
+        time_index_35: 時間枠35値
+        time_index_36: 時間枠36値
+        time_index_37: 時間枠37値
+        time_index_38: 時間枠38値
+        time_index_39: 時間枠39値
+        time_index_40: 時間枠40値
+        time_index_41: 時間枠41値
+        time_index_42: 時間枠42値
+        time_index_43: 時間枠43値
+        time_index_44: 時間枠44値
+        time_index_45: 時間枠45値
+        time_index_46: 時間枠46値
+        time_index_47: 時間枠47値
+        time_index_48: 時間枠48値
+      occto::fitplan:
+        bg_member_id: BGメンバーID
+        date: 日付
+        initialized_at: 初期化日時
+        received_at: 取得日時
+        send_at: 送信日時
+        fit_id_text: FIT ID(テキスト)
+        stat: ステータス
+        fit_receipt_stat: 受付ステータス
+        occto_last_update_datetime: 広域最終更新日時:ミリ秒単位
+        occto_submit_datetime: 広域送信日時:秒単位
+        ottot_create_datetime: 広域作成日時:秒単位
+      occto::fitplanbypowergeneratorgroup:
+        fit_plan_id: 広域発電販売(翌日)ID
+        power_generator_group_id: 発電BG ID
+      occto::fitplandetailvalue:
+        fit_plan_by_power_generator_group_id: 広域発電販売(翌日)発電BG別データID
+        power_generator_id: 発電者ID
+        time_index_id: 時間枠ID
+        value: 数量(kWh)
+      occto::planbybgmember:
+        plan_id: 広域需要調達計画(翌日)ID
+        bg_member_id: BGメンバーID
+      pl::basedatum:
+        type: 種別
+        date: 日付
+        time_index_id: 時間枠ID
+        amount_actual: 使用量(kwh)
+        amount_planned: 計画値
+        amount_loss: 損失量
+        amount_imbalance: インバランス
+        power_factor_rate: 力率
+        sales_basic_charge: 売上(基本料)
+        sales_fuel_cost_adjustment: 売上(燃料調整費)
+        sales_cost_adjustment: 売上(調整費)
+        sales_special_discount: 売上(還元割)
+        usage_jbu: 使用量(JBU)
+        usage_jepx_spot: 使用量(JPEXスポット)
+        usage_jepx_1hour: 使用量(JPEX一時間前)
+        usage_fit: 使用量(FIT)
+        usage_matching: 使用量(相対)
+        supply_jbu_basic_charge: 仕入(JBU基本料)
+        supply_jbu_meter_rate_charge: 仕入(JBU従量料金)
+        supply_jbu_fuel_cost_adjustment: 仕入(JBU燃料調整費)
+        supply_jepx_spot: 仕入(JEPXスポット)
+        supply_jepx_1hour: 仕入(JEPX一時間前)
+        supply_fit: 仕入(FIT)
+        supply_matching: 仕入(相対)
+        supply_imbalance: 仕入(インバランス)
+        supply_wheeler_fundamental_charge: 仕入(託送基本料)
+      powergenerator:
+        power_generator_group_id: 発電BG ID
+        code: コード
+        name: 名前
+        contract_number: 契約No.
+        supply_max: 最大量
+      powergeneratorgroup:
+        resource_id: リソースID
+        name: 名前
+        code: コード
+        contract_number: 契約No.
+      powerusagefixed:
+        facility_group_id: 施設グループID
+        date: 日付
+        time_index_id: 時間枠ID
+        value: 使用量(kwh)
+      powerusagepreliminary:
+        facility_group_id: 施設グループID
+        date: 日付
+        time_index_id: 時間枠ID
+        value: 使用量(kwh)
+      supplypoint:
+        number: 供給地点特定番号
+        supply_start_date: 供給開始日
+        supply_end_date: 供給終了日
+        supply_method_type: '供給区分: 1:全量, 2:部分'
+        base_power: ベース電源
+        facility_group_id: 施設グループID
+        facility_id: 施設ID
+      wheelercharge:
+        district_id: エリアID
+        voltage_class: 電圧区分
+        start_date: 適用開始日
+        basic_charge: 基本料金(kW)
+        meter_rate_charge: 電力量料金(kWh)
+        peak_shift_discount: ピークシフト割引(kW)
+        a_charge: 予備送電サービスA料金(kW)
+        b_charge: 予備送電サービスB料金(kW)
+      resourceself:
+        bg_member_id: BGメンバーID
+        type: 種別
+        code: コード
+        name: 名称
+        contract_number: 契約No.
+        max_value: 最大量
+        min_value: 最小量
+        unit: 単位量
+      resourcejepxspot:
+        bg_member_id: BGメンバーID
+        type: 種別
+        code: コード
+        name: 名称
+        contract_number: 契約No.
+        max_value: 最大量
+        min_value: 最小量
+        unit: 単位量
+      resourcejepxonehour:
+        bg_member_id: BGメンバーID
+        type: 種別
+        code: コード
+        name: 名称
+        contract_number: 契約No.
+        max_value: 最大量
+        min_value: 最小量
+        unit: 単位量
+      resourcejbu:
+        bg_member_id: BGメンバーID
+        type: 種別
+        code: コード
+        name: 名称
+        contract_number: 契約No.
+        max_value: 最大量
+        min_value: 最小量
+        unit: 単位量
+      resourcefit:
+        bg_member_id: BGメンバーID
+        type: 種別
+        code: コード
+        name: 名称
+        contract_number: 契約No.
+        max_value: 最大量
+        min_value: 最小量
+        unit: 単位量
+      resourcematching:
+        bg_member_id: BGメンバーID
+        type: 種別
+        code: コード
+        name: 名称
+        contract_number: 契約No.
+        max_value: 最大量
+        min_value: 最小量
+        unit: 単位量
+      occto::plandetaildemandvalue:
+        type: データ種別
+        plan_by_bg_member_id: 広域需要調達計画(翌日)BGメンバー別データID
+        resource_id: リソースID
+        time_index_id: 時間枠ID
+        value: 数量(kWh)
+      occto::plandetailsalevalue:
+        type: データ種別
+        plan_by_bg_member_id: 広域需要調達計画(翌日)BGメンバー別データID
+        resource_id: リソースID
+        time_index_id: 時間枠ID
+        value: 数量(kWh)
+      occto::plandetailsupplyvalue:
+        type: データ種別
+        plan_by_bg_member_id: 広域需要調達計画(翌日)BGメンバー別データID
+        resource_id: リソースID
+        time_index_id: 時間枠ID
+        value: 数量(kWh)
+      companyaccountjepx:
+        company_id: 会社ID
+        type: 種別
+        login_code: ログインコード
+        password: パスワード
+        passphrase: パスフレーズ
+        comment: 備考
+      companyaccountoccto:
+        company_id: 会社ID
+        type: 種別
+        login_code: ログインコード
+        password: パスワード
+        passphrase: パスフレーズ
+        comment: 備考
+      legacy::tblactualelectricallowpower: {}
+      legacy::tblactualelectricalpower: {}
+      legacy::tblareasupplyvalue: {}
+      pl::basedatumfixed:
+        type: 種別
+        date: 日付
+        time_index_id: 時間枠ID
+        amount_actual: 使用量(kwh)
+        amount_planned: 計画値
+        amount_loss: 損失量
+        amount_imbalance: インバランス
+        power_factor_rate: 力率
+        sales_basic_charge: 売上(基本料)
+        sales_fuel_cost_adjustment: 売上(燃料調整費)
+        sales_cost_adjustment: 売上(調整費)
+        sales_special_discount: 売上(還元割)
+        usage_jbu: 使用量(JBU)
+        usage_jepx_spot: 使用量(JPEXスポット)
+        usage_jepx_1hour: 使用量(JPEX一時間前)
+        usage_fit: 使用量(FIT)
+        usage_matching: 使用量(相対)
+        supply_jbu_basic_charge: 仕入(JBU基本料)
+        supply_jbu_meter_rate_charge: 仕入(JBU従量料金)
+        supply_jbu_fuel_cost_adjustment: 仕入(JBU燃料調整費)
+        supply_jepx_spot: 仕入(JEPXスポット)
+        supply_jepx_1hour: 仕入(JEPX一時間前)
+        supply_fit: 仕入(FIT)
+        supply_matching: 仕入(相対)
+        supply_imbalance: 仕入(インバランス)
+        supply_wheeler_fundamental_charge: 仕入(託送基本料)
+      pl::basedatumpreliminary:
+        type: 種別
+        date: 日付
+        time_index_id: 時間枠ID
+        amount_actual: 使用量(kwh)
+        amount_planned: 計画値
+        amount_loss: 損失量
+        amount_imbalance: インバランス
+        power_factor_rate: 力率
+        sales_basic_charge: 売上(基本料)
+        sales_fuel_cost_adjustment: 売上(燃料調整費)
+        sales_cost_adjustment: 売上(調整費)
+        sales_special_discount: 売上(還元割)
+        usage_jbu: 使用量(JBU)
+        usage_jepx_spot: 使用量(JPEXスポット)
+        usage_jepx_1hour: 使用量(JPEX一時間前)
+        usage_fit: 使用量(FIT)
+        usage_matching: 使用量(相対)
+        supply_jbu_basic_charge: 仕入(JBU基本料)
+        supply_jbu_meter_rate_charge: 仕入(JBU従量料金)
+        supply_jbu_fuel_cost_adjustment: 仕入(JBU燃料調整費)
+        supply_jepx_spot: 仕入(JEPXスポット)
+        supply_jepx_1hour: 仕入(JEPX一時間前)
+        supply_fit: 仕入(FIT)
+        supply_matching: 仕入(相対)
+        supply_imbalance: 仕入(インバランス)
+        supply_wheeler_fundamental_charge: 仕入(託送基本料)

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
   get '/auth', to: 'user_sessions#show'
   scope :v1, defaults: { format: :json } do
+    get 'i18n', to: 'i18n#show'
     resources :users, concerns: [:listable]
     resources :balancing_groups, concerns: [:listable]
     resources :bg_members, concerns: [:listable]
