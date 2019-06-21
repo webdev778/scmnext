@@ -45,7 +45,7 @@ base:
   #font_color: [0, 0, 0, 0.92]
   #font_color: [0, 0, 0, 92%]
   font_family: AozoraMincho # Noto Serif
-  font_size: 10
+  font_size: 8
   line_height_length: 15
   line_height: $base_line_height_length / $base_font_size
   font_size_large: round($base_font_size * 1.25)

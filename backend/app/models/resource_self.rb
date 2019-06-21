@@ -18,8 +18,6 @@
 #
 
 class ResourceSelf < Resource
-  before_validation :set_values
-
   private
   def set_values
     self.name = bg_member.balancing_group.name

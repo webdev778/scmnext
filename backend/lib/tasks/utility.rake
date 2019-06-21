@@ -19,8 +19,13 @@ namespace :utility do
     sh 'erd --filename=doc/ER図'
   end
 
+  desc 'rspec実行'
+  task rspec: :environment do |_task, _args|
+    sh 'AUTODOC=1 rspec'
+  end
+
   desc 'asciidoctorによるpdf作成'
-  task asciidoc: :environment do |_task, _args|
+  task asciidoc: [:environment, :rspec] do |_task, _args|
     #sh 'cd ../deploy && asciidoctor-pdf -r asciidoctor-diagram ./documents/asciidoc/src/phase1/index.adoc'
     sh 'cd ../deploy && asciidoctor-pdf -r asciidoctor-diagram ./documents/asciidoc/src/phase2/index.adoc'
   end

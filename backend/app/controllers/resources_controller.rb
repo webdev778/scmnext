@@ -8,5 +8,6 @@ class ResourcesController < ApplicationController
       .permit(
         model_class.get_column_and_nested_attributes_permission
       )
+    model_class.parameter_to_nested_attribute_data(filtered_params)
   end
 end

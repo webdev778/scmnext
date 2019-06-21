@@ -1,17 +1,22 @@
 <%# coding: UTF-8 -%>
-## <%= title %>
-<%= description %>
-<%= parameters_section %>
-### 使用例
+=== <%= description %>
 
-#### リクエスト
-```
+[.lead]
+<%= title %>
+
+<%= parameters_section %>
+==== 使用例
+
+===== リクエスト
+
+....
 <%= method %> <%= request.path %><%= request_query %> <%= request_http_version %>
 <%= request_header %><%= request_body_section %>
-```
+....
 
-#### レスポンス
-```
+===== レスポンス
+
+....
 <%= response_http_version %> <%= response.status %>
 <%= response_header %><%= response_body_section %>
-```
+....

@@ -234,16 +234,27 @@ prog <--> io_4 : input / output
 ===== I/O
 
 |======================================
-| 名称 | 物理名 | 種類 | I/O種別 | 備考
-| バランシンググループ     | balancing_groups        | DB | I    |
-| BGメンバー               | bg_members              | DB | I    |
-| 会社                     | companies               | DB | I    |
-| リソース                 | resources               | DB | I/O  |
-| 常時バックアップ電源契約 | jbu_contracts           | DB | I/O  |
-| 発電BG                   | power_generator_groups  | DB | I/O  |
-| 発電者                   | power_generators        | DB | I/O  |
-| 相対取引設定             | matching_trade_settings | DB | I/O  |
+| 名称                           | 物理名                     | 種類 | I/O種別    | 備考
+| バランシンググループ           | balancing_groups           | DB   | I          |
+| BGメンバー                     | bg_members                 | DB   | I          |
+| 会社                           | companies                  | DB   | I          |
+| リソース                       | resources                  | DB   | I/O        |
+| 常時バックアップ電源契約       | jbu_contracts              | DB   | I/O        |
+| 発電BG                         | power_generator_groups     | DB   | I/O        |
+| 発電者                         | power_generators           | DB   | I/O        |
+| 相対取引設定                   | matching_trade_settings    | DB   | I/O        |
 |======================================
+
+==== 使用するAPI
+
+|======================================
+| 処理名                         | エンドポイント
+| リソース取得API                | GET /v1/resources/:resource_id
+| リソース作成API                | POST /v1/resources
+| リソース更新API                | PATCH /v1/resources/:resource_id
+|======================================
+
+
 
 <<<
 

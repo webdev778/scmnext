@@ -4,18 +4,18 @@ FactoryBot.define do
     type {"ResourceSelf"}
     code {"LA586"}
 
-    factory :resource_self do
+    factory :resource_self, class: ResourceSelf.to_s do
       type {"ResourceSelf"}
       code {"LA586"}
     end
 
-    factory :resource_jepx_spot do
+    factory :resource_jepx_spot, class: ResourceJepxSpot.to_s do
       type {"ResourceJepxSpot"}
       max_value { 10000 }
       min_value { 0 }
     end
 
-    factory :resource_jepx_one_hour do
+    factory :resource_jepx_one_hour, class: ResourceJepxOneHour.to_s do
       type {"ResourceJepxOneHour"}
       max_value { 10000 }
       min_value { 0 }

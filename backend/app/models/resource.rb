@@ -18,7 +18,7 @@
 #
 
 class Resource < ApplicationRecord
-  before_validation :set_values
+  before_save :set_values
 
   belongs_to :bg_member
   has_many :occto_plan_detail_values, class_name: Occto::PlanDetailValue.to_s

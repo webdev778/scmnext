@@ -18,8 +18,6 @@
 #
 
 class ResourceJepxSpot < Resource
-  before_validation :set_values
-
   protected
 
   #
