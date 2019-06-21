@@ -66,17 +66,17 @@
     pkcs12: certs/occto/EPP_60158_000000000000059555.p12
 :sources:
 - :fields:
-    id:
+    id: 
     company_id: tbl_account.id
-    type:
+    type: 
     login_code: tbl_company.occto_userid
     password: tbl_company.occto_password
-    passphrase:
-    comment:
-    created_by:
-    updated_by:
-    created_at:
-    updated_at:
+    passphrase: 
+    comment: 
+    created_by: 
+    updated_by: 
+    created_at: 
+    updated_at: 
   :from: tbl_company
   :where: tbl_company.occto_userid IS NOT NULL AND tbl_company.occto_userid <> ''
   :joins:
