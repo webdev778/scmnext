@@ -17,32 +17,27 @@
 #
 
 class FuelCostAdjustment < ApplicationRecord
+  include VoltageClass
+
   belongs_to :bg_member
 
   scope :includes_for_index, lambda {
     includes(bg_member: [:company, {balancing_group: :district}])
   }
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
-        include:
-        {
-          bg_member: {
-            include: [
-              :company,
-              {
-                balancing_group: {
-                  include: :district
-                }
-              }
-            ]
+  class << self
+    def json_option
+      {
+        include: [
+          :company,
+          {
+            balancing_group: {
+              include: :district
+            }
           }
-        }
+        ]
       }
     end
-    super options
   end
 
-  include VoltageClass
 end

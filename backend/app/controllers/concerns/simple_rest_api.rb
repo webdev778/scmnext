@@ -28,7 +28,7 @@ module SimpleRestApi
     else
       results = results.page(params[:page])
       results = results.per(params[:per]) if params[:per].present?
-      render json: result_set_for_pagenated(results.as_json(results.json_option_for_index))
+      render json: result_set_for_pagenated(results)
     end
   end
 
@@ -102,7 +102,7 @@ module SimpleRestApi
 
   def result_set_for_pagenated(results)
     {
-      records: results,
+      records: results.as_json(results.json_option_for_index),
       pages: {
         total_count: results.total_count,
         current_page: results.current_page,

@@ -20,18 +20,18 @@ class ImbalanceKl < ApplicationRecord
     includes(:district)
   }
 
+  class << self
+    def json_option
+      {
+        include: :district
+      }
+    end
+  end
+
   validates :k_value,
     numericality: {presence: true}
 
   validates :l_value,
     numericality: {presence: true}
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
-        include: :district
-      }
-    end
-    super options
-  end
 end

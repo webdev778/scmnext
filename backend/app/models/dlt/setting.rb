@@ -38,9 +38,9 @@ class Dlt::Setting < ApplicationRecord
     includes(bg_member: [:company, {balancing_group: :district}])
   }
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
+  class << self
+    def json_option
+      {
         methods: [
           :state_i18n
         ],
@@ -59,7 +59,6 @@ class Dlt::Setting < ApplicationRecord
         }
       }
     end
-    super options
   end
 
   #

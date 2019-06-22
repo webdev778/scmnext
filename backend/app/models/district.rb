@@ -40,13 +40,12 @@ class District < ApplicationRecord
     includes([:daytime_start_time_index, :daytime_end_time_index, :peaktime_start_time_index, :peaktime_end_time_index])
   }
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
+  class << self
+    def json_option
+      {
         include: [:daytime_start_time_index, :daytime_end_time_index, :peaktime_start_time_index, :peaktime_end_time_index]
       }
     end
-    super options
   end
 
   #

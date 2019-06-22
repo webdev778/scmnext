@@ -31,13 +31,12 @@ class Jepx::SpotTrade < ApplicationRecord
     includes([:time_index])
   }
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
+  class << self
+    def json_option
+      {
         include: :time_index
       }
     end
-    super options
   end
 
   require 'csv'

@@ -31,9 +31,9 @@ class JbuContract < ApplicationRecord
     includes(resource: {bg_member: [:company, {balancing_group: :district}]})
   }
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
+  class << self
+    def json_option
+      {
         include: {
           resource: {
             include: {
@@ -52,7 +52,6 @@ class JbuContract < ApplicationRecord
         }
       }
     end
-    super options
   end
 
   #

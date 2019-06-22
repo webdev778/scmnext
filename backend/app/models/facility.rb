@@ -74,8 +74,21 @@ class Facility < ApplicationRecord
   scope :voltage_mode_high_only, lambda {
     where("facilities.voltage_type_id < 3")
   }
-
   class << self
+
+    def json_option
+      {
+        include: [
+          { consumer: {
+            include: :company
+          } },
+          :district,
+          :supply_point,
+          :voltage_type
+        ]
+      }
+    end
+
     #
     # 指定日の契約電力について、facility_group_idをkey,最大需要電力を値としたhashmapを作成する
     # (契約電力=直近12ヶ月の最大需要電力の最大値)
@@ -93,22 +106,6 @@ class Facility < ApplicationRecord
         .group('facility_groups.id')
         .maximum(:value)
     end
-  end
-
-  def as_json(options = {})
-    if options.blank?
-      options = {
-        include: [
-          { consumer: {
-            include: :company
-          } },
-          :district,
-          :supply_point,
-          :voltage_type
-        ]
-      }
-    end
-    super options
   end
 
   def is_active_at?(date)

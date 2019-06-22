@@ -19,12 +19,12 @@ class DiscountsForFacility < ApplicationRecord
     includes([:facility])
   }
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
+  class << self
+    def json_option
+      {
         include: :facility
       }
     end
-    super options
   end
+
 end

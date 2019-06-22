@@ -30,21 +30,20 @@ class BgMember < ApplicationRecord
     includes([:company])
   }
 
+  class << self
+    def json_option
+      {
+        include: [:balancing_group, :company]
+      }
+    end
+  end
+
   def code
     "#{company.code}#{balancing_group.district.code}"
   end
 
   def name
     company.name.to_s
-  end
-
-  def as_json(options = {})
-    if options.blank?
-      options = {
-        include: [:balancing_group, :company]
-      }
-    end
-    super options
   end
 
   #

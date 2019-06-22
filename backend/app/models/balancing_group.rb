@@ -24,12 +24,11 @@ class BalancingGroup < ApplicationRecord
     includes([:district, :leader_company])
   }
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
+  class << self
+    def json_option
+      {
         include: [:district, :leader_company]
       }
     end
-    super options
   end
 end

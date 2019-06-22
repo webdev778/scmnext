@@ -31,14 +31,12 @@ class Consumer < ApplicationRecord
     includes([:company])
   }
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
-        include: [
-          :company
-        ]
+  class << self
+    def json_option
+      {
+        include: [:company]
       }
     end
-    super options
   end
+
 end

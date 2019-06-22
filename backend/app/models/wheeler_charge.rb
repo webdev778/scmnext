@@ -28,13 +28,12 @@ class WheelerCharge < ApplicationRecord
     includes([:district])
   }
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
+  class << self
+    def json_option
+      {
         include: :district
       }
     end
-    super options
   end
 
   #

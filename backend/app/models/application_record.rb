@@ -6,6 +6,18 @@ class ApplicationRecord < ActiveRecord::Base
       Rails.logger
     end
 
+    def json_option_for_index
+      json_option
+    end
+
+    def json_option_for_show
+      json_option
+    end
+
+    def json_option
+      {}
+    end
+
     #
     # nested_attributes指定された関連データを受け付けるようにstrongパラメータ用のpermissionを生成する
     #

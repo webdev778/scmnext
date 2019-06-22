@@ -25,9 +25,9 @@ class Dlt::InvalidSupplyPoint < ApplicationRecord
     includes(bg_member: [:company, {balancing_group: :district}])
   }
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
+  class << self
+    def json_option
+      {
         include: {
           bg_member: {
             include:
@@ -43,7 +43,6 @@ class Dlt::InvalidSupplyPoint < ApplicationRecord
         }
       }
     end
-    super options
   end
 
 end

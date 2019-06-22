@@ -30,9 +30,9 @@ class FacilityGroup < ApplicationRecord
     includes([{bg_member: [:company, {balancing_group: :district}]}, :contract, :voltage_type])
   }
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
+  class << self
+    def json_option
+      {
         include: [
           :contract,
           :voltage_type,
@@ -51,7 +51,6 @@ class FacilityGroup < ApplicationRecord
         ]
       }
     end
-    super options
   end
 
   def sales_cost_adjustment

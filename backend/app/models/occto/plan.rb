@@ -21,16 +21,13 @@ class Occto::Plan < ApplicationRecord
     includes(:balancing_group)
   }
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
+  class << self
+    def json_option
+      {
         include: [:balancing_group]
       }
     end
-    super options
-  end
 
-  class << self
     #
     # 翌日需要・調達計画のインポート
     # @param [string] filename ファイル名

@@ -25,13 +25,12 @@ class Contract < ApplicationRecord
     includes([:voltage_type, :contract_item_group])
   }
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
+  class << self
+    def json_option
+      {
         include: [:voltage_type, :contract_item_group]
       }
     end
-    super options
   end
 
   #

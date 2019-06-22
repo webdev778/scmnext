@@ -22,12 +22,12 @@ class ContractMeterRate < ApplicationRecord
     includes([:contract, :contract_item])
   }
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
+  class << self
+    def json_option
+      {
         include: [:contract, :contract_item]
       }
     end
-    super options
   end
+
 end

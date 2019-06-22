@@ -36,10 +36,6 @@ class Dlt::UsageFixedHeader < ApplicationRecord
 
   class_attribute :supply_points_map
 
-  def as_json(options = {})
-    super options
-  end
-
   #
   # 供給地点特定番号に対応する施設グループIDをセットする
   #
