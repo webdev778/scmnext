@@ -24,17 +24,17 @@ module SimpleRestApi
     @q = filter_for_index(model_class_with_includes(:index)).ransack(params[:q])
     results = @q.result
     if params[:page].nil?
-      render json: results
+      render json: results.as_json(results.json_option_for_index)
     else
       results = results.page(params[:page])
       results = results.per(params[:per]) if params[:per].present?
-      render json: result_set_for_pagenated(results)
+      render json: result_set_for_pagenated(results.as_json(results.json_option_for_index))
     end
   end
 
   def show
     instance = filter_for_show(model_class_with_includes(:show)).find(params[:id])
-    render json: instance
+    render json: instance.as_json(instance.class.json_option_for_show)
   end
 
   def create
@@ -129,7 +129,7 @@ module SimpleRestApi
 
   def execute_action_and_send_result(instance)
     if yield(instance)
-      render json: { success: true }
+      render json: { success: true,  self.model_name.underscore => instance.as_json(instance.class.json_option_for_show)}
     else
       render json: { success: false, errors: instance.errors.full_messages }
     end

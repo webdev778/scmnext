@@ -32,8 +32,8 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:17:40.000+09:00",
-    "updated_at": "2019-06-21T13:17:40.000+09:00",
+    "created_at": "2019-06-21T17:56:10.000+09:00",
+    "updated_at": "2019-06-21T17:56:10.000+09:00",
     "type": "ResourceSelf",
     "bg_member": {
       "id": 1,
@@ -41,8 +41,8 @@ Vary: Origin
       "company_id": 1,
       "created_by": null,
       "updated_by": null,
-      "created_at": "2019-06-21T13:17:40.000+09:00",
-      "updated_at": "2019-06-21T13:17:40.000+09:00",
+      "created_at": "2019-06-21T17:56:10.000+09:00",
+      "updated_at": "2019-06-21T17:56:10.000+09:00",
       "name": "パワーオプティマイザー"
     }
   },
@@ -57,8 +57,8 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:17:40.000+09:00",
-    "updated_at": "2019-06-21T13:17:40.000+09:00",
+    "created_at": "2019-06-21T17:56:10.000+09:00",
+    "updated_at": "2019-06-21T17:56:10.000+09:00",
     "type": "ResourceJepxSpot",
     "bg_member": {
       "id": 1,
@@ -66,8 +66,8 @@ Vary: Origin
       "company_id": 1,
       "created_by": null,
       "updated_by": null,
-      "created_at": "2019-06-21T13:17:40.000+09:00",
-      "updated_at": "2019-06-21T13:17:40.000+09:00",
+      "created_at": "2019-06-21T17:56:10.000+09:00",
+      "updated_at": "2019-06-21T17:56:10.000+09:00",
       "name": "パワーオプティマイザー"
     }
   },
@@ -82,8 +82,8 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:17:40.000+09:00",
-    "updated_at": "2019-06-21T13:17:40.000+09:00",
+    "created_at": "2019-06-21T17:56:10.000+09:00",
+    "updated_at": "2019-06-21T17:56:10.000+09:00",
     "type": "ResourceJepxOneHour",
     "bg_member": {
       "id": 1,
@@ -91,8 +91,8 @@ Vary: Origin
       "company_id": 1,
       "created_by": null,
       "updated_by": null,
-      "created_at": "2019-06-21T13:17:40.000+09:00",
-      "updated_at": "2019-06-21T13:17:40.000+09:00",
+      "created_at": "2019-06-21T17:56:10.000+09:00",
+      "updated_at": "2019-06-21T17:56:10.000+09:00",
       "name": "パワーオプティマイザー"
     }
   },
@@ -107,68 +107,19 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:17:40.000+09:00",
-    "updated_at": "2019-06-21T13:17:40.000+09:00",
+    "created_at": "2019-06-21T17:56:10.000+09:00",
+    "updated_at": "2019-06-21T17:56:10.000+09:00",
     "type": "ResourceJbu",
-    "jbu_contracts": [
-      {
-        "id": 1,
-        "resource_id": 4,
-        "district_id": null,
-        "company_id": null,
-        "start_date": "2018-06-01",
-        "end_date": null,
-        "contract_power": 400,
-        "basic_charge": "1800.0",
-        "meter_rate_charge_summer_season_daytime": "10.11",
-        "meter_rate_charge_other_season_daytime": "7.87",
-        "meter_rate_charge_night": "7.64",
-        "meter_rate_charge_peak_time": "10.11",
-        "fuel_cost_adjustment_charge": "0.23",
-        "created_by": null,
-        "updated_by": null,
-        "created_at": "2019-06-21T13:17:40.000+09:00",
-        "updated_at": "2019-06-21T13:17:40.000+09:00"
-      },
-      {
-        "id": 2,
-        "resource_id": 4,
-        "district_id": null,
-        "company_id": null,
-        "start_date": "2017-04-24",
-        "end_date": null,
-        "contract_power": 400,
-        "basic_charge": "1800.0",
-        "meter_rate_charge_summer_season_daytime": "10.11",
-        "meter_rate_charge_other_season_daytime": "7.87",
-        "meter_rate_charge_night": "7.64",
-        "meter_rate_charge_peak_time": "10.11",
-        "fuel_cost_adjustment_charge": "0.23",
-        "created_by": null,
-        "updated_by": null,
-        "created_at": "2019-06-21T13:17:40.000+09:00",
-        "updated_at": "2019-06-21T13:17:40.000+09:00"
-      },
-      {
-        "id": 3,
-        "resource_id": 4,
-        "district_id": null,
-        "company_id": null,
-        "start_date": "2018-07-24",
-        "end_date": null,
-        "contract_power": 400,
-        "basic_charge": "1800.0",
-        "meter_rate_charge_summer_season_daytime": "10.11",
-        "meter_rate_charge_other_season_daytime": "7.87",
-        "meter_rate_charge_night": "7.64",
-        "meter_rate_charge_peak_time": "10.11",
-        "fuel_cost_adjustment_charge": "0.23",
-        "created_by": null,
-        "updated_by": null,
-        "created_at": "2019-06-21T13:17:40.000+09:00",
-        "updated_at": "2019-06-21T13:17:40.000+09:00"
-      }
-    ]
+    "bg_member": {
+      "id": 1,
+      "balancing_group_id": 1,
+      "company_id": 1,
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-21T17:56:10.000+09:00",
+      "updated_at": "2019-06-21T17:56:10.000+09:00",
+      "name": "パワーオプティマイザー"
+    }
   },
   {
     "id": 5,
@@ -181,39 +132,19 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:17:41.000+09:00",
-    "updated_at": "2019-06-21T13:17:41.000+09:00",
+    "created_at": "2019-06-21T17:56:11.000+09:00",
+    "updated_at": "2019-06-21T17:56:11.000+09:00",
     "type": "ResourceFit",
-    "power_generator_groups": [
-      {
-        "id": 1,
-        "resource_id": 5,
-        "name": "京葉発電BG1",
-        "code": "GC033",
-        "contract_number": "065C001",
-        "created_by": null,
-        "updated_by": null,
-        "created_at": "2019-06-21T13:17:41.000+09:00",
-        "updated_at": "2019-06-21T13:17:41.000+09:00",
-        "power_generators": [
-
-        ]
-      },
-      {
-        "id": 2,
-        "resource_id": 5,
-        "name": "京葉発電BG2",
-        "code": "GC033",
-        "contract_number": "065C001",
-        "created_by": null,
-        "updated_by": null,
-        "created_at": "2019-06-21T13:17:41.000+09:00",
-        "updated_at": "2019-06-21T13:17:41.000+09:00",
-        "power_generators": [
-
-        ]
-      }
-    ]
+    "bg_member": {
+      "id": 1,
+      "balancing_group_id": 1,
+      "company_id": 1,
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-21T17:56:10.000+09:00",
+      "updated_at": "2019-06-21T17:56:10.000+09:00",
+      "name": "パワーオプティマイザー"
+    }
   },
   {
     "id": 6,
@@ -226,134 +157,24 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:17:41.000+09:00",
-    "updated_at": "2019-06-21T13:17:41.000+09:00",
+    "created_at": "2019-06-21T17:56:11.000+09:00",
+    "updated_at": "2019-06-21T17:56:11.000+09:00",
     "type": "ResourceMatching",
-    "matching_trade_settings": [
-      {
-        "id": 1,
-        "resource_id": 6,
-        "year_pattern": "*",
-        "month_pattern": "7",
-        "day_pattern": "*",
-        "day_of_week_pattern": "*",
-        "time_index_1": 2500,
-        "time_index_2": 2500,
-        "time_index_3": 2500,
-        "time_index_4": 2500,
-        "time_index_5": 2500,
-        "time_index_6": 2500,
-        "time_index_7": 2500,
-        "time_index_8": 2500,
-        "time_index_9": 2500,
-        "time_index_10": 2500,
-        "time_index_11": 2500,
-        "time_index_12": 2500,
-        "time_index_13": 2500,
-        "time_index_14": 2500,
-        "time_index_15": 2500,
-        "time_index_16": 2500,
-        "time_index_17": 2500,
-        "time_index_18": 2500,
-        "time_index_19": 2500,
-        "time_index_20": 2500,
-        "time_index_21": 2500,
-        "time_index_22": 2500,
-        "time_index_23": 2500,
-        "time_index_24": 2500,
-        "time_index_25": 2500,
-        "time_index_26": 2500,
-        "time_index_27": 2500,
-        "time_index_28": 2500,
-        "time_index_29": 2500,
-        "time_index_30": 2500,
-        "time_index_31": 2500,
-        "time_index_32": 2500,
-        "time_index_33": 2500,
-        "time_index_34": 2500,
-        "time_index_35": 2500,
-        "time_index_36": 2500,
-        "time_index_37": 2500,
-        "time_index_38": 2500,
-        "time_index_39": 2500,
-        "time_index_40": 2500,
-        "time_index_41": 2500,
-        "time_index_42": 2500,
-        "time_index_43": 2500,
-        "time_index_44": 2500,
-        "time_index_45": 2500,
-        "time_index_46": 2500,
-        "time_index_47": 2500,
-        "time_index_48": 2500,
-        "created_by": null,
-        "updated_by": null,
-        "created_at": "2019-06-21T13:17:41.000+09:00",
-        "updated_at": "2019-06-21T13:17:41.000+09:00"
-      },
-      {
-        "id": 2,
-        "resource_id": 6,
-        "year_pattern": "*",
-        "month_pattern": "*",
-        "day_pattern": "*",
-        "day_of_week_pattern": "*",
-        "time_index_1": 2500,
-        "time_index_2": 2500,
-        "time_index_3": 2500,
-        "time_index_4": 2500,
-        "time_index_5": 2500,
-        "time_index_6": 2500,
-        "time_index_7": 2500,
-        "time_index_8": 2500,
-        "time_index_9": 2500,
-        "time_index_10": 2500,
-        "time_index_11": 2500,
-        "time_index_12": 2500,
-        "time_index_13": 2500,
-        "time_index_14": 2500,
-        "time_index_15": 2500,
-        "time_index_16": 2500,
-        "time_index_17": 2500,
-        "time_index_18": 2500,
-        "time_index_19": 2500,
-        "time_index_20": 2500,
-        "time_index_21": 2500,
-        "time_index_22": 2500,
-        "time_index_23": 2500,
-        "time_index_24": 2500,
-        "time_index_25": 2500,
-        "time_index_26": 2500,
-        "time_index_27": 2500,
-        "time_index_28": 2500,
-        "time_index_29": 2500,
-        "time_index_30": 2500,
-        "time_index_31": 2500,
-        "time_index_32": 2500,
-        "time_index_33": 2500,
-        "time_index_34": 2500,
-        "time_index_35": 2500,
-        "time_index_36": 2500,
-        "time_index_37": 2500,
-        "time_index_38": 2500,
-        "time_index_39": 2500,
-        "time_index_40": 2500,
-        "time_index_41": 2500,
-        "time_index_42": 2500,
-        "time_index_43": 2500,
-        "time_index_44": 2500,
-        "time_index_45": 2500,
-        "time_index_46": 2500,
-        "time_index_47": 2500,
-        "time_index_48": 2500,
-        "created_by": null,
-        "updated_by": null,
-        "created_at": "2019-06-21T13:17:41.000+09:00",
-        "updated_at": "2019-06-21T13:17:41.000+09:00"
-      }
-    ]
+    "bg_member": {
+      "id": 1,
+      "balancing_group_id": 1,
+      "company_id": 1,
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-21T17:56:10.000+09:00",
+      "updated_at": "2019-06-21T17:56:10.000+09:00",
+      "name": "パワーオプティマイザー"
+    }
   }
 ]
 ....
+
+<<<
 
 === リソース一覧API(BG指定).
 
@@ -389,8 +210,8 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:17:43.000+09:00",
-    "updated_at": "2019-06-21T13:17:43.000+09:00",
+    "created_at": "2019-06-21T17:56:13.000+09:00",
+    "updated_at": "2019-06-21T17:56:13.000+09:00",
     "type": "ResourceSelf",
     "bg_member": {
       "id": 1,
@@ -398,8 +219,8 @@ Vary: Origin
       "company_id": 1,
       "created_by": null,
       "updated_by": null,
-      "created_at": "2019-06-21T13:17:43.000+09:00",
-      "updated_at": "2019-06-21T13:17:43.000+09:00",
+      "created_at": "2019-06-21T17:56:13.000+09:00",
+      "updated_at": "2019-06-21T17:56:13.000+09:00",
       "name": "パワーオプティマイザー"
     }
   },
@@ -414,8 +235,8 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:17:43.000+09:00",
-    "updated_at": "2019-06-21T13:17:43.000+09:00",
+    "created_at": "2019-06-21T17:56:13.000+09:00",
+    "updated_at": "2019-06-21T17:56:13.000+09:00",
     "type": "ResourceJepxSpot",
     "bg_member": {
       "id": 1,
@@ -423,8 +244,8 @@ Vary: Origin
       "company_id": 1,
       "created_by": null,
       "updated_by": null,
-      "created_at": "2019-06-21T13:17:43.000+09:00",
-      "updated_at": "2019-06-21T13:17:43.000+09:00",
+      "created_at": "2019-06-21T17:56:13.000+09:00",
+      "updated_at": "2019-06-21T17:56:13.000+09:00",
       "name": "パワーオプティマイザー"
     }
   },
@@ -439,8 +260,8 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:17:43.000+09:00",
-    "updated_at": "2019-06-21T13:17:43.000+09:00",
+    "created_at": "2019-06-21T17:56:13.000+09:00",
+    "updated_at": "2019-06-21T17:56:13.000+09:00",
     "type": "ResourceJepxOneHour",
     "bg_member": {
       "id": 1,
@@ -448,8 +269,8 @@ Vary: Origin
       "company_id": 1,
       "created_by": null,
       "updated_by": null,
-      "created_at": "2019-06-21T13:17:43.000+09:00",
-      "updated_at": "2019-06-21T13:17:43.000+09:00",
+      "created_at": "2019-06-21T17:56:13.000+09:00",
+      "updated_at": "2019-06-21T17:56:13.000+09:00",
       "name": "パワーオプティマイザー"
     }
   },
@@ -464,68 +285,19 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:17:43.000+09:00",
-    "updated_at": "2019-06-21T13:17:43.000+09:00",
+    "created_at": "2019-06-21T17:56:13.000+09:00",
+    "updated_at": "2019-06-21T17:56:13.000+09:00",
     "type": "ResourceJbu",
-    "jbu_contracts": [
-      {
-        "id": 1,
-        "resource_id": 4,
-        "district_id": null,
-        "company_id": null,
-        "start_date": "2018-06-01",
-        "end_date": null,
-        "contract_power": 400,
-        "basic_charge": "1800.0",
-        "meter_rate_charge_summer_season_daytime": "10.11",
-        "meter_rate_charge_other_season_daytime": "7.87",
-        "meter_rate_charge_night": "7.64",
-        "meter_rate_charge_peak_time": "10.11",
-        "fuel_cost_adjustment_charge": "0.23",
-        "created_by": null,
-        "updated_by": null,
-        "created_at": "2019-06-21T13:17:43.000+09:00",
-        "updated_at": "2019-06-21T13:17:43.000+09:00"
-      },
-      {
-        "id": 2,
-        "resource_id": 4,
-        "district_id": null,
-        "company_id": null,
-        "start_date": "2017-04-24",
-        "end_date": null,
-        "contract_power": 400,
-        "basic_charge": "1800.0",
-        "meter_rate_charge_summer_season_daytime": "10.11",
-        "meter_rate_charge_other_season_daytime": "7.87",
-        "meter_rate_charge_night": "7.64",
-        "meter_rate_charge_peak_time": "10.11",
-        "fuel_cost_adjustment_charge": "0.23",
-        "created_by": null,
-        "updated_by": null,
-        "created_at": "2019-06-21T13:17:43.000+09:00",
-        "updated_at": "2019-06-21T13:17:43.000+09:00"
-      },
-      {
-        "id": 3,
-        "resource_id": 4,
-        "district_id": null,
-        "company_id": null,
-        "start_date": "2018-07-24",
-        "end_date": null,
-        "contract_power": 400,
-        "basic_charge": "1800.0",
-        "meter_rate_charge_summer_season_daytime": "10.11",
-        "meter_rate_charge_other_season_daytime": "7.87",
-        "meter_rate_charge_night": "7.64",
-        "meter_rate_charge_peak_time": "10.11",
-        "fuel_cost_adjustment_charge": "0.23",
-        "created_by": null,
-        "updated_by": null,
-        "created_at": "2019-06-21T13:17:43.000+09:00",
-        "updated_at": "2019-06-21T13:17:43.000+09:00"
-      }
-    ]
+    "bg_member": {
+      "id": 1,
+      "balancing_group_id": 1,
+      "company_id": 1,
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-21T17:56:13.000+09:00",
+      "updated_at": "2019-06-21T17:56:13.000+09:00",
+      "name": "パワーオプティマイザー"
+    }
   },
   {
     "id": 5,
@@ -538,39 +310,19 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:17:43.000+09:00",
-    "updated_at": "2019-06-21T13:17:43.000+09:00",
+    "created_at": "2019-06-21T17:56:13.000+09:00",
+    "updated_at": "2019-06-21T17:56:13.000+09:00",
     "type": "ResourceFit",
-    "power_generator_groups": [
-      {
-        "id": 1,
-        "resource_id": 5,
-        "name": "京葉発電BG1",
-        "code": "GC033",
-        "contract_number": "065C001",
-        "created_by": null,
-        "updated_by": null,
-        "created_at": "2019-06-21T13:17:43.000+09:00",
-        "updated_at": "2019-06-21T13:17:43.000+09:00",
-        "power_generators": [
-
-        ]
-      },
-      {
-        "id": 2,
-        "resource_id": 5,
-        "name": "京葉発電BG2",
-        "code": "GC033",
-        "contract_number": "065C001",
-        "created_by": null,
-        "updated_by": null,
-        "created_at": "2019-06-21T13:17:43.000+09:00",
-        "updated_at": "2019-06-21T13:17:43.000+09:00",
-        "power_generators": [
-
-        ]
-      }
-    ]
+    "bg_member": {
+      "id": 1,
+      "balancing_group_id": 1,
+      "company_id": 1,
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-21T17:56:13.000+09:00",
+      "updated_at": "2019-06-21T17:56:13.000+09:00",
+      "name": "パワーオプティマイザー"
+    }
   },
   {
     "id": 6,
@@ -583,134 +335,24 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:17:43.000+09:00",
-    "updated_at": "2019-06-21T13:17:43.000+09:00",
+    "created_at": "2019-06-21T17:56:13.000+09:00",
+    "updated_at": "2019-06-21T17:56:13.000+09:00",
     "type": "ResourceMatching",
-    "matching_trade_settings": [
-      {
-        "id": 1,
-        "resource_id": 6,
-        "year_pattern": "*",
-        "month_pattern": "7",
-        "day_pattern": "*",
-        "day_of_week_pattern": "*",
-        "time_index_1": 2500,
-        "time_index_2": 2500,
-        "time_index_3": 2500,
-        "time_index_4": 2500,
-        "time_index_5": 2500,
-        "time_index_6": 2500,
-        "time_index_7": 2500,
-        "time_index_8": 2500,
-        "time_index_9": 2500,
-        "time_index_10": 2500,
-        "time_index_11": 2500,
-        "time_index_12": 2500,
-        "time_index_13": 2500,
-        "time_index_14": 2500,
-        "time_index_15": 2500,
-        "time_index_16": 2500,
-        "time_index_17": 2500,
-        "time_index_18": 2500,
-        "time_index_19": 2500,
-        "time_index_20": 2500,
-        "time_index_21": 2500,
-        "time_index_22": 2500,
-        "time_index_23": 2500,
-        "time_index_24": 2500,
-        "time_index_25": 2500,
-        "time_index_26": 2500,
-        "time_index_27": 2500,
-        "time_index_28": 2500,
-        "time_index_29": 2500,
-        "time_index_30": 2500,
-        "time_index_31": 2500,
-        "time_index_32": 2500,
-        "time_index_33": 2500,
-        "time_index_34": 2500,
-        "time_index_35": 2500,
-        "time_index_36": 2500,
-        "time_index_37": 2500,
-        "time_index_38": 2500,
-        "time_index_39": 2500,
-        "time_index_40": 2500,
-        "time_index_41": 2500,
-        "time_index_42": 2500,
-        "time_index_43": 2500,
-        "time_index_44": 2500,
-        "time_index_45": 2500,
-        "time_index_46": 2500,
-        "time_index_47": 2500,
-        "time_index_48": 2500,
-        "created_by": null,
-        "updated_by": null,
-        "created_at": "2019-06-21T13:17:43.000+09:00",
-        "updated_at": "2019-06-21T13:17:43.000+09:00"
-      },
-      {
-        "id": 2,
-        "resource_id": 6,
-        "year_pattern": "*",
-        "month_pattern": "*",
-        "day_pattern": "*",
-        "day_of_week_pattern": "*",
-        "time_index_1": 2500,
-        "time_index_2": 2500,
-        "time_index_3": 2500,
-        "time_index_4": 2500,
-        "time_index_5": 2500,
-        "time_index_6": 2500,
-        "time_index_7": 2500,
-        "time_index_8": 2500,
-        "time_index_9": 2500,
-        "time_index_10": 2500,
-        "time_index_11": 2500,
-        "time_index_12": 2500,
-        "time_index_13": 2500,
-        "time_index_14": 2500,
-        "time_index_15": 2500,
-        "time_index_16": 2500,
-        "time_index_17": 2500,
-        "time_index_18": 2500,
-        "time_index_19": 2500,
-        "time_index_20": 2500,
-        "time_index_21": 2500,
-        "time_index_22": 2500,
-        "time_index_23": 2500,
-        "time_index_24": 2500,
-        "time_index_25": 2500,
-        "time_index_26": 2500,
-        "time_index_27": 2500,
-        "time_index_28": 2500,
-        "time_index_29": 2500,
-        "time_index_30": 2500,
-        "time_index_31": 2500,
-        "time_index_32": 2500,
-        "time_index_33": 2500,
-        "time_index_34": 2500,
-        "time_index_35": 2500,
-        "time_index_36": 2500,
-        "time_index_37": 2500,
-        "time_index_38": 2500,
-        "time_index_39": 2500,
-        "time_index_40": 2500,
-        "time_index_41": 2500,
-        "time_index_42": 2500,
-        "time_index_43": 2500,
-        "time_index_44": 2500,
-        "time_index_45": 2500,
-        "time_index_46": 2500,
-        "time_index_47": 2500,
-        "time_index_48": 2500,
-        "created_by": null,
-        "updated_by": null,
-        "created_at": "2019-06-21T13:17:43.000+09:00",
-        "updated_at": "2019-06-21T13:17:43.000+09:00"
-      }
-    ]
+    "bg_member": {
+      "id": 1,
+      "balancing_group_id": 1,
+      "company_id": 1,
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-06-21T17:56:13.000+09:00",
+      "updated_at": "2019-06-21T17:56:13.000+09:00",
+      "name": "パワーオプティマイザー"
+    }
   }
 ]
 ....
+
+<<<
 
 === リソース表示API(BGリソース).
 
@@ -745,21 +387,13 @@ Vary: Origin
   "unit": 1,
   "created_by": null,
   "updated_by": null,
-  "created_at": "2019-06-21T13:17:45.000+09:00",
-  "updated_at": "2019-06-21T13:17:45.000+09:00",
-  "type": "ResourceSelf",
-  "bg_member": {
-    "id": 1,
-    "balancing_group_id": 1,
-    "company_id": 1,
-    "created_by": null,
-    "updated_by": null,
-    "created_at": "2019-06-21T13:17:45.000+09:00",
-    "updated_at": "2019-06-21T13:17:45.000+09:00",
-    "name": "パワーオプティマイザー"
-  }
+  "created_at": "2019-06-21T17:56:15.000+09:00",
+  "updated_at": "2019-06-21T17:56:15.000+09:00",
+  "type": "ResourceSelf"
 }
 ....
+
+<<<
 
 === リソース表示API(JEPXスポットリソース).
 
@@ -794,21 +428,13 @@ Vary: Origin
   "unit": 1,
   "created_by": null,
   "updated_by": null,
-  "created_at": "2019-06-21T13:17:47.000+09:00",
-  "updated_at": "2019-06-21T13:17:47.000+09:00",
-  "type": "ResourceJepxSpot",
-  "bg_member": {
-    "id": 1,
-    "balancing_group_id": 1,
-    "company_id": 1,
-    "created_by": null,
-    "updated_by": null,
-    "created_at": "2019-06-21T13:17:47.000+09:00",
-    "updated_at": "2019-06-21T13:17:47.000+09:00",
-    "name": "パワーオプティマイザー"
-  }
+  "created_at": "2019-06-21T17:56:17.000+09:00",
+  "updated_at": "2019-06-21T17:56:17.000+09:00",
+  "type": "ResourceJepxSpot"
 }
 ....
+
+<<<
 
 === リソース表示API(JEPX1時間前リソース).
 
@@ -843,21 +469,13 @@ Vary: Origin
   "unit": 1,
   "created_by": null,
   "updated_by": null,
-  "created_at": "2019-06-21T13:17:49.000+09:00",
-  "updated_at": "2019-06-21T13:17:49.000+09:00",
-  "type": "ResourceJepxOneHour",
-  "bg_member": {
-    "id": 1,
-    "balancing_group_id": 1,
-    "company_id": 1,
-    "created_by": null,
-    "updated_by": null,
-    "created_at": "2019-06-21T13:17:49.000+09:00",
-    "updated_at": "2019-06-21T13:17:49.000+09:00",
-    "name": "パワーオプティマイザー"
-  }
+  "created_at": "2019-06-21T17:56:19.000+09:00",
+  "updated_at": "2019-06-21T17:56:19.000+09:00",
+  "type": "ResourceJepxOneHour"
 }
 ....
+
+<<<
 
 === リソース表示API(常時バックアップリソース).
 
@@ -892,8 +510,8 @@ Vary: Origin
   "unit": 1,
   "created_by": null,
   "updated_by": null,
-  "created_at": "2019-06-21T13:17:51.000+09:00",
-  "updated_at": "2019-06-21T13:17:51.000+09:00",
+  "created_at": "2019-06-21T17:56:22.000+09:00",
+  "updated_at": "2019-06-21T17:56:22.000+09:00",
   "type": "ResourceJbu",
   "jbu_contracts": [
     {
@@ -912,15 +530,15 @@ Vary: Origin
       "fuel_cost_adjustment_charge": "0.23",
       "created_by": null,
       "updated_by": null,
-      "created_at": "2019-06-21T13:17:51.000+09:00",
-      "updated_at": "2019-06-21T13:17:51.000+09:00"
+      "created_at": "2019-06-21T17:56:22.000+09:00",
+      "updated_at": "2019-06-21T17:56:22.000+09:00"
     },
     {
       "id": 2,
       "resource_id": 4,
       "district_id": null,
       "company_id": null,
-      "start_date": "2017-04-24",
+      "start_date": "2018-06-01",
       "end_date": null,
       "contract_power": 400,
       "basic_charge": "1800.0",
@@ -931,15 +549,15 @@ Vary: Origin
       "fuel_cost_adjustment_charge": "0.23",
       "created_by": null,
       "updated_by": null,
-      "created_at": "2019-06-21T13:17:51.000+09:00",
-      "updated_at": "2019-06-21T13:17:51.000+09:00"
+      "created_at": "2019-06-21T17:56:22.000+09:00",
+      "updated_at": "2019-06-21T17:56:22.000+09:00"
     },
     {
       "id": 3,
       "resource_id": 4,
       "district_id": null,
       "company_id": null,
-      "start_date": "2018-07-24",
+      "start_date": "2018-06-01",
       "end_date": null,
       "contract_power": 400,
       "basic_charge": "1800.0",
@@ -950,12 +568,14 @@ Vary: Origin
       "fuel_cost_adjustment_charge": "0.23",
       "created_by": null,
       "updated_by": null,
-      "created_at": "2019-06-21T13:17:51.000+09:00",
-      "updated_at": "2019-06-21T13:17:51.000+09:00"
+      "created_at": "2019-06-21T17:56:22.000+09:00",
+      "updated_at": "2019-06-21T17:56:22.000+09:00"
     }
   ]
 }
 ....
+
+<<<
 
 === リソース表示API(FITリソース).
 
@@ -990,41 +610,113 @@ Vary: Origin
   "unit": 1,
   "created_by": null,
   "updated_by": null,
-  "created_at": "2019-06-21T13:17:54.000+09:00",
-  "updated_at": "2019-06-21T13:17:54.000+09:00",
+  "created_at": "2019-06-21T17:56:24.000+09:00",
+  "updated_at": "2019-06-21T17:56:24.000+09:00",
   "type": "ResourceFit",
   "power_generator_groups": [
     {
       "id": 1,
       "resource_id": 5,
-      "name": "京葉発電BG1",
+      "name": "京葉ガス_03_G_01",
       "code": "GC033",
       "contract_number": "065C001",
       "created_by": null,
       "updated_by": null,
-      "created_at": "2019-06-21T13:17:54.000+09:00",
-      "updated_at": "2019-06-21T13:17:54.000+09:00",
+      "created_at": "2019-06-21T17:56:24.000+09:00",
+      "updated_at": "2019-06-21T17:56:24.000+09:00",
       "power_generators": [
-
+        {
+          "id": 1,
+          "power_generator_group_id": 1,
+          "code": "XXXXX",
+          "name": "test",
+          "contract_number": "00000003",
+          "supply_max": 1000,
+          "created_by": null,
+          "updated_by": null,
+          "created_at": "2019-06-21T17:56:24.000+09:00",
+          "updated_at": "2019-06-21T17:56:24.000+09:00"
+        },
+        {
+          "id": 2,
+          "power_generator_group_id": 1,
+          "code": "XXXXX",
+          "name": "test",
+          "contract_number": "00000003",
+          "supply_max": 1000,
+          "created_by": null,
+          "updated_by": null,
+          "created_at": "2019-06-21T17:56:24.000+09:00",
+          "updated_at": "2019-06-21T17:56:24.000+09:00"
+        },
+        {
+          "id": 3,
+          "power_generator_group_id": 1,
+          "code": "XXXXX",
+          "name": "test",
+          "contract_number": "00000003",
+          "supply_max": 1000,
+          "created_by": null,
+          "updated_by": null,
+          "created_at": "2019-06-21T17:56:24.000+09:00",
+          "updated_at": "2019-06-21T17:56:24.000+09:00"
+        }
       ]
     },
     {
       "id": 2,
       "resource_id": 5,
-      "name": "京葉発電BG2",
+      "name": "京葉ガス_03_G_01",
       "code": "GC033",
       "contract_number": "065C001",
       "created_by": null,
       "updated_by": null,
-      "created_at": "2019-06-21T13:17:54.000+09:00",
-      "updated_at": "2019-06-21T13:17:54.000+09:00",
+      "created_at": "2019-06-21T17:56:24.000+09:00",
+      "updated_at": "2019-06-21T17:56:24.000+09:00",
       "power_generators": [
-
+        {
+          "id": 4,
+          "power_generator_group_id": 2,
+          "code": "XXXXX",
+          "name": "test",
+          "contract_number": "00000003",
+          "supply_max": 1000,
+          "created_by": null,
+          "updated_by": null,
+          "created_at": "2019-06-21T17:56:24.000+09:00",
+          "updated_at": "2019-06-21T17:56:24.000+09:00"
+        },
+        {
+          "id": 5,
+          "power_generator_group_id": 2,
+          "code": "XXXXX",
+          "name": "test",
+          "contract_number": "00000003",
+          "supply_max": 1000,
+          "created_by": null,
+          "updated_by": null,
+          "created_at": "2019-06-21T17:56:24.000+09:00",
+          "updated_at": "2019-06-21T17:56:24.000+09:00"
+        },
+        {
+          "id": 6,
+          "power_generator_group_id": 2,
+          "code": "XXXXX",
+          "name": "test",
+          "contract_number": "00000003",
+          "supply_max": 1000,
+          "created_by": null,
+          "updated_by": null,
+          "created_at": "2019-06-21T17:56:24.000+09:00",
+          "updated_at": "2019-06-21T17:56:24.000+09:00"
+        }
       ]
     }
   ]
 }
 ....
+
+<<<
 
 === リソース表示API(相対リソース).
 
@@ -1059,15 +751,15 @@ Vary: Origin
   "unit": 1,
   "created_by": null,
   "updated_by": null,
-  "created_at": "2019-06-21T13:17:56.000+09:00",
-  "updated_at": "2019-06-21T13:17:56.000+09:00",
+  "created_at": "2019-06-21T17:56:26.000+09:00",
+  "updated_at": "2019-06-21T17:56:26.000+09:00",
   "type": "ResourceMatching",
   "matching_trade_settings": [
     {
       "id": 1,
       "resource_id": 6,
       "year_pattern": "*",
-      "month_pattern": "7",
+      "month_pattern": "*",
       "day_pattern": "*",
       "day_of_week_pattern": "*",
       "time_index_1": 2500,
@@ -1120,8 +812,8 @@ Vary: Origin
       "time_index_48": 2500,
       "created_by": null,
       "updated_by": null,
-      "created_at": "2019-06-21T13:17:56.000+09:00",
-      "updated_at": "2019-06-21T13:17:56.000+09:00"
+      "created_at": "2019-06-21T17:56:26.000+09:00",
+      "updated_at": "2019-06-21T17:56:26.000+09:00"
     },
     {
       "id": 2,
@@ -1180,12 +872,14 @@ Vary: Origin
       "time_index_48": 2500,
       "created_by": null,
       "updated_by": null,
-      "created_at": "2019-06-21T13:17:56.000+09:00",
-      "updated_at": "2019-06-21T13:17:56.000+09:00"
+      "created_at": "2019-06-21T17:56:26.000+09:00",
+      "updated_at": "2019-06-21T17:56:26.000+09:00"
     }
   ]
 }
 ....
+
+<<<
 
 === リソース登録API(BGリソース).
 
@@ -1201,7 +895,7 @@ POST /v1/resources
 POST /v1/resources HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-resource[name]=%E3%82%A8%E3%83%8D%E3%82%AA%E3%83%97BG%E9%96%A2%E8%A5%BF%E9%9C%80%E8%A6%81&resource[type]=ResourceSelf&resource[code]=LA586&resource[bg_member_id]=1
+resource[id]&resource[bg_member_id]=1&resource[code]=LA586&resource[name]=%E3%82%A8%E3%83%8D%E3%82%AA%E3%83%97BG%E9%96%A2%E8%A5%BF%E9%9C%80%E8%A6%81&resource[contract_number]&resource[max_value]=0&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]&resource[updated_at]&resource[type]=ResourceSelf
 ....
 
 ===== レスポンス
@@ -1213,7 +907,7 @@ Vary: Origin
 
 {
   "success": true,
-  "Resource": {
+  "resource": {
     "id": 7,
     "bg_member_id": 1,
     "code": "LA586",
@@ -1224,22 +918,14 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:17:58.000+09:00",
-    "updated_at": "2019-06-21T13:17:58.000+09:00",
-    "type": "ResourceSelf",
-    "bg_member": {
-      "id": 1,
-      "balancing_group_id": 1,
-      "company_id": 1,
-      "created_by": null,
-      "updated_by": null,
-      "created_at": "2019-06-21T13:17:58.000+09:00",
-      "updated_at": "2019-06-21T13:17:58.000+09:00",
-      "name": "パワーオプティマイザー"
-    }
+    "created_at": "2019-06-21T17:56:28.000+09:00",
+    "updated_at": "2019-06-21T17:56:28.000+09:00",
+    "type": "ResourceSelf"
   }
 }
 ....
+
+<<<
 
 === リソース登録API(JEPXスポットリソース).
 
@@ -1255,7 +941,7 @@ POST /v1/resources
 POST /v1/resources HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-resource[name]=%E3%82%A8%E3%83%8D%E3%82%AA%E3%83%97BG%E9%96%A2%E8%A5%BF%E9%9C%80%E8%A6%81&resource[type]=ResourceJepxSpot&resource[code]=LA586&resource[max_value]=10000&resource[min_value]=0&resource[bg_member_id]=1
+resource[id]&resource[bg_member_id]=1&resource[code]=LA586&resource[name]=%E3%82%A8%E3%83%8D%E3%82%AA%E3%83%97BG%E9%96%A2%E8%A5%BF%E9%9C%80%E8%A6%81&resource[contract_number]&resource[max_value]=10000&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]&resource[updated_at]&resource[type]=ResourceJepxSpot
 ....
 
 ===== レスポンス
@@ -1267,7 +953,7 @@ Vary: Origin
 
 {
   "success": true,
-  "Resource": {
+  "resource": {
     "id": 7,
     "bg_member_id": 1,
     "code": "JSPT3",
@@ -1278,22 +964,14 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:18:00.000+09:00",
-    "updated_at": "2019-06-21T13:18:00.000+09:00",
-    "type": "ResourceJepxSpot",
-    "bg_member": {
-      "id": 1,
-      "balancing_group_id": 1,
-      "company_id": 1,
-      "created_by": null,
-      "updated_by": null,
-      "created_at": "2019-06-21T13:18:00.000+09:00",
-      "updated_at": "2019-06-21T13:18:00.000+09:00",
-      "name": "パワーオプティマイザー"
-    }
+    "created_at": "2019-06-21T17:56:31.000+09:00",
+    "updated_at": "2019-06-21T17:56:31.000+09:00",
+    "type": "ResourceJepxSpot"
   }
 }
 ....
+
+<<<
 
 === リソース登録API(JEPX1時間前リソース).
 
@@ -1309,7 +987,7 @@ POST /v1/resources
 POST /v1/resources HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-resource[name]=%E3%82%A8%E3%83%8D%E3%82%AA%E3%83%97BG%E9%96%A2%E8%A5%BF%E9%9C%80%E8%A6%81&resource[type]=ResourceJepxOneHour&resource[code]=LA586&resource[max_value]=10000&resource[min_value]=0&resource[bg_member_id]=1
+resource[id]&resource[bg_member_id]=1&resource[code]=LA586&resource[name]=%E3%82%A8%E3%83%8D%E3%82%AA%E3%83%97BG%E9%96%A2%E8%A5%BF%E9%9C%80%E8%A6%81&resource[contract_number]&resource[max_value]=10000&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]&resource[updated_at]&resource[type]=ResourceJepxOneHour
 ....
 
 ===== レスポンス
@@ -1321,7 +999,7 @@ Vary: Origin
 
 {
   "success": true,
-  "Resource": {
+  "resource": {
     "id": 7,
     "bg_member_id": 1,
     "code": "J1HR3",
@@ -1332,22 +1010,14 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:18:02.000+09:00",
-    "updated_at": "2019-06-21T13:18:02.000+09:00",
-    "type": "ResourceJepxOneHour",
-    "bg_member": {
-      "id": 1,
-      "balancing_group_id": 1,
-      "company_id": 1,
-      "created_by": null,
-      "updated_by": null,
-      "created_at": "2019-06-21T13:18:02.000+09:00",
-      "updated_at": "2019-06-21T13:18:02.000+09:00",
-      "name": "パワーオプティマイザー"
-    }
+    "created_at": "2019-06-21T17:56:33.000+09:00",
+    "updated_at": "2019-06-21T17:56:33.000+09:00",
+    "type": "ResourceJepxOneHour"
   }
 }
 ....
+
+<<<
 
 === リソース登録API(JBUリソース).
 
@@ -1363,7 +1033,7 @@ POST /v1/resources
 POST /v1/resources HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-resource[name]=%E3%82%A8%E3%83%8D%E3%82%AA%E3%83%97BG%E9%96%A2%E8%A5%BF%E9%9C%80%E8%A6%81&resource[type]=ResourceJbu&resource[code]=LA376&resource[bg_member_id]=1
+resource[id]&resource[bg_member_id]=1&resource[code]=LA376&resource[name]=%E3%82%A8%E3%83%8D%E3%82%AA%E3%83%97BG%E9%96%A2%E8%A5%BF%E9%9C%80%E8%A6%81&resource[contract_number]&resource[max_value]=0&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]&resource[updated_at]&resource[type]=ResourceJbu&resource[jbu_contracts][][id]&resource[jbu_contracts][][resource_id]&resource[jbu_contracts][][district_id]&resource[jbu_contracts][][company_id]&resource[jbu_contracts][][start_date]=2018-06-01&resource[jbu_contracts][][end_date]&resource[jbu_contracts][][contract_power]=400&resource[jbu_contracts][][basic_charge]=1800.0&resource[jbu_contracts][][meter_rate_charge_summer_season_daytime]=10.11&resource[jbu_contracts][][meter_rate_charge_other_season_daytime]=7.87&resource[jbu_contracts][][meter_rate_charge_night]=7.64&resource[jbu_contracts][][meter_rate_charge_peak_time]=10.11&resource[jbu_contracts][][fuel_cost_adjustment_charge]=0.23&resource[jbu_contracts][][created_by]&resource[jbu_contracts][][updated_by]&resource[jbu_contracts][][created_at]&resource[jbu_contracts][][updated_at]&resource[jbu_contracts][][id]&resource[jbu_contracts][][resource_id]&resource[jbu_contracts][][district_id]&resource[jbu_contracts][][company_id]&resource[jbu_contracts][][start_date]=2018-06-01&resource[jbu_contracts][][end_date]&resource[jbu_contracts][][contract_power]=400&resource[jbu_contracts][][basic_charge]=1800.0&resource[jbu_contracts][][meter_rate_charge_summer_season_daytime]=10.11&resource[jbu_contracts][][meter_rate_charge_other_season_daytime]=7.87&resource[jbu_contracts][][meter_rate_charge_night]=7.64&resource[jbu_contracts][][meter_rate_charge_peak_time]=10.11&resource[jbu_contracts][][fuel_cost_adjustment_charge]=0.23&resource[jbu_contracts][][created_by]&resource[jbu_contracts][][updated_by]&resource[jbu_contracts][][created_at]&resource[jbu_contracts][][updated_at]&resource[jbu_contracts][][id]&resource[jbu_contracts][][resource_id]&resource[jbu_contracts][][district_id]&resource[jbu_contracts][][company_id]&resource[jbu_contracts][][start_date]=2018-06-01&resource[jbu_contracts][][end_date]&resource[jbu_contracts][][contract_power]=400&resource[jbu_contracts][][basic_charge]=1800.0&resource[jbu_contracts][][meter_rate_charge_summer_season_daytime]=10.11&resource[jbu_contracts][][meter_rate_charge_other_season_daytime]=7.87&resource[jbu_contracts][][meter_rate_charge_night]=7.64&resource[jbu_contracts][][meter_rate_charge_peak_time]=10.11&resource[jbu_contracts][][fuel_cost_adjustment_charge]=0.23&resource[jbu_contracts][][created_by]&resource[jbu_contracts][][updated_by]&resource[jbu_contracts][][created_at]&resource[jbu_contracts][][updated_at]
 ....
 
 ===== レスポンス
@@ -1375,7 +1045,7 @@ Vary: Origin
 
 {
   "success": true,
-  "Resource": {
+  "resource": {
     "id": 7,
     "bg_member_id": 1,
     "code": "LA376",
@@ -1386,15 +1056,73 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:18:05.000+09:00",
-    "updated_at": "2019-06-21T13:18:05.000+09:00",
+    "created_at": "2019-06-21T17:56:35.000+09:00",
+    "updated_at": "2019-06-21T17:56:35.000+09:00",
     "type": "ResourceJbu",
     "jbu_contracts": [
-
+      {
+        "id": 4,
+        "resource_id": 7,
+        "district_id": null,
+        "company_id": null,
+        "start_date": "2018-06-01",
+        "end_date": null,
+        "contract_power": 400,
+        "basic_charge": "1800.0",
+        "meter_rate_charge_summer_season_daytime": "10.11",
+        "meter_rate_charge_other_season_daytime": "7.87",
+        "meter_rate_charge_night": "7.64",
+        "meter_rate_charge_peak_time": "10.11",
+        "fuel_cost_adjustment_charge": "0.23",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-21T17:56:35.000+09:00",
+        "updated_at": "2019-06-21T17:56:35.000+09:00"
+      },
+      {
+        "id": 5,
+        "resource_id": 7,
+        "district_id": null,
+        "company_id": null,
+        "start_date": "2018-06-01",
+        "end_date": null,
+        "contract_power": 400,
+        "basic_charge": "1800.0",
+        "meter_rate_charge_summer_season_daytime": "10.11",
+        "meter_rate_charge_other_season_daytime": "7.87",
+        "meter_rate_charge_night": "7.64",
+        "meter_rate_charge_peak_time": "10.11",
+        "fuel_cost_adjustment_charge": "0.23",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-21T17:56:35.000+09:00",
+        "updated_at": "2019-06-21T17:56:35.000+09:00"
+      },
+      {
+        "id": 6,
+        "resource_id": 7,
+        "district_id": null,
+        "company_id": null,
+        "start_date": "2018-06-01",
+        "end_date": null,
+        "contract_power": 400,
+        "basic_charge": "1800.0",
+        "meter_rate_charge_summer_season_daytime": "10.11",
+        "meter_rate_charge_other_season_daytime": "7.87",
+        "meter_rate_charge_night": "7.64",
+        "meter_rate_charge_peak_time": "10.11",
+        "fuel_cost_adjustment_charge": "0.23",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-21T17:56:35.000+09:00",
+        "updated_at": "2019-06-21T17:56:35.000+09:00"
+      }
     ]
   }
 }
 ....
+
+<<<
 
 === リソース登録API(FITリソース).
 
@@ -1410,7 +1138,7 @@ POST /v1/resources
 POST /v1/resources HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-resource[name]=%E3%82%A8%E3%83%8D%E3%82%AA%E3%83%97BG%E9%96%A2%E8%A5%BF%E9%9C%80%E8%A6%81&resource[type]=ResourceFit&resource[code]=G0633&resource[bg_member_id]=1
+resource[id]&resource[bg_member_id]=1&resource[code]=G0633&resource[name]=%E3%82%A8%E3%83%8D%E3%82%AA%E3%83%97BG%E9%96%A2%E8%A5%BF%E9%9C%80%E8%A6%81&resource[contract_number]&resource[max_value]=0&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]&resource[updated_at]&resource[type]=ResourceFit&resource[power_generator_groups][][id]&resource[power_generator_groups][][resource_id]&resource[power_generator_groups][][name]=%E4%BA%AC%E8%91%89%E3%82%AC%E3%82%B9_03_G_01&resource[power_generator_groups][][code]=GC033&resource[power_generator_groups][][contract_number]=065C001&resource[power_generator_groups][][created_by]&resource[power_generator_groups][][updated_by]&resource[power_generator_groups][][created_at]&resource[power_generator_groups][][updated_at]&resource[power_generator_groups][][power_generators][][id]&resource[power_generator_groups][][power_generators][][power_generator_group_id]&resource[power_generator_groups][][power_generators][][code]=XXXXX&resource[power_generator_groups][][power_generators][][name]=test&resource[power_generator_groups][][power_generators][][contract_number]=00000003&resource[power_generator_groups][][power_generators][][supply_max]=1000&resource[power_generator_groups][][power_generators][][created_by]&resource[power_generator_groups][][power_generators][][updated_by]&resource[power_generator_groups][][power_generators][][created_at]&resource[power_generator_groups][][power_generators][][updated_at]&resource[power_generator_groups][][power_generators][][id]&resource[power_generator_groups][][power_generators][][power_generator_group_id]&resource[power_generator_groups][][power_generators][][code]=XXXXX&resource[power_generator_groups][][power_generators][][name]=test&resource[power_generator_groups][][power_generators][][contract_number]=00000003&resource[power_generator_groups][][power_generators][][supply_max]=1000&resource[power_generator_groups][][power_generators][][created_by]&resource[power_generator_groups][][power_generators][][updated_by]&resource[power_generator_groups][][power_generators][][created_at]&resource[power_generator_groups][][power_generators][][updated_at]&resource[power_generator_groups][][power_generators][][id]&resource[power_generator_groups][][power_generators][][power_generator_group_id]&resource[power_generator_groups][][power_generators][][code]=XXXXX&resource[power_generator_groups][][power_generators][][name]=test&resource[power_generator_groups][][power_generators][][contract_number]=00000003&resource[power_generator_groups][][power_generators][][supply_max]=1000&resource[power_generator_groups][][power_generators][][created_by]&resource[power_generator_groups][][power_generators][][updated_by]&resource[power_generator_groups][][power_generators][][created_at]&resource[power_generator_groups][][power_generators][][updated_at]&resource[power_generator_groups][][id]&resource[power_generator_groups][][resource_id]&resource[power_generator_groups][][name]=%E4%BA%AC%E8%91%89%E3%82%AC%E3%82%B9_03_G_01&resource[power_generator_groups][][code]=GC033&resource[power_generator_groups][][contract_number]=065C001&resource[power_generator_groups][][created_by]&resource[power_generator_groups][][updated_by]&resource[power_generator_groups][][created_at]&resource[power_generator_groups][][updated_at]&resource[power_generator_groups][][power_generators][][id]&resource[power_generator_groups][][power_generators][][power_generator_group_id]&resource[power_generator_groups][][power_generators][][code]=XXXXX&resource[power_generator_groups][][power_generators][][name]=test&resource[power_generator_groups][][power_generators][][contract_number]=00000003&resource[power_generator_groups][][power_generators][][supply_max]=1000&resource[power_generator_groups][][power_generators][][created_by]&resource[power_generator_groups][][power_generators][][updated_by]&resource[power_generator_groups][][power_generators][][created_at]&resource[power_generator_groups][][power_generators][][updated_at]&resource[power_generator_groups][][power_generators][][id]&resource[power_generator_groups][][power_generators][][power_generator_group_id]&resource[power_generator_groups][][power_generators][][code]=XXXXX&resource[power_generator_groups][][power_generators][][name]=test&resource[power_generator_groups][][power_generators][][contract_number]=00000003&resource[power_generator_groups][][power_generators][][supply_max]=1000&resource[power_generator_groups][][power_generators][][created_by]&resource[power_generator_groups][][power_generators][][updated_by]&resource[power_generator_groups][][power_generators][][created_at]&resource[power_generator_groups][][power_generators][][updated_at]&resource[power_generator_groups][][power_generators][][id]&resource[power_generator_groups][][power_generators][][power_generator_group_id]&resource[power_generator_groups][][power_generators][][code]=XXXXX&resource[power_generator_groups][][power_generators][][name]=test&resource[power_generator_groups][][power_generators][][contract_number]=00000003&resource[power_generator_groups][][power_generators][][supply_max]=1000&resource[power_generator_groups][][power_generators][][created_by]&resource[power_generator_groups][][power_generators][][updated_by]&resource[power_generator_groups][][power_generators][][created_at]&resource[power_generator_groups][][power_generators][][updated_at]
 ....
 
 ===== レスポンス
@@ -1422,7 +1150,7 @@ Vary: Origin
 
 {
   "success": true,
-  "Resource": {
+  "resource": {
     "id": 7,
     "bg_member_id": 1,
     "code": "G0633",
@@ -1433,15 +1161,114 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:18:07.000+09:00",
-    "updated_at": "2019-06-21T13:18:07.000+09:00",
+    "created_at": "2019-06-21T17:56:37.000+09:00",
+    "updated_at": "2019-06-21T17:56:37.000+09:00",
     "type": "ResourceFit",
     "power_generator_groups": [
-
+      {
+        "id": 3,
+        "resource_id": 7,
+        "name": "京葉ガス_03_G_01",
+        "code": "GC033",
+        "contract_number": "065C001",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-21T17:56:37.000+09:00",
+        "updated_at": "2019-06-21T17:56:37.000+09:00",
+        "power_generators": [
+          {
+            "id": 7,
+            "power_generator_group_id": 3,
+            "code": "XXXXX",
+            "name": "test",
+            "contract_number": "00000003",
+            "supply_max": 1000,
+            "created_by": null,
+            "updated_by": null,
+            "created_at": "2019-06-21T17:56:37.000+09:00",
+            "updated_at": "2019-06-21T17:56:37.000+09:00"
+          },
+          {
+            "id": 8,
+            "power_generator_group_id": 3,
+            "code": "XXXXX",
+            "name": "test",
+            "contract_number": "00000003",
+            "supply_max": 1000,
+            "created_by": null,
+            "updated_by": null,
+            "created_at": "2019-06-21T17:56:37.000+09:00",
+            "updated_at": "2019-06-21T17:56:37.000+09:00"
+          },
+          {
+            "id": 9,
+            "power_generator_group_id": 3,
+            "code": "XXXXX",
+            "name": "test",
+            "contract_number": "00000003",
+            "supply_max": 1000,
+            "created_by": null,
+            "updated_by": null,
+            "created_at": "2019-06-21T17:56:37.000+09:00",
+            "updated_at": "2019-06-21T17:56:37.000+09:00"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "resource_id": 7,
+        "name": "京葉ガス_03_G_01",
+        "code": "GC033",
+        "contract_number": "065C001",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2019-06-21T17:56:37.000+09:00",
+        "updated_at": "2019-06-21T17:56:37.000+09:00",
+        "power_generators": [
+          {
+            "id": 10,
+            "power_generator_group_id": 4,
+            "code": "XXXXX",
+            "name": "test",
+            "contract_number": "00000003",
+            "supply_max": 1000,
+            "created_by": null,
+            "updated_by": null,
+            "created_at": "2019-06-21T17:56:37.000+09:00",
+            "updated_at": "2019-06-21T17:56:37.000+09:00"
+          },
+          {
+            "id": 11,
+            "power_generator_group_id": 4,
+            "code": "XXXXX",
+            "name": "test",
+            "contract_number": "00000003",
+            "supply_max": 1000,
+            "created_by": null,
+            "updated_by": null,
+            "created_at": "2019-06-21T17:56:37.000+09:00",
+            "updated_at": "2019-06-21T17:56:37.000+09:00"
+          },
+          {
+            "id": 12,
+            "power_generator_group_id": 4,
+            "code": "XXXXX",
+            "name": "test",
+            "contract_number": "00000003",
+            "supply_max": 1000,
+            "created_by": null,
+            "updated_by": null,
+            "created_at": "2019-06-21T17:56:37.000+09:00",
+            "updated_at": "2019-06-21T17:56:37.000+09:00"
+          }
+        ]
+      }
     ]
   }
 }
 ....
+
+<<<
 
 === リソース登録API(相対リソース).
 
@@ -1457,7 +1284,7 @@ POST /v1/resources
 POST /v1/resources HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-resource[id]&resource[bg_member_id]=1&resource[code]=LA456&resource[name]=%E3%82%B7%E3%83%8A%E3%83%8D%E3%83%B3_06_L&resource[contract_number]&resource[max_value]=0&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]&resource[updated_at]&resource[type]=ResourceMatching&resource[matching_trade_settings][][id]&resource[matching_trade_settings][][resource_id]&resource[matching_trade_settings][][year_pattern]=*&resource[matching_trade_settings][][month_pattern]=7&resource[matching_trade_settings][][day_pattern]=*&resource[matching_trade_settings][][day_of_week_pattern]=*&resource[matching_trade_settings][][time_index_1]=2500&resource[matching_trade_settings][][time_index_2]=2500&resource[matching_trade_settings][][time_index_3]=2500&resource[matching_trade_settings][][time_index_4]=2500&resource[matching_trade_settings][][time_index_5]=2500&resource[matching_trade_settings][][time_index_6]=2500&resource[matching_trade_settings][][time_index_7]=2500&resource[matching_trade_settings][][time_index_8]=2500&resource[matching_trade_settings][][time_index_9]=2500&resource[matching_trade_settings][][time_index_10]=2500&resource[matching_trade_settings][][time_index_11]=2500&resource[matching_trade_settings][][time_index_12]=2500&resource[matching_trade_settings][][time_index_13]=2500&resource[matching_trade_settings][][time_index_14]=2500&resource[matching_trade_settings][][time_index_15]=2500&resource[matching_trade_settings][][time_index_16]=2500&resource[matching_trade_settings][][time_index_17]=2500&resource[matching_trade_settings][][time_index_18]=2500&resource[matching_trade_settings][][time_index_19]=2500&resource[matching_trade_settings][][time_index_20]=2500&resource[matching_trade_settings][][time_index_21]=2500&resource[matching_trade_settings][][time_index_22]=2500&resource[matching_trade_settings][][time_index_23]=2500&resource[matching_trade_settings][][time_index_24]=2500&resource[matching_trade_settings][][time_index_25]=2500&resource[matching_trade_settings][][time_index_26]=2500&resource[matching_trade_settings][][time_index_27]=2500&resource[matching_trade_settings][][time_index_28]=2500&resource[matching_trade_settings][][time_index_29]=2500&resource[matching_trade_settings][][time_index_30]=2500&resource[matching_trade_settings][][time_index_31]=2500&resource[matching_trade_settings][][time_index_32]=2500&resource[matching_trade_settings][][time_index_33]=2500&resource[matching_trade_settings][][time_index_34]=2500&resource[matching_trade_settings][][time_index_35]=2500&resource[matching_trade_settings][][time_index_36]=2500&resource[matching_trade_settings][][time_index_37]=2500&resource[matching_trade_settings][][time_index_38]=2500&resource[matching_trade_settings][][time_index_39]=2500&resource[matching_trade_settings][][time_index_40]=2500&resource[matching_trade_settings][][time_index_41]=2500&resource[matching_trade_settings][][time_index_42]=2500&resource[matching_trade_settings][][time_index_43]=2500&resource[matching_trade_settings][][time_index_44]=2500&resource[matching_trade_settings][][time_index_45]=2500&resource[matching_trade_settings][][time_index_46]=2500&resource[matching_trade_settings][][time_index_47]=2500&resource[matching_trade_settings][][time_index_48]=2500&resource[matching_trade_settings][][created_by]&resource[matching_trade_settings][][updated_by]&resource[matching_trade_settings][][created_at]&resource[matching_trade_settings][][updated_at]&resource[matching_trade_settings][][id]&resource[matching_trade_settings][][resource_id]&resource[matching_trade_settings][][year_pattern]=*&resource[matching_trade_settings][][month_pattern]=*&resource[matching_trade_settings][][day_pattern]=*&resource[matching_trade_settings][][day_of_week_pattern]=*&resource[matching_trade_settings][][time_index_1]=2500&resource[matching_trade_settings][][time_index_2]=2500&resource[matching_trade_settings][][time_index_3]=2500&resource[matching_trade_settings][][time_index_4]=2500&resource[matching_trade_settings][][time_index_5]=2500&resource[matching_trade_settings][][time_index_6]=2500&resource[matching_trade_settings][][time_index_7]=2500&resource[matching_trade_settings][][time_index_8]=2500&resource[matching_trade_settings][][time_index_9]=2500&resource[matching_trade_settings][][time_index_10]=2500&resource[matching_trade_settings][][time_index_11]=2500&resource[matching_trade_settings][][time_index_12]=2500&resource[matching_trade_settings][][time_index_13]=2500&resource[matching_trade_settings][][time_index_14]=2500&resource[matching_trade_settings][][time_index_15]=2500&resource[matching_trade_settings][][time_index_16]=2500&resource[matching_trade_settings][][time_index_17]=2500&resource[matching_trade_settings][][time_index_18]=2500&resource[matching_trade_settings][][time_index_19]=2500&resource[matching_trade_settings][][time_index_20]=2500&resource[matching_trade_settings][][time_index_21]=2500&resource[matching_trade_settings][][time_index_22]=2500&resource[matching_trade_settings][][time_index_23]=2500&resource[matching_trade_settings][][time_index_24]=2500&resource[matching_trade_settings][][time_index_25]=2500&resource[matching_trade_settings][][time_index_26]=2500&resource[matching_trade_settings][][time_index_27]=2500&resource[matching_trade_settings][][time_index_28]=2500&resource[matching_trade_settings][][time_index_29]=2500&resource[matching_trade_settings][][time_index_30]=2500&resource[matching_trade_settings][][time_index_31]=2500&resource[matching_trade_settings][][time_index_32]=2500&resource[matching_trade_settings][][time_index_33]=2500&resource[matching_trade_settings][][time_index_34]=2500&resource[matching_trade_settings][][time_index_35]=2500&resource[matching_trade_settings][][time_index_36]=2500&resource[matching_trade_settings][][time_index_37]=2500&resource[matching_trade_settings][][time_index_38]=2500&resource[matching_trade_settings][][time_index_39]=2500&resource[matching_trade_settings][][time_index_40]=2500&resource[matching_trade_settings][][time_index_41]=2500&resource[matching_trade_settings][][time_index_42]=2500&resource[matching_trade_settings][][time_index_43]=2500&resource[matching_trade_settings][][time_index_44]=2500&resource[matching_trade_settings][][time_index_45]=2500&resource[matching_trade_settings][][time_index_46]=2500&resource[matching_trade_settings][][time_index_47]=2500&resource[matching_trade_settings][][time_index_48]=2500&resource[matching_trade_settings][][created_by]&resource[matching_trade_settings][][updated_by]&resource[matching_trade_settings][][created_at]&resource[matching_trade_settings][][updated_at]
+resource[id]&resource[bg_member_id]=1&resource[code]=LA456&resource[name]=%E3%82%B7%E3%83%8A%E3%83%8D%E3%83%B3_06_L&resource[contract_number]&resource[max_value]=0&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]&resource[updated_at]&resource[type]=ResourceMatching&resource[matching_trade_settings][][id]&resource[matching_trade_settings][][resource_id]&resource[matching_trade_settings][][year_pattern]=*&resource[matching_trade_settings][][month_pattern]=*&resource[matching_trade_settings][][day_pattern]=*&resource[matching_trade_settings][][day_of_week_pattern]=*&resource[matching_trade_settings][][time_index_1]=2500&resource[matching_trade_settings][][time_index_2]=2500&resource[matching_trade_settings][][time_index_3]=2500&resource[matching_trade_settings][][time_index_4]=2500&resource[matching_trade_settings][][time_index_5]=2500&resource[matching_trade_settings][][time_index_6]=2500&resource[matching_trade_settings][][time_index_7]=2500&resource[matching_trade_settings][][time_index_8]=2500&resource[matching_trade_settings][][time_index_9]=2500&resource[matching_trade_settings][][time_index_10]=2500&resource[matching_trade_settings][][time_index_11]=2500&resource[matching_trade_settings][][time_index_12]=2500&resource[matching_trade_settings][][time_index_13]=2500&resource[matching_trade_settings][][time_index_14]=2500&resource[matching_trade_settings][][time_index_15]=2500&resource[matching_trade_settings][][time_index_16]=2500&resource[matching_trade_settings][][time_index_17]=2500&resource[matching_trade_settings][][time_index_18]=2500&resource[matching_trade_settings][][time_index_19]=2500&resource[matching_trade_settings][][time_index_20]=2500&resource[matching_trade_settings][][time_index_21]=2500&resource[matching_trade_settings][][time_index_22]=2500&resource[matching_trade_settings][][time_index_23]=2500&resource[matching_trade_settings][][time_index_24]=2500&resource[matching_trade_settings][][time_index_25]=2500&resource[matching_trade_settings][][time_index_26]=2500&resource[matching_trade_settings][][time_index_27]=2500&resource[matching_trade_settings][][time_index_28]=2500&resource[matching_trade_settings][][time_index_29]=2500&resource[matching_trade_settings][][time_index_30]=2500&resource[matching_trade_settings][][time_index_31]=2500&resource[matching_trade_settings][][time_index_32]=2500&resource[matching_trade_settings][][time_index_33]=2500&resource[matching_trade_settings][][time_index_34]=2500&resource[matching_trade_settings][][time_index_35]=2500&resource[matching_trade_settings][][time_index_36]=2500&resource[matching_trade_settings][][time_index_37]=2500&resource[matching_trade_settings][][time_index_38]=2500&resource[matching_trade_settings][][time_index_39]=2500&resource[matching_trade_settings][][time_index_40]=2500&resource[matching_trade_settings][][time_index_41]=2500&resource[matching_trade_settings][][time_index_42]=2500&resource[matching_trade_settings][][time_index_43]=2500&resource[matching_trade_settings][][time_index_44]=2500&resource[matching_trade_settings][][time_index_45]=2500&resource[matching_trade_settings][][time_index_46]=2500&resource[matching_trade_settings][][time_index_47]=2500&resource[matching_trade_settings][][time_index_48]=2500&resource[matching_trade_settings][][created_by]&resource[matching_trade_settings][][updated_by]&resource[matching_trade_settings][][created_at]&resource[matching_trade_settings][][updated_at]&resource[matching_trade_settings][][id]&resource[matching_trade_settings][][resource_id]&resource[matching_trade_settings][][year_pattern]=*&resource[matching_trade_settings][][month_pattern]=*&resource[matching_trade_settings][][day_pattern]=*&resource[matching_trade_settings][][day_of_week_pattern]=*&resource[matching_trade_settings][][time_index_1]=2500&resource[matching_trade_settings][][time_index_2]=2500&resource[matching_trade_settings][][time_index_3]=2500&resource[matching_trade_settings][][time_index_4]=2500&resource[matching_trade_settings][][time_index_5]=2500&resource[matching_trade_settings][][time_index_6]=2500&resource[matching_trade_settings][][time_index_7]=2500&resource[matching_trade_settings][][time_index_8]=2500&resource[matching_trade_settings][][time_index_9]=2500&resource[matching_trade_settings][][time_index_10]=2500&resource[matching_trade_settings][][time_index_11]=2500&resource[matching_trade_settings][][time_index_12]=2500&resource[matching_trade_settings][][time_index_13]=2500&resource[matching_trade_settings][][time_index_14]=2500&resource[matching_trade_settings][][time_index_15]=2500&resource[matching_trade_settings][][time_index_16]=2500&resource[matching_trade_settings][][time_index_17]=2500&resource[matching_trade_settings][][time_index_18]=2500&resource[matching_trade_settings][][time_index_19]=2500&resource[matching_trade_settings][][time_index_20]=2500&resource[matching_trade_settings][][time_index_21]=2500&resource[matching_trade_settings][][time_index_22]=2500&resource[matching_trade_settings][][time_index_23]=2500&resource[matching_trade_settings][][time_index_24]=2500&resource[matching_trade_settings][][time_index_25]=2500&resource[matching_trade_settings][][time_index_26]=2500&resource[matching_trade_settings][][time_index_27]=2500&resource[matching_trade_settings][][time_index_28]=2500&resource[matching_trade_settings][][time_index_29]=2500&resource[matching_trade_settings][][time_index_30]=2500&resource[matching_trade_settings][][time_index_31]=2500&resource[matching_trade_settings][][time_index_32]=2500&resource[matching_trade_settings][][time_index_33]=2500&resource[matching_trade_settings][][time_index_34]=2500&resource[matching_trade_settings][][time_index_35]=2500&resource[matching_trade_settings][][time_index_36]=2500&resource[matching_trade_settings][][time_index_37]=2500&resource[matching_trade_settings][][time_index_38]=2500&resource[matching_trade_settings][][time_index_39]=2500&resource[matching_trade_settings][][time_index_40]=2500&resource[matching_trade_settings][][time_index_41]=2500&resource[matching_trade_settings][][time_index_42]=2500&resource[matching_trade_settings][][time_index_43]=2500&resource[matching_trade_settings][][time_index_44]=2500&resource[matching_trade_settings][][time_index_45]=2500&resource[matching_trade_settings][][time_index_46]=2500&resource[matching_trade_settings][][time_index_47]=2500&resource[matching_trade_settings][][time_index_48]=2500&resource[matching_trade_settings][][created_by]&resource[matching_trade_settings][][updated_by]&resource[matching_trade_settings][][created_at]&resource[matching_trade_settings][][updated_at]
 ....
 
 ===== レスポンス
@@ -1469,7 +1296,7 @@ Vary: Origin
 
 {
   "success": true,
-  "Resource": {
+  "resource": {
     "id": 7,
     "bg_member_id": 1,
     "code": "LA456",
@@ -1480,15 +1307,15 @@ Vary: Origin
     "unit": 1,
     "created_by": null,
     "updated_by": null,
-    "created_at": "2019-06-21T13:18:10.000+09:00",
-    "updated_at": "2019-06-21T13:18:10.000+09:00",
+    "created_at": "2019-06-21T17:56:39.000+09:00",
+    "updated_at": "2019-06-21T17:56:39.000+09:00",
     "type": "ResourceMatching",
     "matching_trade_settings": [
       {
         "id": 3,
         "resource_id": 7,
         "year_pattern": "*",
-        "month_pattern": "7",
+        "month_pattern": "*",
         "day_pattern": "*",
         "day_of_week_pattern": "*",
         "time_index_1": 2500,
@@ -1541,8 +1368,8 @@ Vary: Origin
         "time_index_48": 2500,
         "created_by": null,
         "updated_by": null,
-        "created_at": "2019-06-21T13:18:10.000+09:00",
-        "updated_at": "2019-06-21T13:18:10.000+09:00"
+        "created_at": "2019-06-21T17:56:39.000+09:00",
+        "updated_at": "2019-06-21T17:56:39.000+09:00"
       },
       {
         "id": 4,
@@ -1601,13 +1428,15 @@ Vary: Origin
         "time_index_48": 2500,
         "created_by": null,
         "updated_by": null,
-        "created_at": "2019-06-21T13:18:10.000+09:00",
-        "updated_at": "2019-06-21T13:18:10.000+09:00"
+        "created_at": "2019-06-21T17:56:39.000+09:00",
+        "updated_at": "2019-06-21T17:56:39.000+09:00"
       }
     ]
   }
 }
 ....
+
+<<<
 
 === リソース更新API(BGリソース).
 
@@ -1623,7 +1452,7 @@ PATCH /v1/resources/:id
 PATCH /v1/resources/1 HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-resource[id]=1&resource[bg_member_id]=1&resource[code]=XXXXX&resource[name]=test+update&resource[contract_number]&resource[max_value]=0&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]=2019-06-21+13%3A18%3A12+%2B0900&resource[updated_at]=2019-06-21+13%3A18%3A12+%2B0900&resource[type]=ResourceSelf&resource[bg_member][id]=1&resource[bg_member][balancing_group_id]=1&resource[bg_member][company_id]=1&resource[bg_member][created_by]&resource[bg_member][updated_by]&resource[bg_member][created_at]=2019-06-21+13%3A18%3A12+%2B0900&resource[bg_member][updated_at]=2019-06-21+13%3A18%3A12+%2B0900&resource[bg_member][name]=%E3%83%91%E3%83%AF%E3%83%BC%E3%82%AA%E3%83%97%E3%83%86%E3%82%A3%E3%83%9E%E3%82%A4%E3%82%B6%E3%83%BC
+resource[id]=1&resource[bg_member_id]=1&resource[code]=XXXXX&resource[name]=test+update&resource[contract_number]&resource[max_value]=0&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]=2019-06-21+17%3A56%3A41+%2B0900&resource[updated_at]=2019-06-21+17%3A56%3A41+%2B0900&resource[type]=ResourceSelf
 ....
 
 ===== レスポンス
@@ -1635,7 +1464,7 @@ Vary: Origin
 
 {
   "success": true,
-  "Resource": {
+  "resource": {
     "id": 1,
     "bg_member_id": 1,
     "code": "XXXXX",
@@ -1643,25 +1472,17 @@ Vary: Origin
     "max_value": 0,
     "min_value": 0,
     "unit": 1,
-    "created_at": "2019-06-21T13:18:12.000+09:00",
-    "updated_at": "2019-06-21T13:18:12.000+09:00",
+    "created_at": "2019-06-21T17:56:41.000+09:00",
+    "updated_at": "2019-06-21T17:56:41.000+09:00",
     "contract_number": null,
     "created_by": null,
     "updated_by": null,
-    "type": "ResourceSelf",
-    "bg_member": {
-      "id": 1,
-      "balancing_group_id": 1,
-      "company_id": 1,
-      "created_by": null,
-      "updated_by": null,
-      "created_at": "2019-06-21T13:18:12.000+09:00",
-      "updated_at": "2019-06-21T13:18:12.000+09:00",
-      "name": "パワーオプティマイザー"
-    }
+    "type": "ResourceSelf"
   }
 }
 ....
+
+<<<
 
 === リソース更新API(JEPXスポットリソース).
 
@@ -1677,7 +1498,7 @@ PATCH /v1/resources/:id
 PATCH /v1/resources/2 HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-resource[id]=2&resource[bg_member_id]=1&resource[code]=XXXXX&resource[name]=test+update&resource[contract_number]&resource[max_value]=10000&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]=2019-06-21+13%3A18%3A14+%2B0900&resource[updated_at]=2019-06-21+13%3A18%3A14+%2B0900&resource[type]=ResourceJepxSpot&resource[bg_member][id]=1&resource[bg_member][balancing_group_id]=1&resource[bg_member][company_id]=1&resource[bg_member][created_by]&resource[bg_member][updated_by]&resource[bg_member][created_at]=2019-06-21+13%3A18%3A14+%2B0900&resource[bg_member][updated_at]=2019-06-21+13%3A18%3A14+%2B0900&resource[bg_member][name]=%E3%83%91%E3%83%AF%E3%83%BC%E3%82%AA%E3%83%97%E3%83%86%E3%82%A3%E3%83%9E%E3%82%A4%E3%82%B6%E3%83%BC
+resource[id]=2&resource[bg_member_id]=1&resource[code]=XXXXX&resource[name]=test+update&resource[contract_number]&resource[max_value]=10000&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]=2019-06-21+17%3A56%3A44+%2B0900&resource[updated_at]=2019-06-21+17%3A56%3A44+%2B0900&resource[type]=ResourceJepxSpot
 ....
 
 ===== レスポンス
@@ -1689,7 +1510,7 @@ Vary: Origin
 
 {
   "success": true,
-  "Resource": {
+  "resource": {
     "id": 2,
     "bg_member_id": 1,
     "code": "JSPT3",
@@ -1697,25 +1518,17 @@ Vary: Origin
     "max_value": 10000,
     "min_value": 0,
     "unit": 1,
-    "created_at": "2019-06-21T13:18:14.000+09:00",
-    "updated_at": "2019-06-21T13:18:14.000+09:00",
+    "created_at": "2019-06-21T17:56:44.000+09:00",
+    "updated_at": "2019-06-21T17:56:44.000+09:00",
     "contract_number": null,
     "created_by": null,
     "updated_by": null,
-    "type": "ResourceJepxSpot",
-    "bg_member": {
-      "id": 1,
-      "balancing_group_id": 1,
-      "company_id": 1,
-      "created_by": null,
-      "updated_by": null,
-      "created_at": "2019-06-21T13:18:14.000+09:00",
-      "updated_at": "2019-06-21T13:18:14.000+09:00",
-      "name": "パワーオプティマイザー"
-    }
+    "type": "ResourceJepxSpot"
   }
 }
 ....
+
+<<<
 
 === リソース更新API(JEPX1時間前リソース).
 
@@ -1731,7 +1544,7 @@ PATCH /v1/resources/:id
 PATCH /v1/resources/3 HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-resource[id]=3&resource[bg_member_id]=1&resource[code]=XXXXX&resource[name]=test+update&resource[contract_number]&resource[max_value]=10000&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]=2019-06-21+13%3A18%3A17+%2B0900&resource[updated_at]=2019-06-21+13%3A18%3A17+%2B0900&resource[type]=ResourceJepxOneHour&resource[bg_member][id]=1&resource[bg_member][balancing_group_id]=1&resource[bg_member][company_id]=1&resource[bg_member][created_by]&resource[bg_member][updated_by]&resource[bg_member][created_at]=2019-06-21+13%3A18%3A17+%2B0900&resource[bg_member][updated_at]=2019-06-21+13%3A18%3A17+%2B0900&resource[bg_member][name]=%E3%83%91%E3%83%AF%E3%83%BC%E3%82%AA%E3%83%97%E3%83%86%E3%82%A3%E3%83%9E%E3%82%A4%E3%82%B6%E3%83%BC
+resource[id]=3&resource[bg_member_id]=1&resource[code]=XXXXX&resource[name]=test+update&resource[contract_number]&resource[max_value]=10000&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]=2019-06-21+17%3A56%3A46+%2B0900&resource[updated_at]=2019-06-21+17%3A56%3A46+%2B0900&resource[type]=ResourceJepxOneHour
 ....
 
 ===== レスポンス
@@ -1743,7 +1556,7 @@ Vary: Origin
 
 {
   "success": true,
-  "Resource": {
+  "resource": {
     "id": 3,
     "bg_member_id": 1,
     "code": "J1HR3",
@@ -1751,25 +1564,17 @@ Vary: Origin
     "max_value": 10000,
     "min_value": 0,
     "unit": 1,
-    "created_at": "2019-06-21T13:18:17.000+09:00",
-    "updated_at": "2019-06-21T13:18:17.000+09:00",
+    "created_at": "2019-06-21T17:56:46.000+09:00",
+    "updated_at": "2019-06-21T17:56:46.000+09:00",
     "contract_number": null,
     "created_by": null,
     "updated_by": null,
-    "type": "ResourceJepxOneHour",
-    "bg_member": {
-      "id": 1,
-      "balancing_group_id": 1,
-      "company_id": 1,
-      "created_by": null,
-      "updated_by": null,
-      "created_at": "2019-06-21T13:18:17.000+09:00",
-      "updated_at": "2019-06-21T13:18:17.000+09:00",
-      "name": "パワーオプティマイザー"
-    }
+    "type": "ResourceJepxOneHour"
   }
 }
 ....
+
+<<<
 
 === リソース更新API(JBUリソース).
 
@@ -1785,7 +1590,7 @@ PATCH /v1/resources/:id
 PATCH /v1/resources/4 HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-resource[id]=4&resource[bg_member_id]=1&resource[code]=XXXXX&resource[name]=test+update&resource[contract_number]&resource[max_value]=0&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]=2019-06-21+13%3A18%3A19+%2B0900&resource[updated_at]=2019-06-21+13%3A18%3A19+%2B0900&resource[type]=ResourceJbu&resource[jbu_contracts][][id]=1&resource[jbu_contracts][][resource_id]=4&resource[jbu_contracts][][district_id]&resource[jbu_contracts][][company_id]&resource[jbu_contracts][][start_date]=2018-06-01&resource[jbu_contracts][][end_date]&resource[jbu_contracts][][contract_power]=400&resource[jbu_contracts][][basic_charge]=1800.0&resource[jbu_contracts][][meter_rate_charge_summer_season_daytime]=10.11&resource[jbu_contracts][][meter_rate_charge_other_season_daytime]=7.87&resource[jbu_contracts][][meter_rate_charge_night]=7.64&resource[jbu_contracts][][meter_rate_charge_peak_time]=10.11&resource[jbu_contracts][][fuel_cost_adjustment_charge]=0.23&resource[jbu_contracts][][created_by]&resource[jbu_contracts][][updated_by]&resource[jbu_contracts][][created_at]=2019-06-21+13%3A18%3A19+%2B0900&resource[jbu_contracts][][updated_at]=2019-06-21+13%3A18%3A19+%2B0900&resource[jbu_contracts][][id]=2&resource[jbu_contracts][][resource_id]=4&resource[jbu_contracts][][district_id]&resource[jbu_contracts][][company_id]&resource[jbu_contracts][][start_date]=2017-04-24&resource[jbu_contracts][][end_date]&resource[jbu_contracts][][contract_power]=400&resource[jbu_contracts][][basic_charge]=1800.0&resource[jbu_contracts][][meter_rate_charge_summer_season_daytime]=10.11&resource[jbu_contracts][][meter_rate_charge_other_season_daytime]=7.87&resource[jbu_contracts][][meter_rate_charge_night]=7.64&resource[jbu_contracts][][meter_rate_charge_peak_time]=10.11&resource[jbu_contracts][][fuel_cost_adjustment_charge]=0.23&resource[jbu_contracts][][created_by]&resource[jbu_contracts][][updated_by]&resource[jbu_contracts][][created_at]=2019-06-21+13%3A18%3A19+%2B0900&resource[jbu_contracts][][updated_at]=2019-06-21+13%3A18%3A19+%2B0900&resource[jbu_contracts][][id]=3&resource[jbu_contracts][][resource_id]=4&resource[jbu_contracts][][district_id]&resource[jbu_contracts][][company_id]&resource[jbu_contracts][][start_date]=2018-07-24&resource[jbu_contracts][][end_date]&resource[jbu_contracts][][contract_power]=400&resource[jbu_contracts][][basic_charge]=1800.0&resource[jbu_contracts][][meter_rate_charge_summer_season_daytime]=10.11&resource[jbu_contracts][][meter_rate_charge_other_season_daytime]=7.87&resource[jbu_contracts][][meter_rate_charge_night]=7.64&resource[jbu_contracts][][meter_rate_charge_peak_time]=10.11&resource[jbu_contracts][][fuel_cost_adjustment_charge]=0.23&resource[jbu_contracts][][created_by]&resource[jbu_contracts][][updated_by]&resource[jbu_contracts][][created_at]=2019-06-21+13%3A18%3A19+%2B0900&resource[jbu_contracts][][updated_at]=2019-06-21+13%3A18%3A19+%2B0900
+resource[id]=4&resource[bg_member_id]=1&resource[code]=XXXXX&resource[name]=test+update&resource[contract_number]&resource[max_value]=0&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]=2019-06-21+17%3A56%3A48+%2B0900&resource[updated_at]=2019-06-21+17%3A56%3A48+%2B0900&resource[type]=ResourceJbu&resource[jbu_contracts][][id]=1&resource[jbu_contracts][][resource_id]=4&resource[jbu_contracts][][district_id]&resource[jbu_contracts][][company_id]&resource[jbu_contracts][][start_date]=2018-06-01&resource[jbu_contracts][][end_date]&resource[jbu_contracts][][contract_power]=400&resource[jbu_contracts][][basic_charge]=1800.0&resource[jbu_contracts][][meter_rate_charge_summer_season_daytime]=10.11&resource[jbu_contracts][][meter_rate_charge_other_season_daytime]=7.87&resource[jbu_contracts][][meter_rate_charge_night]=7.64&resource[jbu_contracts][][meter_rate_charge_peak_time]=10.11&resource[jbu_contracts][][fuel_cost_adjustment_charge]=0.23&resource[jbu_contracts][][created_by]&resource[jbu_contracts][][updated_by]&resource[jbu_contracts][][created_at]=2019-06-21+17%3A56%3A48+%2B0900&resource[jbu_contracts][][updated_at]=2019-06-21+17%3A56%3A48+%2B0900&resource[jbu_contracts][][id]=2&resource[jbu_contracts][][resource_id]=4&resource[jbu_contracts][][district_id]&resource[jbu_contracts][][company_id]&resource[jbu_contracts][][start_date]=2018-06-01&resource[jbu_contracts][][end_date]&resource[jbu_contracts][][contract_power]=400&resource[jbu_contracts][][basic_charge]=1800.0&resource[jbu_contracts][][meter_rate_charge_summer_season_daytime]=10.11&resource[jbu_contracts][][meter_rate_charge_other_season_daytime]=7.87&resource[jbu_contracts][][meter_rate_charge_night]=7.64&resource[jbu_contracts][][meter_rate_charge_peak_time]=10.11&resource[jbu_contracts][][fuel_cost_adjustment_charge]=0.23&resource[jbu_contracts][][created_by]&resource[jbu_contracts][][updated_by]&resource[jbu_contracts][][created_at]=2019-06-21+17%3A56%3A48+%2B0900&resource[jbu_contracts][][updated_at]=2019-06-21+17%3A56%3A48+%2B0900&resource[jbu_contracts][][id]=3&resource[jbu_contracts][][resource_id]=4&resource[jbu_contracts][][district_id]&resource[jbu_contracts][][company_id]&resource[jbu_contracts][][start_date]=2018-06-01&resource[jbu_contracts][][end_date]&resource[jbu_contracts][][contract_power]=400&resource[jbu_contracts][][basic_charge]=1800.0&resource[jbu_contracts][][meter_rate_charge_summer_season_daytime]=10.11&resource[jbu_contracts][][meter_rate_charge_other_season_daytime]=7.87&resource[jbu_contracts][][meter_rate_charge_night]=7.64&resource[jbu_contracts][][meter_rate_charge_peak_time]=10.11&resource[jbu_contracts][][fuel_cost_adjustment_charge]=0.23&resource[jbu_contracts][][created_by]&resource[jbu_contracts][][updated_by]&resource[jbu_contracts][][created_at]=2019-06-21+17%3A56%3A48+%2B0900&resource[jbu_contracts][][updated_at]=2019-06-21+17%3A56%3A48+%2B0900
 ....
 
 ===== レスポンス
@@ -1797,7 +1602,7 @@ Vary: Origin
 
 {
   "success": true,
-  "Resource": {
+  "resource": {
     "id": 4,
     "bg_member_id": 1,
     "code": "XXXXX",
@@ -1805,8 +1610,8 @@ Vary: Origin
     "max_value": 0,
     "min_value": 0,
     "unit": 1,
-    "created_at": "2019-06-21T13:18:19.000+09:00",
-    "updated_at": "2019-06-21T13:18:19.000+09:00",
+    "created_at": "2019-06-21T17:56:48.000+09:00",
+    "updated_at": "2019-06-21T17:56:48.000+09:00",
     "contract_number": null,
     "created_by": null,
     "updated_by": null,
@@ -1828,15 +1633,15 @@ Vary: Origin
         "fuel_cost_adjustment_charge": "0.23",
         "created_by": null,
         "updated_by": null,
-        "created_at": "2019-06-21T13:18:19.000+09:00",
-        "updated_at": "2019-06-21T13:18:19.000+09:00"
+        "created_at": "2019-06-21T17:56:48.000+09:00",
+        "updated_at": "2019-06-21T17:56:48.000+09:00"
       },
       {
         "id": 2,
         "resource_id": 4,
         "district_id": null,
         "company_id": null,
-        "start_date": "2017-04-24",
+        "start_date": "2018-06-01",
         "end_date": null,
         "contract_power": 400,
         "basic_charge": "1800.0",
@@ -1847,15 +1652,15 @@ Vary: Origin
         "fuel_cost_adjustment_charge": "0.23",
         "created_by": null,
         "updated_by": null,
-        "created_at": "2019-06-21T13:18:19.000+09:00",
-        "updated_at": "2019-06-21T13:18:19.000+09:00"
+        "created_at": "2019-06-21T17:56:48.000+09:00",
+        "updated_at": "2019-06-21T17:56:48.000+09:00"
       },
       {
         "id": 3,
         "resource_id": 4,
         "district_id": null,
         "company_id": null,
-        "start_date": "2018-07-24",
+        "start_date": "2018-06-01",
         "end_date": null,
         "contract_power": 400,
         "basic_charge": "1800.0",
@@ -1866,13 +1671,15 @@ Vary: Origin
         "fuel_cost_adjustment_charge": "0.23",
         "created_by": null,
         "updated_by": null,
-        "created_at": "2019-06-21T13:18:19.000+09:00",
-        "updated_at": "2019-06-21T13:18:19.000+09:00"
+        "created_at": "2019-06-21T17:56:48.000+09:00",
+        "updated_at": "2019-06-21T17:56:48.000+09:00"
       }
     ]
   }
 }
 ....
+
+<<<
 
 === リソース更新API(FITリソース).
 
@@ -1888,7 +1695,7 @@ PATCH /v1/resources/:id
 PATCH /v1/resources/5 HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-resource[id]=5&resource[bg_member_id]=1&resource[code]=XXXXX&resource[name]=test+update&resource[contract_number]&resource[max_value]=0&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]=2019-06-21+13%3A18%3A21+%2B0900&resource[updated_at]=2019-06-21+13%3A18%3A21+%2B0900&resource[type]=ResourceFit&resource[power_generator_groups][][id]=1&resource[power_generator_groups][][resource_id]=5&resource[power_generator_groups][][name]=%E4%BA%AC%E8%91%89%E7%99%BA%E9%9B%BBBG1&resource[power_generator_groups][][code]=GC033&resource[power_generator_groups][][contract_number]=065C001&resource[power_generator_groups][][created_by]&resource[power_generator_groups][][updated_by]&resource[power_generator_groups][][created_at]=2019-06-21+13%3A18%3A21+%2B0900&resource[power_generator_groups][][updated_at]=2019-06-21+13%3A18%3A21+%2B0900&resource[power_generator_groups][][power_generators][]=&resource[power_generator_groups][][id]=2&resource[power_generator_groups][][resource_id]=5&resource[power_generator_groups][][name]=%E4%BA%AC%E8%91%89%E7%99%BA%E9%9B%BBBG2&resource[power_generator_groups][][code]=GC033&resource[power_generator_groups][][contract_number]=065C001&resource[power_generator_groups][][created_by]&resource[power_generator_groups][][updated_by]&resource[power_generator_groups][][created_at]=2019-06-21+13%3A18%3A21+%2B0900&resource[power_generator_groups][][updated_at]=2019-06-21+13%3A18%3A21+%2B0900&resource[power_generator_groups][][power_generators][]=
+resource[id]=5&resource[bg_member_id]=1&resource[code]=XXXXX&resource[name]=test+update&resource[contract_number]&resource[max_value]=0&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[updated_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[type]=ResourceFit&resource[power_generator_groups][][id]=1&resource[power_generator_groups][][resource_id]=5&resource[power_generator_groups][][name]=%E4%BA%AC%E8%91%89%E3%82%AC%E3%82%B9_03_G_01&resource[power_generator_groups][][code]=GC033&resource[power_generator_groups][][contract_number]=065C001&resource[power_generator_groups][][created_by]&resource[power_generator_groups][][updated_by]&resource[power_generator_groups][][created_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[power_generator_groups][][updated_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[power_generator_groups][][power_generators][][id]=1&resource[power_generator_groups][][power_generators][][power_generator_group_id]=1&resource[power_generator_groups][][power_generators][][code]=XXXXX&resource[power_generator_groups][][power_generators][][name]=test&resource[power_generator_groups][][power_generators][][contract_number]=00000003&resource[power_generator_groups][][power_generators][][supply_max]=1000&resource[power_generator_groups][][power_generators][][created_by]&resource[power_generator_groups][][power_generators][][updated_by]&resource[power_generator_groups][][power_generators][][created_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[power_generator_groups][][power_generators][][updated_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[power_generator_groups][][power_generators][][id]=2&resource[power_generator_groups][][power_generators][][power_generator_group_id]=1&resource[power_generator_groups][][power_generators][][code]=XXXXX&resource[power_generator_groups][][power_generators][][name]=test&resource[power_generator_groups][][power_generators][][contract_number]=00000003&resource[power_generator_groups][][power_generators][][supply_max]=1000&resource[power_generator_groups][][power_generators][][created_by]&resource[power_generator_groups][][power_generators][][updated_by]&resource[power_generator_groups][][power_generators][][created_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[power_generator_groups][][power_generators][][updated_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[power_generator_groups][][power_generators][][id]=3&resource[power_generator_groups][][power_generators][][power_generator_group_id]=1&resource[power_generator_groups][][power_generators][][code]=XXXXX&resource[power_generator_groups][][power_generators][][name]=test&resource[power_generator_groups][][power_generators][][contract_number]=00000003&resource[power_generator_groups][][power_generators][][supply_max]=1000&resource[power_generator_groups][][power_generators][][created_by]&resource[power_generator_groups][][power_generators][][updated_by]&resource[power_generator_groups][][power_generators][][created_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[power_generator_groups][][power_generators][][updated_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[power_generator_groups][][id]=2&resource[power_generator_groups][][resource_id]=5&resource[power_generator_groups][][name]=%E4%BA%AC%E8%91%89%E3%82%AC%E3%82%B9_03_G_01&resource[power_generator_groups][][code]=GC033&resource[power_generator_groups][][contract_number]=065C001&resource[power_generator_groups][][created_by]&resource[power_generator_groups][][updated_by]&resource[power_generator_groups][][created_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[power_generator_groups][][updated_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[power_generator_groups][][power_generators][][id]=4&resource[power_generator_groups][][power_generators][][power_generator_group_id]=2&resource[power_generator_groups][][power_generators][][code]=XXXXX&resource[power_generator_groups][][power_generators][][name]=test&resource[power_generator_groups][][power_generators][][contract_number]=00000003&resource[power_generator_groups][][power_generators][][supply_max]=1000&resource[power_generator_groups][][power_generators][][created_by]&resource[power_generator_groups][][power_generators][][updated_by]&resource[power_generator_groups][][power_generators][][created_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[power_generator_groups][][power_generators][][updated_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[power_generator_groups][][power_generators][][id]=5&resource[power_generator_groups][][power_generators][][power_generator_group_id]=2&resource[power_generator_groups][][power_generators][][code]=XXXXX&resource[power_generator_groups][][power_generators][][name]=test&resource[power_generator_groups][][power_generators][][contract_number]=00000003&resource[power_generator_groups][][power_generators][][supply_max]=1000&resource[power_generator_groups][][power_generators][][created_by]&resource[power_generator_groups][][power_generators][][updated_by]&resource[power_generator_groups][][power_generators][][created_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[power_generator_groups][][power_generators][][updated_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[power_generator_groups][][power_generators][][id]=6&resource[power_generator_groups][][power_generators][][power_generator_group_id]=2&resource[power_generator_groups][][power_generators][][code]=XXXXX&resource[power_generator_groups][][power_generators][][name]=test&resource[power_generator_groups][][power_generators][][contract_number]=00000003&resource[power_generator_groups][][power_generators][][supply_max]=1000&resource[power_generator_groups][][power_generators][][created_by]&resource[power_generator_groups][][power_generators][][updated_by]&resource[power_generator_groups][][power_generators][][created_at]=2019-06-21+17%3A56%3A50+%2B0900&resource[power_generator_groups][][power_generators][][updated_at]=2019-06-21+17%3A56%3A50+%2B0900
 ....
 
 ===== レスポンス
@@ -1900,7 +1707,7 @@ Vary: Origin
 
 {
   "success": true,
-  "Resource": {
+  "resource": {
     "id": 5,
     "bg_member_id": 1,
     "code": "XXXXX",
@@ -1908,8 +1715,8 @@ Vary: Origin
     "max_value": 0,
     "min_value": 0,
     "unit": 1,
-    "created_at": "2019-06-21T13:18:21.000+09:00",
-    "updated_at": "2019-06-21T13:18:21.000+09:00",
+    "created_at": "2019-06-21T17:56:50.000+09:00",
+    "updated_at": "2019-06-21T17:56:50.000+09:00",
     "contract_number": null,
     "created_by": null,
     "updated_by": null,
@@ -1918,35 +1725,107 @@ Vary: Origin
       {
         "id": 1,
         "resource_id": 5,
-        "name": "京葉発電BG1",
+        "name": "京葉ガス_03_G_01",
         "code": "GC033",
         "contract_number": "065C001",
         "created_by": null,
         "updated_by": null,
-        "created_at": "2019-06-21T13:18:21.000+09:00",
-        "updated_at": "2019-06-21T13:18:21.000+09:00",
+        "created_at": "2019-06-21T17:56:50.000+09:00",
+        "updated_at": "2019-06-21T17:56:50.000+09:00",
         "power_generators": [
-
+          {
+            "id": 1,
+            "power_generator_group_id": 1,
+            "code": "XXXXX",
+            "name": "test",
+            "contract_number": "00000003",
+            "supply_max": 1000,
+            "created_by": null,
+            "updated_by": null,
+            "created_at": "2019-06-21T17:56:50.000+09:00",
+            "updated_at": "2019-06-21T17:56:50.000+09:00"
+          },
+          {
+            "id": 2,
+            "power_generator_group_id": 1,
+            "code": "XXXXX",
+            "name": "test",
+            "contract_number": "00000003",
+            "supply_max": 1000,
+            "created_by": null,
+            "updated_by": null,
+            "created_at": "2019-06-21T17:56:50.000+09:00",
+            "updated_at": "2019-06-21T17:56:50.000+09:00"
+          },
+          {
+            "id": 3,
+            "power_generator_group_id": 1,
+            "code": "XXXXX",
+            "name": "test",
+            "contract_number": "00000003",
+            "supply_max": 1000,
+            "created_by": null,
+            "updated_by": null,
+            "created_at": "2019-06-21T17:56:50.000+09:00",
+            "updated_at": "2019-06-21T17:56:50.000+09:00"
+          }
         ]
       },
       {
         "id": 2,
         "resource_id": 5,
-        "name": "京葉発電BG2",
+        "name": "京葉ガス_03_G_01",
         "code": "GC033",
         "contract_number": "065C001",
         "created_by": null,
         "updated_by": null,
-        "created_at": "2019-06-21T13:18:21.000+09:00",
-        "updated_at": "2019-06-21T13:18:21.000+09:00",
+        "created_at": "2019-06-21T17:56:50.000+09:00",
+        "updated_at": "2019-06-21T17:56:50.000+09:00",
         "power_generators": [
-
+          {
+            "id": 4,
+            "power_generator_group_id": 2,
+            "code": "XXXXX",
+            "name": "test",
+            "contract_number": "00000003",
+            "supply_max": 1000,
+            "created_by": null,
+            "updated_by": null,
+            "created_at": "2019-06-21T17:56:50.000+09:00",
+            "updated_at": "2019-06-21T17:56:50.000+09:00"
+          },
+          {
+            "id": 5,
+            "power_generator_group_id": 2,
+            "code": "XXXXX",
+            "name": "test",
+            "contract_number": "00000003",
+            "supply_max": 1000,
+            "created_by": null,
+            "updated_by": null,
+            "created_at": "2019-06-21T17:56:50.000+09:00",
+            "updated_at": "2019-06-21T17:56:50.000+09:00"
+          },
+          {
+            "id": 6,
+            "power_generator_group_id": 2,
+            "code": "XXXXX",
+            "name": "test",
+            "contract_number": "00000003",
+            "supply_max": 1000,
+            "created_by": null,
+            "updated_by": null,
+            "created_at": "2019-06-21T17:56:50.000+09:00",
+            "updated_at": "2019-06-21T17:56:50.000+09:00"
+          }
         ]
       }
     ]
   }
 }
 ....
+
+<<<
 
 === リソース更新API(相対リソース).
 
@@ -1962,7 +1841,7 @@ PATCH /v1/resources/:id
 PATCH /v1/resources/6 HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-resource[id]=6&resource[bg_member_id]=1&resource[code]=XXXXX&resource[name]=test+update&resource[contract_number]&resource[max_value]=0&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]=2019-06-21+13%3A18%3A23+%2B0900&resource[updated_at]=2019-06-21+13%3A18%3A23+%2B0900&resource[type]=ResourceMatching&resource[matching_trade_settings][][id]=1&resource[matching_trade_settings][][resource_id]=6&resource[matching_trade_settings][][year_pattern]=*&resource[matching_trade_settings][][month_pattern]=7&resource[matching_trade_settings][][day_pattern]=*&resource[matching_trade_settings][][day_of_week_pattern]=*&resource[matching_trade_settings][][time_index_1]=2500&resource[matching_trade_settings][][time_index_2]=2500&resource[matching_trade_settings][][time_index_3]=2500&resource[matching_trade_settings][][time_index_4]=2500&resource[matching_trade_settings][][time_index_5]=2500&resource[matching_trade_settings][][time_index_6]=2500&resource[matching_trade_settings][][time_index_7]=2500&resource[matching_trade_settings][][time_index_8]=2500&resource[matching_trade_settings][][time_index_9]=2500&resource[matching_trade_settings][][time_index_10]=2500&resource[matching_trade_settings][][time_index_11]=2500&resource[matching_trade_settings][][time_index_12]=2500&resource[matching_trade_settings][][time_index_13]=2500&resource[matching_trade_settings][][time_index_14]=2500&resource[matching_trade_settings][][time_index_15]=2500&resource[matching_trade_settings][][time_index_16]=2500&resource[matching_trade_settings][][time_index_17]=2500&resource[matching_trade_settings][][time_index_18]=2500&resource[matching_trade_settings][][time_index_19]=2500&resource[matching_trade_settings][][time_index_20]=2500&resource[matching_trade_settings][][time_index_21]=2500&resource[matching_trade_settings][][time_index_22]=2500&resource[matching_trade_settings][][time_index_23]=2500&resource[matching_trade_settings][][time_index_24]=2500&resource[matching_trade_settings][][time_index_25]=2500&resource[matching_trade_settings][][time_index_26]=2500&resource[matching_trade_settings][][time_index_27]=2500&resource[matching_trade_settings][][time_index_28]=2500&resource[matching_trade_settings][][time_index_29]=2500&resource[matching_trade_settings][][time_index_30]=2500&resource[matching_trade_settings][][time_index_31]=2500&resource[matching_trade_settings][][time_index_32]=2500&resource[matching_trade_settings][][time_index_33]=2500&resource[matching_trade_settings][][time_index_34]=2500&resource[matching_trade_settings][][time_index_35]=2500&resource[matching_trade_settings][][time_index_36]=2500&resource[matching_trade_settings][][time_index_37]=2500&resource[matching_trade_settings][][time_index_38]=2500&resource[matching_trade_settings][][time_index_39]=2500&resource[matching_trade_settings][][time_index_40]=2500&resource[matching_trade_settings][][time_index_41]=2500&resource[matching_trade_settings][][time_index_42]=2500&resource[matching_trade_settings][][time_index_43]=2500&resource[matching_trade_settings][][time_index_44]=2500&resource[matching_trade_settings][][time_index_45]=2500&resource[matching_trade_settings][][time_index_46]=2500&resource[matching_trade_settings][][time_index_47]=2500&resource[matching_trade_settings][][time_index_48]=2500&resource[matching_trade_settings][][created_by]&resource[matching_trade_settings][][updated_by]&resource[matching_trade_settings][][created_at]=2019-06-21+13%3A18%3A23+%2B0900&resource[matching_trade_settings][][updated_at]=2019-06-21+13%3A18%3A23+%2B0900&resource[matching_trade_settings][][id]=2&resource[matching_trade_settings][][resource_id]=6&resource[matching_trade_settings][][year_pattern]=*&resource[matching_trade_settings][][month_pattern]=*&resource[matching_trade_settings][][day_pattern]=*&resource[matching_trade_settings][][day_of_week_pattern]=*&resource[matching_trade_settings][][time_index_1]=2500&resource[matching_trade_settings][][time_index_2]=2500&resource[matching_trade_settings][][time_index_3]=2500&resource[matching_trade_settings][][time_index_4]=2500&resource[matching_trade_settings][][time_index_5]=2500&resource[matching_trade_settings][][time_index_6]=2500&resource[matching_trade_settings][][time_index_7]=2500&resource[matching_trade_settings][][time_index_8]=2500&resource[matching_trade_settings][][time_index_9]=2500&resource[matching_trade_settings][][time_index_10]=2500&resource[matching_trade_settings][][time_index_11]=2500&resource[matching_trade_settings][][time_index_12]=2500&resource[matching_trade_settings][][time_index_13]=2500&resource[matching_trade_settings][][time_index_14]=2500&resource[matching_trade_settings][][time_index_15]=2500&resource[matching_trade_settings][][time_index_16]=2500&resource[matching_trade_settings][][time_index_17]=2500&resource[matching_trade_settings][][time_index_18]=2500&resource[matching_trade_settings][][time_index_19]=2500&resource[matching_trade_settings][][time_index_20]=2500&resource[matching_trade_settings][][time_index_21]=2500&resource[matching_trade_settings][][time_index_22]=2500&resource[matching_trade_settings][][time_index_23]=2500&resource[matching_trade_settings][][time_index_24]=2500&resource[matching_trade_settings][][time_index_25]=2500&resource[matching_trade_settings][][time_index_26]=2500&resource[matching_trade_settings][][time_index_27]=2500&resource[matching_trade_settings][][time_index_28]=2500&resource[matching_trade_settings][][time_index_29]=2500&resource[matching_trade_settings][][time_index_30]=2500&resource[matching_trade_settings][][time_index_31]=2500&resource[matching_trade_settings][][time_index_32]=2500&resource[matching_trade_settings][][time_index_33]=2500&resource[matching_trade_settings][][time_index_34]=2500&resource[matching_trade_settings][][time_index_35]=2500&resource[matching_trade_settings][][time_index_36]=2500&resource[matching_trade_settings][][time_index_37]=2500&resource[matching_trade_settings][][time_index_38]=2500&resource[matching_trade_settings][][time_index_39]=2500&resource[matching_trade_settings][][time_index_40]=2500&resource[matching_trade_settings][][time_index_41]=2500&resource[matching_trade_settings][][time_index_42]=2500&resource[matching_trade_settings][][time_index_43]=2500&resource[matching_trade_settings][][time_index_44]=2500&resource[matching_trade_settings][][time_index_45]=2500&resource[matching_trade_settings][][time_index_46]=2500&resource[matching_trade_settings][][time_index_47]=2500&resource[matching_trade_settings][][time_index_48]=2500&resource[matching_trade_settings][][created_by]&resource[matching_trade_settings][][updated_by]&resource[matching_trade_settings][][created_at]=2019-06-21+13%3A18%3A23+%2B0900&resource[matching_trade_settings][][updated_at]=2019-06-21+13%3A18%3A23+%2B0900&resource[matching_trade_settings][][id]&resource[matching_trade_settings][][resource_id]=6&resource[matching_trade_settings][][year_pattern]=*&resource[matching_trade_settings][][month_pattern]=*&resource[matching_trade_settings][][day_pattern]=*&resource[matching_trade_settings][][day_of_week_pattern]=3&resource[matching_trade_settings][][time_index_1]=2500&resource[matching_trade_settings][][time_index_2]=2500&resource[matching_trade_settings][][time_index_3]=2500&resource[matching_trade_settings][][time_index_4]=2500&resource[matching_trade_settings][][time_index_5]=2500&resource[matching_trade_settings][][time_index_6]=2500&resource[matching_trade_settings][][time_index_7]=2500&resource[matching_trade_settings][][time_index_8]=2500&resource[matching_trade_settings][][time_index_9]=2500&resource[matching_trade_settings][][time_index_10]=2500&resource[matching_trade_settings][][time_index_11]=2500&resource[matching_trade_settings][][time_index_12]=2500&resource[matching_trade_settings][][time_index_13]=2500&resource[matching_trade_settings][][time_index_14]=2500&resource[matching_trade_settings][][time_index_15]=2500&resource[matching_trade_settings][][time_index_16]=2500&resource[matching_trade_settings][][time_index_17]=2500&resource[matching_trade_settings][][time_index_18]=2500&resource[matching_trade_settings][][time_index_19]=2500&resource[matching_trade_settings][][time_index_20]=2500&resource[matching_trade_settings][][time_index_21]=2500&resource[matching_trade_settings][][time_index_22]=2500&resource[matching_trade_settings][][time_index_23]=2500&resource[matching_trade_settings][][time_index_24]=2500&resource[matching_trade_settings][][time_index_25]=2500&resource[matching_trade_settings][][time_index_26]=2500&resource[matching_trade_settings][][time_index_27]=2500&resource[matching_trade_settings][][time_index_28]=2500&resource[matching_trade_settings][][time_index_29]=2500&resource[matching_trade_settings][][time_index_30]=2500&resource[matching_trade_settings][][time_index_31]=2500&resource[matching_trade_settings][][time_index_32]=2500&resource[matching_trade_settings][][time_index_33]=2500&resource[matching_trade_settings][][time_index_34]=2500&resource[matching_trade_settings][][time_index_35]=2500&resource[matching_trade_settings][][time_index_36]=2500&resource[matching_trade_settings][][time_index_37]=2500&resource[matching_trade_settings][][time_index_38]=2500&resource[matching_trade_settings][][time_index_39]=2500&resource[matching_trade_settings][][time_index_40]=2500&resource[matching_trade_settings][][time_index_41]=2500&resource[matching_trade_settings][][time_index_42]=2500&resource[matching_trade_settings][][time_index_43]=2500&resource[matching_trade_settings][][time_index_44]=2500&resource[matching_trade_settings][][time_index_45]=2500&resource[matching_trade_settings][][time_index_46]=2500&resource[matching_trade_settings][][time_index_47]=2500&resource[matching_trade_settings][][time_index_48]=2500&resource[matching_trade_settings][][created_by]&resource[matching_trade_settings][][updated_by]&resource[matching_trade_settings][][created_at]&resource[matching_trade_settings][][updated_at]
+resource[id]=6&resource[bg_member_id]=1&resource[code]=XXXXX&resource[name]=test+update&resource[contract_number]&resource[max_value]=0&resource[min_value]=0&resource[unit]=1&resource[created_by]&resource[updated_by]&resource[created_at]=2019-06-21+17%3A56%3A52+%2B0900&resource[updated_at]=2019-06-21+17%3A56%3A52+%2B0900&resource[type]=ResourceMatching&resource[matching_trade_settings][][id]=1&resource[matching_trade_settings][][resource_id]=6&resource[matching_trade_settings][][year_pattern]=*&resource[matching_trade_settings][][month_pattern]=*&resource[matching_trade_settings][][day_pattern]=*&resource[matching_trade_settings][][day_of_week_pattern]=*&resource[matching_trade_settings][][time_index_1]=2500&resource[matching_trade_settings][][time_index_2]=2500&resource[matching_trade_settings][][time_index_3]=2500&resource[matching_trade_settings][][time_index_4]=2500&resource[matching_trade_settings][][time_index_5]=2500&resource[matching_trade_settings][][time_index_6]=2500&resource[matching_trade_settings][][time_index_7]=2500&resource[matching_trade_settings][][time_index_8]=2500&resource[matching_trade_settings][][time_index_9]=2500&resource[matching_trade_settings][][time_index_10]=2500&resource[matching_trade_settings][][time_index_11]=2500&resource[matching_trade_settings][][time_index_12]=2500&resource[matching_trade_settings][][time_index_13]=2500&resource[matching_trade_settings][][time_index_14]=2500&resource[matching_trade_settings][][time_index_15]=2500&resource[matching_trade_settings][][time_index_16]=2500&resource[matching_trade_settings][][time_index_17]=2500&resource[matching_trade_settings][][time_index_18]=2500&resource[matching_trade_settings][][time_index_19]=2500&resource[matching_trade_settings][][time_index_20]=2500&resource[matching_trade_settings][][time_index_21]=2500&resource[matching_trade_settings][][time_index_22]=2500&resource[matching_trade_settings][][time_index_23]=2500&resource[matching_trade_settings][][time_index_24]=2500&resource[matching_trade_settings][][time_index_25]=2500&resource[matching_trade_settings][][time_index_26]=2500&resource[matching_trade_settings][][time_index_27]=2500&resource[matching_trade_settings][][time_index_28]=2500&resource[matching_trade_settings][][time_index_29]=2500&resource[matching_trade_settings][][time_index_30]=2500&resource[matching_trade_settings][][time_index_31]=2500&resource[matching_trade_settings][][time_index_32]=2500&resource[matching_trade_settings][][time_index_33]=2500&resource[matching_trade_settings][][time_index_34]=2500&resource[matching_trade_settings][][time_index_35]=2500&resource[matching_trade_settings][][time_index_36]=2500&resource[matching_trade_settings][][time_index_37]=2500&resource[matching_trade_settings][][time_index_38]=2500&resource[matching_trade_settings][][time_index_39]=2500&resource[matching_trade_settings][][time_index_40]=2500&resource[matching_trade_settings][][time_index_41]=2500&resource[matching_trade_settings][][time_index_42]=2500&resource[matching_trade_settings][][time_index_43]=2500&resource[matching_trade_settings][][time_index_44]=2500&resource[matching_trade_settings][][time_index_45]=2500&resource[matching_trade_settings][][time_index_46]=2500&resource[matching_trade_settings][][time_index_47]=2500&resource[matching_trade_settings][][time_index_48]=2500&resource[matching_trade_settings][][created_by]&resource[matching_trade_settings][][updated_by]&resource[matching_trade_settings][][created_at]=2019-06-21+17%3A56%3A52+%2B0900&resource[matching_trade_settings][][updated_at]=2019-06-21+17%3A56%3A52+%2B0900&resource[matching_trade_settings][][id]=2&resource[matching_trade_settings][][resource_id]=6&resource[matching_trade_settings][][year_pattern]=*&resource[matching_trade_settings][][month_pattern]=*&resource[matching_trade_settings][][day_pattern]=*&resource[matching_trade_settings][][day_of_week_pattern]=*&resource[matching_trade_settings][][time_index_1]=2500&resource[matching_trade_settings][][time_index_2]=2500&resource[matching_trade_settings][][time_index_3]=2500&resource[matching_trade_settings][][time_index_4]=2500&resource[matching_trade_settings][][time_index_5]=2500&resource[matching_trade_settings][][time_index_6]=2500&resource[matching_trade_settings][][time_index_7]=2500&resource[matching_trade_settings][][time_index_8]=2500&resource[matching_trade_settings][][time_index_9]=2500&resource[matching_trade_settings][][time_index_10]=2500&resource[matching_trade_settings][][time_index_11]=2500&resource[matching_trade_settings][][time_index_12]=2500&resource[matching_trade_settings][][time_index_13]=2500&resource[matching_trade_settings][][time_index_14]=2500&resource[matching_trade_settings][][time_index_15]=2500&resource[matching_trade_settings][][time_index_16]=2500&resource[matching_trade_settings][][time_index_17]=2500&resource[matching_trade_settings][][time_index_18]=2500&resource[matching_trade_settings][][time_index_19]=2500&resource[matching_trade_settings][][time_index_20]=2500&resource[matching_trade_settings][][time_index_21]=2500&resource[matching_trade_settings][][time_index_22]=2500&resource[matching_trade_settings][][time_index_23]=2500&resource[matching_trade_settings][][time_index_24]=2500&resource[matching_trade_settings][][time_index_25]=2500&resource[matching_trade_settings][][time_index_26]=2500&resource[matching_trade_settings][][time_index_27]=2500&resource[matching_trade_settings][][time_index_28]=2500&resource[matching_trade_settings][][time_index_29]=2500&resource[matching_trade_settings][][time_index_30]=2500&resource[matching_trade_settings][][time_index_31]=2500&resource[matching_trade_settings][][time_index_32]=2500&resource[matching_trade_settings][][time_index_33]=2500&resource[matching_trade_settings][][time_index_34]=2500&resource[matching_trade_settings][][time_index_35]=2500&resource[matching_trade_settings][][time_index_36]=2500&resource[matching_trade_settings][][time_index_37]=2500&resource[matching_trade_settings][][time_index_38]=2500&resource[matching_trade_settings][][time_index_39]=2500&resource[matching_trade_settings][][time_index_40]=2500&resource[matching_trade_settings][][time_index_41]=2500&resource[matching_trade_settings][][time_index_42]=2500&resource[matching_trade_settings][][time_index_43]=2500&resource[matching_trade_settings][][time_index_44]=2500&resource[matching_trade_settings][][time_index_45]=2500&resource[matching_trade_settings][][time_index_46]=2500&resource[matching_trade_settings][][time_index_47]=2500&resource[matching_trade_settings][][time_index_48]=2500&resource[matching_trade_settings][][created_by]&resource[matching_trade_settings][][updated_by]&resource[matching_trade_settings][][created_at]=2019-06-21+17%3A56%3A52+%2B0900&resource[matching_trade_settings][][updated_at]=2019-06-21+17%3A56%3A52+%2B0900&resource[matching_trade_settings][][id]&resource[matching_trade_settings][][resource_id]=6&resource[matching_trade_settings][][year_pattern]=*&resource[matching_trade_settings][][month_pattern]=*&resource[matching_trade_settings][][day_pattern]=*&resource[matching_trade_settings][][day_of_week_pattern]=3&resource[matching_trade_settings][][time_index_1]=2500&resource[matching_trade_settings][][time_index_2]=2500&resource[matching_trade_settings][][time_index_3]=2500&resource[matching_trade_settings][][time_index_4]=2500&resource[matching_trade_settings][][time_index_5]=2500&resource[matching_trade_settings][][time_index_6]=2500&resource[matching_trade_settings][][time_index_7]=2500&resource[matching_trade_settings][][time_index_8]=2500&resource[matching_trade_settings][][time_index_9]=2500&resource[matching_trade_settings][][time_index_10]=2500&resource[matching_trade_settings][][time_index_11]=2500&resource[matching_trade_settings][][time_index_12]=2500&resource[matching_trade_settings][][time_index_13]=2500&resource[matching_trade_settings][][time_index_14]=2500&resource[matching_trade_settings][][time_index_15]=2500&resource[matching_trade_settings][][time_index_16]=2500&resource[matching_trade_settings][][time_index_17]=2500&resource[matching_trade_settings][][time_index_18]=2500&resource[matching_trade_settings][][time_index_19]=2500&resource[matching_trade_settings][][time_index_20]=2500&resource[matching_trade_settings][][time_index_21]=2500&resource[matching_trade_settings][][time_index_22]=2500&resource[matching_trade_settings][][time_index_23]=2500&resource[matching_trade_settings][][time_index_24]=2500&resource[matching_trade_settings][][time_index_25]=2500&resource[matching_trade_settings][][time_index_26]=2500&resource[matching_trade_settings][][time_index_27]=2500&resource[matching_trade_settings][][time_index_28]=2500&resource[matching_trade_settings][][time_index_29]=2500&resource[matching_trade_settings][][time_index_30]=2500&resource[matching_trade_settings][][time_index_31]=2500&resource[matching_trade_settings][][time_index_32]=2500&resource[matching_trade_settings][][time_index_33]=2500&resource[matching_trade_settings][][time_index_34]=2500&resource[matching_trade_settings][][time_index_35]=2500&resource[matching_trade_settings][][time_index_36]=2500&resource[matching_trade_settings][][time_index_37]=2500&resource[matching_trade_settings][][time_index_38]=2500&resource[matching_trade_settings][][time_index_39]=2500&resource[matching_trade_settings][][time_index_40]=2500&resource[matching_trade_settings][][time_index_41]=2500&resource[matching_trade_settings][][time_index_42]=2500&resource[matching_trade_settings][][time_index_43]=2500&resource[matching_trade_settings][][time_index_44]=2500&resource[matching_trade_settings][][time_index_45]=2500&resource[matching_trade_settings][][time_index_46]=2500&resource[matching_trade_settings][][time_index_47]=2500&resource[matching_trade_settings][][time_index_48]=2500&resource[matching_trade_settings][][created_by]&resource[matching_trade_settings][][updated_by]&resource[matching_trade_settings][][created_at]&resource[matching_trade_settings][][updated_at]
 ....
 
 ===== レスポンス
@@ -1974,7 +1853,7 @@ Vary: Origin
 
 {
   "success": true,
-  "Resource": {
+  "resource": {
     "id": 6,
     "bg_member_id": 1,
     "code": "XXXXX",
@@ -1982,8 +1861,8 @@ Vary: Origin
     "max_value": 0,
     "min_value": 0,
     "unit": 1,
-    "created_at": "2019-06-21T13:18:23.000+09:00",
-    "updated_at": "2019-06-21T13:18:23.000+09:00",
+    "created_at": "2019-06-21T17:56:52.000+09:00",
+    "updated_at": "2019-06-21T17:56:52.000+09:00",
     "contract_number": null,
     "created_by": null,
     "updated_by": null,
@@ -1993,7 +1872,7 @@ Vary: Origin
         "id": 1,
         "resource_id": 6,
         "year_pattern": "*",
-        "month_pattern": "7",
+        "month_pattern": "*",
         "day_pattern": "*",
         "day_of_week_pattern": "*",
         "time_index_1": 2500,
@@ -2046,8 +1925,8 @@ Vary: Origin
         "time_index_48": 2500,
         "created_by": null,
         "updated_by": null,
-        "created_at": "2019-06-21T13:18:23.000+09:00",
-        "updated_at": "2019-06-21T13:18:23.000+09:00"
+        "created_at": "2019-06-21T17:56:52.000+09:00",
+        "updated_at": "2019-06-21T17:56:52.000+09:00"
       },
       {
         "id": 2,
@@ -2106,8 +1985,8 @@ Vary: Origin
         "time_index_48": 2500,
         "created_by": null,
         "updated_by": null,
-        "created_at": "2019-06-21T13:18:23.000+09:00",
-        "updated_at": "2019-06-21T13:18:23.000+09:00"
+        "created_at": "2019-06-21T17:56:52.000+09:00",
+        "updated_at": "2019-06-21T17:56:52.000+09:00"
       },
       {
         "id": 3,
@@ -2166,10 +2045,12 @@ Vary: Origin
         "time_index_48": 2500,
         "created_by": null,
         "updated_by": null,
-        "created_at": "2019-06-21T13:18:23.000+09:00",
-        "updated_at": "2019-06-21T13:18:23.000+09:00"
+        "created_at": "2019-06-21T17:56:52.000+09:00",
+        "updated_at": "2019-06-21T17:56:52.000+09:00"
       }
     ]
   }
 }
 ....
+
+<<<

@@ -27,14 +27,19 @@ class Resource < ApplicationRecord
     includes({bg_member: :company})
   }
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
+  class << self
+    def json_option_for_index
+      {
         methods: [:type],
         include: {bg_member: {methods: :name}}
       }
     end
-    super options
+
+    def json_option_for_show
+      {
+        methods: [:type]
+      }
+    end
   end
 
   #

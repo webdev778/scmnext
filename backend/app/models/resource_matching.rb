@@ -21,14 +21,13 @@ class ResourceMatching < Resource
   has_many :matching_trade_settings, foreign_key: :resource_id
   accepts_nested_attributes_for :matching_trade_settings
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
+  class << self
+    def json_option_for_show
+      {
         methods: [:type],
         include: [:matching_trade_settings]
       }
     end
-    super options
   end
 
   #

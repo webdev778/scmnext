@@ -25,9 +25,7 @@ FactoryBot.define do
       type {"ResourceJbu"}
       code {"LA376"}
       after(:build) do |resource_jbu|
-        resource_jbu.jbu_contracts.build attributes_for(:jbu_contract)
-        resource_jbu.jbu_contracts.build attributes_for(:jbu_contract, start_date: '2017-04-24')
-        resource_jbu.jbu_contracts.build attributes_for(:jbu_contract, start_date: '2018-07-24')
+        resource_jbu.jbu_contracts = build_list(:jbu_contract, 3)
       end
     end
 
@@ -35,8 +33,7 @@ FactoryBot.define do
       type {"ResourceFit"}
       code {"G0633"}
       after(:build) do |resource_fit|
-        resource_fit.power_generator_groups.build attributes_for(:power_generator_group, name: "京葉発電BG1")
-        resource_fit.power_generator_groups.build attributes_for(:power_generator_group, name: "京葉発電BG2")
+        resource_fit.power_generator_groups = build_list(:power_generator_group, 2)
       end
     end
 
@@ -45,8 +42,7 @@ FactoryBot.define do
       code {"LA456"}
       name {"シナネン_06_L"}
       after(:build) do |resource_matching|
-        resource_matching.matching_trade_settings.build attributes_for(:matching_trade_setting, month_pattern: 7)
-        resource_matching.matching_trade_settings.build attributes_for(:matching_trade_setting)
+        resource_matching.matching_trade_settings = build_list(:matching_trade_setting, 2)
       end
     end
   end

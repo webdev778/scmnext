@@ -21,9 +21,9 @@ class ResourceFit < Resource
   has_many :power_generator_groups, foreign_key: :resource_id
   accepts_nested_attributes_for :power_generator_groups
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
+  class << self
+    def json_option_for_show
+      {
         methods: [:type],
         include: {
           power_generator_groups: {
@@ -32,7 +32,6 @@ class ResourceFit < Resource
         }
       }
     end
-    super options
   end
 
   protected

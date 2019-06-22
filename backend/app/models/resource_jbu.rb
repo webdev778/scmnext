@@ -21,14 +21,13 @@ class ResourceJbu < Resource
   has_many :jbu_contracts, foreign_key: :resource_id, inverse_of: :resource
   accepts_nested_attributes_for :jbu_contracts
 
-  def as_json(options = {})
-    if options.blank?
-      options = {
+  class << self
+    def json_option_for_show
+      {
         methods: [:type],
         include: [:jbu_contracts]
       }
     end
-    super options
   end
 
   private

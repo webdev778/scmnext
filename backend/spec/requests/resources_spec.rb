@@ -67,42 +67,42 @@ RSpec.describe "Resources", type: :request do
 
   describe "POST /v1/resources", autodoc: true do
     it "リソース登録API(BGリソース)" do
-      post resources_path, params: { resource: attributes_for(:resource_self, bg_member_id: @balancing_group.bg_members.first.id).as_json }
+      post resources_path, params: { resource: build(:resource_self, bg_member_id: @balancing_group.bg_members.first.id).as_json(ResourceSelf.json_option_for_show) }
       expect(response).to have_http_status(200)
     end
   end
 
   describe "POST /v1/resources", autodoc: true do
     it "リソース登録API(JEPXスポットリソース)" do
-      post resources_path, params: { resource: attributes_for(:resource_jepx_spot, bg_member_id: @balancing_group.bg_members.first.id).as_json }
+      post resources_path, params: { resource: build(:resource_jepx_spot, bg_member_id: @balancing_group.bg_members.first.id).as_json(ResourceJepxSpot.json_option_for_show) }
       expect(response).to have_http_status(200)
     end
   end
 
   describe "POST /v1/resources", autodoc: true do
     it "リソース登録API(JEPX1時間前リソース)" do
-      post resources_path, params: { resource: attributes_for(:resource_jepx_one_hour, bg_member_id: @balancing_group.bg_members.first.id).as_json }
+      post resources_path, params: { resource: build(:resource_jepx_one_hour, bg_member_id: @balancing_group.bg_members.first.id).as_json(ResourceJepxOneHour.json_option_for_show) }
       expect(response).to have_http_status(200)
     end
   end
 
   describe "POST /v1/resources", autodoc: true do
     it "リソース登録API(JBUリソース)" do
-      post resources_path, params: { resource: attributes_for(:resource_jbu, bg_member_id: @balancing_group.bg_members.first.id).as_json }
+      post resources_path, params: { resource: build(:resource_jbu, bg_member_id: @balancing_group.bg_members.first.id).as_json(ResourceJbu.json_option_for_show) }
       expect(response).to have_http_status(200)
     end
   end
 
   describe "POST /v1/resources", autodoc: true do
     it "リソース登録API(FITリソース)" do
-      post resources_path, params: { resource: attributes_for(:resource_fit, bg_member_id: @balancing_group.bg_members.first.id).as_json }
+      post resources_path, params: { resource: build(:resource_fit, bg_member_id: @balancing_group.bg_members.first.id).as_json(ResourceFit.json_option_for_show) }
       expect(response).to have_http_status(200)
     end
   end
 
   describe "POST /v1/resources", autodoc: true do
     it "リソース登録API(相対リソース)" do
-      post resources_path, params: { resource: build(:resource_matching, bg_member_id: @balancing_group.bg_members.first.id).as_json }
+      post resources_path, params: { resource: build(:resource_matching, bg_member_id: @balancing_group.bg_members.first.id).as_json(ResourceMatching.json_option_for_show) }
       expect(response).to have_http_status(200)
     end
   end
@@ -111,7 +111,7 @@ RSpec.describe "Resources", type: :request do
     it "リソース更新API(BGリソース)" do
       @resource_self.code = "XXXXX"
       @resource_self.name = "test update"
-      patch resource_path(@resource_self.id), params: { resource: @resource_self.as_json }
+      patch resource_path(@resource_self.id), params: { resource: @resource_self.as_json(ResourceSelf.json_option_for_show) }
       expect(response).to have_http_status(200)
     end
   end
@@ -120,7 +120,7 @@ RSpec.describe "Resources", type: :request do
     it "リソース更新API(JEPXスポットリソース)" do
       @resource_jepx_spot.code = "XXXXX"
       @resource_jepx_spot.name = "test update"
-      patch resource_path(@resource_jepx_spot.id), params: { resource: @resource_jepx_spot.as_json }
+      patch resource_path(@resource_jepx_spot.id), params: { resource: @resource_jepx_spot.as_json(ResourceJepxSpot.json_option_for_show) }
       expect(response).to have_http_status(200)
     end
   end
@@ -129,7 +129,7 @@ RSpec.describe "Resources", type: :request do
     it "リソース更新API(JEPX1時間前リソース)" do
       @resource_jepx_one_hour.code = "XXXXX"
       @resource_jepx_one_hour.name = "test update"
-      patch resource_path(@resource_jepx_one_hour.id), params: { resource: @resource_jepx_one_hour.as_json }
+      patch resource_path(@resource_jepx_one_hour.id), params: { resource: @resource_jepx_one_hour.as_json(ResourceJepxOneHour.json_option_for_show) }
       expect(response).to have_http_status(200)
     end
   end
@@ -139,7 +139,7 @@ RSpec.describe "Resources", type: :request do
       @resource_jbu.code = "XXXXX"
       @resource_jbu.name = "test update"
       @resource_jbu.jbu_contracts
-      patch resource_path(@resource_jbu.id), params: { resource: @resource_jbu.as_json }
+      patch resource_path(@resource_jbu.id), params: { resource: @resource_jbu.as_json(ResourceJbu.json_option_for_show) }
       expect(response).to have_http_status(200)
     end
   end
@@ -148,7 +148,7 @@ RSpec.describe "Resources", type: :request do
     it "リソース更新API(FITリソース)" do
       @resource_fit.code = "XXXXX"
       @resource_fit.name = "test update"
-      patch resource_path(@resource_fit.id), params: { resource: @resource_fit.as_json }
+      patch resource_path(@resource_fit.id), params: { resource: @resource_fit.as_json(ResourceFit.json_option_for_show) }
       expect(response).to have_http_status(200)
     end
   end
@@ -158,7 +158,7 @@ RSpec.describe "Resources", type: :request do
       @resource_matching.code = "XXXXX"
       @resource_matching.name = "test update"
       @resource_matching.matching_trade_settings.build attributes_for(:matching_trade_setting, day_of_week_pattern: "3")
-      patch resource_path(@resource_matching.id), params: { resource: @resource_matching.as_json }
+      patch resource_path(@resource_matching.id), params: { resource: @resource_matching.as_json(ResourceMatching.json_option_for_show) }
       expect(response).to have_http_status(200)
     end
   end
