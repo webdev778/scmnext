@@ -74,16 +74,26 @@ class Dlt::UsageFixedHeader < ApplicationRecord
         target_files = setting.files.filter_force(force).where(data_type: :fixed, voltage_mode: voltage_mode, record_date: date).order(revision: :asc, section_number: :asc)
         # ActiveRecordRelation Objectで検索条件に含まれているステータスの変更をブロック内で行っているため
         # 思わぬ動作をしてしまうので、最初に配列にしておく
+        # @todo ここの処理、models/power_usage_preliminary.rbのprocess_each_files_to_tmp_and_import_from_tmp_to_power_usageとほぼ同じなので、共通化する余地あり
         file_ids = target_files.pluck(:id)
         file_list = target_files.to_a
+        # エラー時に現在処理中のfile_idをセットする
+        current_file_id = nil
         begin
           # 処理以前に作成されたデータを削除する
           Dlt::File.where(id: file_ids).update_all(state: :state_in_progress)
           file_list.each do |file|
+            current_file_id = file.id
             logger.info("#{file.content.filename.to_s}:読込")
             process_each_file file, date
           end
           Dlt::File.where(id: file_ids).update_all(state: :state_complated)
+        rescue Zip::Error => ex
+          logger.error(ex)
+          exception_file_ids = file_ids.delete_if{|id| id==current_file_id}
+          Dlt::File.where(id: file_ids).update_all(state: :state_exception) unless exception_file_ids.empty?
+          Dlt::File.where(id: current_file_id).update_all(state: :state_corrupted)
+          raise $!
         rescue Exception => ex
           logger.error(ex)
           Dlt::File.where(id: file_ids).update_all(state: :state_exception)
